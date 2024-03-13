@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="ActionCardInsults" load_steps=2 format=3 uid="uid://bgr64niwa7rhy"]
+
+[ext_resource type="Script" path="res://battle/cards/insults/scripts/action_card_insults.gd" id="1_hc7ot"]
+
+[resource]
+script = ExtResource("1_hc7ot")
+weak_physical_appearance_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+medium_physical_appearance_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+strong_physical_appearance_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+extra_strong_physical_appearance_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+weak_self_esteem_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+medium_self_esteem_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+strong_self_esteem_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+extra_strong_self_esteem_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+weak_intelligence_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+medium_intelligence_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+strong_intelligence_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+extra_strong_intelligence_esteem_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+weak_physical_ability_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+medium_physical_ability_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+strong_physical_ability_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+extra_strong_physical_ability_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+weak_social_life_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+medium_social_life_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+strong_social_life_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+extra_strong_social_life_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+weak_fashion_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+medium_fashion_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+strong_fashion_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
+extra_strong_fashion_insults = Array[Resource("res://battle/cards/insults/card_insult.gd")]([])
