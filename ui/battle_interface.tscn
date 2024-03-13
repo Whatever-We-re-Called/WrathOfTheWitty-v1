@@ -1,0 +1,316 @@
+[gd_scene load_steps=6 format=3 uid="uid://cbocnnnw4vt17"]
+
+[ext_resource type="Texture2D" uid="uid://dsw3jmdsv2f4u" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/rhombus.svg" id="1_1f208"]
+[ext_resource type="PackedScene" uid="uid://cr5knc1fwhkm3" path="res://ui/card_ui.tscn" id="1_t5bg2"]
+[ext_resource type="Texture2D" uid="uid://bspm2h1r2y63t" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/timer_0.svg" id="2_1gk2r"]
+
+[sub_resource type="Gradient" id="Gradient_fbm40"]
+colors = PackedColorArray(0.196078, 0.196078, 0.196078, 1, 0.196078, 0.196078, 0.196078, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_08310"]
+gradient = SubResource("Gradient_fbm40")
+height = 224
+fill_from = Vector2(1, 1)
+metadata/_snap_enabled = true
+
+[node name="BattleInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftPlayerStatsUI" type="MarginContainer" parent="."]
+layout_mode = 1
+offset_right = 177.0
+offset_bottom = 45.0
+scale = Vector2(1.00095, 1)
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LeftPlayerStatsUI"]
+layout_mode = 2
+
+[node name="Name" type="HBoxContainer" parent="LeftPlayerStatsUI/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TextureRect" type="TextureRect" parent="LeftPlayerStatsUI/VBoxContainer/Name"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("1_1f208")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="LeftPlayerStatsUI/VBoxContainer/Name"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Scrimblo"
+
+[node name="HealthBar" type="ProgressBar" parent="LeftPlayerStatsUI/VBoxContainer"]
+custom_minimum_size = Vector2(384, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+value = 75.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="LeftPlayerStatsUI/VBoxContainer/HealthBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.0
+offset_top = -11.5
+offset_right = 26.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+text = "75/100"
+
+[node name="AbilityBar" type="ProgressBar" parent="LeftPlayerStatsUI/VBoxContainer"]
+custom_minimum_size = Vector2(384, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+value = 40.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="LeftPlayerStatsUI/VBoxContainer/AbilityBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -11.5
+offset_right = 12.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+text = "2/5"
+
+[node name="ActiveStatusEffects" type="MarginContainer" parent="LeftPlayerStatsUI/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LeftPlayerStatsUI/VBoxContainer/ActiveStatusEffects"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TextureRect" type="TextureRect" parent="LeftPlayerStatsUI/VBoxContainer/ActiveStatusEffects/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_1gk2r")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="LeftPlayerStatsUI/VBoxContainer/ActiveStatusEffects/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_1gk2r")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="LeftPlayerStatsUI/VBoxContainer/ActiveStatusEffects/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_1gk2r")
+expand_mode = 1
+
+[node name="RightPlayerStatsUI" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -396.0
+offset_bottom = 195.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RightPlayerStatsUI"]
+layout_mode = 2
+
+[node name="Name" type="HBoxContainer" parent="RightPlayerStatsUI/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="RightPlayerStatsUI/VBoxContainer/Name"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Evil Scrimblo"
+
+[node name="TextureRect" type="TextureRect" parent="RightPlayerStatsUI/VBoxContainer/Name"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("1_1f208")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HealthBar" type="ProgressBar" parent="RightPlayerStatsUI/VBoxContainer"]
+custom_minimum_size = Vector2(384, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+value = 75.0
+fill_mode = 1
+show_percentage = false
+
+[node name="Label" type="Label" parent="RightPlayerStatsUI/VBoxContainer/HealthBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.0
+offset_top = -11.5
+offset_right = 26.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+text = "75/100"
+
+[node name="AbilityBar" type="ProgressBar" parent="RightPlayerStatsUI/VBoxContainer"]
+custom_minimum_size = Vector2(384, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+value = 40.0
+fill_mode = 1
+show_percentage = false
+
+[node name="Label" type="Label" parent="RightPlayerStatsUI/VBoxContainer/AbilityBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -11.5
+offset_right = 12.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+text = "2/5"
+
+[node name="ActiveStatusEffects" type="MarginContainer" parent="RightPlayerStatsUI/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/margin_top = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RightPlayerStatsUI/VBoxContainer/ActiveStatusEffects"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TextureRect" type="TextureRect" parent="RightPlayerStatsUI/VBoxContainer/ActiveStatusEffects/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_1gk2r")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="RightPlayerStatsUI/VBoxContainer/ActiveStatusEffects/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_1gk2r")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="RightPlayerStatsUI/VBoxContainer/ActiveStatusEffects/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_1gk2r")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -176.0
+grow_horizontal = 2
+grow_vertical = 0
+rotation = -0.00105388
+texture = SubResource("GradientTexture2D_08310")
+
+[node name="DeckUI" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -192.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DeckUI"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="LeftOfDeckContainer" type="MarginContainer" parent="DeckUI/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 64
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeckUI/HBoxContainer/LeftOfDeckContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="CardDeckButton" type="Button" parent="DeckUI/HBoxContainer/LeftOfDeckContainer/VBoxContainer"]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Card Deck (7)"
+
+[node name="CardBagButton" type="Button" parent="DeckUI/HBoxContainer/LeftOfDeckContainer/VBoxContainer"]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Card Bag (3)"
+
+[node name="DeckContainer" type="HBoxContainer" parent="DeckUI/HBoxContainer"]
+layout_mode = 2
+
+[node name="CardUI" parent="DeckUI/HBoxContainer/DeckContainer" instance=ExtResource("1_t5bg2")]
+layout_mode = 2
+
+[node name="CardUI2" parent="DeckUI/HBoxContainer/DeckContainer" instance=ExtResource("1_t5bg2")]
+layout_mode = 2
+
+[node name="CardUI3" parent="DeckUI/HBoxContainer/DeckContainer" instance=ExtResource("1_t5bg2")]
+layout_mode = 2
+
+[node name="CardUI4" parent="DeckUI/HBoxContainer/DeckContainer" instance=ExtResource("1_t5bg2")]
+layout_mode = 2
+
+[node name="CardUI5" parent="DeckUI/HBoxContainer/DeckContainer" instance=ExtResource("1_t5bg2")]
+layout_mode = 2
+
+[node name="RightOfDeckContainer" type="MarginContainer" parent="DeckUI/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 64
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeckUI/HBoxContainer/RightOfDeckContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="RerollButton" type="Button" parent="DeckUI/HBoxContainer/RightOfDeckContainer/VBoxContainer"]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Reroll"
+
+[node name="ThrowButton" type="Button" parent="DeckUI/HBoxContainer/RightOfDeckContainer/VBoxContainer"]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Throw"

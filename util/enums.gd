@@ -1,3 +1,7 @@
+# Extension needed for autoload, for some reasons.
+# Otherwise, a startup erorr will always occur.
+extends Node
+
 enum Insecurity { 
 	PHYSICAL_APPEARANCE, 
 	SELF_ESTEEM, 

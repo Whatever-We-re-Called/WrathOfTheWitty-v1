@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://dsp1sp8onn48s"]
+
+[ext_resource type="PackedScene" uid="uid://cbocnnnw4vt17" path="res://ui/battle_interface.tscn" id="1_yveat"]
+[ext_resource type="PackedScene" uid="uid://cuf5syeddfqp5" path="res://player/player.tscn" id="2_i3lq1"]
+[ext_resource type="Texture2D" uid="uid://c6t21u4550bu4" path="res://player/temp/evil_scrimblo_1.png" id="3_qc1l1"]
+[ext_resource type="Texture2D" uid="uid://d01vce72bg1h" path="res://player/temp/evil_scrimblo_2.png" id="4_73pbh"]
+[ext_resource type="Texture2D" uid="uid://dnqn1mvrdugb5" path="res://player/temp/evil_scrimblo_3.png" id="5_elev7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4s841"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_qc1l1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_73pbh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_elev7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="BattleScene" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BattleInterface" parent="CanvasLayer" instance=ExtResource("1_yveat")]
+metadata/_edit_use_anchors_ = true
+
+[node name="Player" parent="." instance=ExtResource("2_i3lq1")]
+position = Vector2(254, 769)
+frame = 2
+frame_progress = 0.474188
+
+[node name="Player2" parent="." instance=ExtResource("2_i3lq1")]
+position = Vector2(1666, 421)
+sprite_frames = SubResource("SpriteFrames_4s841")
+frame_progress = 0.0660936
