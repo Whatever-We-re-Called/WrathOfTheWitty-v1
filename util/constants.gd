@@ -46,3 +46,7 @@ func get_insecurity_color(insecurity: Insecurity) -> Color:
 			return insecurity_colors.fashion_color
 	
 	return Color.BLACK
+
+
+func get_insecurity_icon() -> Texture2D:
+	return insecurity_colors.insecurity_icon

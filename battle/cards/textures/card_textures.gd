@@ -1,7 +1,6 @@
 class_name CardTextures extends Resource
 
 @export_group("Card Actions")
-@export var action_icon: Texture2D
 @export_subgroup("Colors")
 @export var damage_action_color: Color
 @export var shield_action_color: Color
@@ -35,5 +34,19 @@ func get_action_color(action: Constants.CardAction) -> Color:
 			return thorns_action_color
 		Constants.CardAction.LIFE_STEAL:
 			return life_steal_action_color
+	
+	return Color.BLACK
+
+
+func get_strength_color(strength: Constants.CardStrength) -> Color:
+	match (strength):
+		Constants.CardStrength.WEAK:
+			return weak_strength_color
+		Constants.CardStrength.MEDIUM:
+			return medium_strength_color
+		Constants.CardStrength.STRONG:
+			return strong_strength_color
+		Constants.CardStrength.EXTRA_STRONG:
+			return extra_strong_strength_color
 	
 	return Color.BLACK

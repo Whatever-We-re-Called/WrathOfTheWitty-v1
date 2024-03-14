@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="InsecurityTextures" load_steps=2 format=3 uid="uid://b6g7h74ffsmps"]
+[gd_resource type="Resource" script_class="InsecurityTextures" load_steps=3 format=3 uid="uid://b6g7h74ffsmps"]
 
+[ext_resource type="Texture2D" uid="uid://dsw3jmdsv2f4u" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/rhombus.svg" id="1_e1gnr"]
 [ext_resource type="Script" path="res://util/insecurities/insecurity_textures.gd" id="1_uefih"]
 
 [resource]
 script = ExtResource("1_uefih")
-physical_apprance_color = Color(0.219608, 0.666667, 0.235294, 1)
+insecurity_icon = ExtResource("1_e1gnr")
+physical_apprance_color = Color(0.266667, 0.898039, 0.266667, 1)
 self_esteem_color = Color(0.898039, 0.584314, 0.266667, 1)
 intelligence_color = Color(0.266667, 0.266667, 0.898039, 1)
 physical_ability_color = Color(0.898039, 0.266667, 0.266667, 1)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cbocnnnw4vt17"]
 
 [ext_resource type="Texture2D" uid="uid://dsw3jmdsv2f4u" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/rhombus.svg" id="1_1f208"]
-[ext_resource type="Script" path="res://ui/battle_interface.gd" id="1_iesfx"]
+[ext_resource type="PackedScene" uid="uid://cr5knc1fwhkm3" path="res://battle/cards/card.tscn" id="1_t5bg2"]
 [ext_resource type="Texture2D" uid="uid://bspm2h1r2y63t" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/timer_0.svg" id="2_1gk2r"]
 
 [sub_resource type="Gradient" id="Gradient_fbm40"]
@@ -20,7 +20,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_iesfx")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -277,7 +276,21 @@ theme_override_font_sizes/font_size = 24
 text = "Card Bag (3)"
 
 [node name="DeckContainer" type="HBoxContainer" parent="DeckUI/HBoxContainer"]
-unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Card" parent="DeckUI/HBoxContainer/DeckContainer" instance=ExtResource("1_t5bg2")]
+layout_mode = 2
+
+[node name="Card2" parent="DeckUI/HBoxContainer/DeckContainer" instance=ExtResource("1_t5bg2")]
+layout_mode = 2
+
+[node name="Card3" parent="DeckUI/HBoxContainer/DeckContainer" instance=ExtResource("1_t5bg2")]
+layout_mode = 2
+
+[node name="Card4" parent="DeckUI/HBoxContainer/DeckContainer" instance=ExtResource("1_t5bg2")]
+layout_mode = 2
+
+[node name="Card5" parent="DeckUI/HBoxContainer/DeckContainer" instance=ExtResource("1_t5bg2")]
 layout_mode = 2
 
 [node name="RightOfDeckContainer" type="MarginContainer" parent="DeckUI/HBoxContainer"]

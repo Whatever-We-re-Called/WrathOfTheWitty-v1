@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://cr5knc1fwhkm3"]
+
+[ext_resource type="Script" path="res://battle/cards/card.gd" id="1_72ex4"]
+[ext_resource type="Texture2D" uid="uid://bvx24fl3573wx" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/tag_empty.svg" id="2_66pdi"]
+[ext_resource type="Texture2D" uid="uid://dsw3jmdsv2f4u" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/rhombus.svg" id="3_my4dn"]
+
+[node name="Card" type="CenterContainer"]
+offset_right = 144.0
+offset_bottom = 256.0
+script = ExtResource("1_72ex4")
+
+[node name="InsultContainer" type="MarginContainer" parent="."]
+z_index = 1
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 32
+
+[node name="InsultLabel" type="Label" parent="InsultContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(112, 160)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Emptydwadwadwadwadwa"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(144, 256)
+layout_mode = 2
+text = "
+"
+
+[node name="StrengthIcon" type="TextureRect" parent="Button"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 64.0
+offset_top = 8.0
+offset_right = 96.0
+offset_bottom = 40.0
+texture = ExtResource("2_66pdi")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="InsecurityIcon" type="TextureRect" parent="Button"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 104.0
+offset_top = 8.0
+offset_right = 136.0
+offset_bottom = 40.0
+texture = ExtResource("3_my4dn")
+expand_mode = 1
+stretch_mode = 5

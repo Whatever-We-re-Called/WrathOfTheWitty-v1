@@ -1,0 +1,68 @@
+[gd_resource type="Resource" script_class="BattlePlayer" load_steps=11 format=3 uid="uid://dby8qnyo658jl"]
+
+[ext_resource type="Script" path="res://battle/cards/info/card_info.gd" id="1_6fj6f"]
+[ext_resource type="Script" path="res://battle/players/battle_player.gd" id="1_b11yi"]
+
+[sub_resource type="Resource" id="Resource_usmhr"]
+script = ExtResource("1_6fj6f")
+action_type = 0
+insecurity_type = 0
+strength_type = 2
+insult_text = "disgustingly hideous"
+
+[sub_resource type="Resource" id="Resource_lxsww"]
+script = ExtResource("1_6fj6f")
+action_type = 0
+insecurity_type = 0
+strength_type = 1
+insult_text = "repulsive"
+
+[sub_resource type="Resource" id="Resource_5hwkl"]
+script = ExtResource("1_6fj6f")
+action_type = 1
+insecurity_type = 2
+strength_type = 1
+insult_text = "incredibly stubborn"
+
+[sub_resource type="Resource" id="Resource_skwer"]
+script = ExtResource("1_6fj6f")
+action_type = 4
+insecurity_type = 4
+strength_type = 0
+insult_text = "weird"
+
+[sub_resource type="Resource" id="Resource_7cdxo"]
+script = ExtResource("1_6fj6f")
+action_type = 4
+insecurity_type = 4
+strength_type = 1
+insult_text = "humourously incomprehensible"
+
+[sub_resource type="Resource" id="Resource_sfe7d"]
+script = ExtResource("1_6fj6f")
+action_type = 3
+insecurity_type = 4
+strength_type = 3
+insult_text = "bitch"
+
+[sub_resource type="Resource" id="Resource_p38ei"]
+script = ExtResource("1_6fj6f")
+action_type = 2
+insecurity_type = 0
+strength_type = 1
+insult_text = "icky"
+
+[sub_resource type="Resource" id="Resource_nrluk"]
+script = ExtResource("1_6fj6f")
+action_type = 1
+insecurity_type = 1
+strength_type = 2
+insult_text = "unbelievably incapable"
+
+[resource]
+script = ExtResource("1_b11yi")
+name = "Scrimblo"
+max_health = 100
+max_ability_amount = 5
+max_deck_size = 5
+card_deck = Array[ExtResource("1_6fj6f")]([SubResource("Resource_usmhr"), SubResource("Resource_lxsww"), SubResource("Resource_5hwkl"), SubResource("Resource_skwer"), SubResource("Resource_7cdxo"), SubResource("Resource_sfe7d"), SubResource("Resource_p38ei"), SubResource("Resource_nrluk")])
