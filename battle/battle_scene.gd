@@ -9,7 +9,7 @@ extends Node2D
 @onready var battle_interface = $CanvasLayer/BattleInterface
 
 func _ready():
-	for i in range(5):
+	for i in range(9):
 		var card_info = first_battle_player.card_deck[i]
 		var new_card_scene = card_scene.instantiate()
 		new_card_scene.card_info = card_info
