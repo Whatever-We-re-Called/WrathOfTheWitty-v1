@@ -8,12 +8,14 @@
 colors = PackedColorArray(0.196078, 0.196078, 0.196078, 1, 0.196078, 0.196078, 0.196078, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_3f8o4"]
+resource_local_to_scene = true
 gradient = SubResource("Gradient_fbm40")
 width = 32
-height = 4
-fill_from = Vector2(1, 1)
+height = 16
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
 metadata/_snap_enabled = true
-metadata/_snap_count = 5
+metadata/_snap_count = 4
 
 [node name="Card" type="CenterContainer"]
 offset_right = 224.0
@@ -44,34 +46,37 @@ layout_mode = 2
 text = "
 "
 
-[node name="TextureRect" type="TextureRect" parent="Button"]
+[node name="CornerRect" type="TextureRect" parent="Button"]
+visible = false
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 32.0
-offset_top = -24.0
+offset_top = -31.0
 offset_right = -32.0
-offset_bottom = -20.0
+offset_bottom = -15.0
 grow_horizontal = 2
 rotation = -0.00105388
 texture = SubResource("GradientTexture2D_3f8o4")
 
-[node name="TextureRect2" type="TextureRect" parent="Button"]
+[node name="CornerRect3" type="TextureRect" parent="Button"]
+visible = false
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = -4.0
+offset_top = -16.0
 offset_right = -192.0
 grow_horizontal = 2
 rotation = -0.00105388
 texture = SubResource("GradientTexture2D_3f8o4")
 
-[node name="TextureRect3" type="TextureRect" parent="Button"]
+[node name="CornerRect2" type="TextureRect" parent="Button"]
+visible = false
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 192.0
-offset_top = -4.0
+offset_top = -16.0
 grow_horizontal = 2
 rotation = -0.00105388
 texture = SubResource("GradientTexture2D_3f8o4")
@@ -84,9 +89,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -80.0
-offset_top = -20.0
+offset_top = -15.0
 offset_right = 80.0
-offset_bottom = 20.0
+offset_bottom = 25.0
 grow_horizontal = 2
 color = Color(0, 0, 0, 1)
 
@@ -96,11 +101,12 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -60.0
-offset_top = -20.0
+offset_top = -15.0
 offset_right = 60.0
-offset_bottom = 20.0
+offset_bottom = 25.0
 grow_horizontal = 2
 theme_override_constants/separation = 8
+alignment = 1
 
 [node name="StrengthIcon" type="TextureRect" parent="Button/InfoContainer"]
 unique_name_in_owner = true
@@ -125,3 +131,21 @@ layout_mode = 2
 texture = ExtResource("3_my4dn")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="CornerColorRect" type="ColorRect" parent="Button"]
+layout_mode = 0
+offset_top = -5.0
+offset_right = 32.0
+
+[node name="CornerColorRect2" type="ColorRect" parent="Button"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = -5.0
+offset_right = 224.0
+
+[node name="CornerColorRect3" type="ColorRect" parent="Button"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = -20.0
+offset_right = 192.0
+offset_bottom = -15.0

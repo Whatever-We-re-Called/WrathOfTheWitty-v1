@@ -1,12 +1,20 @@
 class_name Card extends CenterContainer
 
 @onready var insult_label = %InsultLabel
+@onready var corner_rect = $Button/CornerRect
+@onready var corner_rect_3 = $Button/CornerRect3
+@onready var corner_rect_2 = $Button/CornerRect2
 @onready var button = $Button
 @onready var info_background = %InfoBackground
 @onready var info_container = $Button/InfoContainer
 @onready var action_type_label = %ActionTypeLabel
 @onready var strength_icon = %StrengthIcon
 @onready var insecurity_icon = %InsecurityIcon
+@onready var corner_rects = [
+	$Button/CornerColorRect,
+	$Button/CornerColorRect2,
+	$Button/CornerColorRect3
+]
 
 var card_info: CardInfo
 
@@ -33,8 +41,12 @@ func _init_action_texture():
 	
 	action_type_label.text = CARD_TEXTURES.get_action_as_string(card_info.action_type)
 	
-	#info_background.size = info_container.size
-	#info_background.position.x -= info_background.size.x / 2
+	var corner_color_gradient = Gradient.new()
+	corner_color_gradient.add_point(0, color)
+	corner_color_gradient.add_point(1, Color.WHITE)
+	var corner_color = corner_color_gradient.sample(0.025)
+	for corner_rect in corner_rects:
+		corner_rect.color = corner_color
 
 
 func _init_insecurity_texture():
