@@ -4,11 +4,11 @@
 [ext_resource type="Script" path="res://ui/battle_interface.gd" id="1_iesfx"]
 [ext_resource type="Texture2D" uid="uid://bspm2h1r2y63t" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/timer_0.svg" id="2_1gk2r"]
 
-[sub_resource type="Gradient" id="Gradient_fbm40"]
+[sub_resource type="Gradient" id="Gradient_oda5g"]
 colors = PackedColorArray(0.196078, 0.196078, 0.196078, 1, 0.196078, 0.196078, 0.196078, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_08310"]
-gradient = SubResource("Gradient_fbm40")
+gradient = SubResource("Gradient_oda5g")
 height = 224
 fill_from = Vector2(1, 1)
 metadata/_snap_enabled = true

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CardTextures" load_steps=3 format=3 uid="uid://frq8njs1g3pf"]
 
 [ext_resource type="Script" path="res://battle/cards/textures/card_textures.gd" id="1_khi6h"]
-[ext_resource type="Texture2D" uid="uid://bvx24fl3573wx" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/tag_empty.svg" id="2_w408l"]
+[ext_resource type="Texture2D" uid="uid://kwp5obhr3d7q" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/d12.svg" id="2_62esm"]
 
 [resource]
 script = ExtResource("1_khi6h")
@@ -12,8 +12,8 @@ infliction_action_color = Color(0.407843, 0.447059, 0.176471, 1)
 heal_action_color = Color(0.176471, 0.407843, 0.447059, 1)
 thorns_action_color = Color(0.176471, 0.447059, 0.219608, 1)
 life_steal_action_color = Color(0.447059, 0.176471, 0.356863, 1)
-strength_icon = ExtResource("2_w408l")
-weak_strength_color = Color(0.47451, 0.94902, 0.376471, 1)
-medium_strength_color = Color(0.94902, 0.94902, 0.376471, 1)
-strong_strength_color = Color(0.94902, 0.462745, 0.376471, 1)
-extra_strong_strength_color = Color(0.74902, 0.376471, 0.94902, 1)
+strength_icon = ExtResource("2_62esm")
+weak_strength_color = Color(0.266667, 0.898039, 0.266667, 1)
+medium_strength_color = Color(0.898039, 0.898039, 0.266667, 1)
+strong_strength_color = Color(0.898039, 0.266667, 0.266667, 1)
+extra_strong_strength_color = Color(0.447059, 0.176471, 0.223529, 1)

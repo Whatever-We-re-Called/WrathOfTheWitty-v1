@@ -50,3 +50,23 @@ func get_strength_color(strength: Constants.CardStrength) -> Color:
 			return extra_strong_strength_color
 	
 	return Color.BLACK
+
+
+func get_action_as_string(action: Constants.CardAction) -> String:
+	match (action):
+		Constants.CardAction.DAMAGE:
+			return "Damage"
+		Constants.CardAction.SHIELD:
+			return "Shield"
+		Constants.CardAction.POISON:
+			return "Poison"
+		Constants.CardAction.INFLICTION:
+			return "Infliction"
+		Constants.CardAction.HEAL:
+			return "Heal"
+		Constants.CardAction.THORNS:
+			return "Thorns"
+		Constants.CardAction.LIFE_STEAL:
+			return "Life Steal"
+	
+	return "N/A"

@@ -2,6 +2,9 @@ class_name Card extends CenterContainer
 
 @onready var insult_label = %InsultLabel
 @onready var button = $Button
+@onready var info_background = %InfoBackground
+@onready var info_container = $Button/InfoContainer
+@onready var action_type_label = %ActionTypeLabel
 @onready var strength_icon = %StrengthIcon
 @onready var insecurity_icon = %InsecurityIcon
 
@@ -18,13 +21,20 @@ func _ready():
 
 
 func _init_action_texture():
+	var color = CARD_TEXTURES.get_action_color(card_info.action_type)
 	var style_box = StyleBoxFlat.new()
-	style_box.bg_color = CARD_TEXTURES.get_action_color(card_info.action_type)
+	style_box.bg_color = color
 	button.add_theme_stylebox_override("normal", style_box)
 	button.add_theme_stylebox_override("hover", style_box)
 	button.add_theme_stylebox_override("pressed", style_box)
 	button.add_theme_stylebox_override("disabled", style_box)
 	button.add_theme_stylebox_override("focus", style_box)
+	info_background.color = color
+	
+	action_type_label.text = CARD_TEXTURES.get_action_as_string(card_info.action_type)
+	
+	#info_background.size = info_container.size
+	#info_background.position.x -= info_background.size.x / 2
 
 
 func _init_insecurity_texture():
