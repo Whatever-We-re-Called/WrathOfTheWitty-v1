@@ -216,6 +216,7 @@ text = "2/5"
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="RightPlayerStatsUI/VBoxContainer/ActiveStatusEffects"]
 layout_mode = 2
@@ -239,13 +240,96 @@ layout_mode = 2
 texture = ExtResource("2_1gk2r")
 expand_mode = 1
 
+[node name="TemplateCardInfoUI" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -264.0
+offset_right = 264.0
+offset_bottom = 148.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TemplateCardInfoUI"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="TemplateCardInfoUI/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TemplateCardInfoUI/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TemplateCardDeckButton" type="Button" parent="TemplateCardInfoUI/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Template Deck (5)"
+
+[node name="TemplateCardBagButton" type="Button" parent="TemplateCardInfoUI/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Template Bag (1)"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TemplateCardInfoUI/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 16
+
+[node name="ViewRightPlayerCardsButton" type="Button" parent="TemplateCardInfoUI/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Enemy Cards"
+
+[node name="TemplateCardUI" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TemplateCard" type="ColorRect" parent="TemplateCardUI"]
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LeftPlayerSpeakingGlyph" type="ColorRect" parent="TemplateCardUI/TemplateCard"]
+custom_minimum_size = Vector2(128, 72)
+layout_mode = 2
+offset_left = -128.0
+offset_top = 288.0
+offset_bottom = 360.0
+color = Color(0, 0, 0, 1)
+
+[node name="RightPlayerSpeakingGlyph" type="ColorRect" parent="TemplateCardUI/TemplateCard"]
+visible = false
+custom_minimum_size = Vector2(128, 72)
+layout_mode = 2
+offset_left = 640.0
+offset_top = 288.0
+offset_right = 768.0
+offset_bottom = 360.0
+color = Color(0, 0, 0, 1)
+
 [node name="DeckUI" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -208.0
+offset_top = -144.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -255,6 +339,7 @@ theme_override_constants/separation = 32
 
 [node name="LeftOfDeckContainer" type="MarginContainer" parent="DeckUI/HBoxContainer"]
 layout_mode = 2
+theme_override_constants/margin_bottom = 16
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DeckUI/HBoxContainer/LeftOfDeckContainer"]
 layout_mode = 2
@@ -277,10 +362,12 @@ text = "Card Bag (3)"
 [node name="DeckContainer" type="GridContainer" parent="DeckUI/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 8
 columns = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DeckUI/HBoxContainer/DeckContainer"]
 layout_mode = 2
+size_flags_vertical = 8
 theme_override_constants/separation = 0
 alignment = 1
 
@@ -298,6 +385,7 @@ alignment = 1
 
 [node name="RightOfDeckContainer" type="MarginContainer" parent="DeckUI/HBoxContainer"]
 layout_mode = 2
+theme_override_constants/margin_bottom = 16
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DeckUI/HBoxContainer/RightOfDeckContainer"]
 layout_mode = 2

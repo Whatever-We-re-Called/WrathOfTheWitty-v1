@@ -38,11 +38,13 @@ card_scene = ExtResource("3_3h2yk")
 metadata/_edit_use_anchors_ = true
 
 [node name="Player" parent="." instance=ExtResource("2_i3lq1")]
-position = Vector2(244, 588)
+position = Vector2(234, 664)
+scale = Vector2(0.375, 0.375)
 frame = 2
 frame_progress = 0.474188
 
 [node name="Player2" parent="." instance=ExtResource("2_i3lq1")]
-position = Vector2(1678, 589)
+position = Vector2(1675, 652)
+scale = Vector2(0.375, 0.375)
 sprite_frames = SubResource("SpriteFrames_4s841")
 frame_progress = 0.0660936
