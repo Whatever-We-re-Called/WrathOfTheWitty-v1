@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsow26tkf2kd7"
-path="res://.godot/imported/Scrimblo_2.png-a1ededb491494742c6bf18f2984d74b8.ctex"
+uid="uid://d01vce72bg1h"
+path="res://.godot/imported/evil_scrimblo_2.png-e73b3cdf4b188a6e29f84bbaf37d73a6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/temp/Scrimblo_2.png"
-dest_files=["res://.godot/imported/Scrimblo_2.png-a1ededb491494742c6bf18f2984d74b8.ctex"]
+source_file="res://players/sprites/evil_scrimblo_2.png"
+dest_files=["res://.godot/imported/evil_scrimblo_2.png-e73b3cdf4b188a6e29f84bbaf37d73a6.ctex"]
 
 [params]
 
-compress/mode=3
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

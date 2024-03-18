@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbocnnnw4vt17"]
+[gd_scene load_steps=9 format=3 uid="uid://cbocnnnw4vt17"]
 
 [ext_resource type="Texture2D" uid="uid://dsw3jmdsv2f4u" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/rhombus.svg" id="1_1f208"]
 [ext_resource type="Script" path="res://ui/battle_interface.gd" id="1_iesfx"]
 [ext_resource type="Texture2D" uid="uid://bspm2h1r2y63t" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/timer_0.svg" id="2_1gk2r"]
+[ext_resource type="Script" path="res://ui/player_stats_ui.gd" id="2_6m8b4"]
 
 [sub_resource type="Gradient" id="Gradient_oda5g"]
 colors = PackedColorArray(0.196078, 0.196078, 0.196078, 1, 0.196078, 0.196078, 0.196078, 0)
@@ -12,6 +13,12 @@ gradient = SubResource("Gradient_oda5g")
 height = 224
 fill_from = Vector2(1, 1)
 metadata/_snap_enabled = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dobju"]
+bg_color = Color(0.666667, 0.219608, 0.243137, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4erq"]
+bg_color = Color(0.219608, 0.654902, 0.666667, 1)
 
 [node name="BattleInterface" type="Control"]
 layout_mode = 3
@@ -41,6 +48,7 @@ offset_bottom = 45.0
 scale = Vector2(1.00095, 1)
 theme_override_constants/margin_left = 24
 theme_override_constants/margin_top = 16
+script = ExtResource("2_6m8b4")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LeftPlayerStatsUI"]
 layout_mode = 2
@@ -49,14 +57,14 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="TextureRect" type="TextureRect" parent="LeftPlayerStatsUI/VBoxContainer/Name"]
+[node name="InsecurityIcon" type="TextureRect" parent="LeftPlayerStatsUI/VBoxContainer/Name"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("1_1f208")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="LeftPlayerStatsUI/VBoxContainer/Name"]
+[node name="PlayerName" type="Label" parent="LeftPlayerStatsUI/VBoxContainer/Name"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Scrimblo"
@@ -65,10 +73,11 @@ text = "Scrimblo"
 custom_minimum_size = Vector2(384, 32)
 layout_mode = 2
 size_flags_horizontal = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_dobju")
 value = 75.0
 show_percentage = false
 
-[node name="Label" type="Label" parent="LeftPlayerStatsUI/VBoxContainer/HealthBar"]
+[node name="HealthBarLabel" type="Label" parent="LeftPlayerStatsUI/VBoxContainer/HealthBar"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -88,10 +97,11 @@ text = "75/100"
 custom_minimum_size = Vector2(384, 32)
 layout_mode = 2
 size_flags_horizontal = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_u4erq")
 value = 40.0
 show_percentage = false
 
-[node name="Label" type="Label" parent="LeftPlayerStatsUI/VBoxContainer/AbilityBar"]
+[node name="AbilityBarLabel" type="Label" parent="LeftPlayerStatsUI/VBoxContainer/AbilityBar"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -108,6 +118,7 @@ theme_override_font_sizes/font_size = 16
 text = "2/5"
 
 [node name="ActiveStatusEffects" type="MarginContainer" parent="LeftPlayerStatsUI/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_top = 8
 
@@ -143,6 +154,7 @@ offset_bottom = 195.0
 grow_horizontal = 0
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 24
+script = ExtResource("2_6m8b4")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="RightPlayerStatsUI"]
 layout_mode = 2
@@ -152,12 +164,12 @@ layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/separation = 12
 
-[node name="Label" type="Label" parent="RightPlayerStatsUI/VBoxContainer/Name"]
+[node name="PlayerName" type="Label" parent="RightPlayerStatsUI/VBoxContainer/Name"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Evil Scrimblo"
 
-[node name="TextureRect" type="TextureRect" parent="RightPlayerStatsUI/VBoxContainer/Name"]
+[node name="InsecurityIcon" type="TextureRect" parent="RightPlayerStatsUI/VBoxContainer/Name"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("1_1f208")
@@ -168,11 +180,12 @@ stretch_mode = 5
 custom_minimum_size = Vector2(384, 32)
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_styles/fill = SubResource("StyleBoxFlat_dobju")
 value = 75.0
 fill_mode = 1
 show_percentage = false
 
-[node name="Label" type="Label" parent="RightPlayerStatsUI/VBoxContainer/HealthBar"]
+[node name="HealthBarLabel" type="Label" parent="RightPlayerStatsUI/VBoxContainer/HealthBar"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -192,11 +205,12 @@ text = "75/100"
 custom_minimum_size = Vector2(384, 32)
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_styles/fill = SubResource("StyleBoxFlat_u4erq")
 value = 40.0
 fill_mode = 1
 show_percentage = false
 
-[node name="Label" type="Label" parent="RightPlayerStatsUI/VBoxContainer/AbilityBar"]
+[node name="AbilityBarLabel" type="Label" parent="RightPlayerStatsUI/VBoxContainer/AbilityBar"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -213,6 +227,7 @@ theme_override_font_sizes/font_size = 16
 text = "2/5"
 
 [node name="ActiveStatusEffects" type="MarginContainer" parent="RightPlayerStatsUI/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/margin_top = 8
@@ -323,83 +338,93 @@ offset_right = 768.0
 offset_bottom = 360.0
 color = Color(0, 0, 0, 1)
 
-[node name="DeckUI" type="CenterContainer" parent="."]
+[node name="LeftOfDeckContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 12
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -144.0
-grow_horizontal = 2
+offset_top = -160.0
+offset_right = 272.0
 grow_vertical = 0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="DeckUI"]
-layout_mode = 2
-theme_override_constants/separation = 32
-
-[node name="LeftOfDeckContainer" type="MarginContainer" parent="DeckUI/HBoxContainer"]
-layout_mode = 2
+theme_override_constants/margin_left = 64
 theme_override_constants/margin_bottom = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DeckUI/HBoxContainer/LeftOfDeckContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="LeftOfDeckContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="CardDeckButton" type="Button" parent="DeckUI/HBoxContainer/LeftOfDeckContainer/VBoxContainer"]
+[node name="CardDeckButton" type="Button" parent="LeftOfDeckContainer/VBoxContainer"]
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Card Deck (7)"
 
-[node name="CardBagButton" type="Button" parent="DeckUI/HBoxContainer/LeftOfDeckContainer/VBoxContainer"]
+[node name="CardBagButton" type="Button" parent="LeftOfDeckContainer/VBoxContainer"]
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Card Bag (3)"
 
-[node name="DeckContainer" type="GridContainer" parent="DeckUI/HBoxContainer"]
+[node name="DeckContainer" type="GridContainer" parent="."]
 unique_name_in_owner = true
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
 size_flags_vertical = 8
 columns = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DeckUI/HBoxContainer/DeckContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="DeckContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="DeckFirstRow" type="HBoxContainer" parent="DeckUI/HBoxContainer/DeckContainer/VBoxContainer"]
+[node name="DeckFirstRow" type="HBoxContainer" parent="DeckContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="DeckSecondRow" type="HBoxContainer" parent="DeckUI/HBoxContainer/DeckContainer/VBoxContainer"]
+[node name="DeckSecondRow" type="HBoxContainer" parent="DeckContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="RightOfDeckContainer" type="MarginContainer" parent="DeckUI/HBoxContainer"]
-layout_mode = 2
+[node name="RightOfDeckContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -272.0
+offset_top = -160.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 64
 theme_override_constants/margin_bottom = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DeckUI/HBoxContainer/RightOfDeckContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="RightOfDeckContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="RerollButton" type="Button" parent="DeckUI/HBoxContainer/RightOfDeckContainer/VBoxContainer"]
+[node name="RerollButton" type="Button" parent="RightOfDeckContainer/VBoxContainer"]
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Reroll"
 
-[node name="ThrowButton" type="Button" parent="DeckUI/HBoxContainer/RightOfDeckContainer/VBoxContainer"]
+[node name="ThrowButton" type="Button" parent="RightOfDeckContainer/VBoxContainer"]
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24

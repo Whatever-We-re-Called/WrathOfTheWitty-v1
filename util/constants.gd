@@ -17,17 +17,24 @@ enum CardAction {
 	DAMAGE,
 	SHIELD,
 	POISON,
-	INFLICTION,
 	HEAL,
-	THORNS,
-	LIFE_STEAL
+	LIFE_STEAL,
+	STAMINA,
+	FIRE,
+	WEAKNESS
 }
 
 enum CardStrength {
+	EXTRA_WEAK,
 	WEAK,
 	MEDIUM,
 	STRONG,
 	EXTRA_STRONG
+}
+
+enum PlayerSide {
+	LEFT,
+	RIGHT
 }
 
 func get_insecurity_color(insecurity: Insecurity) -> Color:
