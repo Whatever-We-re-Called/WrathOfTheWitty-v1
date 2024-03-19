@@ -255,7 +255,7 @@ layout_mode = 2
 texture = ExtResource("2_1gk2r")
 expand_mode = 1
 
-[node name="TemplateCardInfoUI" type="CenterContainer" parent="."]
+[node name="GameInfoUI" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -265,43 +265,44 @@ offset_right = 264.0
 offset_bottom = 148.0
 grow_horizontal = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TemplateCardInfoUI"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameInfoUI"]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="MarginContainer" type="MarginContainer" parent="TemplateCardInfoUI/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="GameInfoUI/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 16
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TemplateCardInfoUI/VBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="GameInfoUI/VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="TemplateCardDeckButton" type="Button" parent="TemplateCardInfoUI/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="TemplateCardDeckButton" type="Button" parent="GameInfoUI/VBoxContainer/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Template Deck (5)"
 
-[node name="TemplateCardBagButton" type="Button" parent="TemplateCardInfoUI/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="TemplateCardBagButton" type="Button" parent="GameInfoUI/VBoxContainer/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Template Bag (1)"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="TemplateCardInfoUI/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="GameInfoUI/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 16
 
-[node name="ViewRightPlayerCardsButton" type="Button" parent="TemplateCardInfoUI/VBoxContainer/HBoxContainer2"]
+[node name="ViewRightPlayerCardsButton" type="Button" parent="GameInfoUI/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Enemy Cards"
 
 [node name="TemplateCardUI" type="CenterContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -314,29 +315,6 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="TemplateCard" type="ColorRect" parent="TemplateCardUI"]
-custom_minimum_size = Vector2(640, 360)
-layout_mode = 2
-color = Color(0, 0, 0, 1)
-
-[node name="LeftPlayerSpeakingGlyph" type="ColorRect" parent="TemplateCardUI/TemplateCard"]
-custom_minimum_size = Vector2(128, 72)
-layout_mode = 2
-offset_left = -128.0
-offset_top = 288.0
-offset_bottom = 360.0
-color = Color(0, 0, 0, 1)
-
-[node name="RightPlayerSpeakingGlyph" type="ColorRect" parent="TemplateCardUI/TemplateCard"]
-visible = false
-custom_minimum_size = Vector2(128, 72)
-layout_mode = 2
-offset_left = 640.0
-offset_top = 288.0
-offset_right = 768.0
-offset_bottom = 360.0
-color = Color(0, 0, 0, 1)
 
 [node name="LeftOfDeckContainer" type="MarginContainer" parent="."]
 layout_mode = 1

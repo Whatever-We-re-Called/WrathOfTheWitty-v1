@@ -5,6 +5,8 @@ extends Node2D
 @export var right_player_config: PlayerConfig
 @export_group("References")
 @export var card_scene: PackedScene
+@export_group("Debug")
+@export var debug_template_card_info: TemplateCardInfo
 
 @onready var battle_interface = $CanvasLayer/BattleInterface
 @onready var left_player_node = %LeftPlayerNode
@@ -17,6 +19,7 @@ func _ready():
 	_init_player(Constants.PlayerSide.LEFT, left_player_config, left_player_node)
 	_init_player(Constants.PlayerSide.RIGHT, right_player_config, right_player_node)
 	battle_interface.update_hand(left_player)
+	_update_template_card()
 
 
 func _init_player(side: Constants.PlayerSide, player_config: PlayerConfig, parent_node: Node2D):
@@ -32,6 +35,12 @@ func _init_player(side: Constants.PlayerSide, player_config: PlayerConfig, paren
 			left_player = player
 		Constants.PlayerSide.RIGHT:
 			right_player = player
+
+
+func _update_template_card():
+	# TODO Random template card deck draw.
+	var template_card_info = debug_template_card_info
+	battle_interface.update_template_card_ui(template_card_info)
 
 
 func _process(delta):

@@ -5,8 +5,10 @@ extends Control
 @onready var deck_second_row = %DeckSecondRow
 @onready var left_player_stats_ui = $LeftPlayerStatsUI
 @onready var right_player_stats_ui = $RightPlayerStatsUI
+@onready var template_card_ui = %TemplateCardUI
 
 const CARD_SCENE = preload("res://battle/cards/card.tscn")
+const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.tscn")
 
 func update_player_stats(player: BattlePlayer):
 	match player.side:
@@ -40,3 +42,14 @@ func add_card(card_scene: Control):
 		deck_first_row.add_child(card_scene)
 	else:
 		deck_second_row.add_child(card_scene)
+
+
+func update_template_card_ui(template_card_info: TemplateCardInfo):
+	if template_card_ui.get_children().size() > 0:
+		template_card_ui.get_child(0).free()
+	
+	#print(template_card_info)
+	var new_template_card_scene = TEMPLATE_CARD_SCENE.instantiate()
+	new_template_card_scene.template_card_info = template_card_info
+	
+	template_card_ui.add_child(new_template_card_scene)
