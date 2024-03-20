@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cr5knc1fwhkm3"]
 
 [ext_resource type="Script" path="res://battle/cards/card.gd" id="1_72ex4"]
-[ext_resource type="Texture2D" uid="uid://bvx24fl3573wx" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/tag_empty.svg" id="2_66pdi"]
+[ext_resource type="Texture2D" uid="uid://b5lgpjncfjpw6" path="res://battle/cards/textures/str_icon.png" id="2_kk4mo"]
 [ext_resource type="Texture2D" uid="uid://dsw3jmdsv2f4u" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/rhombus.svg" id="3_my4dn"]
 
 [sub_resource type="Gradient" id="Gradient_fbm40"]
@@ -112,7 +112,7 @@ alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
-texture = ExtResource("2_66pdi")
+texture = ExtResource("2_kk4mo")
 expand_mode = 1
 stretch_mode = 5
 
