@@ -1,7 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cr5knc1fwhkm3"]
 
 [ext_resource type="Script" path="res://battle/cards/card.gd" id="1_72ex4"]
-[ext_resource type="Texture2D" uid="uid://b5lgpjncfjpw6" path="res://battle/cards/textures/str_icon.png" id="2_kk4mo"]
 [ext_resource type="Texture2D" uid="uid://dsw3jmdsv2f4u" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/rhombus.svg" id="3_my4dn"]
 
 [sub_resource type="Gradient" id="Gradient_fbm40"]
@@ -16,6 +15,9 @@ fill_from = Vector2(0, 1)
 fill_to = Vector2(0, 0)
 metadata/_snap_enabled = true
 metadata/_snap_count = 4
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uois1"]
+load_path = "res://.godot/imported/str_icon.png-4dbb2f5f79c143b857bb5cf2788a2b07.ctex"
 
 [node name="Card" type="CenterContainer"]
 offset_right = 224.0
@@ -112,7 +114,7 @@ alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
-texture = ExtResource("2_kk4mo")
+texture = SubResource("CompressedTexture2D_uois1")
 expand_mode = 1
 stretch_mode = 5
 

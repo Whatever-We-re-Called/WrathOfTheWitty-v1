@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4rh3poat6534"
-path="res://.godot/imported/str_icon.png-4dbb2f5f79c143b857bb5cf2788a2b07.ctex"
+uid="uid://dxhinlbbgw3j1"
+path="res://.godot/imported/str_icon_big.png-6da90737eb5291446233b7a8cbe8a5e1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://battle/cards/textures/str_icon.png"
-dest_files=["res://.godot/imported/str_icon.png-4dbb2f5f79c143b857bb5cf2788a2b07.ctex"]
+source_file="res://battle/cards/textures/str_icon_big.png"
+dest_files=["res://.godot/imported/str_icon_big.png-6da90737eb5291446233b7a8cbe8a5e1.ctex"]
 
 [params]
 

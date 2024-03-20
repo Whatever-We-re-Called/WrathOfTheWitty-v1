@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CardTextures" load_steps=3 format=3 uid="uid://frq8njs1g3pf"]
 
 [ext_resource type="Script" path="res://battle/cards/textures/card_textures.gd" id="1_khi6h"]
-[ext_resource type="Texture2D" uid="uid://b5lgpjncfjpw6" path="res://battle/cards/textures/str_icon.png" id="2_b6vqv"]
+[ext_resource type="Texture2D" uid="uid://b4rh3poat6534" path="res://battle/cards/textures/str_icon.png" id="2_b6vqv"]
 
 [resource]
 script = ExtResource("1_khi6h")
