@@ -1,11 +1,13 @@
 class_name Card extends CenterContainer
 
+signal pressed
+
 @onready var insult_label = %InsultLabel
 @onready var corner_rect = $Button/CornerRect
 @onready var corner_rect_3 = $Button/CornerRect3
 @onready var corner_rect_2 = $Button/CornerRect2
 @onready var button = $Button
-@onready var info_background = %InfoBackground
+@onready var info_background_button = %InfoBackgroundButton
 @onready var info_container = $Button/InfoContainer
 @onready var action_type_label = %ActionTypeLabel
 @onready var strength_icon = %StrengthIcon
@@ -37,7 +39,11 @@ func _init_action_texture():
 	button.add_theme_stylebox_override("pressed", style_box)
 	button.add_theme_stylebox_override("disabled", style_box)
 	button.add_theme_stylebox_override("focus", style_box)
-	info_background.color = color
+	info_background_button.add_theme_stylebox_override("normal", style_box)
+	info_background_button.add_theme_stylebox_override("hover", style_box)
+	info_background_button.add_theme_stylebox_override("pressed", style_box)
+	info_background_button.add_theme_stylebox_override("disabled", style_box)
+	info_background_button.add_theme_stylebox_override("focus", style_box)
 	
 	action_type_label.text = CARD_TEXTURES.get_action_as_string(card_info.action_type)
 	
@@ -62,3 +68,7 @@ func _init_strength_texture():
 func _init_insult_lavel():
 	insult_label.text = card_info.insult_text
 	#print(insult_label.get_
+
+
+func _on_pressed():
+	pressed.emit()

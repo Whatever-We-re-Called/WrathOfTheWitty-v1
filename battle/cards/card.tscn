@@ -83,7 +83,7 @@ grow_horizontal = 2
 rotation = -0.00105388
 texture = SubResource("GradientTexture2D_3f8o4")
 
-[node name="InfoBackground" type="ColorRect" parent="Button"]
+[node name="InfoBackgroundButton" type="Button" parent="Button"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 1
@@ -95,7 +95,6 @@ offset_top = -15.0
 offset_right = 80.0
 offset_bottom = 25.0
 grow_horizontal = 2
-color = Color(0, 0, 0, 1)
 
 [node name="InfoContainer" type="HBoxContainer" parent="Button"]
 layout_mode = 1
@@ -151,3 +150,6 @@ offset_left = 32.0
 offset_top = -20.0
 offset_right = 192.0
 offset_bottom = -15.0
+
+[connection signal="pressed" from="Button" to="." method="_on_pressed"]
+[connection signal="pressed" from="Button/InfoBackgroundButton" to="." method="_on_pressed"]

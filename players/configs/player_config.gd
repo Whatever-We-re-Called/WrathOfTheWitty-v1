@@ -8,5 +8,5 @@ class_name PlayerConfig extends Resource
 @export var insecurity: Constants.Insecurity
 @export var max_health: int
 @export var max_stamina: int
-@export var max_deck_size: int
+@export var max_hand_size: int
 @export var card_deck: Array[CardInfo]

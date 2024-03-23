@@ -57,7 +57,5 @@ debug_5={
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=2
 renderer/rendering_method.mobile="gl_compatibility"
-textures/default_filters/use_nearest_mipmap_filter=true
 textures/default_filters/anisotropic_filtering_level=0

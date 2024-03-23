@@ -68,5 +68,5 @@ sprite_scale = Vector2(0.375, 0.375)
 insecurity = 2
 max_health = 100
 max_stamina = 5
-max_deck_size = 8
+max_hand_size = 5
 card_deck = Array[ExtResource("1_6fj6f")]([SubResource("Resource_usmhr"), SubResource("Resource_5hwkl"), SubResource("Resource_skwer"), SubResource("Resource_7cdxo"), SubResource("Resource_sfe7d"), SubResource("Resource_p38ei"), SubResource("Resource_nrluk"), SubResource("Resource_sjtbu")])

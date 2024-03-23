@@ -24,6 +24,23 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_5xuhq")
 
+[node name="PlayedCardsContainer" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+z_index = -5
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -112.0
+offset_top = -292.0
+offset_right = 112.0
+offset_bottom = -180.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
 [node name="BackgroundGlyph" type="ColorRect" parent="."]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(640, 360)
