@@ -11,10 +11,11 @@ class_name TemplateCard extends Control
 @onready var sentence_label = %SentenceLabel
 @onready var play_button = %PlayButton
 @onready var played_cards_container = %PlayedCardsContainer
+@onready var selected_cards_text = %SelectedCardsText
 
 var template_card_info: TemplateCardInfo
-var max_cards_allowed = 0
-var played_cards: Array[Card]
+var max_insults_allowed = 0
+var selected_cards: Array[Card]
 
 const INSULT_PLACEHOLDER_TEXT = "%insult%"
 const EMPTY_UNDERLINE_TEXT = "__________"
@@ -25,6 +26,8 @@ func _ready():
 	_init_info_description()
 	_init_identity_visuals()
 	_init_execution_visuals()
+	
+	_init_insult_text()
 
 
 func _init_glyphs():
@@ -50,11 +53,15 @@ func _init_execution_visuals():
 	
 	var sentence_label_text = template_card_info.sentence
 	sentence_label.text = sentence_label_text.replace(INSULT_PLACEHOLDER_TEXT, EMPTY_UNDERLINE_TEXT)
+
+
+func _init_insult_text():
+	var sentence_label_text = template_card_info.sentence
 	while sentence_label_text.contains(INSULT_PLACEHOLDER_TEXT):
 		var i = sentence_label_text.find(INSULT_PLACEHOLDER_TEXT)
 		sentence_label_text = sentence_label_text.erase(i, INSULT_PLACEHOLDER_TEXT.length())
 		
-		max_cards_allowed += 1
+		max_insults_allowed += 1
 
 
 func _show_info_description_display():
@@ -66,22 +73,30 @@ func _hide_info_description_display():
 
 
 func is_full() -> bool:
-	return played_cards.size() >= max_cards_allowed
+	return selected_cards.size() >= max_insults_allowed
 
 
-func add_played_card(card: Card):
-	card.reparent(played_cards_container)
-	played_cards.push_back(card)
+func add_selected_card(card: Card):
+	selected_cards.push_back(card)
+	_update_play_button_status()
 
 
-func remove_played_card(card: Card):
-	card.queue_free()
-	for i in range(played_cards.size()):
-		if played_cards[i] == card:
-			played_cards.remove_at(i)
+func remove_selected_card(card: Card):
+	for i in range(selected_cards.size()):
+		if selected_cards[i] == card:
+			selected_cards.remove_at(i)
 			break
+	_update_play_button_status()
 
 
-func clear_played_cards():
-	for card in played_cards_container.get_children():
-		card.free()
+func clear_selected_cards():
+	selected_cards.clear()
+	_update_play_button_status()
+
+
+func _update_play_button_status():
+	var current_insults = selected_cards.size()
+	var max_insults = max_insults_allowed
+	
+	selected_cards_text.text = str(current_insults) + "/" + str(max_insults)
+	play_button.disabled = current_insults != max_insults

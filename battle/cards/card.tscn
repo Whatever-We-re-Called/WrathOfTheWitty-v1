@@ -107,6 +107,7 @@ offset_bottom = -15.0
 color = Color(0.196078, 0.196078, 0.196078, 1)
 
 [node name="HighlightedUI" type="Control" parent="Button"]
+unique_name_in_owner = true
 visible = false
 anchors_preset = 0
 offset_right = 40.0

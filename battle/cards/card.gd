@@ -1,6 +1,7 @@
 class_name Card extends CenterContainer
 
-signal pressed
+signal selected
+signal unselected
 
 @onready var insult_label = %InsultLabel
 @onready var button = $Button
@@ -14,6 +15,7 @@ signal pressed
 	$Button/CornerColorRect2,
 	$Button/CornerColorRect3
 ]
+@onready var highlighted_ui = %HighlightedUI
 
 var card_info: CardInfo
 
@@ -68,4 +70,10 @@ func _init_insult_lavel():
 
 
 func _on_pressed():
-	pressed.emit()
+	var became_selected = not highlighted_ui.visible
+	
+	highlighted_ui.visible = became_selected
+	if became_selected:
+		selected.emit()
+	else:
+		unselected.emit()
