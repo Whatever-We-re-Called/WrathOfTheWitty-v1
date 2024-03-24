@@ -1,20 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cr5knc1fwhkm3"]
+[gd_scene load_steps=4 format=3 uid="uid://cr5knc1fwhkm3"]
 
 [ext_resource type="Script" path="res://battle/cards/card.gd" id="1_72ex4"]
 [ext_resource type="Texture2D" uid="uid://dsw3jmdsv2f4u" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/rhombus.svg" id="3_my4dn"]
-
-[sub_resource type="Gradient" id="Gradient_fbm40"]
-colors = PackedColorArray(0.196078, 0.196078, 0.196078, 1, 0.196078, 0.196078, 0.196078, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_3f8o4"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_fbm40")
-width = 32
-height = 16
-fill_from = Vector2(0, 1)
-fill_to = Vector2(0, 0)
-metadata/_snap_enabled = true
-metadata/_snap_count = 4
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uois1"]
 load_path = "res://.godot/imported/str_icon.png-4dbb2f5f79c143b857bb5cf2788a2b07.ctex"
@@ -47,41 +34,6 @@ custom_minimum_size = Vector2(224, 112)
 layout_mode = 2
 text = "
 "
-
-[node name="CornerRect" type="TextureRect" parent="Button"]
-visible = false
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 32.0
-offset_top = -31.0
-offset_right = -32.0
-offset_bottom = -15.0
-grow_horizontal = 2
-rotation = -0.00105388
-texture = SubResource("GradientTexture2D_3f8o4")
-
-[node name="CornerRect3" type="TextureRect" parent="Button"]
-visible = false
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = -16.0
-offset_right = -192.0
-grow_horizontal = 2
-rotation = -0.00105388
-texture = SubResource("GradientTexture2D_3f8o4")
-
-[node name="CornerRect2" type="TextureRect" parent="Button"]
-visible = false
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 192.0
-offset_top = -16.0
-grow_horizontal = 2
-rotation = -0.00105388
-texture = SubResource("GradientTexture2D_3f8o4")
 
 [node name="InfoBackgroundButton" type="Button" parent="Button"]
 unique_name_in_owner = true
@@ -135,21 +87,89 @@ stretch_mode = 5
 
 [node name="CornerColorRect" type="ColorRect" parent="Button"]
 layout_mode = 0
-offset_top = -5.0
+offset_top = -4.0
 offset_right = 32.0
+color = Color(0.196078, 0.196078, 0.196078, 1)
 
 [node name="CornerColorRect2" type="ColorRect" parent="Button"]
 layout_mode = 0
 offset_left = 192.0
-offset_top = -5.0
+offset_top = -4.0
 offset_right = 224.0
+color = Color(0.196078, 0.196078, 0.196078, 1)
 
 [node name="CornerColorRect3" type="ColorRect" parent="Button"]
 layout_mode = 0
 offset_left = 32.0
-offset_top = -20.0
+offset_top = -19.0
 offset_right = 192.0
 offset_bottom = -15.0
+color = Color(0.196078, 0.196078, 0.196078, 1)
+
+[node name="HighlightedUI" type="Control" parent="Button"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Button/HighlightedUI"]
+custom_minimum_size = Vector2(4, 120)
+layout_mode = 2
+offset_left = -4.0
+offset_top = -4.0
+offset_bottom = 116.0
+
+[node name="ColorRect3" type="ColorRect" parent="Button/HighlightedUI"]
+custom_minimum_size = Vector2(4, 120)
+layout_mode = 2
+offset_left = 224.0
+offset_top = -4.0
+offset_right = 228.0
+offset_bottom = 116.0
+
+[node name="ColorRect4" type="ColorRect" parent="Button/HighlightedUI"]
+custom_minimum_size = Vector2(224, 4)
+layout_mode = 2
+offset_top = 112.0
+offset_right = 224.0
+offset_bottom = 116.0
+
+[node name="ColorRect5" type="ColorRect" parent="Button/HighlightedUI"]
+clip_contents = true
+custom_minimum_size = Vector2(28, 4)
+layout_mode = 2
+offset_top = -4.0
+offset_right = 27.0
+
+[node name="ColorRect6" type="ColorRect" parent="Button/HighlightedUI"]
+clip_contents = true
+custom_minimum_size = Vector2(28, 4)
+layout_mode = 2
+offset_left = 196.0
+offset_top = -4.0
+offset_right = 224.0
+
+[node name="ColorRect2" type="ColorRect" parent="Button/HighlightedUI"]
+custom_minimum_size = Vector2(4, 19)
+layout_mode = 2
+offset_left = 28.0
+offset_top = -19.0
+offset_right = 32.0
+
+[node name="ColorRect8" type="ColorRect" parent="Button/HighlightedUI"]
+custom_minimum_size = Vector2(160, 4)
+layout_mode = 2
+offset_left = 32.0
+offset_top = -19.0
+offset_right = 192.0
+offset_bottom = -15.0
+
+[node name="ColorRect7" type="ColorRect" parent="Button/HighlightedUI"]
+custom_minimum_size = Vector2(4, 19)
+layout_mode = 2
+offset_left = 192.0
+offset_top = -19.0
+offset_right = 196.0
 
 [connection signal="pressed" from="Button" to="." method="_on_pressed"]
 [connection signal="pressed" from="Button/InfoBackgroundButton" to="." method="_on_pressed"]

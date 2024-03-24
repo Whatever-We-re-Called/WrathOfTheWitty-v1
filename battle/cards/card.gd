@@ -3,9 +3,6 @@ class_name Card extends CenterContainer
 signal pressed
 
 @onready var insult_label = %InsultLabel
-@onready var corner_rect = $Button/CornerRect
-@onready var corner_rect_3 = $Button/CornerRect3
-@onready var corner_rect_2 = $Button/CornerRect2
 @onready var button = $Button
 @onready var info_background_button = %InfoBackgroundButton
 @onready var info_container = $Button/InfoContainer
