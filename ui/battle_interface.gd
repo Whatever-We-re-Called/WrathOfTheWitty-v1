@@ -1,6 +1,7 @@
 extends Control
 
 signal card_toggle_selected(card: Card)
+signal card_reroll(card: Card)
 
 @onready var deck_container = %DeckContainer
 @onready var deck_first_row = %DeckFirstRow
@@ -8,10 +9,13 @@ signal card_toggle_selected(card: Card)
 @onready var left_player_stats_ui = $LeftPlayerStatsUI
 @onready var right_player_stats_ui = $RightPlayerStatsUI
 @onready var template_card_ui = %TemplateCardUI
+@onready var player_card_deck_label = %PlayerCardDeckLabel
+@onready var player_card_bag_label = %PlayerCardBagLabel
 
 var battle_scene: BattleScene
 
 const CARD_SCENE = preload("res://battle/cards/card.tscn")
+
 
 func update_player_stats(player: BattlePlayer):
 	match player.side:
@@ -28,6 +32,7 @@ func update_hand(player: BattlePlayer):
 		var new_card_scene = CARD_SCENE.instantiate()
 		new_card_scene.card_info = card_info
 		new_card_scene.toggle_selected.connect(_on_card_toggle_selected.bind(new_card_scene))
+		new_card_scene.reroll.connect(_on_card_reroll.bind(new_card_scene))
 		
 		add_card(new_card_scene)
 
@@ -53,5 +58,14 @@ func update_template_card_ui(template_card: TemplateCard):
 	template_card_ui.add_child(template_card)
 
 
+func update_player_deck_and_bag_ui(player: BattlePlayer):
+	player_card_deck_label.text = "Shift: Card Deck (%s)" % player.cards_in_deck.size()
+	player_card_bag_label.text = "Tab: Card Bag (%s)" % player.cards_in_bag.size()
+
+
 func _on_card_toggle_selected(card: Card):
 	card_toggle_selected.emit(card)
+
+
+func _on_card_reroll(card: Card):
+	card_reroll.emit(card)

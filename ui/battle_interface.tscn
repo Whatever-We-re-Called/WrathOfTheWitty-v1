@@ -326,13 +326,15 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Card Bag (3)"
 
-[node name="Label" type="Label" parent="LeftOfDeckContainer/VBoxContainer"]
+[node name="PlayerCardDeckLabel" type="Label" parent="LeftOfDeckContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 18
 text = "Shift: Card Deck (7)"
 
-[node name="Label2" type="Label" parent="LeftOfDeckContainer/VBoxContainer"]
+[node name="PlayerCardBagLabel" type="Label" parent="LeftOfDeckContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 18

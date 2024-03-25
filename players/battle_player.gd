@@ -31,4 +31,28 @@ func init(config: PlayerConfig, side: Constants.PlayerSide):
 func add_cards_to_hand(amount: int):
 	# TODO Add support for proper deck and bag handling.
 	for i in range(amount):
-		cards_in_hand.push_back(cards_in_deck[i])
+		cards_in_hand.push_back(get_next_card_in_deck(true))
+
+
+func get_next_card_in_deck(remove_result_card: bool) -> CardInfo:
+	var result = cards_in_deck[0]
+	if remove_result_card:
+		cards_in_deck.pop_front()
+	
+	if cards_in_deck.is_empty():
+		_refill_deck_from_bag()
+	
+	return result
+
+
+func _refill_deck_from_bag():
+	cards_in_deck = cards_in_bag.duplicate(true)
+	
+	randomize()
+	cards_in_deck.shuffle()
+	
+	cards_in_bag.clear()
+
+
+func send_card_to_bag(card_info: CardInfo):
+	cards_in_bag.push_back(card_info)

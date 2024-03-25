@@ -32,6 +32,7 @@ func _ready():
 	activate_template_card(debug_template_card_info)
 	
 	battle_interface.card_toggle_selected.connect(_on_card_toggle_selected)
+	battle_interface.card_reroll.connect(reroll_card)
 
 
 func _init_player(side: Constants.PlayerSide, player_config: PlayerConfig, parent_node: Node2D):
@@ -46,29 +47,15 @@ func _init_player(side: Constants.PlayerSide, player_config: PlayerConfig, paren
 
 
 func _process(delta):
-	pass
-	#if Input.is_action_just_pressed("debug_1"):
-		#left_player.health -= 5
-		#battle_interface.update_player_stats(left_player)
-	#if Input.is_action_just_pressed("debug_2"):
-		#left_player.stamina -= 1
-		#battle_interface.update_player_stats(left_player)
+	battle_interface.update_player_deck_and_bag_ui(player)
 
 
 func _on_card_toggle_selected(card: Card):
 	var card_info = card.card_info
 	if player.selected_cards.has(card_info):
-		print("A")
 		unselect_card(card)
 	else:
-		print("B")
 		select_card(card)
-	pass
-
-
-func _on_card_unselected(card: Card):
-	print("unselected")
-	pass
 
 
 func activate_template_card(template_card_info: TemplateCardInfo):
@@ -111,3 +98,10 @@ func play_cards(cards: Array[Card]):
 	for card in cards:
 		card.free()
 	cards.clear()
+
+
+func reroll_card(card: Card):
+	player.send_card_to_bag(card.card_info)
+	
+	card.card_info = player.get_next_card_in_deck(true)
+	card.init()
