@@ -240,3 +240,5 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_dcx11")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_s64cm")
 disabled = true
 text = "Play"
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]

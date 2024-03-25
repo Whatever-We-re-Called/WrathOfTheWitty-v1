@@ -71,6 +71,7 @@ func activate_template_card(template_card_info: TemplateCardInfo):
 	active_template_card.template_card_info = template_card_info
 	active_template_card.selected_card_added.connect(_on_template_card_selected_card_added)
 	active_template_card.selected_card_removed.connect(_on_template_card_selected_card_removed)
+	active_template_card.play_selected_cards.connect(play_cards)
 	
 	battle_interface.update_template_card_ui(active_template_card)
 
@@ -93,3 +94,12 @@ func _on_template_card_selected_card_added(card: Card):
 func _on_template_card_selected_card_removed(card: Card):
 	player.cards_in_hand.push_back(card.card_info)
 	battle_interface.update_hand(player)
+
+
+func play_cards(cards: Array[Card]):
+	if cards == null:
+		cards = active_template_card.selected_cards
+	
+	for card in cards:
+		card.free()
+	cards.clear()

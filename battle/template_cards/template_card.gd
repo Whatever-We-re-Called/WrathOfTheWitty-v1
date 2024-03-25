@@ -2,6 +2,7 @@ class_name TemplateCard extends Control
 
 signal selected_card_added(card: Card)
 signal selected_card_removed(card: Card)
+signal play_selected_cards(cards: Array[Card])
 
 @onready var background_glyph = %BackgroundGlyph
 @onready var left_player_speaking_glyph = %LeftPlayerSpeakingGlyph
@@ -116,3 +117,7 @@ func _update_play_button_status():
 	
 	selected_cards_text.text = str(current_insults) + "/" + str(max_insults)
 	play_button.disabled = current_insults != max_insults
+
+
+func _on_play_button_pressed():
+	play_selected_cards.emit(selected_cards)
