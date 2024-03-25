@@ -1,6 +1,7 @@
 class_name BattlePlayer extends AnimatedSprite2D
 
 var config: PlayerConfig
+var level: int
 var health: int
 var stamina: int
 var side: Constants.PlayerSide
@@ -16,6 +17,7 @@ const THROW_STAMINA_COST = 3
 
 func init(config: PlayerConfig, side: Constants.PlayerSide):
 	self.config = config
+	self.level = config.base_level
 	self.health = config.max_health
 	self.stamina = config.max_stamina
 	
@@ -87,3 +89,10 @@ func _overwrite_card_info(card: Card, new_card_info: CardInfo):
 				card.card_info = new_card_info
 				card.init()
 				return
+
+
+func handle_played_selected_cards():
+	for card in selected_cards:
+		add_cards_to_hand(1)
+		send_card_to_bag(card)
+	selected_cards.clear()

@@ -5,6 +5,7 @@ class_name PlayerConfig extends Resource
 @export var sprite_frames: SpriteFrames
 @export var sprite_scale: Vector2 = Vector2.ONE
 @export_category("Values")
+@export var base_level: int
 @export var insecurity: Constants.Insecurity
 @export var max_health: int
 @export var max_stamina: int

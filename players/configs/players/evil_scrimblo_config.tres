@@ -65,6 +65,7 @@ script = ExtResource("2_tjhav")
 name = "Evil Scrimblo"
 sprite_frames = ExtResource("3_tougs")
 sprite_scale = Vector2(0.375, 0.375)
+base_level = 0
 insecurity = 5
 max_health = 100
 max_stamina = 5

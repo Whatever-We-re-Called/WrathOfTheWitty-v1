@@ -1,87 +1,87 @@
-[gd_resource type="Resource" script_class="PlayerConfig" load_steps=14 format=3 uid="uid://dby8qnyo658jl"]
+[gd_resource type="Resource" script_class="PlayerConfig" load_steps=14 format=3 uid="uid://d23m4e07eg735"]
 
-[ext_resource type="Script" path="res://battle/cards/info/card_info.gd" id="1_6fj6f"]
-[ext_resource type="Script" path="res://players/configs/player_config.gd" id="1_b11yi"]
-[ext_resource type="SpriteFrames" uid="uid://2up8nj4es0st" path="res://players/animations/scrimblo_sprite_frames.tres" id="3_3x4ds"]
+[ext_resource type="Script" path="res://battle/cards/info/card_info.gd" id="1_5bkd6"]
+[ext_resource type="Script" path="res://players/configs/player_config.gd" id="2_lpd0p"]
+[ext_resource type="SpriteFrames" uid="uid://2up8nj4es0st" path="res://players/animations/scrimblo_sprite_frames.tres" id="3_g3lwf"]
 
 [sub_resource type="Resource" id="Resource_usmhr"]
-script = ExtResource("1_6fj6f")
+script = ExtResource("1_5bkd6")
 action_type = 0
 insecurity_type = 0
 strength_type = 2
 insult_text = "disgustingly hideous"
 
 [sub_resource type="Resource" id="Resource_5hwkl"]
-script = ExtResource("1_6fj6f")
-action_type = 1
+script = ExtResource("1_5bkd6")
+action_type = 0
 insecurity_type = 2
 strength_type = 1
 insult_text = "incredibly stubborn"
 
 [sub_resource type="Resource" id="Resource_skwer"]
-script = ExtResource("1_6fj6f")
-action_type = 2
+script = ExtResource("1_5bkd6")
+action_type = 0
 insecurity_type = 4
 strength_type = 0
 insult_text = "weird"
 
 [sub_resource type="Resource" id="Resource_7cdxo"]
-script = ExtResource("1_6fj6f")
-action_type = 3
+script = ExtResource("1_5bkd6")
+action_type = 0
 insecurity_type = 4
 strength_type = 1
 insult_text = "humourously incomprehensible"
 
 [sub_resource type="Resource" id="Resource_sfe7d"]
-script = ExtResource("1_6fj6f")
-action_type = 4
+script = ExtResource("1_5bkd6")
+action_type = 0
 insecurity_type = 4
 strength_type = 3
 insult_text = "bitch"
 
 [sub_resource type="Resource" id="Resource_p38ei"]
-script = ExtResource("1_6fj6f")
-action_type = 5
+script = ExtResource("1_5bkd6")
+action_type = 0
 insecurity_type = 0
 strength_type = 1
 insult_text = "icky"
 
 [sub_resource type="Resource" id="Resource_nrluk"]
-script = ExtResource("1_6fj6f")
-action_type = 6
+script = ExtResource("1_5bkd6")
+action_type = 0
 insecurity_type = 1
 strength_type = 2
 insult_text = "unbelievably incapable"
 
 [sub_resource type="Resource" id="Resource_sjtbu"]
-script = ExtResource("1_6fj6f")
-action_type = 7
+script = ExtResource("1_5bkd6")
+action_type = 0
 insecurity_type = 4
 strength_type = 1
 insult_text = "incapable"
 
 [sub_resource type="Resource" id="Resource_ic72s"]
-script = ExtResource("1_6fj6f")
-action_type = 5
+script = ExtResource("1_5bkd6")
+action_type = 0
 insecurity_type = 2
 strength_type = 2
 insult_text = "nerd"
 
 [sub_resource type="Resource" id="Resource_6qg0w"]
-script = ExtResource("1_6fj6f")
-action_type = 7
+script = ExtResource("1_5bkd6")
+action_type = 0
 insecurity_type = 4
 strength_type = 4
 insult_text = "absurdely unlikeable"
 
 [resource]
-script = ExtResource("1_b11yi")
-name = "Scrimblo"
-sprite_frames = ExtResource("3_3x4ds")
+script = ExtResource("2_lpd0p")
+name = "Scrimblo (Damage)"
+sprite_frames = ExtResource("3_g3lwf")
 sprite_scale = Vector2(0.375, 0.375)
 base_level = 0
 insecurity = 2
 max_health = 100
 max_stamina = 5
 max_hand_size = 5
-card_deck = Array[ExtResource("1_6fj6f")]([SubResource("Resource_usmhr"), SubResource("Resource_5hwkl"), SubResource("Resource_skwer"), SubResource("Resource_7cdxo"), SubResource("Resource_sfe7d"), SubResource("Resource_p38ei"), SubResource("Resource_nrluk"), SubResource("Resource_sjtbu"), SubResource("Resource_ic72s"), SubResource("Resource_6qg0w")])
+card_deck = Array[ExtResource("1_5bkd6")]([SubResource("Resource_usmhr"), SubResource("Resource_5hwkl"), SubResource("Resource_skwer"), SubResource("Resource_7cdxo"), SubResource("Resource_sfe7d"), SubResource("Resource_p38ei"), SubResource("Resource_nrluk"), SubResource("Resource_sjtbu"), SubResource("Resource_ic72s"), SubResource("Resource_6qg0w")])

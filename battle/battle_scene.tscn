@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://battle/battle_scene.gd" id="1_2o2hu"]
 [ext_resource type="PackedScene" uid="uid://cbocnnnw4vt17" path="res://ui/battle_interface.tscn" id="1_yveat"]
-[ext_resource type="Resource" uid="uid://dby8qnyo658jl" path="res://players/configs/players/scrimblo_config.tres" id="2_tija6"]
+[ext_resource type="Resource" uid="uid://d23m4e07eg735" path="res://players/configs/players/damage_scrimblo_config.tres" id="2_1ywll"]
 [ext_resource type="Resource" uid="uid://bu5qw2ma20o10" path="res://players/configs/players/evil_scrimblo_config.tres" id="3_p0wtb"]
 [ext_resource type="Script" path="res://battle/cards/card.gd" id="4_vnmyo"]
 [ext_resource type="Texture2D" uid="uid://bvx24fl3573wx" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/tag_empty.svg" id="5_yri2n"]
@@ -38,7 +38,7 @@ _bundled = {
 
 [node name="BattleScene" type="Node2D"]
 script = ExtResource("1_2o2hu")
-left_player_config = ExtResource("2_tija6")
+left_player_config = ExtResource("2_1ywll")
 right_player_config = ExtResource("3_p0wtb")
 card_scene = SubResource("PackedScene_jf124")
 debug_template_card_info = ExtResource("7_i4oth")

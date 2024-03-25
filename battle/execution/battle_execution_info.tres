@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="BattleExecutionInfo" load_steps=2 format=3 uid="uid://b5qaco1cop33b"]
+
+[ext_resource type="Script" path="res://battle/execution/battle_execution_info.gd" id="1_nnukc"]
+
+[resource]
+script = ExtResource("1_nnukc")
+insecurity_group_multiplier = 1.5
+base_damage_value = 10.0
+base_shield_value = 5.0
+base_poison_value = 5.0
+base_heal_value = 5.0
+base_life_steal_value = 5.0
+base_stamina_value = 5.0
+base_fire_value = 5.0
+base_weakness_value = 5.0
+damage_level_increment = 1.0
+shield_level_increment = 1.0
+poison_level_increment = 1.0
+heal_level_increment = 1.0
+life_steal_level_increment = 1.0
+stamina_level_increment = 1.0
+fire_level_increment = 1.0
+weakness_level_increment = 1.0
+damage_strength_multipliers = Array[float]([0.25, 0.5, 1.0, 1.5, 2.0])
+shield_strength_multipliers = Array[float]([0.25, 0.5, 1.0, 1.5, 2.0])
+poison_strength_multipliers = Array[float]([0.25, 0.5, 1.0, 1.5, 2.0])
+heal_strength_multipliers = Array[float]([0.25, 0.5, 1.0, 1.5, 2.0])
+life_steal_strength_multipliers = Array[float]([0.25, 0.5, 1.0, 1.5, 2.0])
+stamina_strength_multipliers = Array[float]([0.25, 0.5, 1.0, 1.5, 2.0])
+fire_strength_multipliers = Array[float]([0.25, 0.5, 1.0, 1.5, 2.0])
+weakness_strength_multipliers = Array[float]([0.25, 0.5, 1.0, 1.5, 2.0])

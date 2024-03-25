@@ -96,15 +96,19 @@ func unselect_card(card: Card):
 	active_template_card.remove_selected_card(card)
 
 
-func play_cards(cards: Array[Card]):
-	if cards == null:
-		cards = active_template_card.selected_cards
-	
-	for card in cards:
-		card.free()
-	cards.clear()
+func play_cards():
+	BattleExecution.execute_action_cards(player.selected_cards, self)
+	player.handle_played_selected_cards()
+	battle_interface.update_hand(player)
 
 
 func reroll_card(card: Card):
 	player.reroll_card(card)
 	battle_interface.update_player_stats(player)
+
+
+func get_non_active_side_player():
+	if active_side == Constants.PlayerSide.LEFT:
+		return players[Constants.PlayerSide.RIGHT]
+	elif active_side == Constants.PlayerSide.RIGHT:
+		return players[Constants.PlayerSide.LEFT]
