@@ -18,6 +18,7 @@ signal unselected
 @onready var highlighted_ui = %HighlightedUI
 
 var card_info: CardInfo
+var is_selected = false
 
 const CARD_TEXTURES = preload("res://battle/cards/textures/card_textures.tres")
 
@@ -70,10 +71,10 @@ func _init_insult_lavel():
 
 
 func _on_pressed():
-	var became_selected = not highlighted_ui.visible
+	is_selected = not is_selected
 	
-	highlighted_ui.visible = became_selected
-	if became_selected:
+	#highlighted_ui.visible = became_selected
+	if is_selected:
 		selected.emit()
 	else:
 		unselected.emit()

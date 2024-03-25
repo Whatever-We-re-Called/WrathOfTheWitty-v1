@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://byvl0ds2nui0e"]
+[gd_scene load_steps=8 format=3 uid="uid://byvl0ds2nui0e"]
 
 [ext_resource type="Script" path="res://battle/template_cards/template_card.gd" id="1_5xuhq"]
 [ext_resource type="Texture2D" uid="uid://d3nm5ic5n0uw5" path="res://kenney_assets/kenney_game-icons/PNG/White/1x/information.png" id="3_5kcht"]
@@ -16,15 +16,12 @@ bg_color = Color(0.219608, 0.666667, 0.235294, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s64cm"]
 bg_color = Color(0.117647, 0.219608, 0.156863, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v86c8"]
-bg_color = Color(0.219608, 0.666667, 0.235294, 1)
-
 [node name="TemplateCard" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_5xuhq")
 
-[node name="PlayedCardsContainer" type="HBoxContainer" parent="."]
+[node name="SelectedCardsContainer" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
 z_index = -5
 layout_mode = 1
@@ -201,6 +198,7 @@ autowrap_mode = 2
 
 [node name="SelectedCardsText" type="Label" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -234,11 +232,11 @@ offset_right = 128.0
 offset_bottom = 212.0
 grow_horizontal = 2
 grow_vertical = 0
+focus_mode = 0
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_lt3aj")
 theme_override_styles/hover = SubResource("StyleBoxFlat_28kq7")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_dcx11")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_s64cm")
-theme_override_styles/focus = SubResource("StyleBoxFlat_v86c8")
 disabled = true
 text = "Play"

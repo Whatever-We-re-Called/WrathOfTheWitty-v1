@@ -15,6 +15,11 @@ class_name BattleScene extends Node2D
 var active_side: Constants.PlayerSide
 var players = {}
 var active_template_card: TemplateCard
+var player: BattlePlayer: 
+	get:
+		return players[active_side]
+	set(value):
+		players[active_side] = value
 
 const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.tscn")
 
@@ -64,17 +69,27 @@ func _on_card_unselected(card: Card):
 func activate_template_card(template_card_info: TemplateCardInfo):
 	active_template_card = TEMPLATE_CARD_SCENE.instantiate()
 	active_template_card.template_card_info = template_card_info
+	active_template_card.selected_card_added.connect(_on_template_card_selected_card_added)
+	active_template_card.selected_card_removed.connect(_on_template_card_selected_card_removed)
 	
 	battle_interface.update_template_card_ui(active_template_card)
 
 
 func select_card(card: Card):
-	var player = players[active_side]
-	
 	active_template_card.add_selected_card(card)
 
 
 func unselect_card(card: Card):
-	var player = players[active_side]
-	
 	active_template_card.remove_selected_card(card)
+
+
+func _on_template_card_selected_card_added(card: Card):
+	for i in range(player.cards_in_hand.size()):
+		if player.cards_in_hand[i] == card.card_info:
+			player.cards_in_hand.remove_at(i)
+			break
+
+
+func _on_template_card_selected_card_removed(card: Card):
+	player.cards_in_hand.push_back(card.card_info)
+	battle_interface.update_hand(player)

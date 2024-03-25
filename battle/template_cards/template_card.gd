@@ -1,5 +1,8 @@
 class_name TemplateCard extends Control
 
+signal selected_card_added(card: Card)
+signal selected_card_removed(card: Card)
+
 @onready var background_glyph = %BackgroundGlyph
 @onready var left_player_speaking_glyph = %LeftPlayerSpeakingGlyph
 @onready var right_player_speaking_glyph = %RightPlayerSpeakingGlyph
@@ -10,12 +13,13 @@ class_name TemplateCard extends Control
 @onready var insecurity_icon = %InsecurityIcon
 @onready var sentence_label = %SentenceLabel
 @onready var play_button = %PlayButton
-@onready var played_cards_container = %PlayedCardsContainer
 @onready var selected_cards_text = %SelectedCardsText
+@onready var selected_cards_container = %SelectedCardsContainer
 
 var template_card_info: TemplateCardInfo
 var max_insults_allowed = 0
 var selected_cards: Array[Card]
+var saved_deck_container: Control
 
 const INSULT_PLACEHOLDER_TEXT = "%insult%"
 const EMPTY_UNDERLINE_TEXT = "__________"
@@ -77,11 +81,23 @@ func is_full() -> bool:
 
 
 func add_selected_card(card: Card):
+	if is_full():
+		card.is_selected = false
+		return
+	
+	selected_card_added.emit(card)
+	
 	selected_cards.push_back(card)
 	_update_play_button_status()
+	
+	card.reparent(selected_cards_container)
 
 
 func remove_selected_card(card: Card):
+	selected_card_removed.emit(card)
+	
+	card.queue_free()
+	
 	for i in range(selected_cards.size()):
 		if selected_cards[i] == card:
 			selected_cards.remove_at(i)
