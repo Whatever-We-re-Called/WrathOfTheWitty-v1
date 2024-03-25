@@ -41,42 +41,42 @@ insult_text = "bitch"
 
 [sub_resource type="Resource" id="Resource_p38ei"]
 script = ExtResource("1_5bkd6")
-action_type = 0
+action_type = 3
 insecurity_type = 0
 strength_type = 1
 insult_text = "icky"
 
 [sub_resource type="Resource" id="Resource_nrluk"]
 script = ExtResource("1_5bkd6")
-action_type = 0
+action_type = 3
 insecurity_type = 1
 strength_type = 2
 insult_text = "unbelievably incapable"
 
 [sub_resource type="Resource" id="Resource_sjtbu"]
 script = ExtResource("1_5bkd6")
-action_type = 0
+action_type = 3
 insecurity_type = 4
 strength_type = 1
 insult_text = "incapable"
 
 [sub_resource type="Resource" id="Resource_ic72s"]
 script = ExtResource("1_5bkd6")
-action_type = 0
+action_type = 3
 insecurity_type = 2
 strength_type = 2
 insult_text = "nerd"
 
 [sub_resource type="Resource" id="Resource_6qg0w"]
 script = ExtResource("1_5bkd6")
-action_type = 0
+action_type = 3
 insecurity_type = 4
 strength_type = 4
 insult_text = "absurdely unlikeable"
 
 [resource]
 script = ExtResource("2_lpd0p")
-name = "Scrimblo (Damage)"
+name = "Scrimblo (Test)"
 sprite_frames = ExtResource("3_g3lwf")
 sprite_scale = Vector2(0.375, 0.375)
 base_level = 0

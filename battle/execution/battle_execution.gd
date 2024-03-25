@@ -42,14 +42,26 @@ static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene, 
 	match card_info.action_type:
 		Constants.CardAction.DAMAGE:
 			_execute_damage_action_card(action_card_execution)
-			#_execute_damage_action_card(card_info, defender_player, multiplier)
+		Constants.CardAction.SHIELD:
+			pass
+		Constants.CardAction.POISON:
+			pass
+		Constants.CardAction.HEAL:
+			_execute_heal_action_card(action_card_execution)
+		Constants.CardAction.LIFE_STEAL:
+			pass
+		Constants.CardAction.STAMINA:
+			pass
+		Constants.CardAction.FIRE:
+			pass
+		Constants.CardAction.WEAKNESS:
+			pass
 	
 	action_card_execution.battle_scene.battle_interface.update_player_stats(attacker_player)
 	action_card_execution.battle_scene.battle_interface.update_player_stats(defender_player)
 	
 
 static func _execute_damage_action_card(action_card_execution: ActionCardExecution):
-	print("!")
 	var execution_value = _get_action_card_execution_value(
 		BATTLE_EXECUTION_INFO.base_damage_value,
 		action_card_execution.attacker_player.level,
@@ -59,6 +71,18 @@ static func _execute_damage_action_card(action_card_execution: ActionCardExecuti
 	) 
 	
 	action_card_execution.defender_player.health -= execution_value
+
+
+static func _execute_heal_action_card(action_card_execution: ActionCardExecution):
+	var execution_value = _get_action_card_execution_value(
+		BATTLE_EXECUTION_INFO.base_heal_value,
+		action_card_execution.attacker_player.level,
+		BATTLE_EXECUTION_INFO.heal_level_increment,
+		BATTLE_EXECUTION_INFO.damage_strength_multipliers[action_card_execution.card_info.strength_type],
+		action_card_execution.is_insecurity_group
+	) 
+	
+	action_card_execution.attacker_player.health += execution_value
 
 
 static func _get_action_card_execution_value(base_value: float, level: int, level_increment: float, strength_multiplier: float, is_insecurity_group: bool) -> int:
