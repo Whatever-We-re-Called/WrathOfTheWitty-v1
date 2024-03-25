@@ -82,12 +82,6 @@ func is_full() -> bool:
 
 
 func add_selected_card(card: Card):
-	if is_full():
-		card.is_selected = false
-		return
-	
-	selected_card_added.emit(card)
-	
 	selected_cards.push_back(card)
 	_update_play_button_status()
 	
@@ -95,8 +89,6 @@ func add_selected_card(card: Card):
 
 
 func remove_selected_card(card: Card):
-	selected_card_removed.emit(card)
-	
 	card.queue_free()
 	
 	for i in range(selected_cards.size()):

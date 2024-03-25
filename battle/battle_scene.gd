@@ -31,8 +31,7 @@ func _ready():
 	battle_interface.update_hand(players[active_side])
 	activate_template_card(debug_template_card_info)
 	
-	battle_interface.card_selected.connect(select_card)
-	battle_interface.card_unselected.connect(unselect_card)
+	battle_interface.card_toggle_selected.connect(_on_card_toggle_selected)
 
 
 func _init_player(side: Constants.PlayerSide, player_config: PlayerConfig, parent_node: Node2D):
@@ -56,8 +55,14 @@ func _process(delta):
 		#battle_interface.update_player_stats(left_player)
 
 
-func _on_card_selected(card: Card):
-	print("selected")
+func _on_card_toggle_selected(card: Card):
+	var card_info = card.card_info
+	if player.selected_cards.has(card_info):
+		print("A")
+		unselect_card(card)
+	else:
+		print("B")
+		select_card(card)
 	pass
 
 
@@ -69,31 +74,34 @@ func _on_card_unselected(card: Card):
 func activate_template_card(template_card_info: TemplateCardInfo):
 	active_template_card = TEMPLATE_CARD_SCENE.instantiate()
 	active_template_card.template_card_info = template_card_info
-	active_template_card.selected_card_added.connect(_on_template_card_selected_card_added)
-	active_template_card.selected_card_removed.connect(_on_template_card_selected_card_removed)
 	active_template_card.play_selected_cards.connect(play_cards)
 	
 	battle_interface.update_template_card_ui(active_template_card)
 
 
 func select_card(card: Card):
+	if active_template_card.is_full(): return
+	
+	var card_info = card.card_info
+	for i in range(player.cards_in_hand.size()):
+		if player.cards_in_hand[i] == card_info:
+			player.cards_in_hand.remove_at(i)
+			break
+	player.selected_cards.push_back(card_info)
+	
 	active_template_card.add_selected_card(card)
 
 
 func unselect_card(card: Card):
-	active_template_card.remove_selected_card(card)
-
-
-func _on_template_card_selected_card_added(card: Card):
-	for i in range(player.cards_in_hand.size()):
-		if player.cards_in_hand[i] == card.card_info:
-			player.cards_in_hand.remove_at(i)
+	var card_info = card.card_info
+	player.cards_in_hand.push_back(card_info)
+	for i in range(player.selected_cards.size()):
+		if player.selected_cards[i] == card_info:
+			player.selected_cards.remove_at(i)
 			break
-
-
-func _on_template_card_selected_card_removed(card: Card):
-	player.cards_in_hand.push_back(card.card_info)
 	battle_interface.update_hand(player)
+	
+	active_template_card.remove_selected_card(card)
 
 
 func play_cards(cards: Array[Card]):

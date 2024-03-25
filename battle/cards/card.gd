@@ -1,7 +1,7 @@
 class_name Card extends CenterContainer
 
-signal selected
-signal unselected
+signal toggle_selected
+signal reroll
 
 @onready var insult_label = %InsultLabel
 @onready var button = $Button
@@ -18,12 +18,15 @@ signal unselected
 @onready var highlighted_ui = %HighlightedUI
 
 var card_info: CardInfo
-var is_selected = false
 
 const CARD_TEXTURES = preload("res://battle/cards/textures/card_textures.tres")
 
 
 func _ready():
+	init()
+
+
+func init():
 	_init_action_texture()
 	_init_insecurity_texture()
 	_init_strength_texture()
@@ -70,11 +73,9 @@ func _init_insult_lavel():
 	#print(insult_label.get_
 
 
-func _on_pressed():
-	is_selected = not is_selected
-	
-	#highlighted_ui.visible = became_selected
-	if is_selected:
-		selected.emit()
-	else:
-		unselected.emit()
+func _on_button_gui_input(event):
+	if event is InputEventMouseButton and event.pressed:
+		if event.get_button_index() == 1:
+			toggle_selected.emit()
+		elif event.get_button_index() == 2:
+			reroll.emit()

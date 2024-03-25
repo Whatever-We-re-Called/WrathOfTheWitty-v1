@@ -8,6 +8,7 @@ var side: Constants.PlayerSide
 var cards_in_deck: Array[CardInfo]
 var cards_in_hand: Array[CardInfo]
 var cards_in_bag: Array[CardInfo]
+var selected_cards: Array[CardInfo]
 
 
 func init(config: PlayerConfig, side: Constants.PlayerSide):
