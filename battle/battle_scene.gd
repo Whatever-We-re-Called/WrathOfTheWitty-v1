@@ -48,6 +48,11 @@ func _init_player(side: Constants.PlayerSide, player_config: PlayerConfig, paren
 
 func _process(delta):
 	battle_interface.update_player_deck_and_bag_ui(player)
+	
+	# Debug
+	if Input.is_action_just_pressed("debug_1"):
+		player.stamina = player.config.max_stamina
+		battle_interface.update_player_stats(player)
 
 
 func _on_card_toggle_selected(card: Card):
@@ -101,7 +106,5 @@ func play_cards(cards: Array[Card]):
 
 
 func reroll_card(card: Card):
-	player.send_card_to_bag(card.card_info)
-	
-	card.card_info = player.get_next_card_in_deck(true)
-	card.init()
+	player.reroll_card(card)
+	battle_interface.update_player_stats(player)

@@ -33,6 +33,7 @@ func update_hand(player: BattlePlayer):
 		new_card_scene.card_info = card_info
 		new_card_scene.toggle_selected.connect(_on_card_toggle_selected.bind(new_card_scene))
 		new_card_scene.reroll.connect(_on_card_reroll.bind(new_card_scene))
+		card_info.card_scene = new_card_scene
 		
 		add_card(new_card_scene)
 
