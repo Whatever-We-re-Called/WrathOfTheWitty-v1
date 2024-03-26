@@ -33,6 +33,7 @@ func _ready():
 	
 	battle_interface.card_toggle_selected.connect(_on_card_toggle_selected)
 	battle_interface.card_reroll.connect(reroll_card)
+	battle_interface.card_throw.connect(throw_card)
 
 
 func _init_player(side: Constants.PlayerSide, player_config: PlayerConfig, parent_node: Node2D):
@@ -104,6 +105,11 @@ func play_cards():
 
 func reroll_card(card: Card):
 	player.reroll_card(card)
+	battle_interface.update_player_stats(player)
+
+
+func throw_card(card: Card):
+	player.throw_card(card, self)
 	battle_interface.update_player_stats(player)
 
 

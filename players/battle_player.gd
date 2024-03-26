@@ -12,7 +12,7 @@ var cards_in_bag: Array[CardInfo]
 var selected_cards: Array[CardInfo]
 
 const REROLL_STAMINA_COST = 1
-const THROW_STAMINA_COST = 3 
+const THROW_STAMINA_COST = 2 
 
 
 func init(config: PlayerConfig, side: Constants.PlayerSide):
@@ -31,6 +31,21 @@ func init(config: PlayerConfig, side: Constants.PlayerSide):
 	scale = config.sprite_scale
 	sprite_frames = config.sprite_frames
 	play()
+
+
+func damage(amount: int):
+	health -= amount
+	health = clamp(health, 0, config.max_health)
+
+
+func heal(amount: int):
+	health += amount
+	health = clamp(health, 0, config.max_health)
+
+
+func replenish_stamina(amount: int):
+	stamina += amount
+	stamina = clamp(stamina, 0, config.max_stamina)
 
 
 func add_cards_to_hand(amount: int):
@@ -70,6 +85,15 @@ func reroll_card(card: Card):
 	send_card_to_bag(card.card_info)
 	
 	_overwrite_card_info(card, get_next_card_in_deck(true))
+
+
+func throw_card(card: Card, battle_scene: BattleScene):
+	if stamina < THROW_STAMINA_COST: return
+	stamina -= THROW_STAMINA_COST
+	
+	send_card_to_bag(card.card_info)
+	BattleExecution.execute_action_card(card.card_info, battle_scene)
+	card.queue_free()
 
 
 func _overwrite_card_info(card: Card, new_card_info: CardInfo):

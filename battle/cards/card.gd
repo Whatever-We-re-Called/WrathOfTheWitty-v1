@@ -2,6 +2,7 @@ class_name Card extends CenterContainer
 
 signal toggle_selected
 signal reroll
+signal throw
 
 @onready var insult_label = %InsultLabel
 @onready var button = $Button
@@ -79,3 +80,5 @@ func _on_button_gui_input(event):
 			toggle_selected.emit()
 		elif event.get_button_index() == 2:
 			reroll.emit()
+		elif event.get_button_index() == 3:
+			throw.emit()

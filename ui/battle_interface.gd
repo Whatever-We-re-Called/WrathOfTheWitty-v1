@@ -2,6 +2,7 @@ extends Control
 
 signal card_toggle_selected(card: Card)
 signal card_reroll(card: Card)
+signal card_throw(card: Card)
 
 @onready var deck_container = %DeckContainer
 @onready var deck_first_row = %DeckFirstRow
@@ -33,6 +34,7 @@ func update_hand(player: BattlePlayer):
 		new_card_scene.card_info = card_info
 		new_card_scene.toggle_selected.connect(_on_card_toggle_selected.bind(new_card_scene))
 		new_card_scene.reroll.connect(_on_card_reroll.bind(new_card_scene))
+		new_card_scene.throw.connect(_on_card_throw.bind(new_card_scene))
 		card_info.card_scene = new_card_scene
 		
 		add_card(new_card_scene)
@@ -70,3 +72,7 @@ func _on_card_toggle_selected(card: Card):
 
 func _on_card_reroll(card: Card):
 	card_reroll.emit(card)
+
+
+func _on_card_throw(card: Card):
+	card_throw.emit(card)
