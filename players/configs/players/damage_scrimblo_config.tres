@@ -62,14 +62,14 @@ insult_text = "incapable"
 
 [sub_resource type="Resource" id="Resource_ic72s"]
 script = ExtResource("1_5bkd6")
-action_type = 5
+action_type = 0
 insecurity_type = 2
 strength_type = 2
 insult_text = "nerd"
 
 [sub_resource type="Resource" id="Resource_6qg0w"]
 script = ExtResource("1_5bkd6")
-action_type = 5
+action_type = 0
 insecurity_type = 4
 strength_type = 4
 insult_text = "absurdely unlikeable"

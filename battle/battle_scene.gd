@@ -26,8 +26,8 @@ const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.t
 func _ready():
 	active_side = Constants.PlayerSide.LEFT
 	
-	_init_player(Constants.PlayerSide.LEFT, left_player_config, left_player_node)
-	_init_player(Constants.PlayerSide.RIGHT, right_player_config, right_player_node)
+	_init_player(Constants.PlayerSide.LEFT, left_player_config.duplicate(), left_player_node)
+	_init_player(Constants.PlayerSide.RIGHT, right_player_config.duplicate(), right_player_node)
 	battle_interface.update_hand(players[active_side])
 	activate_template_card(debug_template_card_info)
 	
@@ -101,6 +101,8 @@ func play_cards():
 	BattleExecution.execute_action_cards(player.selected_cards, self)
 	player.handle_played_selected_cards()
 	battle_interface.update_hand(player)
+	
+	change_turns()
 
 
 func reroll_card(card: Card):
@@ -111,6 +113,17 @@ func reroll_card(card: Card):
 func throw_card(card: Card):
 	player.throw_card(card, self)
 	battle_interface.update_player_stats(player)
+
+
+func change_turns():
+	if active_side == Constants.PlayerSide.LEFT:
+		active_side = Constants.PlayerSide.RIGHT
+	else:
+		active_side = Constants.PlayerSide.LEFT
+	
+	battle_interface.update_hand(player)
+	battle_interface.update_player_deck_and_bag_ui(player)
+	active_template_card.set_talking_side(active_side)
 
 
 func get_non_active_side_player():

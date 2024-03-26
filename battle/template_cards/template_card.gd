@@ -103,6 +103,11 @@ func clear_selected_cards():
 	_update_play_button_status()
 
 
+func set_talking_side(side: Constants.PlayerSide):
+	left_player_speaking_glyph.visible = side == Constants.PlayerSide.LEFT
+	right_player_speaking_glyph.visible = side == Constants.PlayerSide.RIGHT
+
+
 func _update_play_button_status():
 	var current_insults = selected_cards.size()
 	var max_insults = max_insults_allowed
