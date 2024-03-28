@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cr5knc1fwhkm3"]
+[gd_scene load_steps=3 format=3 uid="uid://cr5knc1fwhkm3"]
 
 [ext_resource type="Script" path="res://battle/cards/card.gd" id="1_72ex4"]
-[ext_resource type="Texture2D" uid="uid://dsw3jmdsv2f4u" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/rhombus.svg" id="3_my4dn"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uois1"]
 load_path = "res://.godot/imported/str_icon.png-4dbb2f5f79c143b857bb5cf2788a2b07.ctex"
@@ -36,76 +35,58 @@ button_mask = 7
 text = "
 "
 
-[node name="InfoBackgroundButton" type="Button" parent="Button"]
+[node name="EnhancementInfo" type="MarginContainer" parent="Button"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 0)
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -80.0
-offset_top = -15.0
-offset_right = 80.0
-offset_bottom = 25.0
-grow_horizontal = 2
-button_mask = 7
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -29.0
+offset_bottom = 27.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
 
-[node name="InfoContainer" type="HBoxContainer" parent="Button"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -60.0
-offset_top = -15.0
-offset_right = 60.0
-offset_bottom = 25.0
-grow_horizontal = 2
-theme_override_constants/separation = 8
-alignment = 1
+[node name="HBoxContainer" type="HBoxContainer" parent="Button/EnhancementInfo"]
+layout_mode = 2
 
-[node name="StrengthIcon" type="TextureRect" parent="Button/InfoContainer"]
+[node name="EnhancementIcon" type="TextureRect" parent="Button/EnhancementInfo/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(24, 24)
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_uois1")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ActionTypeLabel" type="Label" parent="Button/InfoContainer"]
+[node name="EnhancementLabel" type="Label" parent="Button/EnhancementInfo/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "Attack"
+theme_override_font_sizes/font_size = 16
+text = " "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="InsecurityIcon" type="TextureRect" parent="Button/InfoContainer"]
+[node name="TypeInfo" type="MarginContainer" parent="Button"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(24, 24)
+layout_mode = 1
+offset_right = 9.0
+offset_bottom = 27.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 0
+
+[node name="ActionTypeLabel" type="Label" parent="Button/TypeInfo"]
+unique_name_in_owner = true
 layout_mode = 2
-texture = ExtResource("3_my4dn")
-expand_mode = 1
-stretch_mode = 5
+theme_override_font_sizes/font_size = 16
+text = " "
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CornerColorRect" type="ColorRect" parent="Button"]
 layout_mode = 0
 offset_top = -4.0
-offset_right = 32.0
-color = Color(0.196078, 0.196078, 0.196078, 1)
-
-[node name="CornerColorRect2" type="ColorRect" parent="Button"]
-layout_mode = 0
-offset_left = 192.0
-offset_top = -4.0
 offset_right = 224.0
-color = Color(0.196078, 0.196078, 0.196078, 1)
-
-[node name="CornerColorRect3" type="ColorRect" parent="Button"]
-layout_mode = 0
-offset_left = 32.0
-offset_top = -19.0
-offset_right = 192.0
-offset_bottom = -15.0
 color = Color(0.196078, 0.196078, 0.196078, 1)
 
 [node name="HighlightedUI" type="Control" parent="Button"]
@@ -139,40 +120,9 @@ offset_bottom = 116.0
 
 [node name="ColorRect5" type="ColorRect" parent="Button/HighlightedUI"]
 clip_contents = true
-custom_minimum_size = Vector2(28, 4)
+custom_minimum_size = Vector2(224, 4)
 layout_mode = 2
 offset_top = -4.0
 offset_right = 27.0
 
-[node name="ColorRect6" type="ColorRect" parent="Button/HighlightedUI"]
-clip_contents = true
-custom_minimum_size = Vector2(28, 4)
-layout_mode = 2
-offset_left = 196.0
-offset_top = -4.0
-offset_right = 224.0
-
-[node name="ColorRect2" type="ColorRect" parent="Button/HighlightedUI"]
-custom_minimum_size = Vector2(4, 19)
-layout_mode = 2
-offset_left = 28.0
-offset_top = -19.0
-offset_right = 32.0
-
-[node name="ColorRect8" type="ColorRect" parent="Button/HighlightedUI"]
-custom_minimum_size = Vector2(160, 4)
-layout_mode = 2
-offset_left = 32.0
-offset_top = -19.0
-offset_right = 192.0
-offset_bottom = -15.0
-
-[node name="ColorRect7" type="ColorRect" parent="Button/HighlightedUI"]
-custom_minimum_size = Vector2(4, 19)
-layout_mode = 2
-offset_left = 192.0
-offset_top = -19.0
-offset_right = 196.0
-
 [connection signal="gui_input" from="Button" to="." method="_on_button_gui_input"]
-[connection signal="pressed" from="Button/InfoBackgroundButton" to="." method="_on_pressed"]

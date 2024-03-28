@@ -39,23 +39,23 @@ static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene, 
 	action_card_execution.defender_player = battle_scene.get_non_active_side_player()
 	action_card_execution.is_insecurity_group = is_insecurity_group
 	
-	match card_info.action_type:
-		Constants.CardAction.DAMAGE:
-			_execute_damage_action_card(action_card_execution)
-		Constants.CardAction.SHIELD:
-			_execute_shield_action_card(action_card_execution)
-		Constants.CardAction.POISON:
-			_execute_poison_action_card(action_card_execution)
-		Constants.CardAction.HEAL:
-			_execute_heal_action_card(action_card_execution)
-		Constants.CardAction.LIFE_STEAL:
-			_execute_life_steal_action_card(action_card_execution)
-		Constants.CardAction.STAMINA:
-			_execute_stamina_action_card(action_card_execution)
-		Constants.CardAction.FIRE:
-			_execute_fire_action_card(action_card_execution)
-		Constants.CardAction.WEAKNESS:
-			_execute_weakness_action_card(action_card_execution)
+	#match card_info.action_type:
+		#Constants.CardAction.DAMAGE:
+			#_execute_damage_action_card(action_card_execution)
+		#Constants.CardAction.SHIELD:
+			#_execute_shield_action_card(action_card_execution)
+		#Constants.CardAction.POISON:
+			#_execute_poison_action_card(action_card_execution)
+		#Constants.CardAction.HEAL:
+			#_execute_heal_action_card(action_card_execution)
+		#Constants.CardAction.LIFE_STEAL:
+			#_execute_life_steal_action_card(action_card_execution)
+		#Constants.CardAction.STAMINA:
+			#_execute_stamina_action_card(action_card_execution)
+		#Constants.CardAction.FIRE:
+			#_execute_fire_action_card(action_card_execution)
+		#Constants.CardAction.WEAKNESS:
+			#_execute_weakness_action_card(action_card_execution)
 	
 	action_card_execution.battle_scene.battle_interface.update_player_stats(attacker_player)
 	action_card_execution.battle_scene.battle_interface.update_player_stats(defender_player)

@@ -4,7 +4,18 @@ extends Node
 
 var insecurity_colors = preload("res://util/insecurities/insecurity_textures.tres")
 
-enum Insecurity { 
+enum CardAction {
+	PHYSICAL_APPEARANCE_ATTACK, 
+	SELF_ESTEEM_ATTACK, 
+	INTELLIGENCE_ATTACK, 
+	PHYSICAL_ABILITY_ATTACK, 
+	SOCIAL_LIFE_ATTACK,
+	FASHION_ATTACK,
+	HEAL,
+	SHIELD
+}
+
+enum Insecurity {
 	PHYSICAL_APPEARANCE, 
 	SELF_ESTEEM, 
 	INTELLIGENCE, 
@@ -13,23 +24,17 @@ enum Insecurity {
 	FASHION
 }
 
-enum CardAction {
-	DAMAGE,
-	SHIELD,
-	POISON,
-	HEAL,
-	LIFE_STEAL,
-	STAMINA,
-	FIRE,
-	WEAKNESS
-}
-
-enum CardStrength {
-	EXTRA_WEAK,
+enum CardEnhancement {
+	NONE,
 	WEAK,
-	MEDIUM,
-	STRONG,
-	EXTRA_STRONG
+	BUFF,
+	EXTRA_BUFF,
+	POISON,
+	LIFE_STEAL,
+	FIRE,
+	FREEZE,
+	WEAKEN,
+	STAMINA
 }
 
 enum PlayerSide {

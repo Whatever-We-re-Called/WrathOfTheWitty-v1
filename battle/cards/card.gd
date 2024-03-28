@@ -6,17 +6,14 @@ signal throw
 
 @onready var insult_label = %InsultLabel
 @onready var button = $Button
-@onready var info_background_button = %InfoBackgroundButton
-@onready var info_container = $Button/InfoContainer
-@onready var action_type_label = %ActionTypeLabel
-@onready var strength_icon = %StrengthIcon
-@onready var insecurity_icon = %InsecurityIcon
 @onready var corner_rects = [
 	$Button/CornerColorRect,
-	$Button/CornerColorRect2,
-	$Button/CornerColorRect3
 ]
 @onready var highlighted_ui = %HighlightedUI
+@onready var enhancement_info = %EnhancementInfo
+@onready var enhancement_icon = %EnhancementIcon
+@onready var enhancement_label = %EnhancementLabel
+@onready var action_type_label = %ActionTypeLabel
 
 var card_info: CardInfo
 
@@ -29,12 +26,12 @@ func _ready():
 
 func init():
 	_init_action_texture()
-	_init_insecurity_texture()
-	_init_strength_texture()
-	_init_insult_lavel()
+	_init_enhancement_texture()
+	_init_insult_texture()
 
 
 func _init_action_texture():
+	
 	var color = CARD_TEXTURES.get_action_color(card_info.action_type)
 	var style_box = StyleBoxFlat.new()
 	style_box.bg_color = color
@@ -43,35 +40,49 @@ func _init_action_texture():
 	button.add_theme_stylebox_override("pressed", style_box)
 	button.add_theme_stylebox_override("disabled", style_box)
 	button.add_theme_stylebox_override("focus", style_box)
-	info_background_button.add_theme_stylebox_override("normal", style_box)
-	info_background_button.add_theme_stylebox_override("hover", style_box)
-	info_background_button.add_theme_stylebox_override("pressed", style_box)
-	info_background_button.add_theme_stylebox_override("disabled", style_box)
-	info_background_button.add_theme_stylebox_override("focus", style_box)
-	
-	action_type_label.text = CARD_TEXTURES.get_action_as_string(card_info.action_type)
 	
 	var corner_color_gradient = Gradient.new()
 	corner_color_gradient.add_point(0, color)
 	corner_color_gradient.add_point(1, Color.WHITE)
-	var corner_color = corner_color_gradient.sample(0.025)
+	
+	var corner_color = corner_color_gradient.sample(0.1)
 	for corner_rect in corner_rects:
 		corner_rect.color = corner_color
+	
+	var text_color = corner_color_gradient.sample(0.75)
+	action_type_label.text = CARD_TEXTURES.get_action_as_string(card_info.action_type)
+	action_type_label.add_theme_color_override("font_color", text_color)
 
 
-func _init_insecurity_texture():
-	insecurity_icon.texture = Constants.get_insecurity_icon()
-	insecurity_icon.self_modulate = Constants.get_insecurity_color(card_info.insecurity_type)
+func _init_enhancement_texture():
+	
+	if not _can_have_enhancement_ui():
+		enhancement_info.visible = false
+	else:
+		enhancement_info.visible = true
+		
+		var enhancement = card_info.enhancement
+		var enhancement_color_gradient = Gradient.new()
+		enhancement_color_gradient.add_point(0, CARD_TEXTURES.get_enhancement_color(enhancement))
+		enhancement_color_gradient.add_point(1, Color.WHITE)
+		var enhancement_color = enhancement_color_gradient.sample(0.5)
+		
+		enhancement_icon.texture = CARD_TEXTURES.enhancement_icon
+		enhancement_icon.self_modulate = enhancement_color
+		enhancement_label.text = CARD_TEXTURES.get_enhancement_as_string(enhancement)
+		enhancement_label.add_theme_color_override("font_color", enhancement_color)
 
 
-func _init_strength_texture():
-	strength_icon.texture = CARD_TEXTURES.strength_icon
-	strength_icon.self_modulate = CARD_TEXTURES.get_strength_color(card_info.strength_type)
+func _can_have_enhancement_ui() -> bool:
+	# Calculates if it should show Enhancement UI based off
+	# Constants.CardEnhancement enum (indexes 0-5 are attack
+	# cards).
+	var action_type = card_info.action_type
+	return action_type >= 0 and action_type <= 5
 
 
-func _init_insult_lavel():
+func _init_insult_texture():
 	insult_label.text = card_info.insult_text
-	#print(insult_label.get_
 
 
 func _on_button_gui_input(event):
