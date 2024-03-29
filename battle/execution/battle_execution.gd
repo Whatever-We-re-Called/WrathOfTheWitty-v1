@@ -3,15 +3,15 @@ class_name BattleExecution
 const BATTLE_EXECUTION_INFO = preload("res://battle/execution/battle_execution_info.tres")
 
 
-class ActionCardExecution:
+class BattleExecutionData:
 	var card_info: CardInfo
 	var battle_scene: BattleScene
 	var attacker_player: BattlePlayer
 	var defender_player: BattlePlayer
 	var is_insecurity_group: bool
 
+
 static func execute_action_cards(card_infos: Array[CardInfo], battle_scene: BattleScene):
-	
 	var is_insecurity_group = _is_a_insecurity_group(card_infos)
 	for card_info in card_infos:
 		execute_action_card(card_info, battle_scene, is_insecurity_group)
@@ -20,9 +20,11 @@ static func execute_action_cards(card_infos: Array[CardInfo], battle_scene: Batt
 static func _is_a_insecurity_group(card_infos: Array[CardInfo]) -> bool:
 	if card_infos.size() == 1: return false
 	
-	var first_insecurity = card_infos[0].insecurity_type
+	var first_action_type = card_infos[0].action_type
 	for card_info in card_infos:
-		if card_info.insecurity_type != first_insecurity:
+		if not card_info.is_attack_action_type():
+			return false
+		elif card_info.action_type != first_action_type:
 			return false
 	
 	return true
@@ -32,16 +34,19 @@ static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene, 
 	var attacker_player = battle_scene.player
 	var defender_player = battle_scene.get_non_active_side_player() 
 	
-	var action_card_execution = ActionCardExecution.new()
-	action_card_execution.card_info = card_info
-	action_card_execution.battle_scene = battle_scene
-	action_card_execution.attacker_player = battle_scene.player
-	action_card_execution.defender_player = battle_scene.get_non_active_side_player()
-	action_card_execution.is_insecurity_group = is_insecurity_group
+	var battle_execution_data = BattleExecutionData.new()
+	battle_execution_data.card_info = card_info
+	battle_execution_data.battle_scene = battle_scene
+	battle_execution_data.attacker_player = battle_scene.player
+	battle_execution_data.defender_player = battle_scene.get_non_active_side_player()
+	battle_execution_data.is_insecurity_group = is_insecurity_group
+	
+	if card_info.is_attack_action_type():
+		var damage_dealt = _execute_action_card_damage(battle_execution_data)
 	
 	#match card_info.action_type:
-		#Constants.CardAction.DAMAGE:
-			#_execute_damage_action_card(action_card_execution)
+		#Constants.CardAction.PHYSICAL_ABILITY_ATTACK, :
+			#_execute_damage_action_card(battle_execution_data)
 		#Constants.CardAction.SHIELD:
 			#_execute_shield_action_card(action_card_execution)
 		#Constants.CardAction.POISON:
@@ -57,73 +62,40 @@ static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene, 
 		#Constants.CardAction.WEAKNESS:
 			#_execute_weakness_action_card(action_card_execution)
 	
-	action_card_execution.battle_scene.battle_interface.update_player_stats(attacker_player)
-	action_card_execution.battle_scene.battle_interface.update_player_stats(defender_player)
+	battle_execution_data.battle_scene.battle_interface.update_player_stats(attacker_player)
+	battle_execution_data.battle_scene.battle_interface.update_player_stats(defender_player)
 
 
-static func _execute_damage_action_card(action_card_execution: ActionCardExecution):
-	var execution_value = _get_action_card_execution_value(
-		BATTLE_EXECUTION_INFO.base_damage_value,
-		action_card_execution.attacker_player.level,
-		BATTLE_EXECUTION_INFO.damage_level_increment,
-		BATTLE_EXECUTION_INFO.damage_strength_multipliers[action_card_execution.card_info.strength_type],
-		action_card_execution.is_insecurity_group
-	) 
+static func _execute_action_card_damage(battle_execution_data: BattleExecutionData) -> int:
+	var damage_dealt = _get_damage_dealt_value(battle_execution_data)
 	
-	action_card_execution.defender_player.damage(execution_value)
-
-
-static func _execute_shield_action_card(action_card_execution: ActionCardExecution):
-	pass
-
-
-static func _execute_poison_action_card(action_card_execution: ActionCardExecution):
-	pass
-
-
-static func _execute_heal_action_card(action_card_execution: ActionCardExecution):
-	var execution_value = _get_action_card_execution_value(
-		BATTLE_EXECUTION_INFO.base_heal_value,
-		action_card_execution.attacker_player.level,
-		BATTLE_EXECUTION_INFO.heal_level_increment,
-		BATTLE_EXECUTION_INFO.heal_strength_multipliers[action_card_execution.card_info.strength_type],
-		action_card_execution.is_insecurity_group
-	) 
+	battle_execution_data.defender_player.damage(damage_dealt)
 	
-	action_card_execution.attacker_player.heal(execution_value)
+	print(damage_dealt)
+	return damage_dealt
 
 
-static func _execute_life_steal_action_card(action_card_execution: ActionCardExecution):
-	var execution_value = _get_action_card_execution_value(
-		BATTLE_EXECUTION_INFO.base_life_steal_value,
-		action_card_execution.attacker_player.level,
-		BATTLE_EXECUTION_INFO.life_steal_level_increment,
-		BATTLE_EXECUTION_INFO.life_steal_strength_multipliers[action_card_execution.card_info.strength_type],
-		action_card_execution.is_insecurity_group
-	)
+static func _get_damage_dealt_value(battle_execution_data: BattleExecutionData) -> int:
+	var player_level = battle_execution_data.attacker_player.level
+	var card_info = battle_execution_data.card_info
 	
-	action_card_execution.attacker_player.heal(execution_value)
-	action_card_execution.defender_player.damage(execution_value)
-
-
-static func _execute_stamina_action_card(action_card_execution: ActionCardExecution):
-	var execution_value = _get_action_card_execution_value(
-		BATTLE_EXECUTION_INFO.base_stamina_value,
-		action_card_execution.attacker_player.level,
-		BATTLE_EXECUTION_INFO.stamina_level_increment,
-		BATTLE_EXECUTION_INFO.stamina_strength_multipliers[action_card_execution.card_info.strength_type],
-		action_card_execution.is_insecurity_group
-	)
+	var damage_dealt = float(BATTLE_EXECUTION_INFO.base_damage_values[player_level - 1])
 	
-	action_card_execution.attacker_player.replenish_stamina(execution_value)
-
-
-static func _execute_fire_action_card(action_card_execution: ActionCardExecution):
-	pass
-
-
-static func _execute_weakness_action_card(action_card_execution: ActionCardExecution):
-	pass
+	var applied_multiplier = 1.0
+	# Enhancement Multipliers
+	if card_info.enhancement == Constants.CardEnhancement.BUFF:
+		applied_multiplier *= BATTLE_EXECUTION_INFO.buff_enhancement_multiplier
+	elif card_info.enhancement == Constants.CardEnhancement.EXTRA_BUFF:
+		applied_multiplier *= BATTLE_EXECUTION_INFO.extra_buff_enhancement_multiplier
+	elif card_info.enhancement == Constants.CardEnhancement.WEAK:
+		applied_multiplier *= BATTLE_EXECUTION_INFO.weak_enhancement_multiplier
+	# Grouping and Matching Multipliers
+	if battle_execution_data.is_insecurity_group:
+		applied_multiplier *=  BATTLE_EXECUTION_INFO.insecurity_group_multiplier
+	if card_info.get_insecurity_type() == battle_execution_data.defender_player.config.insecurity:
+		applied_multiplier *= BATTLE_EXECUTION_INFO.insecurity_matching_multiplier
+	
+	return int(ceil(damage_dealt * applied_multiplier))
 
 
 static func _get_action_card_execution_value(base_value: float, level: int, level_increment: float, strength_multiplier: float, is_insecurity_group: bool) -> int:

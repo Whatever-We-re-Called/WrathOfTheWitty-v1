@@ -1,8 +1,13 @@
 class_name BattleExecutionInfo extends Resource
 
 @export var insecurity_group_multiplier: float
+@export var insecurity_matching_multiplier: float
+@export var buff_enhancement_multiplier: float
+@export var extra_buff_enhancement_multiplier: float
+@export var weak_enhancement_multiplier: float
 @export_group("Base Values")
-@export var base_damage_value: float
+@export var base_damage_values: Array[int]
+@export var base_poison_values: Array[int]
 @export var base_shield_value: float
 @export var base_poison_value: float
 @export var base_heal_value: float
