@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bjuo1twhjs2ck"]
+
+[node name="Button" type="Button"]
+offset_right = 127.0
+offset_bottom = 31.0
+grow_horizontal = 2
+size_flags_horizontal = 15
+text = "Add Subproject"

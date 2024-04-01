@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="WrathOfTheWitty"
+run/main_scene="res://addons/subprojects/dock.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/plugin_refresher/plugin.cfg", "res://addons/subprojects/plugin.cfg")
 
 [rendering]
 
