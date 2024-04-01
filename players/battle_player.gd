@@ -5,6 +5,7 @@ var level: int
 var health: int
 var stamina: int
 var side: Constants.PlayerSide
+var active_status_effects: Dictionary = {}
 
 var cards_in_deck: Array[CardInfo]
 var cards_in_hand: Array[CardInfo]
@@ -13,6 +14,7 @@ var selected_cards: Array[CardInfo]
 
 const REROLL_STAMINA_COST = 1
 const THROW_STAMINA_COST = 2 
+const STATUS_EFFECT_UI = preload("res://players/status_effects/status_effect_ui.tscn")
 
 
 func init(config: PlayerConfig, side: Constants.PlayerSide):
@@ -34,8 +36,17 @@ func init(config: PlayerConfig, side: Constants.PlayerSide):
 
 
 func damage(amount: int):
+	var shield_amount = active_status_effects[Constants.PlayerStatusEffect.SHIELD]
+	
+	for i in range(shield_amount):
+		amount -= 1
+		shield_amount -= 1
+	
 	health -= amount
+	print(amount)
 	health = clamp(health, 0, config.max_health)
+	
+	active_status_effects[Constants.PlayerStatusEffect.SHIELD] = shield_amount
 
 
 func heal(amount: int):

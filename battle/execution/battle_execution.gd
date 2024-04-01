@@ -42,7 +42,7 @@ static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene, 
 	battle_execution_data.is_insecurity_group = is_insecurity_group
 	
 	if card_info.is_attack_action_type():
-		var damage_dealt = _execute_action_card_damage(battle_execution_data)
+		var damage_dealt = _execute_action_card_attack(battle_execution_data)
 	
 	#match card_info.action_type:
 		#Constants.CardAction.PHYSICAL_ABILITY_ATTACK, :
@@ -66,12 +66,11 @@ static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene, 
 	battle_execution_data.battle_scene.battle_interface.update_player_stats(defender_player)
 
 
-static func _execute_action_card_damage(battle_execution_data: BattleExecutionData) -> int:
+static func _execute_action_card_attack(battle_execution_data: BattleExecutionData) -> int:
 	var damage_dealt = _get_damage_dealt_value(battle_execution_data)
 	
 	battle_execution_data.defender_player.damage(damage_dealt)
 	
-	print(damage_dealt)
 	return damage_dealt
 
 
@@ -79,27 +78,39 @@ static func _get_damage_dealt_value(battle_execution_data: BattleExecutionData) 
 	var player_level = battle_execution_data.attacker_player.level
 	var card_info = battle_execution_data.card_info
 	
-	var damage_dealt = float(BATTLE_EXECUTION_INFO.base_damage_values[player_level - 1])
+	var damage_dealt = float(BATTLE_EXECUTION_INFO.base_attack_damage_value)
 	
 	var applied_multiplier = 1.0
 	# Enhancement Multipliers
 	if card_info.enhancement == Constants.CardEnhancement.BUFF:
-		applied_multiplier *= BATTLE_EXECUTION_INFO.buff_enhancement_multiplier
+		applied_multiplier += BATTLE_EXECUTION_INFO.buff_enhancement_percentage_increase
 	elif card_info.enhancement == Constants.CardEnhancement.EXTRA_BUFF:
-		applied_multiplier *= BATTLE_EXECUTION_INFO.extra_buff_enhancement_multiplier
+		applied_multiplier += BATTLE_EXECUTION_INFO.extra_buff_enhancement_percentage_increase
 	elif card_info.enhancement == Constants.CardEnhancement.WEAK:
-		applied_multiplier *= BATTLE_EXECUTION_INFO.weak_enhancement_multiplier
+		applied_multiplier += BATTLE_EXECUTION_INFO.weak_enhancement_percentage_increase
 	# Grouping and Matching Multipliers
 	if battle_execution_data.is_insecurity_group:
-		applied_multiplier *=  BATTLE_EXECUTION_INFO.insecurity_group_multiplier
+		applied_multiplier +=  BATTLE_EXECUTION_INFO.insecurity_group_percentage_increase
 	if card_info.get_insecurity_type() == battle_execution_data.defender_player.config.insecurity:
-		applied_multiplier *= BATTLE_EXECUTION_INFO.insecurity_matching_multiplier
+		applied_multiplier += BATTLE_EXECUTION_INFO.insecurity_match_percentage_increase
 	
-	return int(ceil(damage_dealt * applied_multiplier))
+	print(damage_dealt, " ", applied_multiplier)
+	return int(round(damage_dealt * applied_multiplier))
 
 
-static func _get_action_card_execution_value(base_value: float, level: int, level_increment: float, strength_multiplier: float, is_insecurity_group: bool) -> int:
-	var result = (base_value + (level * level_increment)) * strength_multiplier
-	if is_insecurity_group:
-		result *= BATTLE_EXECUTION_INFO.insecurity_group_multiplier
-	return ceil(result)
+static func _execute_action_card_heal(battle_execution_data: BattleExecutionData) -> int:
+	var health_given = BATTLE_EXECUTION_INFO.base_healing_value
+	
+	battle_execution_data.attacker_player.heal(health_given)
+	
+	return health_given
+
+
+static func _execute_action_card_shield(battle_execution_data: BattleExecutionData) -> int:
+	var shield_given = BATTLE_EXECUTION_INFO.base_healing_value
+	
+	# TODO Shield logic
+	#battle_execution_data.attacker_player.heal(shield_given)
+	
+	return shield_given
+

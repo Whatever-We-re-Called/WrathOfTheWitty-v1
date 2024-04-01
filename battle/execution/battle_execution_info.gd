@@ -1,35 +1,21 @@
 class_name BattleExecutionInfo extends Resource
 
-@export var insecurity_group_multiplier: float
-@export var insecurity_matching_multiplier: float
-@export var buff_enhancement_multiplier: float
-@export var extra_buff_enhancement_multiplier: float
-@export var weak_enhancement_multiplier: float
-@export_group("Base Values")
-@export var base_damage_values: Array[int]
-@export var base_poison_values: Array[int]
-@export var base_shield_value: float
-@export var base_poison_value: float
-@export var base_heal_value: float
-@export var base_life_steal_value: float
-@export var base_stamina_value: float
-@export var base_fire_value: float
-@export var base_weakness_value: float
-@export_group("Level Increments")
-@export var damage_level_increment: float
-@export var shield_level_increment: float
-@export var poison_level_increment: float
-@export var heal_level_increment: float
-@export var life_steal_level_increment: float
-@export var stamina_level_increment: float
-@export var fire_level_increment: float
-@export var weakness_level_increment: float
-@export_group("Strength Multipliers")
-@export var damage_strength_multipliers: Array[float]
-@export var shield_strength_multipliers: Array[float]
-@export var poison_strength_multipliers: Array[float]
-@export var heal_strength_multipliers: Array[float]
-@export var life_steal_strength_multipliers: Array[float]
-@export var stamina_strength_multipliers: Array[float]
-@export var fire_strength_multipliers: Array[float]
-@export var weakness_strength_multipliers: Array[float]
+@export_group("Percentage Increases")
+@export var insecurity_group_percentage_increase: float
+@export var insecurity_match_percentage_increase: float
+@export_subgroup("Enhancements")
+@export var weak_enhancement_percentage_increase: float
+@export var buff_enhancement_percentage_increase: float
+@export var extra_buff_enhancement_percentage_increase: float
+@export_group("Base Values & Percentages")
+@export_subgroup("Actions")
+@export var base_attack_damage_value: int
+@export var base_healing_value: int
+@export var base_shielding_value: int
+@export_subgroup("Enhancements")
+@export var base_poison_value: int
+@export var base_life_steal_heal_percentage: float
+@export var base_fire_value: int
+@export var base_freeze_value: int
+@export var base_weaken_value: int
+@export var base_stamina_value: int

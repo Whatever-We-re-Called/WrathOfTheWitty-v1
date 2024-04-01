@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbocnnnw4vt17"]
+[gd_scene load_steps=6 format=3 uid="uid://cbocnnnw4vt17"]
 
 [ext_resource type="Texture2D" uid="uid://dsw3jmdsv2f4u" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/rhombus.svg" id="1_1f208"]
 [ext_resource type="Script" path="res://ui/battle_interface.gd" id="1_iesfx"]
-[ext_resource type="Texture2D" uid="uid://bspm2h1r2y63t" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/timer_0.svg" id="2_1gk2r"]
 [ext_resource type="Script" path="res://ui/player_stats_ui.gd" id="2_6m8b4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dobju"]
@@ -71,8 +70,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 16
 text = "75/100"
+horizontal_alignment = 1
 
-[node name="AbilityBar" type="ProgressBar" parent="LeftPlayerStatsUI/VBoxContainer"]
+[node name="StaminaBar" type="ProgressBar" parent="LeftPlayerStatsUI/VBoxContainer"]
 custom_minimum_size = Vector2(384, 32)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -80,7 +80,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_u4erq")
 value = 40.0
 show_percentage = false
 
-[node name="AbilityBarLabel" type="Label" parent="LeftPlayerStatsUI/VBoxContainer/AbilityBar"]
+[node name="StaminaBarLabel" type="Label" parent="LeftPlayerStatsUI/VBoxContainer/StaminaBar"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -95,33 +95,41 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 16
 text = "2/5"
+vertical_alignment = 1
+
+[node name="ConfidenceBar" type="ProgressBar" parent="LeftPlayerStatsUI/VBoxContainer"]
+custom_minimum_size = Vector2(384, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_u4erq")
+max_value = 30.0
+show_percentage = false
+
+[node name="ConfidenceBarLabel" type="Label" parent="LeftPlayerStatsUI/VBoxContainer/ConfidenceBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -11.5
+offset_right = 12.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+text = "0%"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ActiveStatusEffects" type="MarginContainer" parent="LeftPlayerStatsUI/VBoxContainer"]
-visible = false
 layout_mode = 2
-theme_override_constants/margin_top = 8
+theme_override_constants/margin_top = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LeftPlayerStatsUI/VBoxContainer/ActiveStatusEffects"]
 layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="TextureRect" type="TextureRect" parent="LeftPlayerStatsUI/VBoxContainer/ActiveStatusEffects/HBoxContainer"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-texture = ExtResource("2_1gk2r")
-expand_mode = 1
-
-[node name="TextureRect2" type="TextureRect" parent="LeftPlayerStatsUI/VBoxContainer/ActiveStatusEffects/HBoxContainer"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-texture = ExtResource("2_1gk2r")
-expand_mode = 1
-
-[node name="TextureRect3" type="TextureRect" parent="LeftPlayerStatsUI/VBoxContainer/ActiveStatusEffects/HBoxContainer"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-texture = ExtResource("2_1gk2r")
-expand_mode = 1
+theme_override_constants/separation = 16
 
 [node name="RightPlayerStatsUI" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -179,8 +187,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 16
 text = "75/100"
+horizontal_alignment = 1
 
-[node name="AbilityBar" type="ProgressBar" parent="RightPlayerStatsUI/VBoxContainer"]
+[node name="StaminaBar" type="ProgressBar" parent="RightPlayerStatsUI/VBoxContainer"]
 custom_minimum_size = Vector2(384, 32)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -189,7 +198,7 @@ value = 40.0
 fill_mode = 1
 show_percentage = false
 
-[node name="AbilityBarLabel" type="Label" parent="RightPlayerStatsUI/VBoxContainer/AbilityBar"]
+[node name="StaminaBarLabel" type="Label" parent="RightPlayerStatsUI/VBoxContainer/StaminaBar"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -204,35 +213,17 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 16
 text = "2/5"
+horizontal_alignment = 1
 
 [node name="ActiveStatusEffects" type="MarginContainer" parent="RightPlayerStatsUI/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 8
-theme_override_constants/margin_top = 8
+theme_override_constants/margin_top = 0
 theme_override_constants/margin_bottom = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="RightPlayerStatsUI/VBoxContainer/ActiveStatusEffects"]
 layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="TextureRect" type="TextureRect" parent="RightPlayerStatsUI/VBoxContainer/ActiveStatusEffects/HBoxContainer"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-texture = ExtResource("2_1gk2r")
-expand_mode = 1
-
-[node name="TextureRect2" type="TextureRect" parent="RightPlayerStatsUI/VBoxContainer/ActiveStatusEffects/HBoxContainer"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-texture = ExtResource("2_1gk2r")
-expand_mode = 1
-
-[node name="TextureRect3" type="TextureRect" parent="RightPlayerStatsUI/VBoxContainer/ActiveStatusEffects/HBoxContainer"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-texture = ExtResource("2_1gk2r")
-expand_mode = 1
+theme_override_constants/separation = 16
 
 [node name="GameInfoUI" type="CenterContainer" parent="."]
 layout_mode = 1

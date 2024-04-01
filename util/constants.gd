@@ -37,6 +37,18 @@ enum CardEnhancement {
 	STAMINA
 }
 
+enum PlayerStatusEffect {
+	SHIELD,
+	POISON,
+	BURN,
+	FREEZE,
+	WEAKEN
+}
+
+var PlayerStatusEffectInfo = {
+	PlayerStatusEffect.SHIELD: preload("res://players/status_effects/effects/shield_status_effect_info.tres")
+}
+
 enum PlayerSide {
 	LEFT,
 	RIGHT
