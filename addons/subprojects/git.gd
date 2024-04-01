@@ -1,7 +1,7 @@
 @tool
 extends Node
 	
-var sub_path_no_slash = "man_subproj"
+var sub_path_no_slash = "subproject"
 var sub_path = "/" + sub_path_no_slash
 var _and = ' && '
 	
