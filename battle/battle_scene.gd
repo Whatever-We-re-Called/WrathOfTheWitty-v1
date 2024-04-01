@@ -121,6 +121,8 @@ func change_turns():
 	else:
 		active_side = Constants.PlayerSide.LEFT
 	
+	player.handle_active_status_effects()
+	battle_interface.update_player_stats(player)
 	battle_interface.update_hand(player)
 	battle_interface.update_player_deck_and_bag_ui(player)
 	active_template_card.set_talking_side(active_side)

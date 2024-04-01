@@ -7,19 +7,19 @@
 [sub_resource type="Resource" id="Resource_55kac"]
 script = ExtResource("1_5bkd6")
 action_type = 0
-enhancement = 2
+enhancement = 4
 insult_text = "disgusting hideous"
 
 [sub_resource type="Resource" id="Resource_n07db"]
 script = ExtResource("1_5bkd6")
 action_type = 0
-enhancement = 7
+enhancement = 4
 insult_text = "repulsive"
 
 [sub_resource type="Resource" id="Resource_2cqfg"]
 script = ExtResource("1_5bkd6")
 action_type = 1
-enhancement = 0
+enhancement = 4
 insult_text = "incompetent"
 
 [sub_resource type="Resource" id="Resource_qrg13"]

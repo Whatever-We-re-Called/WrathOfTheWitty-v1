@@ -138,3 +138,9 @@ func apply_status_effect(effect: Constants.PlayerStatusEffect, value: int):
 		active_status_effects[effect] += value
 	else:
 		active_status_effects[effect] = value
+
+
+func handle_active_status_effects():
+	if active_status_effects.has(Constants.PlayerStatusEffect.POISON):
+		health -= active_status_effects[Constants.PlayerStatusEffect.POISON]
+		active_status_effects[Constants.PlayerStatusEffect.POISON] -= 1

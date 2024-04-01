@@ -58,7 +58,12 @@ static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene, 
 
 static func _execute_action_card_attack(battle_execution_data: BattleExecutionData):
 	var damage_dealt = _get_damage_dealt_value(battle_execution_data)
+	
 	battle_execution_data.defender_player.damage(damage_dealt)
+	
+	match battle_execution_data.card_info.enhancement:
+		Constants.CardEnhancement.POISON:
+			_apply_poison_effect(battle_execution_data)
 
 
 static func _get_damage_dealt_value(battle_execution_data: BattleExecutionData) -> int:
@@ -82,6 +87,13 @@ static func _get_damage_dealt_value(battle_execution_data: BattleExecutionData) 
 		applied_multiplier += BATTLE_EXECUTION_INFO.insecurity_match_percentage_increase
 	
 	return int(round(damage_dealt * applied_multiplier))
+
+
+static func _apply_poison_effect(battle_execution_data: BattleExecutionData):
+	var defender_player = battle_execution_data.defender_player
+	var applied_poison_value = BATTLE_EXECUTION_INFO.base_poison_value
+	
+	defender_player.apply_status_effect(Constants.PlayerStatusEffect.POISON, applied_poison_value)
 
 
 static func _execute_action_card_heal(battle_execution_data: BattleExecutionData) -> int:
