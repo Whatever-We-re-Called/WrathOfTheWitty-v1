@@ -58,6 +58,11 @@ func _exit_tree():
 	# Clean-up of the plugin goes here.
 	remove_control_from_docks(dock)
 	
-	
+
+func _build() -> bool:
+	update_all()
+	return true
+
+
 func _process(delta):
 	add_button.size.x = add_button.get_parent().size.x
