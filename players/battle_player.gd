@@ -66,12 +66,12 @@ func add_cards_to_hand(amount: int):
 
 
 func get_next_card_in_deck(remove_result_card: bool) -> CardInfo:
+	if cards_in_deck.is_empty():
+		_refill_deck_from_bag()
+	
 	var result = cards_in_deck[0]
 	if remove_result_card:
 		cards_in_deck.pop_front()
-	
-	if cards_in_deck.is_empty():
-		_refill_deck_from_bag()
 	
 	return result
 
@@ -140,7 +140,20 @@ func apply_status_effect(effect: Constants.PlayerStatusEffect, value: int):
 		active_status_effects[effect] = value
 
 
-func handle_active_status_effects():
+func handle_start_turn():
+	handle_stamina_recharge()
+	handle_poison_status_effect()
+
+
+func handle_end_turn():
+	pass
+
+
+func handle_stamina_recharge():
+	replenish_stamina(1)
+
+
+func handle_poison_status_effect():
 	if active_status_effects.has(Constants.PlayerStatusEffect.POISON):
 		health -= active_status_effects[Constants.PlayerStatusEffect.POISON]
 		active_status_effects[Constants.PlayerStatusEffect.POISON] -= 1

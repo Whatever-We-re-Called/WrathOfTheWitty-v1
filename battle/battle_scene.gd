@@ -116,12 +116,15 @@ func throw_card(card: Card):
 
 
 func change_turns():
+	player.handle_end_turn()
+	battle_interface.update_player_stats(player)
+	
 	if active_side == Constants.PlayerSide.LEFT:
 		active_side = Constants.PlayerSide.RIGHT
 	else:
 		active_side = Constants.PlayerSide.LEFT
 	
-	player.handle_active_status_effects()
+	player.handle_start_turn()
 	battle_interface.update_player_stats(player)
 	battle_interface.update_hand(player)
 	battle_interface.update_player_deck_and_bag_ui(player)

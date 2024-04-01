@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PlayerConfig" load_steps=20 format=3 uid="uid://d23m4e07eg735"]
+[gd_resource type="Resource" script_class="PlayerConfig" load_steps=10 format=3 uid="uid://d23m4e07eg735"]
 
 [ext_resource type="Script" path="res://battle/cards/info/card_info.gd" id="1_5bkd6"]
 [ext_resource type="Script" path="res://players/configs/player_config.gd" id="2_lpd0p"]
@@ -28,77 +28,17 @@ action_type = 1
 enhancement = 4
 insult_text = "pain in the ass"
 
-[sub_resource type="Resource" id="Resource_2dp8v"]
+[sub_resource type="Resource" id="Resource_hj3ak"]
 script = ExtResource("1_5bkd6")
 action_type = 2
-enhancement = 8
-insult_text = "lacking common sense"
+enhancement = 9
+insult_text = "idiot"
 
-[sub_resource type="Resource" id="Resource_8bmtm"]
+[sub_resource type="Resource" id="Resource_cd58y"]
 script = ExtResource("1_5bkd6")
 action_type = 2
-enhancement = 6
-insult_text = "stupid"
-
-[sub_resource type="Resource" id="Resource_26sny"]
-script = ExtResource("1_5bkd6")
-action_type = 3
-enhancement = 3
-insult_text = "incapable"
-
-[sub_resource type="Resource" id="Resource_6j0qx"]
-script = ExtResource("1_5bkd6")
-action_type = 3
-enhancement = 4
-insult_text = "lacking"
-
-[sub_resource type="Resource" id="Resource_fphlf"]
-script = ExtResource("1_5bkd6")
-action_type = 4
-enhancement = 0
-insult_text = "absurdely unlikeable"
-
-[sub_resource type="Resource" id="Resource_pfs0l"]
-script = ExtResource("1_5bkd6")
-action_type = 4
-enhancement = 3
-insult_text = "bitch"
-
-[sub_resource type="Resource" id="Resource_nudma"]
-script = ExtResource("1_5bkd6")
-action_type = 5
-enhancement = 0
-insult_text = "weird"
-
-[sub_resource type="Resource" id="Resource_8x1c4"]
-script = ExtResource("1_5bkd6")
-action_type = 5
-enhancement = 5
-insult_text = "icky"
-
-[sub_resource type="Resource" id="Resource_ccujl"]
-script = ExtResource("1_5bkd6")
-action_type = 6
-enhancement = 0
-insult_text = "refreshingly stupid"
-
-[sub_resource type="Resource" id="Resource_nrsry"]
-script = ExtResource("1_5bkd6")
-action_type = 6
-enhancement = 0
-insult_text = "mindboggling"
-
-[sub_resource type="Resource" id="Resource_jc86t"]
-script = ExtResource("1_5bkd6")
-action_type = 7
-enhancement = 0
-insult_text = "unlikeable"
-
-[sub_resource type="Resource" id="Resource_svhm4"]
-script = ExtResource("1_5bkd6")
-action_type = 7
-enhancement = 0
-insult_text = "confusing"
+enhancement = 9
+insult_text = "stupid fella"
 
 [resource]
 script = ExtResource("2_lpd0p")
@@ -110,4 +50,4 @@ insecurity = 2
 max_health = 100
 max_stamina = 5
 max_hand_size = 5
-card_deck = Array[ExtResource("1_5bkd6")]([SubResource("Resource_55kac"), SubResource("Resource_n07db"), SubResource("Resource_2cqfg"), SubResource("Resource_qrg13"), SubResource("Resource_2dp8v"), SubResource("Resource_8bmtm"), SubResource("Resource_26sny"), SubResource("Resource_6j0qx"), SubResource("Resource_fphlf"), SubResource("Resource_pfs0l"), SubResource("Resource_nudma"), SubResource("Resource_8x1c4"), SubResource("Resource_ccujl"), SubResource("Resource_nrsry"), SubResource("Resource_jc86t"), SubResource("Resource_svhm4")])
+card_deck = Array[ExtResource("1_5bkd6")]([SubResource("Resource_55kac"), SubResource("Resource_n07db"), SubResource("Resource_2cqfg"), SubResource("Resource_qrg13"), SubResource("Resource_hj3ak"), SubResource("Resource_cd58y")])

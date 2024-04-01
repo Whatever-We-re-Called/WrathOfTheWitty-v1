@@ -43,8 +43,6 @@ static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene, 
 	
 	if card_info.is_attack_action_type():
 		_execute_action_card_attack(battle_execution_data)
-		#match battle_execution_data.card_info.enhancement:
-			#Constants.CardEnhancement.
 	else:
 		match battle_execution_data.card_info.action_type:
 			Constants.CardAction.HEAL:
@@ -64,6 +62,8 @@ static func _execute_action_card_attack(battle_execution_data: BattleExecutionDa
 	match battle_execution_data.card_info.enhancement:
 		Constants.CardEnhancement.POISON:
 			_apply_poison_effect(battle_execution_data)
+		Constants.CardEnhancement.STAMINA:
+			_handle_stamina_enhancement(battle_execution_data)
 
 
 static func _get_damage_dealt_value(battle_execution_data: BattleExecutionData) -> int:
@@ -94,6 +94,10 @@ static func _apply_poison_effect(battle_execution_data: BattleExecutionData):
 	var applied_poison_value = BATTLE_EXECUTION_INFO.base_poison_value
 	
 	defender_player.apply_status_effect(Constants.PlayerStatusEffect.POISON, applied_poison_value)
+
+
+static func _handle_stamina_enhancement(battle_execution_data: BattleExecutionData):
+	battle_execution_data.attacker_player.replenish_stamina(BATTLE_EXECUTION_INFO.base_stamina_value)
 
 
 static func _execute_action_card_heal(battle_execution_data: BattleExecutionData) -> int:
