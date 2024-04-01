@@ -1,7 +1,8 @@
 @tool
 extends Node
 	
-var sub_path = "/man_subproj"
+var sub_path_no_slash = "man_subproj"
+var sub_path = "/" + sub_path_no_slash
 var _and = ' && '
 	
 func pull(dir):
@@ -18,7 +19,7 @@ func clone(dir, url):
 
 
 func mkdir(dir):
-	_run_command('mkdir man_subproj', dir)
+	_run_command('mkdir ' + sub_path_no_slash, dir)
 	
 	
 func _git(command, dir):

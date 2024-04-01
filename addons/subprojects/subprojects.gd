@@ -51,7 +51,7 @@ func update_all():
 
 func project_exists(proj) -> bool:
 	var dir = DirAccess.open(proj.path)
-	return dir.dir_exists("man_subproj/.git")
+	return dir.dir_exists(git.sub_path_no_slash + "/.git")
 
 
 func _exit_tree():
