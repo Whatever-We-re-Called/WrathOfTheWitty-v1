@@ -42,36 +42,23 @@ static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene, 
 	battle_execution_data.is_insecurity_group = is_insecurity_group
 	
 	if card_info.is_attack_action_type():
-		var damage_dealt = _execute_action_card_attack(battle_execution_data)
-	
-	#match card_info.action_type:
-		#Constants.CardAction.PHYSICAL_ABILITY_ATTACK, :
-			#_execute_damage_action_card(battle_execution_data)
-		#Constants.CardAction.SHIELD:
-			#_execute_shield_action_card(action_card_execution)
-		#Constants.CardAction.POISON:
-			#_execute_poison_action_card(action_card_execution)
-		#Constants.CardAction.HEAL:
-			#_execute_heal_action_card(action_card_execution)
-		#Constants.CardAction.LIFE_STEAL:
-			#_execute_life_steal_action_card(action_card_execution)
-		#Constants.CardAction.STAMINA:
-			#_execute_stamina_action_card(action_card_execution)
-		#Constants.CardAction.FIRE:
-			#_execute_fire_action_card(action_card_execution)
-		#Constants.CardAction.WEAKNESS:
-			#_execute_weakness_action_card(action_card_execution)
+		_execute_action_card_attack(battle_execution_data)
+		#match battle_execution_data.card_info.enhancement:
+			#Constants.CardEnhancement.
+	else:
+		match battle_execution_data.card_info.action_type:
+			Constants.CardAction.HEAL:
+				_execute_action_card_heal(battle_execution_data)
+			Constants.CardAction.SHIELD:
+				_execute_action_card_shield(battle_execution_data)
 	
 	battle_execution_data.battle_scene.battle_interface.update_player_stats(attacker_player)
 	battle_execution_data.battle_scene.battle_interface.update_player_stats(defender_player)
 
 
-static func _execute_action_card_attack(battle_execution_data: BattleExecutionData) -> int:
+static func _execute_action_card_attack(battle_execution_data: BattleExecutionData):
 	var damage_dealt = _get_damage_dealt_value(battle_execution_data)
-	
 	battle_execution_data.defender_player.damage(damage_dealt)
-	
-	return damage_dealt
 
 
 static func _get_damage_dealt_value(battle_execution_data: BattleExecutionData) -> int:
@@ -94,12 +81,11 @@ static func _get_damage_dealt_value(battle_execution_data: BattleExecutionData) 
 	if card_info.get_insecurity_type() == battle_execution_data.defender_player.config.insecurity:
 		applied_multiplier += BATTLE_EXECUTION_INFO.insecurity_match_percentage_increase
 	
-	print(damage_dealt, " ", applied_multiplier)
 	return int(round(damage_dealt * applied_multiplier))
 
 
 static func _execute_action_card_heal(battle_execution_data: BattleExecutionData) -> int:
-	var health_given = BATTLE_EXECUTION_INFO.base_healing_value
+	var health_given = BATTLE_EXECUTION_INFO.base_heal_value
 	
 	battle_execution_data.attacker_player.heal(health_given)
 	
@@ -107,10 +93,9 @@ static func _execute_action_card_heal(battle_execution_data: BattleExecutionData
 
 
 static func _execute_action_card_shield(battle_execution_data: BattleExecutionData) -> int:
-	var shield_given = BATTLE_EXECUTION_INFO.base_healing_value
+	var shield_given = BATTLE_EXECUTION_INFO.base_heal_value
 	
-	# TODO Shield logic
-	#battle_execution_data.attacker_player.heal(shield_given)
+	battle_execution_data.attacker_player.apply_status_effect(Constants.PlayerStatusEffect.SHIELD, BATTLE_EXECUTION_INFO.base_shield_value)
 	
 	return shield_given
 

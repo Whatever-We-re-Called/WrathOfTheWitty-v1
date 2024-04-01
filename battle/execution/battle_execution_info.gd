@@ -10,8 +10,8 @@ class_name BattleExecutionInfo extends Resource
 @export_group("Base Values & Percentages")
 @export_subgroup("Actions")
 @export var base_attack_damage_value: int
-@export var base_healing_value: int
-@export var base_shielding_value: int
+@export var base_heal_value: int
+@export var base_shield_value: int
 @export_subgroup("Enhancements")
 @export var base_poison_value: int
 @export var base_life_steal_heal_percentage: float

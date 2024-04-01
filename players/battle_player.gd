@@ -36,14 +36,14 @@ func init(config: PlayerConfig, side: Constants.PlayerSide):
 
 
 func damage(amount: int):
-	var shield_amount = active_status_effects[Constants.PlayerStatusEffect.SHIELD]
-	
+	var shield_amount = 0
+	if active_status_effects.has(Constants.PlayerStatusEffect.SHIELD):
+		shield_amount = active_status_effects[Constants.PlayerStatusEffect.SHIELD]
 	for i in range(shield_amount):
 		amount -= 1
 		shield_amount -= 1
 	
 	health -= amount
-	print(amount)
 	health = clamp(health, 0, config.max_health)
 	
 	active_status_effects[Constants.PlayerStatusEffect.SHIELD] = shield_amount
@@ -131,3 +131,10 @@ func handle_played_selected_cards():
 		add_cards_to_hand(1)
 		send_card_to_bag(card)
 	selected_cards.clear()
+
+
+func apply_status_effect(effect: Constants.PlayerStatusEffect, value: int):
+	if active_status_effects.has(effect):
+		active_status_effects[effect] += value
+	else:
+		active_status_effects[effect] = value
