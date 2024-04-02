@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://meylph4rsrlg"]
+
+[ext_resource type="Texture2D" uid="uid://be4kblnsu2uk2" path="res://addons/subprojects/edit_icon.png" id="1_bcwkq"]
+
+[node name="ProjectLine" type="Control"]
+layout_mode = 3
+anchor_right = 1.08
+offset_bottom = 54.0
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.91
+offset_right = 9.71999
+offset_bottom = 53.0
+grow_horizontal = 2
+split_offset = 450
+dragger_visibility = 2
+
+[node name="VSplitContainer" type="VSplitContainer" parent="HSplitContainer"]
+layout_mode = 2
+dragger_visibility = 2
+
+[node name="Label" type="RichTextLabel" parent="HSplitContainer/VSplitContainer"]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]Label[/b]"
+fit_content = true
+
+[node name="Path" type="RichTextLabel" parent="HSplitContainer/VSplitContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Path"
+fit_content = true
+
+[node name="CenterContainer" type="CenterContainer" parent="HSplitContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HSplitContainer/CenterContainer"]
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("1_bcwkq")
+flat = true
