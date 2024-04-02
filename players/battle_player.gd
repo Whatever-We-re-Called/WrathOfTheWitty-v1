@@ -72,6 +72,8 @@ func get_next_card_in_deck(remove_result_card: bool) -> CardInfo:
 	var result = cards_in_deck[0]
 	if remove_result_card:
 		cards_in_deck.pop_front()
+		if cards_in_deck.is_empty():
+			_refill_deck_from_bag()
 	
 	return result
 

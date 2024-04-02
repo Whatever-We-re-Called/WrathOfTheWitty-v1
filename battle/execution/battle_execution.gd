@@ -64,6 +64,8 @@ static func _execute_action_card_attack(battle_execution_data: BattleExecutionDa
 			_apply_poison_effect(battle_execution_data)
 		Constants.CardEnhancement.STAMINA:
 			_handle_stamina_enhancement(battle_execution_data)
+		Constants.CardEnhancement.LIFE_STEAL:
+			_handle_life_steal_enhancement(battle_execution_data, damage_dealt)
 
 
 static func _get_damage_dealt_value(battle_execution_data: BattleExecutionData) -> int:
@@ -98,6 +100,11 @@ static func _apply_poison_effect(battle_execution_data: BattleExecutionData):
 
 static func _handle_stamina_enhancement(battle_execution_data: BattleExecutionData):
 	battle_execution_data.attacker_player.replenish_stamina(BATTLE_EXECUTION_INFO.base_stamina_value)
+
+
+static func _handle_life_steal_enhancement(battle_execution_data: BattleExecutionData, damage_dealt: int):
+	var heal_amount = round(float(damage_dealt) * BATTLE_EXECUTION_INFO.base_life_steal_heal_percentage)
+	battle_execution_data.attacker_player.heal(heal_amount)
 
 
 static func _execute_action_card_heal(battle_execution_data: BattleExecutionData) -> int:
