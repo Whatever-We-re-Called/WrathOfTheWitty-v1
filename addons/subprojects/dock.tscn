@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bnuec78pkg8wo"]
 
-[ext_resource type="Script" path="res://addons/subprojects/git.gd" id="1_rduio"]
+[ext_resource type="PackedScene" uid="uid://30kpkhgbpf4q" path="res://addons/subprojects/EditDialogue.tscn" id="2_xgvep"]
 
 [node name="Subprojects" type="Control"]
 layout_mode = 3
@@ -8,5 +8,5 @@ anchor_right = 0.087
 offset_right = -0.224007
 offset_bottom = 37.0
 
-[node name="Git" type="Node" parent="."]
-script = ExtResource("1_rduio")
+[node name="EditDialogue" parent="." instance=ExtResource("2_xgvep")]
+visible = false

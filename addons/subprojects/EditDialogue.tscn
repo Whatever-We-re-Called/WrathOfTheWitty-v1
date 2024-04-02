@@ -1,46 +1,120 @@
-[gd_scene load_steps=2 format=3 uid="uid://30kpkhgbpf4q"]
+[gd_scene load_steps=5 format=3 uid="uid://30kpkhgbpf4q"]
 
-[ext_resource type="Script" path="res://addons/subprojects/PopupPanel.gd" id="1_cnjhc"]
+[ext_resource type="Script" path="res://addons/subprojects/EditDialogue.gd" id="1_8qa5t"]
+[ext_resource type="Texture2D" uid="uid://ce58dpqanl4v1" path="res://addons/subprojects/refresh.png" id="2_35e6k"]
+[ext_resource type="Texture2D" uid="uid://dwj7yroxh8mhr" path="res://addons/subprojects/trash.png" id="3_hame8"]
+[ext_resource type="Texture2D" uid="uid://dd5bitpk8h7sq" path="res://addons/subprojects/folder.png" id="4_cjqf6"]
 
-[node name="EditDialogue" type="Control"]
-layout_mode = 3
+[node name="EditDialogue" type="PopupPanel"]
+title = "Edit Subproject"
+initial_position = 4
+size = Vector2i(529, 240)
+visible = true
+script = ExtResource("1_8qa5t")
+
+[node name="Control" type="VBoxContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
 
-[node name="PopupPanel" type="PopupPanel" parent="."]
-title = "Edit Subproject"
-visible = true
-script = ExtResource("1_cnjhc")
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control"]
+layout_mode = 2
 
-[node name="Name" type="TextEdit" parent="PopupPanel"]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 96.0
-offset_bottom = 96.0
+[node name="Label" type="Label" parent="Control/HBoxContainer3"]
+custom_minimum_size = Vector2(440, 30)
+layout_mode = 2
+size_flags_vertical = 1
+text = "  Edit Subproject"
 
-[node name="Path" type="TextEdit" parent="PopupPanel"]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 96.0
-offset_bottom = 96.0
+[node name="Refresh" type="Button" parent="Control/HBoxContainer3"]
+editor_description = "Update Project"
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+tooltip_text = "Update Project"
+focus_mode = 0
+icon = ExtResource("2_35e6k")
 
-[node name="URL" type="TextEdit" parent="PopupPanel"]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 96.0
-offset_bottom = 96.0
+[node name="Delete" type="Button" parent="Control/HBoxContainer3"]
+editor_description = "Delete Project"
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+tooltip_text = "Delete Subproject
+This does not delete any files, only stops the project from tracking"
+focus_mode = 0
+icon = ExtResource("3_hame8")
 
-[node name="Cancel" type="Button" parent="PopupPanel"]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 96.0
-offset_bottom = 96.0
+[node name="Name" type="TextEdit" parent="Control"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+text = "Name"
+placeholder_text = "Subproject Name"
 
-[node name="Save" type="Button" parent="PopupPanel"]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 96.0
-offset_bottom = 96.0
+[node name="Author" type="TextEdit" parent="Control"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+text = "Author"
+placeholder_text = "Author"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control"]
+layout_mode = 2
+
+[node name="Path" type="TextEdit" parent="Control/HBoxContainer2"]
+custom_minimum_size = Vector2(467, 35)
+layout_mode = 2
+text = "File Path"
+placeholder_text = "File Path"
+
+[node name="FileDialogButton" type="Button" parent="Control/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+tooltip_text = "Select Directory in File Dialog"
+focus_mode = 0
+icon = ExtResource("4_cjqf6")
+icon_alignment = 1
+
+[node name="FileDialog" type="FileDialog" parent="Control/HBoxContainer2"]
+title = "Select a Directory"
+initial_position = 4
+size = Vector2i(454, 600)
+exclusive = false
+ok_button_text = "Select Current Folder"
+mode_overrides_title = false
+file_mode = 2
+
+[node name="URL" type="TextEdit" parent="Control"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+text = "Git URL"
+placeholder_text = "Git URL"
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/CenterContainer"]
+layout_mode = 2
+
+[node name="Cancel" type="Button" parent="Control/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+text = "Cancel"
+
+[node name="Save" type="Button" parent="Control/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Save"
+
+[connection signal="pressed" from="Control/HBoxContainer3/Refresh" to="." method="_on_refresh_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer3/Delete" to="." method="_on_delete_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer2/FileDialogButton" to="." method="_on_file_dialog_button_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer2/FileDialogButton" to="." method="_on_button_pressed"]
+[connection signal="dir_selected" from="Control/HBoxContainer2/FileDialog" to="." method="_on_file_dialog_dir_selected"]
+[connection signal="pressed" from="Control/CenterContainer/HBoxContainer/Cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/HBoxContainer/Save" to="." method="_on_save_pressed"]
