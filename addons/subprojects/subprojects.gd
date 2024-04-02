@@ -5,6 +5,7 @@ var git
 var dock
 var add_button
 var subprojects
+var edit_window
 
 func _enter_tree():
 	setup()
@@ -14,6 +15,7 @@ func setup():
 	# Initialization of the plugin goes here.
 	dock = preload("res://addons/subprojects/dock.tscn").instantiate()
 	git = dock.get_node("Git")
+	edit_window = preload("res://addons/subprojects/EditDialogue.tscn")
 	
 	var cfg_contents = FileAccess.get_file_as_string("res://addons/subprojects/subprojects.cfg") 
 	subprojects = JSON.parse_string(cfg_contents).projects
@@ -34,6 +36,7 @@ func setup():
 	
 	add_button = preload("res://addons/subprojects/add_button.tscn").instantiate()
 	add_button.position.y = offset
+	add_button.pressed.connect(open_edit_window)
 	dock.add_child(add_button)
 	
 	add_control_to_dock(DOCK_SLOT_LEFT_UL, dock)
@@ -63,6 +66,10 @@ func _build() -> bool:
 	update_all()
 	return true
 
+
+func open_edit_window(proj = null):
+	if proj == null:
+		edit_window.open(null, null, null)
 
 func _process(delta):
 	add_button.size.x = add_button.get_parent().size.x
