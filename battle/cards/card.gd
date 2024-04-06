@@ -125,7 +125,8 @@ func _reroll():
 		player.damage(BATTLE_EXECUTION_INFO.base_fire_damage_value)
 		set_on_fire(false)
 	else:
-		reroll.emit()
+		if not player.selected_cards.has(card_info):
+			reroll.emit()
 
 
 func _throw():

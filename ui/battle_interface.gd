@@ -89,5 +89,4 @@ func _on_card_throw(card: Card):
 
 
 func _on_card_fire_extinguished(player: BattlePlayer):
-	player.handle_card_fire_extinguished()
 	update_player_stats(player)

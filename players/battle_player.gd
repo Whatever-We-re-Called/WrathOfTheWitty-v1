@@ -100,6 +100,9 @@ func reroll_card(card: Card):
 	send_card_to_bag(card.card_info)
 	
 	_overwrite_card_info(card, get_next_card_in_deck(true))
+	
+	if active_status_effects.has(Constants.PlayerStatusEffect.BURN):
+		_set_card_on_fire(card)
 
 
 func throw_card(card: Card, battle_scene: BattleScene):
@@ -128,10 +131,6 @@ func _overwrite_card_info(card: Card, new_card_info: CardInfo):
 				card.card_info = new_card_info
 				card.init()
 				return
-
-
-func handle_card_fire_extinguished():
-	active_status_effects[Constants.PlayerStatusEffect.BURN] -= 1
 
 
 func handle_played_selected_cards():
@@ -178,8 +177,16 @@ func _handle_burn_status_effect():
 		copy_of_cards_in_hands_scene.shuffle()
 		
 		for i in range(active_status_effects[Constants.PlayerStatusEffect.BURN]):
-			copy_of_cards_in_hands_scene[i].set_on_fire(true)
-		
+			if i >= config.max_hand_size: break
+			_set_card_on_fire(copy_of_cards_in_hands_scene[i])
+
+
+func _set_card_on_fire(card: Card):
+	card.set_on_fire(true)
+	
+	active_status_effects[Constants.PlayerStatusEffect.BURN] -= 1
+	if active_status_effects[Constants.PlayerStatusEffect.BURN] <= 0:
+		active_status_effects.erase(Constants.PlayerStatusEffect.BURN)
 
 
 func _decrement_status_effects():
