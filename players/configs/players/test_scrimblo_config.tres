@@ -7,19 +7,19 @@
 [sub_resource type="Resource" id="Resource_55kac"]
 script = ExtResource("1_5bkd6")
 action_type = 0
-enhancement = 4
+enhancement = 6
 insult_text = "disgusting hideous"
 
 [sub_resource type="Resource" id="Resource_n07db"]
 script = ExtResource("1_5bkd6")
 action_type = 0
-enhancement = 4
+enhancement = 6
 insult_text = "repulsive"
 
 [sub_resource type="Resource" id="Resource_2cqfg"]
 script = ExtResource("1_5bkd6")
 action_type = 1
-enhancement = 5
+enhancement = 6
 insult_text = "incompetent"
 
 [sub_resource type="Resource" id="Resource_qrg13"]
@@ -48,6 +48,6 @@ sprite_scale = Vector2(0.375, 0.375)
 base_level = 1
 insecurity = 2
 max_health = 100
-max_stamina = 5
+max_stamina = 3
 max_hand_size = 5
 card_deck = Array[ExtResource("1_5bkd6")]([SubResource("Resource_55kac"), SubResource("Resource_n07db"), SubResource("Resource_2cqfg"), SubResource("Resource_qrg13"), SubResource("Resource_hj3ak"), SubResource("Resource_cd58y")])

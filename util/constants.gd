@@ -47,7 +47,8 @@ enum PlayerStatusEffect {
 
 var PlayerStatusEffectInfo = {
 	PlayerStatusEffect.SHIELD: preload("res://players/status_effects/effects/shield_status_effect_info.tres"),
-	PlayerStatusEffect.POISON: preload("res://players/status_effects/effects/poison_status_effect.tres")
+	PlayerStatusEffect.POISON: preload("res://players/status_effects/effects/poison_status_effect.tres"),
+	PlayerStatusEffect.BURN: preload("res://players/status_effects/effects/burn_status_effect.tres")
 }
 
 enum PlayerSide {

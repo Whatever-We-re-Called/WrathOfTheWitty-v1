@@ -15,7 +15,8 @@ class_name BattleExecutionInfo extends Resource
 @export_subgroup("Enhancements")
 @export var base_poison_value: int
 @export var base_life_steal_heal_percentage: float
-@export var base_fire_value: int
+@export var base_fire_stack_value: int
+@export var base_fire_damage_value: int
 @export var base_freeze_value: int
 @export var base_weaken_value: int
 @export var base_stamina_value: int

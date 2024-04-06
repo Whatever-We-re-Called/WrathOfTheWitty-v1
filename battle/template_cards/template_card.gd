@@ -89,8 +89,6 @@ func add_selected_card(card: Card):
 
 
 func remove_selected_card(card: Card):
-	card.queue_free()
-	
 	for i in range(selected_cards.size()):
 		if selected_cards[i] == card:
 			selected_cards.remove_at(i)

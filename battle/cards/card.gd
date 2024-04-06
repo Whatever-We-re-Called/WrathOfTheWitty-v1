@@ -3,7 +3,9 @@ class_name Card extends CenterContainer
 signal toggle_selected
 signal reroll
 signal throw
+signal fire_extinguished
 
+@onready var burning_overlay = %BurningOverlay
 @onready var insult_label = %InsultLabel
 @onready var button = $Button
 @onready var corner_rects = [
@@ -16,8 +18,12 @@ signal throw
 @onready var action_type_label = %ActionTypeLabel
 
 var card_info: CardInfo
+var player: BattlePlayer
+
+var is_burning = false
 
 const CARD_TEXTURES = preload("res://battle/cards/textures/card_textures.tres")
+const BATTLE_EXECUTION_INFO = preload("res://battle/execution/battle_execution_info.tres")
 
 
 func _ready():
@@ -55,7 +61,6 @@ func _init_action_texture():
 
 
 func _init_enhancement_texture():
-	
 	if not _can_have_enhancement_ui():
 		enhancement_info.visible = false
 	else:
@@ -85,11 +90,39 @@ func _init_insult_texture():
 	insult_label.text = card_info.insult_text
 
 
+func set_on_fire(is_on_fire: bool):
+	if is_burning and not is_on_fire:
+		fire_extinguished.emit()
+	
+	is_burning = is_on_fire
+	burning_overlay.visible = is_on_fire
+
+
 func _on_button_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
 		if event.get_button_index() == 1:
-			toggle_selected.emit()
+			_select()
 		elif event.get_button_index() == 2:
-			reroll.emit()
+			_reroll()
 		elif event.get_button_index() == 3:
-			throw.emit()
+			_throw()
+
+
+func _select():
+	if is_burning:
+		player.damage(BATTLE_EXECUTION_INFO.base_fire_damage_value)
+		set_on_fire(false)
+	else:
+		toggle_selected.emit()
+
+
+func _reroll():
+	if is_burning:
+		player.damage(BATTLE_EXECUTION_INFO.base_fire_damage_value)
+		set_on_fire(false)
+	else:
+		reroll.emit()
+
+
+func _throw():
+	throw.emit()

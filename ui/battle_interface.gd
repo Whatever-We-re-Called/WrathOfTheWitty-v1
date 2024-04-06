@@ -28,16 +28,20 @@ func update_player_stats(player: BattlePlayer):
 
 func update_hand(player: BattlePlayer):
 	_clear_hand()
+	player.cards_in_hand_scenes.clear()
 	
 	for card_info in player.cards_in_hand:
 		var new_card_scene = CARD_SCENE.instantiate()
 		new_card_scene.card_info = card_info
+		new_card_scene.player = player
 		new_card_scene.toggle_selected.connect(_on_card_toggle_selected.bind(new_card_scene))
 		new_card_scene.reroll.connect(_on_card_reroll.bind(new_card_scene))
 		new_card_scene.throw.connect(_on_card_throw.bind(new_card_scene))
+		new_card_scene.fire_extinguished.connect(_on_card_fire_extinguished.bind(player))
 		card_info.card_scene = new_card_scene
 		
 		add_card(new_card_scene)
+		player.cards_in_hand_scenes.append(new_card_scene)
 
 
 func _clear_hand():
@@ -49,9 +53,15 @@ func _clear_hand():
 
 func add_card(card_scene: Control):
 	if deck_second_row.get_children().size() >= 5:
-		deck_first_row.add_child(card_scene)
+		if card_scene.get_parent() == null:
+			deck_first_row.add_child(card_scene)
+		else:
+			card_scene.reparent(deck_first_row)
 	else:
-		deck_second_row.add_child(card_scene)
+		if card_scene.get_parent() == null:
+			deck_second_row.add_child(card_scene)
+		else:
+			card_scene.reparent(deck_second_row)
 
 
 func update_template_card_ui(template_card: TemplateCard):
@@ -76,3 +86,8 @@ func _on_card_reroll(card: Card):
 
 func _on_card_throw(card: Card):
 	card_throw.emit(card)
+
+
+func _on_card_fire_extinguished(player: BattlePlayer):
+	player.handle_card_fire_extinguished()
+	update_player_stats(player)

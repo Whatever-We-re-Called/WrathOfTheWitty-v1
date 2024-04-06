@@ -12,6 +12,8 @@ var cards_in_hand: Array[CardInfo]
 var cards_in_bag: Array[CardInfo]
 var selected_cards: Array[CardInfo]
 
+var cards_in_hand_scenes: Array[Card]
+
 const REROLL_STAMINA_COST = 1
 const THROW_STAMINA_COST = 2 
 const STATUS_EFFECT_UI = preload("res://players/status_effects/status_effect_ui.tscn")
@@ -128,6 +130,10 @@ func _overwrite_card_info(card: Card, new_card_info: CardInfo):
 				return
 
 
+func handle_card_fire_extinguished():
+	active_status_effects[Constants.PlayerStatusEffect.BURN] -= 1
+
+
 func handle_played_selected_cards():
 	for card in selected_cards:
 		add_cards_to_hand(1)
@@ -143,19 +149,48 @@ func apply_status_effect(effect: Constants.PlayerStatusEffect, value: int):
 
 
 func handle_start_turn():
-	handle_stamina_recharge()
-	handle_poison_status_effect()
+	_handle_stamina_recharge()
+	_handle_poison_status_effect()
+
+
+func handle_delayed_start_turn():
+	_handle_burn_status_effect()
 
 
 func handle_end_turn():
-	pass
+	_decrement_status_effects()
 
 
-func handle_stamina_recharge():
+func _handle_stamina_recharge():
 	replenish_stamina(1)
 
 
-func handle_poison_status_effect():
+func _handle_poison_status_effect():
 	if active_status_effects.has(Constants.PlayerStatusEffect.POISON):
 		health -= active_status_effects[Constants.PlayerStatusEffect.POISON]
 		active_status_effects[Constants.PlayerStatusEffect.POISON] -= 1
+
+
+func _handle_burn_status_effect():
+	if active_status_effects.has(Constants.PlayerStatusEffect.BURN):
+		var copy_of_cards_in_hands_scene = cards_in_hand_scenes
+		randomize()
+		copy_of_cards_in_hands_scene.shuffle()
+		
+		for i in range(active_status_effects[Constants.PlayerStatusEffect.BURN]):
+			copy_of_cards_in_hands_scene[i].set_on_fire(true)
+		
+
+
+func _decrement_status_effects():
+	for status_effect in active_status_effects.keys():
+		var status_effect_info = Constants.PlayerStatusEffectInfo[status_effect]
+		if not status_effect_info.handle_decrement_automatically: continue
+		
+		var decrement_value = status_effect_info.decrement_per_turn_value
+		
+		active_status_effects[status_effect] -= decrement_value
+		
+		if active_status_effects[status_effect] <= 0:
+			active_status_effects.erase(status_effect)
+			continue
