@@ -6,6 +6,7 @@ signal throw
 signal fire_extinguished
 
 @onready var burning_overlay = %BurningOverlay
+@onready var burning_label = %BurningLabel
 @onready var insult_label = %InsultLabel
 @onready var button = $Button
 @onready var corner_rects = [
@@ -96,6 +97,9 @@ func set_on_fire(is_on_fire: bool):
 	
 	is_burning = is_on_fire
 	burning_overlay.visible = is_on_fire
+	
+	if is_burning:
+		burning_label.text = str(BATTLE_EXECUTION_INFO.base_fire_damage_value) + " HP"
 
 
 func _on_button_gui_input(event):
