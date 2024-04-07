@@ -21,6 +21,7 @@ signal fire_extinguished
 var card_info: CardInfo
 var player: BattlePlayer
 
+var card_enhancement_stack: Array[Constants.CardEnhancement]
 var is_burning = false
 
 const CARD_TEXTURES = preload("res://battle/cards/textures/card_textures.tres")

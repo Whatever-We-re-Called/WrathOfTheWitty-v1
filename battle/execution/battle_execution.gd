@@ -22,7 +22,7 @@ static func _is_a_insecurity_group(card_infos: Array[CardInfo]) -> bool:
 	
 	var first_action_type = card_infos[0].action_type
 	for card_info in card_infos:
-		if not card_info.is_attack_action_type():
+		if not card_info.is_attack_card():
 			return false
 		elif card_info.action_type != first_action_type:
 			return false
@@ -41,7 +41,7 @@ static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene, 
 	battle_execution_data.defender_player = battle_scene.get_non_active_side_player()
 	battle_execution_data.is_insecurity_group = is_insecurity_group
 	
-	if card_info.is_attack_action_type():
+	if card_info.is_attack_card():
 		_execute_action_card_attack(battle_execution_data)
 	else:
 		match battle_execution_data.card_info.action_type:
@@ -66,6 +66,8 @@ static func _execute_action_card_attack(battle_execution_data: BattleExecutionDa
 			_apply_fire_effect(battle_execution_data)
 		Constants.CardEnhancement.FREEZE:
 			_apply_freeze_effect(battle_execution_data)
+		Constants.CardEnhancement.WEAKEN:
+			_apply_weaken_effect(battle_execution_data)
 		Constants.CardEnhancement.STAMINA:
 			_handle_stamina_enhancement(battle_execution_data)
 		Constants.CardEnhancement.LIFE_STEAL:
@@ -114,6 +116,13 @@ static func _apply_freeze_effect(battle_execution_data: BattleExecutionData):
 	var applied_freeze_value = BATTLE_EXECUTION_INFO.base_freeze_stack_value
 	
 	defender_player.apply_status_effect(Constants.PlayerStatusEffect.FREEZE, applied_freeze_value)
+
+
+static func _apply_weaken_effect(battle_execution_data: BattleExecutionData):
+	var defender_player = battle_execution_data.defender_player
+	var applied_weaken_value = BATTLE_EXECUTION_INFO.base_weaken_stack_value
+	
+	defender_player.apply_status_effect(Constants.PlayerStatusEffect.WEAKEN, applied_weaken_value)
 
 
 static func _handle_stamina_enhancement(battle_execution_data: BattleExecutionData):

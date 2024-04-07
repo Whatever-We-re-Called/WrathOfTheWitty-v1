@@ -31,13 +31,13 @@ insult_text = "pain in the ass"
 [sub_resource type="Resource" id="Resource_hj3ak"]
 script = ExtResource("1_5bkd6")
 action_type = 2
-enhancement = 5
+enhancement = 8
 insult_text = "idiot"
 
 [sub_resource type="Resource" id="Resource_cd58y"]
 script = ExtResource("1_5bkd6")
 action_type = 2
-enhancement = 5
+enhancement = 8
 insult_text = "stupid fella"
 
 [resource]

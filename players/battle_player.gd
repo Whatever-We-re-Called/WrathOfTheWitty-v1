@@ -19,12 +19,14 @@ const STATUS_EFFECT_UI = preload("res://players/status_effects/status_effect_ui.
 
 
 func init(config: PlayerConfig, side: Constants.PlayerSide):
-	self.config = config
+	self.config = config.duplicate()
+	
 	self.level = config.base_level
 	self.health = config.max_health
 	self.stamina = config.max_stamina
 	
-	cards_in_deck = config.card_deck
+	for card_info in self.config.card_deck:
+		cards_in_deck.push_back(card_info.duplicate())
 	randomize()
 	cards_in_deck.shuffle()
 	add_cards_to_hand(config.max_hand_size)
@@ -46,8 +48,15 @@ func damage(amount: int):
 	
 	health -= amount
 	health = clamp(health, 0, config.max_health)
+	_execute_damage_visual()
 	
 	active_status_effects[Constants.PlayerStatusEffect.SHIELD] = shield_amount
+
+
+func _execute_damage_visual():
+	self_modulate = Color("#ea524d")
+	await get_tree().create_timer(0.2).timeout
+	self_modulate = Color.WHITE
 
 
 func heal(amount: int):
@@ -90,6 +99,7 @@ func _refill_deck_from_bag():
 
 func send_card_to_bag(card_info: CardInfo):
 	cards_in_bag.push_back(card_info)
+	card_info.reset_enhancement_stack()
 
 
 func reroll_card(card: Card):
@@ -165,6 +175,7 @@ func handle_start_turn():
 
 func handle_delayed_start_turn():
 	_handle_burn_status_effect()
+	_handle_weaken_status_effect()
 
 
 func handle_end_turn():
@@ -198,6 +209,31 @@ func _set_card_on_fire(card: Card):
 	active_status_effects[Constants.PlayerStatusEffect.BURN] -= 1
 	if active_status_effects[Constants.PlayerStatusEffect.BURN] <= 0:
 		active_status_effects.erase(Constants.PlayerStatusEffect.BURN)
+
+
+func _handle_weaken_status_effect():
+	if active_status_effects.has(Constants.PlayerStatusEffect.WEAKEN):
+		var copy_of_cards_in_hands_scene = cards_in_hand_scenes
+		randomize()
+		copy_of_cards_in_hands_scene.shuffle()
+		
+		for i in range(active_status_effects[Constants.PlayerStatusEffect.WEAKEN]):
+			if i >= config.max_hand_size: break
+			
+			var card_info = copy_of_cards_in_hands_scene[i].card_info
+			if not card_info.is_attack_card(): break
+			if card_info.card_enhancement_stack.has(Constants.CardEnhancement.WEAK): break
+			
+			_weaken_card(copy_of_cards_in_hands_scene[i])
+
+
+func _weaken_card(card: Card):
+	card.card_info.add_to_enhancement_stack(Constants.CardEnhancement.WEAK)
+	card._init_enhancement_texture()
+	
+	active_status_effects[Constants.PlayerStatusEffect.WEAKEN] -= 1
+	if active_status_effects[Constants.PlayerStatusEffect.WEAKEN] <= 0:
+		active_status_effects.erase(Constants.PlayerStatusEffect.WEAKEN)
 
 
 func _decrement_status_effects():
