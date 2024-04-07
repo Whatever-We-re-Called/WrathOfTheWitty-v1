@@ -11,6 +11,12 @@ var cards_in_deck: Array[CardInfo]
 var cards_in_hand: Array[CardInfo]
 var cards_in_bag: Array[CardInfo]
 var selected_cards: Array[CardInfo]
+var card_arrays = [
+	selected_cards,
+	cards_in_hand,
+	cards_in_deck,
+	cards_in_bag
+]
 
 var cards_in_hand_scenes: Array[Card]
 
@@ -113,8 +119,7 @@ func reroll_card(card: Card):
 	if active_status_effects.has(Constants.PlayerStatusEffect.BURN):
 		_set_card_on_fire(card)
 	
-	if active_status_effects.has(Constants.PlayerStatusEffect.FREEZE):
-		active_status_effects[Constants.PlayerStatusEffect.FREEZE] -= 1
+	decrement_status_effect(Constants.PlayerStatusEffect.FREEZE, 1)
 
 
 func get_reroll_stamina_cost() -> int:
@@ -124,6 +129,13 @@ func get_reroll_stamina_cost() -> int:
 		additional_cost += active_status_effects[Constants.PlayerStatusEffect.FREEZE]
 	
 	return BASE_REROLL_STAMINA_COST + additional_cost
+
+
+func decrement_status_effect(status_effect: Constants.PlayerStatusEffect, decrement_amount: int):
+	if active_status_effects.has(status_effect):
+		active_status_effects[status_effect] -= decrement_amount
+		if active_status_effects[status_effect] <= 0:
+			active_status_effects.erase(status_effect)
 
 
 #func throw_card(card: Card, battle_scene: BattleScene):
@@ -136,15 +148,9 @@ func get_reroll_stamina_cost() -> int:
 
 
 func _overwrite_card_info(card: Card, new_card_info: CardInfo):
-	var card_arrays_to_check = [
-		selected_cards,
-		cards_in_hand,
-		cards_in_deck,
-		cards_in_bag
-	]
 	
 	var old_card_info = card.card_info
-	for card_array in card_arrays_to_check:
+	for card_array in card_arrays:
 		for i in range(card_array.size()):
 			if card_array[i] == old_card_info:
 				card_array[i] = new_card_info
@@ -180,6 +186,7 @@ func handle_delayed_start_turn():
 
 func handle_end_turn():
 	_decrement_status_effects()
+	_reset_enhancements_on_cards()
 
 
 func _handle_stamina_recharge():
@@ -205,10 +212,7 @@ func _handle_burn_status_effect():
 
 func _set_card_on_fire(card: Card):
 	card.set_on_fire(true)
-	
-	active_status_effects[Constants.PlayerStatusEffect.BURN] -= 1
-	if active_status_effects[Constants.PlayerStatusEffect.BURN] <= 0:
-		active_status_effects.erase(Constants.PlayerStatusEffect.BURN)
+	decrement_status_effect(Constants.PlayerStatusEffect.BURN, 1)
 
 
 func _handle_weaken_status_effect():
@@ -230,10 +234,7 @@ func _handle_weaken_status_effect():
 func _weaken_card(card: Card):
 	card.card_info.add_to_enhancement_stack(Constants.CardEnhancement.WEAK)
 	card._init_enhancement_texture()
-	
-	active_status_effects[Constants.PlayerStatusEffect.WEAKEN] -= 1
-	if active_status_effects[Constants.PlayerStatusEffect.WEAKEN] <= 0:
-		active_status_effects.erase(Constants.PlayerStatusEffect.WEAKEN)
+	decrement_status_effect(Constants.PlayerStatusEffect.WEAKEN, 1)
 
 
 func _decrement_status_effects():
@@ -248,3 +249,9 @@ func _decrement_status_effects():
 		if active_status_effects[status_effect] <= 0:
 			active_status_effects.erase(status_effect)
 			continue
+
+
+func _reset_enhancements_on_cards():
+	for card_array in card_arrays:
+		for card_info in card_array:
+			card_info.reset_enhancement_stack()
