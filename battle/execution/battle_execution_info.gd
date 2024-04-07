@@ -17,6 +17,6 @@ class_name BattleExecutionInfo extends Resource
 @export var base_life_steal_heal_percentage: float
 @export var base_fire_stack_value: int
 @export var base_fire_damage_value: int
-@export var base_freeze_value: int
-@export var base_weaken_value: int
+@export var base_freeze_stack_value: int
+@export var base_weaken_stack_value: int
 @export var base_stamina_value: int

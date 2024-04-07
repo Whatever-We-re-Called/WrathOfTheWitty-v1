@@ -64,6 +64,8 @@ static func _execute_action_card_attack(battle_execution_data: BattleExecutionDa
 			_apply_poison_effect(battle_execution_data)
 		Constants.CardEnhancement.FIRE:
 			_apply_fire_effect(battle_execution_data)
+		Constants.CardEnhancement.FREEZE:
+			_apply_freeze_effect(battle_execution_data)
 		Constants.CardEnhancement.STAMINA:
 			_handle_stamina_enhancement(battle_execution_data)
 		Constants.CardEnhancement.LIFE_STEAL:
@@ -105,6 +107,13 @@ static func _apply_fire_effect(battle_execution_data: BattleExecutionData):
 	var applied_burn_value = BATTLE_EXECUTION_INFO.base_fire_stack_value
 	
 	defender_player.apply_status_effect(Constants.PlayerStatusEffect.BURN, applied_burn_value)
+
+
+static func _apply_freeze_effect(battle_execution_data: BattleExecutionData):
+	var defender_player = battle_execution_data.defender_player
+	var applied_freeze_value = BATTLE_EXECUTION_INFO.base_freeze_stack_value
+	
+	defender_player.apply_status_effect(Constants.PlayerStatusEffect.FREEZE, applied_freeze_value)
 
 
 static func _handle_stamina_enhancement(battle_execution_data: BattleExecutionData):

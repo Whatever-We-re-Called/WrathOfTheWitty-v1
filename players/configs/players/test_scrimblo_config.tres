@@ -19,13 +19,13 @@ insult_text = "repulsive"
 [sub_resource type="Resource" id="Resource_2cqfg"]
 script = ExtResource("1_5bkd6")
 action_type = 1
-enhancement = 6
+enhancement = 7
 insult_text = "incompetent"
 
 [sub_resource type="Resource" id="Resource_qrg13"]
 script = ExtResource("1_5bkd6")
 action_type = 1
-enhancement = 4
+enhancement = 7
 insult_text = "pain in the ass"
 
 [sub_resource type="Resource" id="Resource_hj3ak"]

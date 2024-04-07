@@ -14,8 +14,7 @@ var selected_cards: Array[CardInfo]
 
 var cards_in_hand_scenes: Array[Card]
 
-const REROLL_STAMINA_COST = 1
-const THROW_STAMINA_COST = 2 
+const BASE_REROLL_STAMINA_COST = 1
 const STATUS_EFFECT_UI = preload("res://players/status_effects/status_effect_ui.tscn")
 
 
@@ -94,8 +93,8 @@ func send_card_to_bag(card_info: CardInfo):
 
 
 func reroll_card(card: Card):
-	if stamina < REROLL_STAMINA_COST: return
-	stamina -= REROLL_STAMINA_COST
+	if stamina < get_reroll_stamina_cost(): return
+	stamina -= get_reroll_stamina_cost()
 	
 	send_card_to_bag(card.card_info)
 	
@@ -103,15 +102,27 @@ func reroll_card(card: Card):
 	
 	if active_status_effects.has(Constants.PlayerStatusEffect.BURN):
 		_set_card_on_fire(card)
-
-
-func throw_card(card: Card, battle_scene: BattleScene):
-	if stamina < THROW_STAMINA_COST: return
-	stamina -= THROW_STAMINA_COST
 	
-	send_card_to_bag(card.card_info)
-	BattleExecution.execute_action_card(card.card_info, battle_scene)
-	card.queue_free()
+	if active_status_effects.has(Constants.PlayerStatusEffect.FREEZE):
+		active_status_effects[Constants.PlayerStatusEffect.FREEZE] -= 1
+
+
+func get_reroll_stamina_cost() -> int:
+	var additional_cost: int = 0
+	
+	if active_status_effects.has(Constants.PlayerStatusEffect.FREEZE):
+		additional_cost += active_status_effects[Constants.PlayerStatusEffect.FREEZE]
+	
+	return BASE_REROLL_STAMINA_COST + additional_cost
+
+
+#func throw_card(card: Card, battle_scene: BattleScene):
+	#if stamina < THROW_STAMINA_COST: return
+	#stamina -= THROW_STAMINA_COST
+	#
+	#send_card_to_bag(card.card_info)
+	#BattleExecution.execute_action_card(card.card_info, battle_scene)
+	#card.queue_free()
 
 
 func _overwrite_card_info(card: Card, new_card_info: CardInfo):
