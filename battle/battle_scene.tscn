@@ -3,13 +3,13 @@
 [ext_resource type="Script" path="res://battle/battle_scene.gd" id="1_s8m45"]
 [ext_resource type="PackedScene" uid="uid://cbocnnnw4vt17" path="res://ui/battle_interface.tscn" id="1_yveat"]
 [ext_resource type="Resource" uid="uid://d23m4e07eg735" path="res://players/configs/players/test_scrimblo_config.tres" id="2_1ywll"]
-[ext_resource type="Resource" uid="uid://dgqkg6q4a63xp" path="res://battle/template_cards/info/poison_dart_template_card_info.tres" id="3_fhy1y"]
+[ext_resource type="Resource" uid="uid://lju22pgkrq8" path="res://battle/template_cards/info/depression_template_card_info.tres" id="3_8q4u3"]
 
 [node name="BattleScene" type="Node2D"]
 script = ExtResource("1_s8m45")
 left_player_config = ExtResource("2_1ywll")
 right_player_config = ExtResource("2_1ywll")
-debug_template_card_info = ExtResource("3_fhy1y")
+debug_template_card_info = ExtResource("3_8q4u3")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

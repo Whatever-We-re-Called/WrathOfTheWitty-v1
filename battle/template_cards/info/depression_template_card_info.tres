@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TemplateCardInfo" load_steps=2 format=3 uid="uid://lju22pgkrq8"]
+
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="1_rara1"]
+
+[resource]
+script = ExtResource("1_rara1")
+name = "Depression"
+sentence = "Do you really think that a %adjective% %noun% can take me down?"
+info_description = "Inflict 3 Weaken onto your opponent."
+background_color = Color(0.180392, 0.219608, 0.117647, 1)
+insecurities = Array[int]([1, 4])
+execute_function_name = "_execute_depression"

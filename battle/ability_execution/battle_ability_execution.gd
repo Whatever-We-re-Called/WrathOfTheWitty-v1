@@ -40,3 +40,38 @@ static func _execute_poison_dart(battle_ability_execution_data: BattleAbilityExe
 	var defender_player = battle_ability_execution_data.defender_player
 	
 	defender_player.apply_status_effect(Constants.PlayerStatusEffect.POISON, POISON_DART_POISON_STACK_INFLICTED)
+
+
+static func _execute_punch(battle_ability_execution_data: BattleAbilityExecutionData):
+	const PUNCH_DAMAGE_INFLICTED = 12
+	var defender_player = battle_ability_execution_data.defender_player
+	
+	defender_player.damage(PUNCH_DAMAGE_INFLICTED)
+
+
+static func _execute_brutal_punch(battle_ability_execution_data: BattleAbilityExecutionData):
+	const BRUTAL_PUNCH_DAMAGE_INFLICTED = 20
+	var defender_player = battle_ability_execution_data.defender_player
+	
+	defender_player.damage(BRUTAL_PUNCH_DAMAGE_INFLICTED)
+
+
+static func _execute_pyromancy(battle_ability_execution_data: BattleAbilityExecutionData):
+	const PYROMANCY_BURN_STACK_INFLICTED = 3
+	var defender_player = battle_ability_execution_data.defender_player
+	
+	defender_player.apply_status_effect(Constants.PlayerStatusEffect.BURN, PYROMANCY_BURN_STACK_INFLICTED)
+
+
+static func _execute_absolute_zero(battle_ability_execution_data: BattleAbilityExecutionData):
+	const ABSOLUTE_ZERO_FREEZE_STACK_INFLICTED = 3
+	var defender_player = battle_ability_execution_data.defender_player
+	
+	defender_player.apply_status_effect(Constants.PlayerStatusEffect.FREEZE, ABSOLUTE_ZERO_FREEZE_STACK_INFLICTED)
+
+
+static func _execute_depression(battle_ability_execution_data: BattleAbilityExecutionData):
+	const DEPRESSION_WEAKEN_STACK_INFLICTED = 3
+	var defender_player = battle_ability_execution_data.defender_player
+	
+	defender_player.apply_status_effect(Constants.PlayerStatusEffect.WEAKEN, DEPRESSION_WEAKEN_STACK_INFLICTED)

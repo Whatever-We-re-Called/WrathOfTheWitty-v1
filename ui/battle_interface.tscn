@@ -260,7 +260,7 @@ anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -264.0
 offset_right = 264.0
-offset_bottom = 148.0
+offset_bottom = 76.0
 grow_horizontal = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GameInfoUI"]
@@ -272,32 +272,28 @@ theme_override_constants/separation = 16
 layout_mode = 2
 theme_override_constants/margin_top = 16
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GameInfoUI/VBoxContainer/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 16
-
-[node name="TemplateCardDeckButton" type="Button" parent="GameInfoUI/VBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(256, 64)
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Template Deck (5)"
-
-[node name="TemplateCardBagButton" type="Button" parent="GameInfoUI/VBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(256, 64)
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Template Bag (1)"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="GameInfoUI/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameInfoUI/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/separation = 16
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+alignment = 1
 
-[node name="ViewRightPlayerCardsButton" type="Button" parent="GameInfoUI/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(256, 64)
+[node name="TemplateCardDeckLabel" type="Label" parent="GameInfoUI/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Enemy Cards"
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 18
+text = "T: Template Card Deck (0)"
+horizontal_alignment = 1
+
+[node name="TemplateCardBagLabel" type="Label" parent="GameInfoUI/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 18
+text = "Y: Template Card Bag (0)"
+horizontal_alignment = 1
 
 [node name="TemplateCardUI" type="CenterContainer" parent="."]
 unique_name_in_owner = true

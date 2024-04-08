@@ -12,6 +12,8 @@ signal card_throw(card: Card)
 @onready var template_card_ui = %TemplateCardUI
 @onready var player_card_deck_label = %PlayerCardDeckLabel
 @onready var player_card_bag_label = %PlayerCardBagLabel
+@onready var template_card_deck_label = %TemplateCardDeckLabel
+@onready var template_card_bag_label = %TemplateCardBagLabel
 
 var battle_scene: BattleScene
 
@@ -73,6 +75,11 @@ func update_template_card_ui(template_card: TemplateCard):
 		template_card_ui.get_child(0).free()
 	
 	template_card_ui.add_child(template_card)
+
+
+func update_template_card_deck_and_bag_ui(deck_size: int, bag_size: int):
+	template_card_deck_label.text = "T: Template Card Deck (%s)" % deck_size
+	template_card_bag_label.text = "Y: Template Card Bag (%s)" % bag_size
 
 
 func update_player_deck_and_bag_ui(player: BattlePlayer):

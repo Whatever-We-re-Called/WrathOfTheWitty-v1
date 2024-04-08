@@ -195,7 +195,7 @@ func _handle_stamina_recharge():
 
 func _handle_poison_status_effect():
 	if active_status_effects.has(Constants.PlayerStatusEffect.POISON):
-		health -= active_status_effects[Constants.PlayerStatusEffect.POISON]
+		damage(active_status_effects[Constants.PlayerStatusEffect.POISON])
 		active_status_effects[Constants.PlayerStatusEffect.POISON] -= 1
 
 
