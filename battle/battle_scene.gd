@@ -3,8 +3,6 @@ class_name BattleScene extends Node2D
 @export_group("Players")
 @export var left_player_config: PlayerConfig
 @export var right_player_config: PlayerConfig
-@export_group("References")
-@export var card_scene: PackedScene
 @export_group("Debug")
 @export var debug_template_card_info: TemplateCardInfo
 
@@ -14,13 +12,21 @@ class_name BattleScene extends Node2D
 
 var active_side: Constants.PlayerSide
 var players = {}
-var active_template_card: TemplateCard
 var player: BattlePlayer: 
 	get:
 		return players[active_side]
 	set(value):
 		players[active_side] = value
 
+var active_template_card: TemplateCard
+var template_cards_in_deck: Array[TemplateCardInfo]
+var template_cards_in_bag: Array[TemplateCardInfo]
+var template_card_arrays = [
+	template_cards_in_deck,
+	template_cards_in_bag,
+]
+
+const ACTION_CARD_SCENE = preload("res://battle/cards/card.tscn")
 const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.tscn")
 
 func _ready():
@@ -118,6 +124,7 @@ func throw_card(card: Card):
 func change_turns():
 	player.handle_end_turn()
 	battle_interface.update_player_stats(player)
+	battle_interface.toggle_hand_visibility(false)
 	
 	await get_tree().create_timer(2).timeout
 	
@@ -132,6 +139,7 @@ func change_turns():
 	player.handle_delayed_start_turn()
 	battle_interface.update_player_deck_and_bag_ui(player)
 	battle_interface.update_player_stats(player)
+	battle_interface.toggle_hand_visibility(true)
 
 
 func get_non_active_side_player():

@@ -31,7 +31,7 @@ func init(config: PlayerConfig, side: Constants.PlayerSide):
 	self.health = config.max_health
 	self.stamina = config.max_stamina
 	
-	for card_info in self.config.card_deck:
+	for card_info in self.config.action_card_deck:
 		cards_in_deck.push_back(card_info.duplicate())
 	randomize()
 	cards_in_deck.shuffle()

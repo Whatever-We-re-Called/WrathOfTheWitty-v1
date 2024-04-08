@@ -1,11 +1,12 @@
 class_name TemplateCardInfo extends Resource
 
-@export_category("Identity")
+@export_category("Template Card Identity")
 @export var name: String
+@export_multiline var sentence: String
 @export_multiline var info_description: String
 @export var background_color: Color
-@export_category("Execution")
-@export var insecurity: Constants.Insecurity
-@export_multiline var sentence: String
+@export_category("Template Card Execution")
+@export var insecurities: Array[Constants.Insecurity]
 @export var execute_function_name: String
-@export var power_enhanced: bool
+@export_category("Template Card Upgrade")
+@export var upgrade_template_card_info: TemplateCardInfo

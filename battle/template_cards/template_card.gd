@@ -21,8 +21,14 @@ var template_card_info: TemplateCardInfo
 var max_insults_allowed = 0
 var selected_cards: Array[Card]
 var saved_deck_container: Control
+var insults_grmmar_types: Array[GrammarType]
 
-const INSULT_PLACEHOLDER_TEXT = "%insult%"
+enum GrammarType { NOUN, ADJECTIVE, VERB, NONE }
+var INSULT_PLACEHOLDER_TEXTS = {
+	GrammarType.NOUN: "%noun%",
+	GrammarType.ADJECTIVE: "%adjective%",
+	GrammarType.VERB: "%verb%"
+}
 const EMPTY_UNDERLINE_TEXT = "__________"
 
 
@@ -53,20 +59,35 @@ func _init_identity_visuals():
 
 
 func _init_execution_visuals():
-	insecurity_icon.texture = Constants.get_insecurity_icon()
-	insecurity_icon.self_modulate = Constants.get_insecurity_color(template_card_info.insecurity)
+	#insecurity_icon.texture = Constants.get_insecurity_icon()
+	#insecurity_icon.self_modulate = Constants.get_insecurity_color(template_card_info.insecurity)
 	
 	var sentence_label_text = template_card_info.sentence
-	sentence_label.text = sentence_label_text.replace(INSULT_PLACEHOLDER_TEXT, EMPTY_UNDERLINE_TEXT)
 
 
 func _init_insult_text():
 	var sentence_label_text = template_card_info.sentence
-	while sentence_label_text.contains(INSULT_PLACEHOLDER_TEXT):
-		var i = sentence_label_text.find(INSULT_PLACEHOLDER_TEXT)
-		sentence_label_text = sentence_label_text.erase(i, INSULT_PLACEHOLDER_TEXT.length())
-		
-		max_insults_allowed += 1
+	while true:
+		var grammar_type = _get_earliest_insult_grammar_placeholder(sentence_label_text)
+		if grammar_type == GrammarType.NONE:
+			break
+		else:
+			var placeholder_text = INSULT_PLACEHOLDER_TEXTS[grammar_type]
+			var i = sentence_label_text.find(placeholder_text)
+			sentence_label_text = sentence_label_text.erase(i, placeholder_text.length())
+			
+			max_insults_allowed += 1
+
+
+func _get_earliest_insult_grammar_placeholder(text: String) -> GrammarType:
+	if text.contains(INSULT_PLACEHOLDER_TEXTS[GrammarType.NOUN]):
+		return GrammarType.NOUN
+	elif text.contains(INSULT_PLACEHOLDER_TEXTS[GrammarType.ADJECTIVE]):
+		return GrammarType.ADJECTIVE
+	elif text.contains(INSULT_PLACEHOLDER_TEXTS[GrammarType.VERB]):
+		return GrammarType.VERB
+	else:
+		return GrammarType.NONE
 
 
 func _show_info_description_display():

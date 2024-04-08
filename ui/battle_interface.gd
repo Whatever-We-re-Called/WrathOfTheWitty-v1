@@ -64,6 +64,10 @@ func add_card(card_scene: Control):
 			card_scene.reparent(deck_second_row)
 
 
+func toggle_hand_visibility(visible: bool):
+	deck_container.visible = visible
+
+
 func update_template_card_ui(template_card: TemplateCard):
 	if template_card_ui.get_children().size() > 0:
 		template_card_ui.get_child(0).free()

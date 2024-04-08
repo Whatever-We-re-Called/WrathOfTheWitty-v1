@@ -10,4 +10,6 @@ class_name PlayerConfig extends Resource
 @export var max_health: int
 @export var max_stamina: int
 @export var max_hand_size: int
-@export var card_deck: Array[CardInfo]
+@export_category("Deck")
+@export var action_card_deck: Array[CardInfo]
+@export var template_card_deck: Array[TemplateCardInfo]
