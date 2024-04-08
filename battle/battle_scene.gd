@@ -25,9 +25,11 @@ var template_card_arrays = [
 	template_cards_in_deck,
 	template_cards_in_bag,
 ]
+var is_changing_turns = false
 
 const ACTION_CARD_SCENE = preload("res://battle/cards/card.tscn")
 const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.tscn")
+
 
 func _ready():
 	active_side = Constants.PlayerSide.LEFT
@@ -73,6 +75,8 @@ func _process(delta):
 	if Input.is_action_just_pressed("debug_1"):
 		player.stamina = player.config.max_stamina
 		battle_interface.update_player_stats(player)
+	if Input.is_action_just_pressed("end_turn") and not is_changing_turns:
+		end_turn_early()
 
 
 func _on_card_toggle_selected(card: Card):
@@ -156,6 +160,12 @@ func play_cards():
 	change_turns()
 
 
+func end_turn_early():
+	for card in active_template_card.selected_cards:
+		card.free()
+	change_turns()
+
+
 func reroll_card(card: Card):
 	player.reroll_card(card)
 	battle_interface.update_player_stats(player)
@@ -167,6 +177,8 @@ func throw_card(card: Card):
 
 
 func change_turns():
+	is_changing_turns = true
+	
 	player.handle_end_turn()
 	battle_interface.update_player_stats(player)
 	battle_interface.update_player_stats(get_non_active_side_player())
@@ -187,6 +199,8 @@ func change_turns():
 	battle_interface.update_player_deck_and_bag_ui(player)
 	battle_interface.update_player_stats(player)
 	battle_interface.toggle_hand_visibility(true)
+	
+	is_changing_turns = false
 
 
 func get_non_active_side_player():
