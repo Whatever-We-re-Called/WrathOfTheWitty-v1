@@ -17,12 +17,16 @@ signal fire_extinguished
 @onready var enhancement_icon = %EnhancementIcon
 @onready var enhancement_label = %EnhancementLabel
 @onready var action_type_label = %ActionTypeLabel
+@onready var slimed_overlay = %SlimedOverlay
+@onready var hidden_overlay = %HiddenOverlay
 
 var card_info: CardInfo
 var player: BattlePlayer
 
 var card_enhancement_stack: Array[Constants.CardEnhancement]
 var is_burning = false
+var is_slimed = false
+var is_hidden = false
 
 const CARD_TEXTURES = preload("res://battle/cards/textures/card_textures.tres")
 const BATTLE_ACTION_EXECUTION_INFO = preload("res://battle/action_execution/battle_action_execution_info.tres")
@@ -96,11 +100,21 @@ func set_on_fire(is_on_fire: bool):
 	if is_burning and not is_on_fire:
 		fire_extinguished.emit()
 	
-	is_burning = is_on_fire
+	self.is_burning = is_on_fire
 	burning_overlay.visible = is_on_fire
 	
 	if is_burning:
 		burning_label.text = str(BATTLE_ACTION_EXECUTION_INFO.base_fire_damage_value) + " HP"
+
+
+func set_as_slimed(slimed: bool):
+	self.is_slimed = slimed
+	slimed_overlay.visible = slimed
+
+
+func set_as_hidden(hidden: bool):
+	self.is_hidden = hidden
+	hidden_overlay.visible = hidden
 
 
 func _on_button_gui_input(event):
@@ -125,6 +139,8 @@ func _reroll():
 	if is_burning:
 		player.damage(BATTLE_ACTION_EXECUTION_INFO.base_fire_damage_value)
 		set_on_fire(false)
+	elif is_slimed:
+		return
 	else:
 		if not player.selected_cards.has(card_info):
 			reroll.emit()

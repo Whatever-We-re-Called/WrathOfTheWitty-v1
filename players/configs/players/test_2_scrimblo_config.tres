@@ -1,0 +1,60 @@
+[gd_resource type="Resource" script_class="PlayerConfig" load_steps=16 format=3 uid="uid://bey4oneit43m4"]
+
+[ext_resource type="Script" path="res://battle/cards/info/card_info.gd" id="1_ssf0t"]
+[ext_resource type="Script" path="res://players/configs/player_config.gd" id="2_2bec8"]
+[ext_resource type="SpriteFrames" uid="uid://2up8nj4es0st" path="res://players/animations/scrimblo_sprite_frames.tres" id="3_yqufq"]
+[ext_resource type="Resource" uid="uid://t3jhw6k818rs" path="res://battle/template_cards/info/absolute_zero_template_card_info.tres" id="4_ath54"]
+[ext_resource type="Resource" uid="uid://b6sjpqlj4tbv6" path="res://battle/template_cards/info/brutal_punch_template_card_info.tres" id="5_qkf44"]
+[ext_resource type="Resource" uid="uid://lju22pgkrq8" path="res://battle/template_cards/info/depression_template_card_info.tres" id="6_vx25m"]
+[ext_resource type="Resource" uid="uid://d2y88ykc4c4k5" path="res://battle/template_cards/info/pyromancy_template_card_info.tres" id="7_a83cq"]
+[ext_resource type="Resource" uid="uid://dgqkg6q4a63xp" path="res://battle/template_cards/info/poison_dart_template_card_info.tres" id="8_lbsfa"]
+[ext_resource type="Resource" uid="uid://dtikyc0sgapur" path="res://battle/template_cards/info/punch_template_card_info.tres" id="9_ig20f"]
+
+[sub_resource type="Resource" id="Resource_nyqgl"]
+script = ExtResource("1_ssf0t")
+action_type = 3
+enhancement = 10
+insult_text = "incompetent"
+
+[sub_resource type="Resource" id="Resource_cd6nm"]
+script = ExtResource("1_ssf0t")
+action_type = 3
+enhancement = 10
+insult_text = "disgustingly hideous"
+
+[sub_resource type="Resource" id="Resource_cnbq3"]
+script = ExtResource("1_ssf0t")
+action_type = 4
+enhancement = 11
+insult_text = "icky"
+
+[sub_resource type="Resource" id="Resource_7pqpg"]
+script = ExtResource("1_ssf0t")
+action_type = 4
+enhancement = 11
+insult_text = "confusing"
+
+[sub_resource type="Resource" id="Resource_3jk3g"]
+script = ExtResource("1_ssf0t")
+action_type = 5
+enhancement = 0
+insult_text = "unlikeable"
+
+[sub_resource type="Resource" id="Resource_2x44g"]
+script = ExtResource("1_ssf0t")
+action_type = 5
+enhancement = 0
+insult_text = "nerd"
+
+[resource]
+script = ExtResource("2_2bec8")
+name = "Scrimblo (Test)"
+sprite_frames = ExtResource("3_yqufq")
+sprite_scale = Vector2(0.375, 0.375)
+base_level = 1
+insecurity = 2
+max_health = 100
+max_stamina = 3
+max_hand_size = 5
+action_card_deck = Array[ExtResource("1_ssf0t")]([SubResource("Resource_nyqgl"), SubResource("Resource_cd6nm"), SubResource("Resource_cnbq3"), SubResource("Resource_7pqpg"), SubResource("Resource_3jk3g"), SubResource("Resource_2x44g")])
+template_card_deck = Array[Resource("res://battle/template_cards/info/template_card_info.gd")]([ExtResource("4_ath54"), ExtResource("5_qkf44"), ExtResource("6_vx25m"), ExtResource("7_a83cq"), ExtResource("8_lbsfa"), ExtResource("9_ig20f")])

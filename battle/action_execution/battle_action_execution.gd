@@ -68,6 +68,10 @@ static func _execute_action_card_attack(battle_action_execution_data: BattleActi
 			_apply_freeze_effect(battle_action_execution_data)
 		Constants.CardEnhancement.WEAKEN:
 			_apply_weaken_effect(battle_action_execution_data)
+		Constants.CardEnhancement.SLIME:
+			_apply_slime_effect(battle_action_execution_data)
+		Constants.CardEnhancement.HIDE:
+			_apply_hide_effect(battle_action_execution_data)
 		Constants.CardEnhancement.STAMINA:
 			_handle_stamina_enhancement(battle_action_execution_data)
 		Constants.CardEnhancement.LIFE_STEAL:
@@ -123,6 +127,20 @@ static func _apply_weaken_effect(battle_action_execution_data: BattleActionExecu
 	var applied_weaken_value = BATTLE_ACTION_EXECUTION_INFO.base_weaken_stack_value
 	
 	defender_player.apply_status_effect(Constants.PlayerStatusEffect.WEAKEN, applied_weaken_value)
+
+
+static func _apply_slime_effect(battle_action_execution_data: BattleActionExecutionData):
+	var defender_player = battle_action_execution_data.defender_player
+	var applied_slime_value = BATTLE_ACTION_EXECUTION_INFO.base_slime_stack_value
+	
+	defender_player.apply_status_effect(Constants.PlayerStatusEffect.SLIME, applied_slime_value)
+
+
+static func _apply_hide_effect(battle_action_execution_data: BattleActionExecutionData):
+	var defender_player = battle_action_execution_data.defender_player
+	var applied_hide_value = BATTLE_ACTION_EXECUTION_INFO.base_hide_stack_value
+	
+	defender_player.apply_status_effect(Constants.PlayerStatusEffect.HIDE, applied_hide_value)
 
 
 static func _handle_stamina_enhancement(battle_action_execution_data: BattleActionExecutionData):

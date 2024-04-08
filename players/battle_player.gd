@@ -119,6 +119,11 @@ func reroll_card(card: Card):
 	if active_status_effects.has(Constants.PlayerStatusEffect.BURN):
 		_set_card_on_fire(card)
 	
+	if active_status_effects.has(Constants.PlayerStatusEffect.HIDE):
+		_set_card_as_hidden(card)
+	else:
+		card.set_as_hidden(false)
+	
 	decrement_status_effect(Constants.PlayerStatusEffect.FREEZE, 1)
 
 
@@ -181,6 +186,8 @@ func handle_start_turn():
 
 func handle_delayed_start_turn():
 	_handle_burn_status_effect()
+	_handle_slime_status_effect()
+	_handle_hide_status_effect()
 	_handle_weaken_status_effect()
 
 
@@ -213,6 +220,38 @@ func _handle_burn_status_effect():
 func _set_card_on_fire(card: Card):
 	card.set_on_fire(true)
 	decrement_status_effect(Constants.PlayerStatusEffect.BURN, 1)
+
+
+func _handle_slime_status_effect():
+	if active_status_effects.has(Constants.PlayerStatusEffect.SLIME):
+		var copy_of_cards_in_hands_scene = cards_in_hand_scenes
+		randomize()
+		copy_of_cards_in_hands_scene.shuffle()
+		
+		for i in range(active_status_effects[Constants.PlayerStatusEffect.SLIME]):
+			if i >= config.max_hand_size: break
+			_set_card_as_slimed(copy_of_cards_in_hands_scene[i])
+
+
+func _set_card_as_slimed(card: Card):
+	card.set_as_slimed(true)
+	decrement_status_effect(Constants.PlayerStatusEffect.BURN, 1)
+
+
+func _handle_hide_status_effect():
+	if active_status_effects.has(Constants.PlayerStatusEffect.HIDE):
+		var copy_of_cards_in_hands_scene = cards_in_hand_scenes
+		randomize()
+		copy_of_cards_in_hands_scene.shuffle()
+		
+		for i in range(active_status_effects[Constants.PlayerStatusEffect.HIDE]):
+			if i >= config.max_hand_size: break
+			_set_card_as_hidden(copy_of_cards_in_hands_scene[i])
+
+
+func _set_card_as_hidden(card: Card):
+	card.set_as_hidden(true)
+	decrement_status_effect(Constants.PlayerStatusEffect.HIDE, 1)
 
 
 func _handle_weaken_status_effect():

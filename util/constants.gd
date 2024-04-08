@@ -34,7 +34,9 @@ enum CardEnhancement {
 	FIRE,
 	FREEZE,
 	WEAKEN,
-	STAMINA
+	STAMINA,
+	SLIME,
+	HIDE
 }
 
 enum PlayerStatusEffect {
@@ -42,7 +44,9 @@ enum PlayerStatusEffect {
 	POISON,
 	BURN,
 	FREEZE,
-	WEAKEN
+	WEAKEN,
+	SLIME,
+	HIDE
 }
 
 var PlayerStatusEffectInfo = {
@@ -50,7 +54,9 @@ var PlayerStatusEffectInfo = {
 	PlayerStatusEffect.POISON: preload("res://players/status_effects/effects/poison_status_effect.tres"),
 	PlayerStatusEffect.BURN: preload("res://players/status_effects/effects/burn_status_effect.tres"),
 	PlayerStatusEffect.FREEZE: preload("res://players/status_effects/effects/freeze_status_effect.tres"),
-	PlayerStatusEffect.WEAKEN: preload("res://players/status_effects/effects/weaken_status_effect.tres")
+	PlayerStatusEffect.WEAKEN: preload("res://players/status_effects/effects/weaken_status_effect.tres"),
+	PlayerStatusEffect.SLIME: preload("res://players/status_effects/effects/slime_status_effect.tres"),
+	PlayerStatusEffect.HIDE: preload("res://players/status_effects/effects/hide_status_effect.tres")
 }
 
 enum PlayerSide {

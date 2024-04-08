@@ -14,6 +14,8 @@ class_name CardTextures extends Resource
 @export var fire_enhancement_color: Color
 @export var freeze_enhancement_color: Color
 @export var weaken_enhancement_color: Color
+@export var slime_enhancement_color: Color
+@export var hide_enhancement_color: Color
 @export var stamina_enhancement_color: Color
 
 
@@ -57,6 +59,10 @@ func get_enhancement_color(enhancement: Constants.CardEnhancement) -> Color:
 			return freeze_enhancement_color
 		Constants.CardEnhancement.WEAKEN:
 			return weaken_enhancement_color
+		Constants.CardEnhancement.SLIME:
+			return slime_enhancement_color
+		Constants.CardEnhancement.HIDE:
+			return hide_enhancement_color
 		Constants.CardEnhancement.STAMINA:
 			return stamina_enhancement_color
 	
@@ -83,6 +89,10 @@ func get_enhancement_as_string(enhancement: Constants.CardEnhancement) -> String
 			return "Freeze"
 		Constants.CardEnhancement.WEAKEN:
 			return "Weaken"
+		Constants.CardEnhancement.SLIME:
+			return "Slime"
+		Constants.CardEnhancement.HIDE:
+			return "Hide"
 		Constants.CardEnhancement.STAMINA:
 			return "Stamina"
 	

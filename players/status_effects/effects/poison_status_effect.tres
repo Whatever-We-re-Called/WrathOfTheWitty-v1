@@ -8,4 +8,5 @@ script = ExtResource("1_1u214")
 type = 1
 icon = ExtResource("1_4q5f5")
 color = Color(0.584314, 0.266667, 0.898039, 1)
-decrement_per_turn_value = 1
+decrement_per_turn_value = 0
+handle_decrement_automatically = false
