@@ -123,17 +123,10 @@ func reroll_card(card: Card):
 		_set_card_as_hidden(card)
 	else:
 		card.set_as_hidden(false)
-	
-	decrement_status_effect(Constants.PlayerStatusEffect.FREEZE, 1)
 
 
 func get_reroll_stamina_cost() -> int:
-	var additional_cost: int = 0
-	
-	if active_status_effects.has(Constants.PlayerStatusEffect.FREEZE):
-		additional_cost += active_status_effects[Constants.PlayerStatusEffect.FREEZE]
-	
-	return BASE_REROLL_STAMINA_COST + additional_cost
+	return BASE_REROLL_STAMINA_COST
 
 
 func decrement_status_effect(status_effect: Constants.PlayerStatusEffect, decrement_amount: int):
@@ -188,6 +181,7 @@ func handle_delayed_start_turn():
 	_handle_burn_status_effect()
 	_handle_slime_status_effect()
 	_handle_hide_status_effect()
+	_handle_freeze_status_effect()
 	_handle_weaken_status_effect()
 
 
@@ -274,6 +268,13 @@ func _weaken_card(card: Card):
 	card.card_info.add_to_enhancement_stack(Constants.CardEnhancement.WEAK)
 	card._init_enhancement_texture()
 	decrement_status_effect(Constants.PlayerStatusEffect.WEAKEN, 1)
+
+
+func _handle_freeze_status_effect():
+	if active_status_effects.has(Constants.PlayerStatusEffect.FREEZE):
+		for i in range(active_status_effects[Constants.PlayerStatusEffect.FREEZE]):
+			stamina -= 1
+			decrement_status_effect(Constants.PlayerStatusEffect.FREEZE, 1)
 
 
 func _decrement_status_effects():
