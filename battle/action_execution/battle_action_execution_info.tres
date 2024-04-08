@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BattleExecutionInfo" load_steps=2 format=3 uid="uid://b5qaco1cop33b"]
 
-[ext_resource type="Script" path="res://battle/execution/battle_execution_info.gd" id="1_nnukc"]
+[ext_resource type="Script" path="res://battle/action_execution/battle_action_execution_info.gd" id="1_nnukc"]
 
 [resource]
 script = ExtResource("1_nnukc")

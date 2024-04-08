@@ -25,7 +25,7 @@ var card_enhancement_stack: Array[Constants.CardEnhancement]
 var is_burning = false
 
 const CARD_TEXTURES = preload("res://battle/cards/textures/card_textures.tres")
-const BATTLE_EXECUTION_INFO = preload("res://battle/execution/battle_execution_info.tres")
+const BATTLE_ACTION_EXECUTION_INFO = preload("res://battle/action_execution/battle_action_execution_info.tres")
 
 
 func _ready():
@@ -100,7 +100,7 @@ func set_on_fire(is_on_fire: bool):
 	burning_overlay.visible = is_on_fire
 	
 	if is_burning:
-		burning_label.text = str(BATTLE_EXECUTION_INFO.base_fire_damage_value) + " HP"
+		burning_label.text = str(BATTLE_ACTION_EXECUTION_INFO.base_fire_damage_value) + " HP"
 
 
 func _on_button_gui_input(event):
@@ -115,7 +115,7 @@ func _on_button_gui_input(event):
 
 func _select():
 	if is_burning:
-		player.damage(BATTLE_EXECUTION_INFO.base_fire_damage_value)
+		player.damage(BATTLE_ACTION_EXECUTION_INFO.base_fire_damage_value)
 		set_on_fire(false)
 	else:
 		toggle_selected.emit()
@@ -123,7 +123,7 @@ func _select():
 
 func _reroll():
 	if is_burning:
-		player.damage(BATTLE_EXECUTION_INFO.base_fire_damage_value)
+		player.damage(BATTLE_ACTION_EXECUTION_INFO.base_fire_damage_value)
 		set_on_fire(false)
 	else:
 		if not player.selected_cards.has(card_info):

@@ -1,11 +1,19 @@
-class_name BattleScene extends Node2D
+[gd_scene load_steps=6 format=3 uid="uid://dsp1sp8onn48s"]
 
-@export_group("Players")
+[ext_resource type="PackedScene" uid="uid://cbocnnnw4vt17" path="res://ui/battle_interface.tscn" id="1_yveat"]
+[ext_resource type="Resource" uid="uid://d23m4e07eg735" path="res://players/configs/players/test_scrimblo_config.tres" id="2_1ywll"]
+[ext_resource type="PackedScene" uid="uid://cr5knc1fwhkm3" path="res://battle/cards/card.tscn" id="3_fjdkx"]
+[ext_resource type="Resource" uid="uid://dtikyc0sgapur" path="res://battle/template_cards/info/power_punch_template_card_info.tres" id="7_i4oth"]
+
+[sub_resource type="GDScript" id="GDScript_6modl"]
+script/source = "class_name BattleScene extends Node2D
+
+@export_group(\"Players\")
 @export var left_player_config: PlayerConfig
 @export var right_player_config: PlayerConfig
-@export_group("References")
+@export_group(\"References\")
 @export var card_scene: PackedScene
-@export_group("Debug")
+@export_group(\"Debug\")
 @export var debug_template_card_info: TemplateCardInfo
 
 @onready var battle_interface = $CanvasLayer/BattleInterface
@@ -21,7 +29,7 @@ var player: BattlePlayer:
 	set(value):
 		players[active_side] = value
 
-const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.tscn")
+const TEMPLATE_CARD_SCENE = preload(\"res://battle/template_cards/template_card.tscn\")
 
 func _ready():
 	active_side = Constants.PlayerSide.LEFT
@@ -40,7 +48,7 @@ func _init_player(side: Constants.PlayerSide, player_config: PlayerConfig, paren
 	var player = BattlePlayer.new()
 	player.init(player_config, side)
 	parent_node.add_child(player)
-	var sprite_height = player.sprite_frames.get_frame_texture("default", 0).get_height()
+	var sprite_height = player.sprite_frames.get_frame_texture(\"default\", 0).get_height()
 	player.global_position.y -= (sprite_height * player_config.sprite_scale.y) / 2.0
 	battle_interface.update_player_stats(player)
 	
@@ -51,7 +59,7 @@ func _process(delta):
 	battle_interface.update_player_deck_and_bag_ui(player)
 	
 	# Debug
-	if Input.is_action_just_pressed("debug_1"):
+	if Input.is_action_just_pressed(\"debug_1\"):
 		player.stamina = player.config.max_stamina
 		battle_interface.update_player_stats(player)
 
@@ -139,3 +147,24 @@ func get_non_active_side_player():
 		return players[Constants.PlayerSide.RIGHT]
 	elif active_side == Constants.PlayerSide.RIGHT:
 		return players[Constants.PlayerSide.LEFT]
+"
+
+[node name="BattleScene" type="Node2D"]
+script = SubResource("GDScript_6modl")
+left_player_config = ExtResource("2_1ywll")
+right_player_config = ExtResource("2_1ywll")
+card_scene = ExtResource("3_fjdkx")
+debug_template_card_info = ExtResource("7_i4oth")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BattleInterface" parent="CanvasLayer" instance=ExtResource("1_yveat")]
+metadata/_edit_use_anchors_ = true
+
+[node name="LeftPlayerNode" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(200, 800)
+
+[node name="RightPlayerNode" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1720, 800)
