@@ -191,6 +191,10 @@ func handle_end_turn():
 
 
 func _handle_stamina_recharge():
+	if stamina != config.max_stamina and active_status_effects.has(Constants.PlayerStatusEffect.FREEZE):
+		decrement_status_effect(Constants.PlayerStatusEffect.FREEZE, 1)
+		return
+	
 	replenish_stamina(1)
 
 
@@ -229,7 +233,7 @@ func _handle_slime_status_effect():
 
 func _set_card_as_slimed(card: Card):
 	card.set_as_slimed(true)
-	decrement_status_effect(Constants.PlayerStatusEffect.BURN, 1)
+	decrement_status_effect(Constants.PlayerStatusEffect.SLIME, 1)
 
 
 func _handle_hide_status_effect():
