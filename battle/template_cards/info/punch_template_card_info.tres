@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_ns4ow")
-name = "Power Punch"
+name = "Punch"
 sentence = "You're both %adjective% and %adjective%? Pick a struggle."
 info_description = "Deal 12 damage to your opponent."
 background_color = Color(0.219608, 0.117647, 0.156863, 1)

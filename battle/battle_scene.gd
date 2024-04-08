@@ -106,6 +106,7 @@ func unselect_card(card: Card):
 
 func play_cards():
 	BattleActionExecution.execute_action_cards(player.selected_cards, self)
+	BattleAbilityExecution.try_to_execute(active_template_card.template_card_info, player.selected_cards, self)
 	player.handle_played_selected_cards()
 	
 	change_turns()
@@ -124,6 +125,7 @@ func throw_card(card: Card):
 func change_turns():
 	player.handle_end_turn()
 	battle_interface.update_player_stats(player)
+	battle_interface.update_player_stats(get_non_active_side_player())
 	battle_interface.toggle_hand_visibility(false)
 	
 	await get_tree().create_timer(2).timeout

@@ -11,11 +11,11 @@ signal play_selected_cards
 @onready var information_description_icon = %InformationDescriptionIcon
 @onready var information_description_display = %InformationDescriptionDisplay
 @onready var info_description_label = %InfoDescriptionLabel
-@onready var insecurity_icon = %InsecurityIcon
 @onready var sentence_label = %SentenceLabel
 @onready var play_button = %PlayButton
 @onready var selected_cards_text = %SelectedCardsText
 @onready var selected_cards_container = %SelectedCardsContainer
+@onready var insecurity_icon_container = %InsecurityIconContainer
 
 var template_card_info: TemplateCardInfo
 var max_insults_allowed = 0
@@ -55,12 +55,16 @@ func _init_info_description():
 
 
 func _init_identity_visuals():
-	card_name = template_card_info.name
+	card_name.text = template_card_info.name
 
 
 func _init_execution_visuals():
-	#insecurity_icon.texture = Constants.get_insecurity_icon()
-	#insecurity_icon.self_modulate = Constants.get_insecurity_color(template_card_info.insecurity)
+	for insecurity in template_card_info.insecurities:
+		var insecurity_icon = TextureRect.new()
+		insecurity_icon.texture = Constants.get_insecurity_icon()
+		insecurity_icon.self_modulate = Constants.get_insecurity_color(insecurity)
+		insecurity_icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+		insecurity_icon_container.add_child(insecurity_icon)
 	
 	var sentence_label_text = template_card_info.sentence
 
@@ -75,8 +79,10 @@ func _init_insult_text():
 			var placeholder_text = INSULT_PLACEHOLDER_TEXTS[grammar_type]
 			var i = sentence_label_text.find(placeholder_text)
 			sentence_label_text = sentence_label_text.erase(i, placeholder_text.length())
+			sentence_label_text = sentence_label_text.insert(i, EMPTY_UNDERLINE_TEXT)
 			
 			max_insults_allowed += 1
+	sentence_label.text = sentence_label_text
 
 
 func _get_earliest_insult_grammar_placeholder(text: String) -> GrammarType:

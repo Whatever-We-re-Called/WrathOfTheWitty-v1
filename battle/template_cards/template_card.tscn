@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://byvl0ds2nui0e"]
+[gd_scene load_steps=7 format=3 uid="uid://byvl0ds2nui0e"]
 
 [ext_resource type="Script" path="res://battle/template_cards/template_card.gd" id="1_5xuhq"]
 [ext_resource type="Texture2D" uid="uid://d3nm5ic5n0uw5" path="res://kenney_assets/kenney_game-icons/PNG/White/1x/information.png" id="3_5kcht"]
-[ext_resource type="Texture2D" uid="uid://dsw3jmdsv2f4u" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/rhombus.svg" id="4_wffp5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lt3aj"]
 bg_color = Color(0.219608, 0.666667, 0.235294, 1)
@@ -87,7 +86,7 @@ theme_override_constants/margin_top = 16
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 4
 
 [node name="CardName" type="Label" parent="MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -169,13 +168,9 @@ grow_horizontal = 0
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 
-[node name="InsecurityIcon" type="TextureRect" parent="MarginContainer2"]
+[node name="InsecurityIconContainer" type="HBoxContainer" parent="MarginContainer2"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-texture = ExtResource("4_wffp5")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="SentenceLabel" type="Label" parent="."]
 unique_name_in_owner = true

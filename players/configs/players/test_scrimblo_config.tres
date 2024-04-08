@@ -6,13 +6,13 @@
 
 [sub_resource type="Resource" id="Resource_cnbq3"]
 script = ExtResource("1_5bkd6")
-action_type = 0
+action_type = 4
 enhancement = 0
 insult_text = ""
 
 [sub_resource type="Resource" id="Resource_7pqpg"]
 script = ExtResource("1_5bkd6")
-action_type = 0
+action_type = 4
 enhancement = 0
 insult_text = ""
 

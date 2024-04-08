@@ -78,3 +78,20 @@ func get_insecurity_color(insecurity: Insecurity) -> Color:
 
 func get_insecurity_icon() -> Texture2D:
 	return insecurity_colors.insecurity_icon
+
+
+func get_insecurity_of_action_type(action_type: CardAction) -> Insecurity:
+	match action_type:
+		CardAction.PHYSICAL_APPEARANCE_ATTACK:
+			return Insecurity.PHYSICAL_APPEARANCE
+		CardAction.SELF_ESTEEM_ATTACK:
+			return Insecurity.SELF_ESTEEM
+		CardAction.INTELLIGENCE_ATTACK:
+			return Insecurity.INTELLIGENCE
+		CardAction.PHYSICAL_ABILITY_ATTACK:
+			return Insecurity.PHYSICAL_ABILITY
+		CardAction.SOCIAL_LIFE_ATTACK:
+			return Insecurity.SOCIAL_LIFE
+		CardAction.FASHION_ATTACK:
+			return Insecurity.FASHION
+	return Insecurity.PHYSICAL_APPEARANCE
