@@ -13,13 +13,13 @@
 [sub_resource type="Resource" id="Resource_nyqgl"]
 script = ExtResource("1_ssf0t")
 action_type = 3
-enhancement = 10
+enhancement = 2
 insult_text = "incompetent"
 
 [sub_resource type="Resource" id="Resource_cd6nm"]
 script = ExtResource("1_ssf0t")
 action_type = 3
-enhancement = 10
+enhancement = 2
 insult_text = "disgustingly hideous"
 
 [sub_resource type="Resource" id="Resource_cnbq3"]

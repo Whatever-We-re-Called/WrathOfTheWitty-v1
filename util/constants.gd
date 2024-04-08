@@ -29,6 +29,7 @@ enum CardEnhancement {
 	WEAK,
 	BUFF,
 	EXTRA_BUFF,
+	STRENGTH,
 	POISON,
 	LIFE_STEAL,
 	FIRE,
@@ -36,17 +37,20 @@ enum CardEnhancement {
 	WEAKEN,
 	STAMINA,
 	SLIME,
-	HIDE
+	HIDE,
+	THORN
 }
 
 enum PlayerStatusEffect {
 	SHIELD,
+	STRENTGH,
 	POISON,
 	BURN,
 	FREEZE,
 	WEAKEN,
 	SLIME,
-	HIDE
+	HIDE,
+	THORN
 }
 
 var PlayerStatusEffectInfo = {

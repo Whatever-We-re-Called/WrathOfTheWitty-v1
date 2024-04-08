@@ -84,21 +84,21 @@ static func _get_damage_dealt_value(battle_action_execution_data: BattleActionEx
 	
 	var damage_dealt = float(BATTLE_ACTION_EXECUTION_INFO.base_attack_damage_value)
 	
-	var applied_multiplier = 1.0
 	# Enhancement Multipliers
 	if card_info.enhancement == Constants.CardEnhancement.BUFF:
-		applied_multiplier += BATTLE_ACTION_EXECUTION_INFO.buff_enhancement_percentage_increase
+		damage_dealt += BATTLE_ACTION_EXECUTION_INFO.buff_enhancement_increase_value
 	elif card_info.enhancement == Constants.CardEnhancement.EXTRA_BUFF:
-		applied_multiplier += BATTLE_ACTION_EXECUTION_INFO.extra_buff_enhancement_percentage_increase
-	elif card_info.enhancement == Constants.CardEnhancement.WEAK:
-		applied_multiplier += BATTLE_ACTION_EXECUTION_INFO.weak_enhancement_percentage_increase
+		damage_dealt += BATTLE_ACTION_EXECUTION_INFO.extra_buff_enhancement_increase_value
 	# Grouping and Matching Multipliers
 	if battle_action_execution_data.is_insecurity_group:
-		applied_multiplier +=  BATTLE_ACTION_EXECUTION_INFO.insecurity_group_percentage_increase
+		damage_dealt +=  BATTLE_ACTION_EXECUTION_INFO.base_group_attack_damage_increase
 	if card_info.get_insecurity_type() == battle_action_execution_data.defender_player.config.insecurity:
-		applied_multiplier += BATTLE_ACTION_EXECUTION_INFO.insecurity_match_percentage_increase
+		damage_dealt += BATTLE_ACTION_EXECUTION_INFO.base_matching_attack_damage_increase
+	# Weak Effect (TODO: Change into status effect)
+	if card_info.enhancement == Constants.CardEnhancement.WEAK:
+		damage_dealt *= (1.0 - BATTLE_ACTION_EXECUTION_INFO.weak_enhancement_percentage_decrease)
 	
-	return int(round(damage_dealt * applied_multiplier))
+	return int(floor(damage_dealt))
 
 
 static func _apply_poison_effect(battle_action_execution_data: BattleActionExecutionData):
@@ -152,7 +152,7 @@ static func _handle_stamina_enhancement(battle_action_execution_data: BattleActi
 
 static func _handle_life_steal_enhancement(battle_action_execution_data: BattleActionExecutionData, damage_dealt: int):
 	var attacker_player = battle_action_execution_data.attacker_player 
-	var heal_amount = round(float(damage_dealt) * BATTLE_ACTION_EXECUTION_INFO.base_life_steal_heal_percentage)
+	var heal_amount = floor(float(damage_dealt) * BATTLE_ACTION_EXECUTION_INFO.base_life_steal_heal_percentage)
 	
 	attacker_player.heal(heal_amount)
 

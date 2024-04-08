@@ -4,14 +4,14 @@
 
 [resource]
 script = ExtResource("1_nnukc")
-insecurity_group_percentage_increase = 0.25
-insecurity_match_percentage_increase = 0.25
-weak_enhancement_percentage_increase = -0.25
-buff_enhancement_percentage_increase = 0.25
-extra_buff_enhancement_percentage_increase = 0.5
 base_attack_damage_value = 8
+base_matching_attack_damage_increase = 2
+base_group_attack_damage_increase = 2
 base_heal_value = 6
 base_shield_value = 6
+weak_enhancement_percentage_decrease = 0.25
+buff_enhancement_increase_value = 3
+extra_buff_enhancement_increase_value = 6
 base_poison_value = 2
 base_life_steal_heal_percentage = 0.25
 base_fire_stack_value = 1
