@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TemplateCardInfo" load_steps=2 format=3 uid="uid://t3jhw6k818rs"]
+
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="1_8e2pn"]
+
+[resource]
+script = ExtResource("1_8e2pn")
+name = "Absolute Zero"
+sentence = "Can you please shut up with all of your %verb% and %verb%. "
+info_description = "Inflict 3 Freeze onto your opponent."
+background_color = Color(0.117647, 0.180392, 0.219608, 1)
+insecurities = Array[int]([1, 2])
+execute_function_name = "_execute_absolute_zero"

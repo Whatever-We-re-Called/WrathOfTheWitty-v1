@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TemplateCardInfo" load_steps=2 format=3 uid="uid://d2y88ykc4c4k5"]
+
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="1_8nrq2"]
+
+[resource]
+script = ExtResource("1_8nrq2")
+name = "Pyromancy"
+sentence = "Burn in hell, you %adjective% %noun%."
+info_description = "Inflict 3 Burn onto your opponent."
+background_color = Color(0.219608, 0.117647, 0.156863, 1)
+insecurities = Array[int]([0, 5])
+execute_function_name = "_execute_pyromancy"

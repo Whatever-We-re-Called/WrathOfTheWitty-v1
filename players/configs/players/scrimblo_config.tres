@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PlayerConfig" load_steps=3 format=3 uid="uid://dby8qnyo658jl"]
+
+[ext_resource type="Script" path="res://players/configs/player_config.gd" id="1_b11yi"]
+[ext_resource type="SpriteFrames" uid="uid://2up8nj4es0st" path="res://players/animations/scrimblo_sprite_frames.tres" id="3_3x4ds"]
+
+[resource]
+script = ExtResource("1_b11yi")
+name = "Scrimblo"
+sprite_frames = ExtResource("3_3x4ds")
+sprite_scale = Vector2(0.375, 0.375)
+base_level = 0
+insecurity = 2
+max_health = 100
+max_stamina = 5
+max_hand_size = 5
+action_card_deck = Array[Resource("res://battle/cards/info/card_info.gd")]([])
+template_card_deck = Array[Resource("res://battle/template_cards/info/template_card_info.gd")]([])

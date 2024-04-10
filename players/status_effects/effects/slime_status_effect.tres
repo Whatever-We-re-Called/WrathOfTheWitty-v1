@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=3 format=3 uid="uid://b1knthiwmbhrc"]
+
+[ext_resource type="Script" path="res://players/status_effects/effects/status_effect_info.gd" id="1_e3tc4"]
+[ext_resource type="Texture2D" uid="uid://bvx24fl3573wx" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/tag_empty.svg" id="1_jvdwm"]
+
+[resource]
+script = ExtResource("1_e3tc4")
+type = 5
+icon = ExtResource("1_jvdwm")
+color = Color(0.266667, 0.898039, 0.266667, 1)
+decrement_per_turn_value = 0
+handle_decrement_automatically = false

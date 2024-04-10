@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BattleExecutionInfo" load_steps=2 format=3 uid="uid://b5qaco1cop33b"]
+
+[ext_resource type="Script" path="res://battle/action_execution/battle_action_execution_info.gd" id="1_nnukc"]
+
+[resource]
+script = ExtResource("1_nnukc")
+base_attack_damage_value = 8
+base_matching_attack_damage_increase = 2
+base_group_attack_damage_increase = 2
+base_heal_value = 6
+base_shield_value = 6
+weak_enhancement_percentage_decrease = 0.25
+buff_enhancement_increase_value = 3
+extra_buff_enhancement_increase_value = 6
+base_poison_value = 2
+base_life_steal_heal_percentage = 0.25
+base_fire_stack_value = 1
+base_fire_damage_value = 3
+base_freeze_stack_value = 1
+base_weaken_stack_value = 1
+base_slime_stack_value = 1
+base_hide_stack_value = 1
+base_stamina_value = 1

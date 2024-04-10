@@ -1,0 +1,22 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://2up8nj4es0st"]
+
+[ext_resource type="Texture2D" uid="uid://dvqd30bq03rvs" path="res://players/sprites/Scrimblo_1.png" id="1_uhajo"]
+[ext_resource type="Texture2D" uid="uid://bsow26tkf2kd7" path="res://players/sprites/Scrimblo_2.png" id="2_v4ap0"]
+[ext_resource type="Texture2D" uid="uid://0tff20vhctnk" path="res://players/sprites/Scrimblo_3.png" id="3_nbt7d"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_uhajo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_v4ap0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_nbt7d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

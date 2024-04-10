@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TemplateCardInfo" load_steps=2 format=3 uid="uid://dtikyc0sgapur"]
+
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="1_ns4ow"]
+
+[resource]
+script = ExtResource("1_ns4ow")
+name = "Punch"
+sentence = "You're both %adjective% and %adjective%? Pick a struggle."
+info_description = "Deal 12 damage to your opponent."
+background_color = Color(0.219608, 0.117647, 0.156863, 1)
+insecurities = Array[int]([0, 1, 3])
+execute_function_name = "_execute_punch"

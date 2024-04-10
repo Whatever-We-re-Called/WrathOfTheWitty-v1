@@ -1,0 +1,260 @@
+[gd_scene load_steps=5 format=3 uid="uid://cr5knc1fwhkm3"]
+
+[ext_resource type="Script" path="res://battle/cards/card.gd" id="1_72ex4"]
+[ext_resource type="Texture2D" uid="uid://bvx24fl3573wx" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/tag_empty.svg" id="2_oni58"]
+[ext_resource type="Texture2D" uid="uid://dulyfjbqm82d3" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/fire.svg" id="2_vhbg1"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uois1"]
+load_path = "res://.godot/imported/str_icon.png-4dbb2f5f79c143b857bb5cf2788a2b07.ctex"
+
+[node name="Card" type="CenterContainer"]
+offset_right = 224.0
+offset_bottom = 96.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_72ex4")
+
+[node name="HiddenOverlay" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 2
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="HiddenOverlay"]
+custom_minimum_size = Vector2(224, 112)
+layout_mode = 2
+offset_left = -112.0
+offset_top = -56.0
+offset_right = 112.0
+offset_bottom = 56.0
+color = Color(0.396078, 0.45098, 0.494118, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="HiddenOverlay"]
+custom_minimum_size = Vector2(224, 4)
+layout_mode = 2
+offset_left = -112.0
+offset_top = -60.0
+offset_right = 112.0
+offset_bottom = -56.0
+color = Color(0.439216, 0.498039, 0.545098, 1)
+
+[node name="Label" type="Label" parent="HiddenOverlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "???"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlimedOverlay" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 4
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="SlimedOverlay"]
+modulate = Color(0.266667, 0.898039, 0.266667, 0.392157)
+layout_mode = 0
+offset_top = -33.0
+offset_right = 68.0
+offset_bottom = 40.0
+texture = ExtResource("2_oni58")
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="SlimedOverlay"]
+modulate = Color(0.266667, 0.898039, 0.266667, 0.392157)
+layout_mode = 0
+offset_left = -44.0
+offset_top = -14.0
+offset_right = 2.0
+offset_bottom = 33.0
+texture = ExtResource("2_oni58")
+stretch_mode = 4
+
+[node name="TextureRect3" type="TextureRect" parent="SlimedOverlay"]
+modulate = Color(0.266667, 0.898039, 0.266667, 0.392157)
+layout_mode = 0
+offset_left = -96.0
+offset_top = -42.0
+offset_right = -56.0
+offset_bottom = -2.0
+texture = ExtResource("2_oni58")
+stretch_mode = 4
+
+[node name="TextureRect4" type="TextureRect" parent="SlimedOverlay"]
+modulate = Color(0.266667, 0.898039, 0.266667, 0.392157)
+layout_mode = 0
+offset_left = 72.0
+offset_top = 16.0
+offset_right = 100.0
+offset_bottom = 44.0
+texture = ExtResource("2_oni58")
+stretch_mode = 4
+
+[node name="BurningOverlay" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 5
+custom_minimum_size = Vector2(224, 112)
+layout_mode = 2
+color = Color(0.898039, 0.266667, 0.266667, 0.588235)
+
+[node name="TopOverlayFix" type="ColorRect" parent="BurningOverlay"]
+z_index = 5
+custom_minimum_size = Vector2(224, 4)
+layout_mode = 2
+offset_top = -4.0
+offset_right = 224.0
+color = Color(0.898039, 0.266667, 0.266667, 0.588235)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BurningOverlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.5
+offset_top = -22.5
+offset_right = 60.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="TextureRect" type="TextureRect" parent="BurningOverlay/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_vhbg1")
+expand_mode = 3
+
+[node name="BurningLabel" type="Label" parent="BurningOverlay/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "2 HP"
+horizontal_alignment = 1
+
+[node name="InsultContainer" type="MarginContainer" parent="."]
+z_index = 1
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+
+[node name="InsultLabel" type="Label" parent="InsultContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "N/A"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(224, 112)
+layout_mode = 2
+button_mask = 7
+text = "
+"
+
+[node name="EnhancementInfo" type="MarginContainer" parent="Button"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -29.0
+offset_bottom = 27.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Button/EnhancementInfo"]
+layout_mode = 2
+
+[node name="EnhancementIcon" type="TextureRect" parent="Button/EnhancementInfo/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_uois1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="EnhancementLabel" type="Label" parent="Button/EnhancementInfo/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = " "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TypeInfo" type="MarginContainer" parent="Button"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_right = 9.0
+offset_bottom = 27.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 0
+
+[node name="ActionTypeLabel" type="Label" parent="Button/TypeInfo"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = " "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CornerColorRect" type="ColorRect" parent="Button"]
+layout_mode = 0
+offset_top = -4.0
+offset_right = 224.0
+color = Color(0.196078, 0.196078, 0.196078, 1)
+
+[node name="HighlightedUI" type="Control" parent="Button"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Button/HighlightedUI"]
+custom_minimum_size = Vector2(4, 120)
+layout_mode = 2
+offset_left = -4.0
+offset_top = -4.0
+offset_bottom = 116.0
+
+[node name="ColorRect3" type="ColorRect" parent="Button/HighlightedUI"]
+custom_minimum_size = Vector2(4, 120)
+layout_mode = 2
+offset_left = 224.0
+offset_top = -4.0
+offset_right = 228.0
+offset_bottom = 116.0
+
+[node name="ColorRect4" type="ColorRect" parent="Button/HighlightedUI"]
+custom_minimum_size = Vector2(224, 4)
+layout_mode = 2
+offset_top = 112.0
+offset_right = 224.0
+offset_bottom = 116.0
+
+[node name="ColorRect5" type="ColorRect" parent="Button/HighlightedUI"]
+clip_contents = true
+custom_minimum_size = Vector2(224, 4)
+layout_mode = 2
+offset_top = -4.0
+offset_right = 27.0
+
+[connection signal="gui_input" from="Button" to="." method="_on_button_gui_input"]

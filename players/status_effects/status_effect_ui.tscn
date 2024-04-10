@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dckjyprl8cjwl"]
+
+[ext_resource type="Script" path="res://players/status_effects/status_effect_ui.gd" id="1_dkjur"]
+[ext_resource type="Texture2D" uid="uid://bwdm2kxwc6b3s" path="res://kenney_assets/kenney_board-game-icons/PNG/Default (64px)/shield.png" id="1_dq24w"]
+
+[node name="StatusEffectUI" type="HBoxContainer"]
+theme_override_constants/separation = 4
+script = ExtResource("1_dkjur")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("1_dq24w")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "5"
