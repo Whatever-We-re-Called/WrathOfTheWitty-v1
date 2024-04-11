@@ -1,8 +1,8 @@
 class_name BattleScene extends Node2D
 
 @export_group("Players")
-@export var left_player_config: PlayerConfig
-@export var right_player_config: PlayerConfig
+@export var left_player_config: PlayerInfo
+@export var right_player_config: PlayerInfo
 @export_group("Debug")
 @export var debug_template_card_info: TemplateCardInfo
 
@@ -45,12 +45,12 @@ func _ready():
 	battle_interface.card_throw.connect(throw_card)
 
 
-func _init_player(side: Constants.PlayerSide, player_config: PlayerConfig, parent_node: Node2D):
+func _init_player(side: Constants.PlayerSide, player_info: PlayerInfo, parent_node: Node2D):
 	var player = BattlePlayer.new()
-	player.init(player_config, side)
+	player.init(player_info, side)
 	parent_node.add_child(player)
 	var sprite_height = player.sprite_frames.get_frame_texture("default", 0).get_height()
-	player.global_position.y -= (sprite_height * player_config.sprite_scale.y) / 2.0
+	player.global_position.y -= (sprite_height * player_info.sprite_scale.y) / 2.0
 	battle_interface.update_player_stats(player)
 	
 	players[side] = player

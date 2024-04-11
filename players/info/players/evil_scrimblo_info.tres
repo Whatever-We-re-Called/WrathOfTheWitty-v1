@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="PlayerConfig" load_steps=12 format=3 uid="uid://bu5qw2ma20o10"]
 
 [ext_resource type="Script" path="res://battle/cards/info/card_info.gd" id="1_1533t"]
-[ext_resource type="Script" path="res://players/configs/player_config.gd" id="2_tjhav"]
+[ext_resource type="Script" path="res://players/info/player_info.gd" id="2_tjhav"]
 [ext_resource type="SpriteFrames" uid="uid://c4500aeelvumf" path="res://players/animations/evil_scrimblo_sprite_frames.tres" id="3_tougs"]
 
 [sub_resource type="Resource" id="Resource_usmhr"]

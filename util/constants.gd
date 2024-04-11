@@ -26,19 +26,11 @@ enum Insecurity {
 
 enum CardEnhancement {
 	NONE,
-	WEAK,
-	BUFF,
-	EXTRA_BUFF,
-	STRENGTH,
-	POISON,
+	REPLENISH,
 	LIFE_STEAL,
-	FIRE,
-	FREEZE,
-	WEAKEN,
-	STAMINA,
-	SLIME,
-	HIDE,
-	THORN
+	DEFENSE,
+	HOLLOW,
+	GUARANTEE
 }
 
 enum PlayerStatusEffect {

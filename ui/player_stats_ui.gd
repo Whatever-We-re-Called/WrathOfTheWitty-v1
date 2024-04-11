@@ -13,15 +13,15 @@ const STATUS_EFFECT_UI_SCENE = preload("res://players/status_effects/status_effe
 
 func update(player: BattlePlayer):
 	insecurity_icon.texture = Constants.get_insecurity_icon()
-	insecurity_icon.self_modulate = Constants.get_insecurity_color(player.config.insecurity)
+	#insecurity_icon.self_modulate = Constants.get_insecurity_color(player.info.insecurity)
 	
-	player_name.text = player.config.name
+	player_name.text = player.info.name
 	
-	health_bar.value = (float(player.health) / float(player.config.max_health)) * 100.0
-	health_bar_label.text = str(player.health) + "/" + str(player.config.max_health)
+	health_bar.value = (float(player.health) / float(player.info.health_stat)) * 100.0
+	health_bar_label.text = str(player.health) + "/" + str(player.info.health_stat)
 	
-	stamina_bar.value = (float(player.stamina) / float(player.config.max_stamina)) * 100
-	stamina_bar_label.text = str(player.stamina) + "/" + str(player.config.max_stamina)
+	stamina_bar.value = (float(player.stamina) / float(player.info.stamina_stat)) * 100
+	stamina_bar_label.text = str(player.stamina) + "/" + str(player.info.stamina_stat)
 	
 	_update_status_effect_ui(player)
 

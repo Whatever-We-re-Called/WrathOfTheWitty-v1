@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="PlayerConfig" load_steps=3 format=3 uid="uid://dby8qnyo658jl"]
 
-[ext_resource type="Script" path="res://players/configs/player_config.gd" id="1_b11yi"]
+[ext_resource type="Script" path="res://players/info/player_info.gd" id="1_b11yi"]
 [ext_resource type="SpriteFrames" uid="uid://2up8nj4es0st" path="res://players/animations/scrimblo_sprite_frames.tres" id="3_3x4ds"]
 
 [resource]

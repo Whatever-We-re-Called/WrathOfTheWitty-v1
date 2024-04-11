@@ -42,29 +42,29 @@ func get_action_color(action: Constants.CardAction) -> Color:
 
 
 func get_enhancement_color(enhancement: Constants.CardEnhancement) -> Color:
-	match (enhancement):
-		Constants.CardEnhancement.WEAK:
-			return weak_enhancement_color
-		Constants.CardEnhancement.BUFF:
-			return buff_enhancement_color
-		Constants.CardEnhancement.EXTRA_BUFF:
-			return extra_buff_enhancement_color
-		Constants.CardEnhancement.POISON:
-			return poison_enhancement_color
-		Constants.CardEnhancement.LIFE_STEAL:
-			return life_steal_enhancement_color
-		Constants.CardEnhancement.FIRE:
-			return fire_enhancement_color
-		Constants.CardEnhancement.FREEZE:
-			return freeze_enhancement_color
-		Constants.CardEnhancement.WEAKEN:
-			return weaken_enhancement_color
-		Constants.CardEnhancement.SLIME:
-			return slime_enhancement_color
-		Constants.CardEnhancement.HIDE:
-			return hide_enhancement_color
-		Constants.CardEnhancement.STAMINA:
-			return stamina_enhancement_color
+	#match (enhancement):
+		#Constants.CardEnhancement.WEAK:
+			#return weak_enhancement_color
+		#Constants.CardEnhancement.BUFF:
+			#return buff_enhancement_color
+		#Constants.CardEnhancement.EXTRA_BUFF:
+			#return extra_buff_enhancement_color
+		#Constants.CardEnhancement.POISON:
+			#return poison_enhancement_color
+		#Constants.CardEnhancement.LIFE_STEAL:
+			#return life_steal_enhancement_color
+		#Constants.CardEnhancement.FIRE:
+			#return fire_enhancement_color
+		#Constants.CardEnhancement.FREEZE:
+			#return freeze_enhancement_color
+		#Constants.CardEnhancement.WEAKEN:
+			#return weaken_enhancement_color
+		#Constants.CardEnhancement.SLIME:
+			#return slime_enhancement_color
+		#Constants.CardEnhancement.HIDE:
+			#return hide_enhancement_color
+		#Constants.CardEnhancement.STAMINA:
+			#return stamina_enhancement_color
 	
 	return Color.BLACK
 
@@ -73,28 +73,16 @@ func get_enhancement_as_string(enhancement: Constants.CardEnhancement) -> String
 	match (enhancement):
 		Constants.CardEnhancement.NONE:
 			return "None"
-		Constants.CardEnhancement.WEAK:
-			return "Weak"
-		Constants.CardEnhancement.BUFF:
-			return "Buff"
-		Constants.CardEnhancement.EXTRA_BUFF:
-			return "Extra Buff"
-		Constants.CardEnhancement.POISON:
-			return "Poison"
+		Constants.CardEnhancement.REPLENISH:
+			return "Replenish"
 		Constants.CardEnhancement.LIFE_STEAL:
 			return "Life Steal"
-		Constants.CardEnhancement.FIRE:
-			return "Fire"
-		Constants.CardEnhancement.FREEZE:
-			return "Freeze"
-		Constants.CardEnhancement.WEAKEN:
-			return "Weaken"
-		Constants.CardEnhancement.SLIME:
-			return "Slime"
-		Constants.CardEnhancement.HIDE:
-			return "Hide"
-		Constants.CardEnhancement.STAMINA:
-			return "Stamina"
+		Constants.CardEnhancement.DEFENSE:
+			return "Defense"
+		Constants.CardEnhancement.GUARANTEE:
+			return "Guarantee"
+		Constants.CardEnhancement.HOLLOW:
+			return "Hollow"
 	
 	return "N/A"
 

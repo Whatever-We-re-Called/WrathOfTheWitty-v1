@@ -1,9 +1,9 @@
 class_name BattlePlayer extends AnimatedSprite2D
 
-var config: PlayerConfig
-var level: int
+var info: PlayerInfo
 var health: int
 var stamina: int
+
 var side: Constants.PlayerSide
 var active_status_effects: Dictionary = {}
 
@@ -24,23 +24,22 @@ const BASE_REROLL_STAMINA_COST = 1
 const STATUS_EFFECT_UI = preload("res://players/status_effects/status_effect_ui.tscn")
 
 
-func init(config: PlayerConfig, side: Constants.PlayerSide):
-	self.config = config.duplicate()
+func init(new_info: PlayerInfo, side: Constants.PlayerSide):
+	self.info = new_info.duplicate()
 	
-	self.level = config.base_level
-	self.health = config.max_health
-	self.stamina = config.max_stamina
+	self.health = info.health_stat if info.current_health < 0 else info.current_health
+	self.stamina = info.stamina_stat
 	
-	for card_info in self.config.action_card_deck:
+	for card_info in self.info.action_card_deck:
 		cards_in_deck.push_back(card_info.duplicate())
 	randomize()
 	cards_in_deck.shuffle()
-	add_cards_to_hand(config.max_hand_size)
+	add_cards_to_hand(info.hand_stat)
 	
 	self.side = side
 	
-	scale = config.sprite_scale
-	sprite_frames = config.sprite_frames
+	scale = info.sprite_scale
+	sprite_frames = info.sprite_frames
 	play()
 
 
@@ -53,7 +52,7 @@ func damage(amount: int):
 		shield_amount -= 1
 	
 	health -= amount
-	health = clamp(health, 0, config.max_health)
+	health = clamp(health, 0, info.health_stat)
 	_execute_damage_visual()
 	
 	active_status_effects[Constants.PlayerStatusEffect.SHIELD] = shield_amount
@@ -67,12 +66,12 @@ func _execute_damage_visual():
 
 func heal(amount: int):
 	health += amount
-	health = clamp(health, 0, config.max_health)
+	health = clamp(health, 0, info.health_stat)
 
 
 func replenish_stamina(amount: int):
 	stamina += amount
-	stamina = clamp(stamina, 0, config.max_stamina)
+	stamina = clamp(stamina, 0, info.stamina_stat)
 
 
 func add_cards_to_hand(amount: int):
@@ -136,15 +135,6 @@ func decrement_status_effect(status_effect: Constants.PlayerStatusEffect, decrem
 			active_status_effects.erase(status_effect)
 
 
-#func throw_card(card: Card, battle_scene: BattleScene):
-	#if stamina < THROW_STAMINA_COST: return
-	#stamina -= THROW_STAMINA_COST
-	#
-	#send_card_to_bag(card.card_info)
-	#BattleExecution.execute_action_card(card.card_info, battle_scene)
-	#card.queue_free()
-
-
 func _overwrite_card_info(card: Card, new_card_info: CardInfo):
 	
 	var old_card_info = card.card_info
@@ -182,16 +172,14 @@ func handle_delayed_start_turn():
 	_handle_slime_status_effect()
 	_handle_hide_status_effect()
 	_handle_freeze_status_effect()
-	_handle_weaken_status_effect()
 
 
 func handle_end_turn():
 	_decrement_status_effects()
-	_reset_enhancements_on_cards()
 
 
 func _handle_stamina_recharge():
-	if stamina != config.max_stamina and active_status_effects.has(Constants.PlayerStatusEffect.FREEZE):
+	if stamina != info.stamina_stat and active_status_effects.has(Constants.PlayerStatusEffect.FREEZE):
 		decrement_status_effect(Constants.PlayerStatusEffect.FREEZE, 1)
 		return
 	
@@ -201,7 +189,7 @@ func _handle_stamina_recharge():
 func _handle_poison_status_effect():
 	if active_status_effects.has(Constants.PlayerStatusEffect.POISON):
 		damage(active_status_effects[Constants.PlayerStatusEffect.POISON])
-		active_status_effects[Constants.PlayerStatusEffect.POISON] -= 1
+		decrement_status_effect(Constants.PlayerStatusEffect.POISON, 1)
 
 
 func _handle_burn_status_effect():
@@ -211,7 +199,7 @@ func _handle_burn_status_effect():
 		copy_of_cards_in_hands_scene.shuffle()
 		
 		for i in range(active_status_effects[Constants.PlayerStatusEffect.BURN]):
-			if i >= config.max_hand_size: break
+			if i >= info.hand_stat: break
 			_set_card_on_fire(copy_of_cards_in_hands_scene[i])
 
 
@@ -227,7 +215,7 @@ func _handle_slime_status_effect():
 		copy_of_cards_in_hands_scene.shuffle()
 		
 		for i in range(active_status_effects[Constants.PlayerStatusEffect.SLIME]):
-			if i >= config.max_hand_size: break
+			if i >= info.hand_stat: break
 			_set_card_as_slimed(copy_of_cards_in_hands_scene[i])
 
 
@@ -243,35 +231,13 @@ func _handle_hide_status_effect():
 		copy_of_cards_in_hands_scene.shuffle()
 		
 		for i in range(active_status_effects[Constants.PlayerStatusEffect.HIDE]):
-			if i >= config.max_hand_size: break
+			if i >= info.hand_stat: break
 			_set_card_as_hidden(copy_of_cards_in_hands_scene[i])
 
 
 func _set_card_as_hidden(card: Card):
 	card.set_as_hidden(true)
 	decrement_status_effect(Constants.PlayerStatusEffect.HIDE, 1)
-
-
-func _handle_weaken_status_effect():
-	if active_status_effects.has(Constants.PlayerStatusEffect.WEAKEN):
-		var copy_of_cards_in_hands_scene = cards_in_hand_scenes
-		randomize()
-		copy_of_cards_in_hands_scene.shuffle()
-		
-		for i in range(active_status_effects[Constants.PlayerStatusEffect.WEAKEN]):
-			if i >= config.max_hand_size: break
-			
-			var card_info = copy_of_cards_in_hands_scene[i].card_info
-			if not card_info.is_attack_card(): break
-			if card_info.card_enhancement_stack.has(Constants.CardEnhancement.WEAK): break
-			
-			_weaken_card(copy_of_cards_in_hands_scene[i])
-
-
-func _weaken_card(card: Card):
-	card.card_info.add_to_enhancement_stack(Constants.CardEnhancement.WEAK)
-	card._init_enhancement_texture()
-	decrement_status_effect(Constants.PlayerStatusEffect.WEAKEN, 1)
 
 
 func _handle_freeze_status_effect():
@@ -293,9 +259,3 @@ func _decrement_status_effects():
 		if active_status_effects[status_effect] <= 0:
 			active_status_effects.erase(status_effect)
 			continue
-
-
-func _reset_enhancements_on_cards():
-	for card_array in card_arrays:
-		for card_info in card_array:
-			card_info.reset_enhancement_stack()

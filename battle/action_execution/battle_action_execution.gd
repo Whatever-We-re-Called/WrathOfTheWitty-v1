@@ -8,29 +8,14 @@ class BattleActionExecutionData:
 	var battle_scene: BattleScene
 	var attacker_player: BattlePlayer
 	var defender_player: BattlePlayer
-	var is_insecurity_group: bool
 
 
 static func execute_action_cards(card_infos: Array[CardInfo], battle_scene: BattleScene):
-	var is_insecurity_group = _is_a_insecurity_group(card_infos)
 	for card_info in card_infos:
-		execute_action_card(card_info, battle_scene, is_insecurity_group)
+		execute_action_card(card_info, battle_scene)
 
 
-static func _is_a_insecurity_group(card_infos: Array[CardInfo]) -> bool:
-	if card_infos.size() == 1: return false
-	
-	var first_action_type = card_infos[0].action_type
-	for card_info in card_infos:
-		if not card_info.is_attack_card():
-			return false
-		elif card_info.action_type != first_action_type:
-			return false
-	
-	return true
-
-
-static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene, is_insecurity_group: bool = false):
+static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene):
 	var attacker_player = battle_scene.player
 	var defender_player = battle_scene.get_non_active_side_player() 
 	
@@ -39,7 +24,6 @@ static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene, 
 	battle_action_execution_data.battle_scene = battle_scene
 	battle_action_execution_data.attacker_player = battle_scene.player
 	battle_action_execution_data.defender_player = battle_scene.get_non_active_side_player()
-	battle_action_execution_data.is_insecurity_group = is_insecurity_group
 	
 	if card_info.is_attack_card():
 		_execute_action_card_attack(battle_action_execution_data)
@@ -59,116 +43,125 @@ static func _execute_action_card_attack(battle_action_execution_data: BattleActi
 	
 	battle_action_execution_data.defender_player.damage(damage_dealt)
 	
-	match battle_action_execution_data.card_info.enhancement:
-		Constants.CardEnhancement.POISON:
-			_apply_poison_effect(battle_action_execution_data)
-		Constants.CardEnhancement.FIRE:
-			_apply_fire_effect(battle_action_execution_data)
-		Constants.CardEnhancement.FREEZE:
-			_apply_freeze_effect(battle_action_execution_data)
-		Constants.CardEnhancement.WEAKEN:
-			_apply_weaken_effect(battle_action_execution_data)
-		Constants.CardEnhancement.SLIME:
-			_apply_slime_effect(battle_action_execution_data)
-		Constants.CardEnhancement.HIDE:
-			_apply_hide_effect(battle_action_execution_data)
-		Constants.CardEnhancement.STAMINA:
-			_handle_stamina_enhancement(battle_action_execution_data)
-		Constants.CardEnhancement.LIFE_STEAL:
-			_handle_life_steal_enhancement(battle_action_execution_data, damage_dealt)
+	_try_to_execute_action_card_effect(battle_action_execution_data)
+	_try_to_execute_action_card_enhancement(battle_action_execution_data)
 
 
 static func _get_damage_dealt_value(battle_action_execution_data: BattleActionExecutionData) -> int:
-	var player_level = battle_action_execution_data.attacker_player.level
 	var card_info = battle_action_execution_data.card_info
+	var attacker_player = battle_action_execution_data.attacker_player
+	var defender_player = battle_action_execution_data.defender_player
 	
-	var damage_dealt = float(BATTLE_ACTION_EXECUTION_INFO.base_attack_damage_value)
+	var damage_dealt = attacker_player.info.attack_stat
 	
-	# Enhancement Multipliers
-	if card_info.enhancement == Constants.CardEnhancement.BUFF:
-		damage_dealt += BATTLE_ACTION_EXECUTION_INFO.buff_enhancement_increase_value
-	elif card_info.enhancement == Constants.CardEnhancement.EXTRA_BUFF:
-		damage_dealt += BATTLE_ACTION_EXECUTION_INFO.extra_buff_enhancement_increase_value
-	# Grouping and Matching Multipliers
-	if battle_action_execution_data.is_insecurity_group:
-		damage_dealt +=  BATTLE_ACTION_EXECUTION_INFO.base_group_attack_damage_increase
-	if card_info.get_insecurity_type() == battle_action_execution_data.defender_player.config.insecurity:
-		damage_dealt += BATTLE_ACTION_EXECUTION_INFO.base_matching_attack_damage_increase
-	# Weak Effect (TODO: Change into status effect)
-	if card_info.enhancement == Constants.CardEnhancement.WEAK:
-		damage_dealt *= (1.0 - BATTLE_ACTION_EXECUTION_INFO.weak_enhancement_percentage_decrease)
+	# Handle Weak
+	var weaken_status_effect = Constants.PlayerStatusEffect.WEAKEN
+	if attacker_player.active_status_effects.has(weaken_status_effect):
+		var weaken_value = attacker_player.active_status_effects[weaken_status_effect]
+		damage_dealt -= weaken_value
+		attacker_player.decrement_status_effect(weaken_status_effect, 1)
+	
+	# Handle Insecurity Matchings
+	var card_insecurity = Constants.get_insecurity_of_action_type(card_info.action_type)
+	if defender_player.info.insecurity_weaknesses.has(card_insecurity):
+		damage_dealt *= 1.25
+	elif defender_player.info.insecurity_strengths.has(card_insecurity):
+		damage_dealt *= 0.75
+	elif defender_player.info.insecurity_blocks.has(card_insecurity):
+		damage_dealt = 0
 	
 	return int(floor(damage_dealt))
 
 
-static func _apply_poison_effect(battle_action_execution_data: BattleActionExecutionData):
-	var defender_player = battle_action_execution_data.defender_player
-	var applied_poison_value = BATTLE_ACTION_EXECUTION_INFO.base_poison_value
+static func _try_to_execute_action_card_effect(battle_action_execution_data: BattleActionExecutionData):
+	var execution_times = 1
 	
-	defender_player.apply_status_effect(Constants.PlayerStatusEffect.POISON, applied_poison_value)
-
-
-static func _apply_fire_effect(battle_action_execution_data: BattleActionExecutionData):
-	var defender_player = battle_action_execution_data.defender_player
-	var applied_burn_value = BATTLE_ACTION_EXECUTION_INFO.base_fire_stack_value
+	var temp_magic_stat = battle_action_execution_data.attacker_player.info.magic_stat
+	var rng = RandomNumberGenerator.new()
+	while temp_magic_stat > 0:
+		var result = rng.randi_range(1, 20)
+		if result <= temp_magic_stat:
+			execution_times += 1
+		temp_magic_stat -= 20
 	
-	defender_player.apply_status_effect(Constants.PlayerStatusEffect.BURN, applied_burn_value)
-
-
-static func _apply_freeze_effect(battle_action_execution_data: BattleActionExecutionData):
-	var defender_player = battle_action_execution_data.defender_player
-	var applied_freeze_value = BATTLE_ACTION_EXECUTION_INFO.base_freeze_stack_value
 	
-	defender_player.apply_status_effect(Constants.PlayerStatusEffect.FREEZE, applied_freeze_value)
+	for i in range(execution_times):
+		match battle_action_execution_data.card_info.action_type:
+			Constants.CardAction.PHYSICAL_APPEARANCE_ATTACK:
+				_inflict_hide_effect_onto_enemy(battle_action_execution_data)
+			Constants.CardAction.SELF_ESTEEM_ATTACK:
+				_inflict_weaken_effect_onto_enemy(battle_action_execution_data)
+			Constants.CardAction.INTELLIGENCE_ATTACK:
+				_inflict_poison_effect_onto_enemy(battle_action_execution_data)
+			Constants.CardAction.PHYSICAL_ABILITY_ATTACK:
+				_inflict_burn_effect_onto_enemy(battle_action_execution_data)
+			Constants.CardAction.SOCIAL_LIFE_ATTACK:
+				_inflict_freeze_effect_onto_enemy(battle_action_execution_data)
+			Constants.CardAction.FASHION_ATTACK:
+				_inflict_slime_effect_onto_enemy(battle_action_execution_data)
 
 
-static func _apply_weaken_effect(battle_action_execution_data: BattleActionExecutionData):
+static func _inflict_hide_effect_onto_enemy(battle_action_execution_data: BattleActionExecutionData):
 	var defender_player = battle_action_execution_data.defender_player
-	var applied_weaken_value = BATTLE_ACTION_EXECUTION_INFO.base_weaken_stack_value
+	var status_effect = Constants.PlayerStatusEffect.HIDE
+	var applied_value = 1
 	
-	defender_player.apply_status_effect(Constants.PlayerStatusEffect.WEAKEN, applied_weaken_value)
+	defender_player.apply_status_effect(status_effect, applied_value)
 
 
-static func _apply_slime_effect(battle_action_execution_data: BattleActionExecutionData):
+static func _inflict_weaken_effect_onto_enemy(battle_action_execution_data: BattleActionExecutionData):
 	var defender_player = battle_action_execution_data.defender_player
-	var applied_slime_value = BATTLE_ACTION_EXECUTION_INFO.base_slime_stack_value
+	var status_effect = Constants.PlayerStatusEffect.WEAKEN
+	var applied_value = 1
 	
-	defender_player.apply_status_effect(Constants.PlayerStatusEffect.SLIME, applied_slime_value)
+	defender_player.apply_status_effect(status_effect, applied_value)
 
 
-static func _apply_hide_effect(battle_action_execution_data: BattleActionExecutionData):
+static func _inflict_poison_effect_onto_enemy(battle_action_execution_data: BattleActionExecutionData):
 	var defender_player = battle_action_execution_data.defender_player
-	var applied_hide_value = BATTLE_ACTION_EXECUTION_INFO.base_hide_stack_value
+	var status_effect = Constants.PlayerStatusEffect.POISON
+	var applied_value = 2
 	
-	defender_player.apply_status_effect(Constants.PlayerStatusEffect.HIDE, applied_hide_value)
+	defender_player.apply_status_effect(status_effect, applied_value)
 
 
-static func _handle_stamina_enhancement(battle_action_execution_data: BattleActionExecutionData):
+static func _inflict_burn_effect_onto_enemy(battle_action_execution_data: BattleActionExecutionData):
+	var defender_player = battle_action_execution_data.defender_player
+	var status_effect = Constants.PlayerStatusEffect.BURN
+	var applied_value = 1
+	
+	defender_player.apply_status_effect(status_effect, applied_value)
+
+
+static func _inflict_freeze_effect_onto_enemy(battle_action_execution_data: BattleActionExecutionData):
+	var defender_player = battle_action_execution_data.defender_player
+	var status_effect = Constants.PlayerStatusEffect.FREEZE
+	var applied_value = 1
+	
+	defender_player.apply_status_effect(status_effect, applied_value)
+
+
+static func _inflict_slime_effect_onto_enemy(battle_action_execution_data: BattleActionExecutionData):
+	var defender_player = battle_action_execution_data.defender_player
+	var status_effect = Constants.PlayerStatusEffect.SLIME
+	var applied_value = 1
+	
+	defender_player.apply_status_effect(status_effect, applied_value)
+
+
+static func _try_to_execute_action_card_enhancement(battle_action_execution_data: BattleActionExecutionData):
+	pass
+
+
+static func _execute_action_card_heal(battle_action_execution_data: BattleActionExecutionData):
 	var attacker_player = battle_action_execution_data.attacker_player
-	var replenished_stamina = BATTLE_ACTION_EXECUTION_INFO.base_stamina_value
+	var heal_value = battle_action_execution_data.attacker_player.info.support_stat
 	
-	attacker_player.replenish_stamina(replenished_stamina)
+	attacker_player.heal(heal_value)
 
 
-static func _handle_life_steal_enhancement(battle_action_execution_data: BattleActionExecutionData, damage_dealt: int):
-	var attacker_player = battle_action_execution_data.attacker_player 
-	var heal_amount = floor(float(damage_dealt) * BATTLE_ACTION_EXECUTION_INFO.base_life_steal_heal_percentage)
-	
-	attacker_player.heal(heal_amount)
-
-
-static func _execute_action_card_heal(battle_action_execution_data: BattleActionExecutionData) -> int:
+static func _execute_action_card_shield(battle_action_execution_data: BattleActionExecutionData):
 	var attacker_player = battle_action_execution_data.attacker_player
-	var health_given = BATTLE_ACTION_EXECUTION_INFO.base_heal_value
+	var shield_value = battle_action_execution_data.attacker_player.info.support_stat
 	
-	attacker_player.heal(health_given)
-	return health_given
-
-
-static func _execute_action_card_shield(battle_action_execution_data: BattleActionExecutionData) -> int:
-	var attacker_player = battle_action_execution_data.attacker_player
-	var shield_given = BATTLE_ACTION_EXECUTION_INFO.base_shield_value
-	
-	attacker_player.apply_status_effect(Constants.PlayerStatusEffect.SHIELD, shield_given)
-	return shield_given
-
+	attacker_player.apply_status_effect(Constants.PlayerStatusEffect.SHIELD, shield_value)
