@@ -74,6 +74,11 @@ func replenish_stamina(amount: int):
 	stamina = clamp(stamina, 0, info.stamina_stat)
 
 
+func deplenish_stamina(amount: int):
+	stamina -= amount
+	stamina = clamp(stamina, 0, info.stamina_stat)
+
+
 func add_cards_to_hand(amount: int):
 	# TODO Add support for proper deck and bag handling.
 	for i in range(amount):
@@ -109,7 +114,7 @@ func send_card_to_bag(card_info: CardInfo):
 
 func reroll_card(card: Card):
 	if stamina < get_reroll_stamina_cost(): return
-	stamina -= get_reroll_stamina_cost()
+	deplenish_stamina(get_reroll_stamina_cost())
 	
 	send_card_to_bag(card.card_info)
 	
@@ -243,7 +248,7 @@ func _set_card_as_hidden(card: Card):
 func _handle_freeze_status_effect():
 	if active_status_effects.has(Constants.PlayerStatusEffect.FREEZE):
 		for i in range(active_status_effects[Constants.PlayerStatusEffect.FREEZE]):
-			stamina -= 1
+			deplenish_stamina(1)
 			decrement_status_effect(Constants.PlayerStatusEffect.FREEZE, 1)
 
 
