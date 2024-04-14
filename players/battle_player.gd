@@ -6,6 +6,7 @@ var stamina: int
 
 var side: Constants.PlayerSide
 var active_status_effects: Dictionary = {}
+var frozen_stamina_count = 0
 
 var cards_in_deck: Array[CardInfo]
 var cards_in_hand: Array[CardInfo]
@@ -176,14 +177,13 @@ func apply_status_effect(effect: Constants.PlayerStatusEffect, value: int):
 
 
 func get_frozen_stamina_count() -> int:
-	if not active_status_effects.has(Constants.PlayerStatusEffect.FREEZE):
-		return 0
+	return frozen_stamina_count
 	
-	var result = 0
-	for i in range(active_status_effects[Constants.PlayerStatusEffect.FREEZE]):
-		if (i + 1) <= stamina:
-			result += 1
-	return result
+	#var result = 0
+	#for i in range(active_status_effects[Constants.PlayerStatusEffect.FREEZE]):
+		#if (i + 1) <= stamina:
+			#result += 1
+	#return result
 
 
 func handle_start_turn():
@@ -195,11 +195,12 @@ func handle_delayed_start_turn():
 	_handle_burn_status_effect()
 	_handle_slime_status_effect()
 	_handle_hide_status_effect()
+	_handle_freeze_status_effect()
 
 
 func handle_end_turn():
-	_handle_freeze_status_effect()
 	_decrement_status_effects()
+	_reset_frozen_stamina()
 
 
 func _handle_stamina_recharge():
@@ -261,7 +262,15 @@ func _set_card_as_hidden(card: Card):
 
 
 func _handle_freeze_status_effect():
-	decrement_status_effect(Constants.PlayerStatusEffect.FREEZE, get_frozen_stamina_count())
+	if not active_status_effects.has(Constants.PlayerStatusEffect.FREEZE): return
+	
+	frozen_stamina_count = 0
+	var freeze_value = active_status_effects[Constants.PlayerStatusEffect.FREEZE]
+	for i in range(freeze_value):
+		if (i + 1) > stamina: break
+		
+		frozen_stamina_count += 1
+		decrement_status_effect(Constants.PlayerStatusEffect.FREEZE, 1)
 
 
 func _decrement_status_effects():
@@ -276,3 +285,7 @@ func _decrement_status_effects():
 		if active_status_effects[status_effect] <= 0:
 			active_status_effects.erase(status_effect)
 			continue
+
+
+func _reset_frozen_stamina():
+	frozen_stamina_count = 0
