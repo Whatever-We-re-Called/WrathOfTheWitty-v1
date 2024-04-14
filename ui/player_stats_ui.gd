@@ -7,6 +7,7 @@ extends MarginContainer
 @onready var stamina_bar_label = $VBoxContainer/StaminaBar/StaminaBarLabel
 @onready var active_status_effects = $VBoxContainer/ActiveStatusEffects
 @onready var status_effect_container = active_status_effects.get_child(0)
+@onready var freeze_bar = $VBoxContainer/StaminaBar/FreezeBar
 
 const STATUS_EFFECT_UI_SCENE = preload("res://players/status_effects/status_effect_ui.tscn")
 
@@ -18,6 +19,9 @@ func update(player: BattlePlayer):
 	
 	stamina_bar.value = (float(player.stamina) / float(player.info.stamina_stat)) * 100
 	stamina_bar_label.text = str(player.stamina) + "/" + str(player.info.stamina_stat)
+	
+	var freeze_value = player.get_frozen_stamina_count()
+	freeze_bar.value = (float(freeze_value) / float(player.info.stamina_stat)) * 100
 	
 	_update_status_effect_ui(player)
 

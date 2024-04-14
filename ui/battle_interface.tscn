@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbocnnnw4vt17"]
+[gd_scene load_steps=7 format=3 uid="uid://cbocnnnw4vt17"]
 
 [ext_resource type="Script" path="res://ui/battle_interface.gd" id="1_iesfx"]
 [ext_resource type="Script" path="res://ui/player_stats_ui.gd" id="2_6m8b4"]
@@ -7,7 +7,13 @@
 bg_color = Color(0.666667, 0.219608, 0.243137, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4erq"]
-bg_color = Color(0.219608, 0.654902, 0.666667, 1)
+bg_color = Color(0.219608, 0.427451, 0.666667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_amyc0"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p7ke5"]
+bg_color = Color(0.266667, 0.898039, 0.898039, 0.588235)
 
 [node name="BattleInterface" type="Control"]
 layout_mode = 3
@@ -70,6 +76,26 @@ layout_mode = 2
 size_flags_horizontal = 0
 theme_override_styles/fill = SubResource("StyleBoxFlat_u4erq")
 value = 40.0
+show_percentage = false
+
+[node name="FreezeBar" type="ProgressBar" parent="LeftPlayerStatsUI/VBoxContainer/StaminaBar"]
+custom_minimum_size = Vector2(384, 32)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -16.0
+offset_right = 192.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_amyc0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_p7ke5")
+value = 20.0
 show_percentage = false
 
 [node name="StaminaBarLabel" type="Label" parent="LeftPlayerStatsUI/VBoxContainer/StaminaBar"]
@@ -154,6 +180,27 @@ layout_mode = 2
 size_flags_horizontal = 8
 theme_override_styles/fill = SubResource("StyleBoxFlat_u4erq")
 value = 40.0
+fill_mode = 1
+show_percentage = false
+
+[node name="FreezeBar" type="ProgressBar" parent="RightPlayerStatsUI/VBoxContainer/StaminaBar"]
+custom_minimum_size = Vector2(384, 32)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -16.0
+offset_right = 192.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_amyc0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_p7ke5")
+value = 20.0
 fill_mode = 1
 show_percentage = false
 

@@ -113,7 +113,8 @@ func send_card_to_bag(card_info: CardInfo):
 
 
 func reroll_card(card: Card):
-	if stamina < get_reroll_stamina_cost(): return
+	if not _can_reroll(): return
+	
 	deplenish_stamina(get_reroll_stamina_cost())
 	
 	send_card_to_bag(card.card_info)
@@ -127,6 +128,13 @@ func reroll_card(card: Card):
 		_set_card_as_hidden(card)
 	else:
 		card.set_as_hidden(false)
+
+
+func _can_reroll() -> bool:
+	if stamina < get_reroll_stamina_cost(): return false
+	if get_frozen_stamina_count() == stamina: return false
+	
+	return true
 
 
 func get_reroll_stamina_cost() -> int:
@@ -167,6 +175,17 @@ func apply_status_effect(effect: Constants.PlayerStatusEffect, value: int):
 		active_status_effects[effect] = value
 
 
+func get_frozen_stamina_count() -> int:
+	if not active_status_effects.has(Constants.PlayerStatusEffect.FREEZE):
+		return 0
+	
+	var result = 0
+	for i in range(active_status_effects[Constants.PlayerStatusEffect.FREEZE]):
+		if (i + 1) <= stamina:
+			result += 1
+	return result
+
+
 func handle_start_turn():
 	_handle_stamina_recharge()
 	_handle_poison_status_effect()
@@ -176,18 +195,14 @@ func handle_delayed_start_turn():
 	_handle_burn_status_effect()
 	_handle_slime_status_effect()
 	_handle_hide_status_effect()
-	_handle_freeze_status_effect()
 
 
 func handle_end_turn():
+	_handle_freeze_status_effect()
 	_decrement_status_effects()
 
 
 func _handle_stamina_recharge():
-	if stamina != info.stamina_stat and active_status_effects.has(Constants.PlayerStatusEffect.FREEZE):
-		decrement_status_effect(Constants.PlayerStatusEffect.FREEZE, 1)
-		return
-	
 	replenish_stamina(1)
 
 
@@ -246,10 +261,7 @@ func _set_card_as_hidden(card: Card):
 
 
 func _handle_freeze_status_effect():
-	if active_status_effects.has(Constants.PlayerStatusEffect.FREEZE):
-		for i in range(active_status_effects[Constants.PlayerStatusEffect.FREEZE]):
-			deplenish_stamina(1)
-			decrement_status_effect(Constants.PlayerStatusEffect.FREEZE, 1)
+	decrement_status_effect(Constants.PlayerStatusEffect.FREEZE, get_frozen_stamina_count())
 
 
 func _decrement_status_effects():
