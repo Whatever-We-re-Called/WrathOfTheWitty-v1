@@ -64,11 +64,11 @@ static func _get_damage_dealt_value(battle_action_execution_data: BattleActionEx
 	# Handle Insecurity Matchings
 	var card_insecurity = Constants.get_insecurity_of_action_type(card_info.action_type)
 	if defender_player.info.insecurity_weaknesses.has(card_insecurity):
-		damage_dealt *= 1.25
+		damage_dealt *= BATTLE_ACTION_EXECUTION_INFO.insecurity_weakness_attack_multiplier
 	elif defender_player.info.insecurity_strengths.has(card_insecurity):
-		damage_dealt *= 0.75
+		damage_dealt *= BATTLE_ACTION_EXECUTION_INFO.insecurity_strength_attack_multiplier
 	elif defender_player.info.insecurity_blocks.has(card_insecurity):
-		damage_dealt = 0
+		damage_dealt *= BATTLE_ACTION_EXECUTION_INFO.insecurity_block_attack_multiplier
 	
 	return int(floor(damage_dealt))
 
@@ -95,7 +95,7 @@ static func _inflict_hide_effect_onto_enemy(battle_action_execution_data: Battle
 	var attacker_player = battle_action_execution_data.attacker_player
 	var magic_stat_value = attacker_player.info.hide_magic_stat
 	var times_applied = _get_insecurity_status_effect_times_applied(magic_stat_value)
-	var applied_value = 1 * times_applied
+	var applied_value = BATTLE_ACTION_EXECUTION_INFO.base_hide_stack_value * times_applied
 	
 	defender_player.apply_status_effect(status_effect, applied_value)
 
@@ -106,7 +106,7 @@ static func _inflict_weaken_effect_onto_enemy(battle_action_execution_data: Batt
 	var attacker_player = battle_action_execution_data.attacker_player
 	var magic_stat_value = attacker_player.info.weaken_magic_stat
 	var times_applied = _get_insecurity_status_effect_times_applied(magic_stat_value)
-	var applied_value = 1 * times_applied
+	var applied_value = BATTLE_ACTION_EXECUTION_INFO.base_weaken_stack_value * times_applied
 	
 	defender_player.apply_status_effect(status_effect, applied_value)
 
@@ -117,7 +117,7 @@ static func _inflict_poison_effect_onto_enemy(battle_action_execution_data: Batt
 	var attacker_player = battle_action_execution_data.attacker_player
 	var magic_stat_value = attacker_player.info.poison_magic_stat
 	var times_applied = _get_insecurity_status_effect_times_applied(magic_stat_value)
-	var applied_value = 2 * times_applied
+	var applied_value = BATTLE_ACTION_EXECUTION_INFO.base_poison_stack_value * times_applied
 	
 	defender_player.apply_status_effect(status_effect, applied_value)
 
@@ -128,7 +128,7 @@ static func _inflict_burn_effect_onto_enemy(battle_action_execution_data: Battle
 	var attacker_player = battle_action_execution_data.attacker_player
 	var magic_stat_value = attacker_player.info.burn_magic_stat
 	var times_applied = _get_insecurity_status_effect_times_applied(magic_stat_value)
-	var applied_value = 1 * times_applied
+	var applied_value = BATTLE_ACTION_EXECUTION_INFO.base_burn_stack_value * times_applied
 	
 	defender_player.apply_status_effect(status_effect, applied_value)
 
@@ -139,7 +139,7 @@ static func _inflict_freeze_effect_onto_enemy(battle_action_execution_data: Batt
 	var attacker_player = battle_action_execution_data.attacker_player
 	var magic_stat_value = attacker_player.info.freeze_magic_stat
 	var times_applied = _get_insecurity_status_effect_times_applied(magic_stat_value)
-	var applied_value = 1 * times_applied
+	var applied_value = BATTLE_ACTION_EXECUTION_INFO.base_freeze_stack_value * times_applied
 	
 	defender_player.apply_status_effect(status_effect, applied_value)
 
@@ -150,7 +150,7 @@ static func _inflict_slime_effect_onto_enemy(battle_action_execution_data: Battl
 	var attacker_player = battle_action_execution_data.attacker_player
 	var magic_stat_value = attacker_player.info.slime_magic_stat
 	var times_applied = _get_insecurity_status_effect_times_applied(magic_stat_value)
-	var applied_value = 1 * times_applied
+	var applied_value = BATTLE_ACTION_EXECUTION_INFO.base_slime_stack_value * times_applied
 	
 	defender_player.apply_status_effect(status_effect, applied_value)
 
