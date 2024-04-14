@@ -161,7 +161,7 @@ static func _get_insecurity_status_effect_times_applied(magic_stat_value: int) -
 	
 	var rng = RandomNumberGenerator.new()
 	while magic_stat_value > 0:
-		if magic_stat_value > GUARANTEE_VALUE:
+		if magic_stat_value >= GUARANTEE_VALUE:
 			times_applied += 1
 		else:
 			var result = rng.randi_range(1, 10)

@@ -1,6 +1,5 @@
 extends MarginContainer
 
-@onready var insecurity_icon = $VBoxContainer/Name/InsecurityIcon
 @onready var player_name = $VBoxContainer/Name/PlayerName
 @onready var health_bar = $VBoxContainer/HealthBar
 @onready var health_bar_label = $VBoxContainer/HealthBar/HealthBarLabel
@@ -12,9 +11,6 @@ extends MarginContainer
 const STATUS_EFFECT_UI_SCENE = preload("res://players/status_effects/status_effect_ui.tscn")
 
 func update(player: BattlePlayer):
-	insecurity_icon.texture = Constants.get_insecurity_icon()
-	#insecurity_icon.self_modulate = Constants.get_insecurity_color(player.info.insecurity)
-	
 	player_name.text = player.info.name
 	
 	health_bar.value = (float(player.health) / float(player.info.health_stat)) * 100.0

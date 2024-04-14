@@ -78,13 +78,13 @@ func update_template_card_ui(template_card: TemplateCard):
 
 
 func update_template_card_deck_and_bag_ui(deck_size: int, bag_size: int):
-	template_card_deck_label.text = "T: Template Card Deck (%s)" % deck_size
-	template_card_bag_label.text = "Y: Template Card Bag (%s)" % bag_size
+	template_card_deck_label.text = "Template Card Deck (%s)" % deck_size
+	template_card_bag_label.text = "Template Card Bag (%s)" % bag_size
 
 
 func update_player_deck_and_bag_ui(player: BattlePlayer):
-	player_card_deck_label.text = "Shift: Card Deck (%s)" % player.cards_in_deck.size()
-	player_card_bag_label.text = "Tab: Card Bag (%s)" % player.cards_in_bag.size()
+	player_card_deck_label.text = "Card Deck (%s)" % player.cards_in_deck.size()
+	player_card_bag_label.text = "Card Bag (%s)" % player.cards_in_bag.size()
 
 
 func _on_card_toggle_selected(card: Card):

@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbocnnnw4vt17"]
+[gd_scene load_steps=5 format=3 uid="uid://cbocnnnw4vt17"]
 
-[ext_resource type="Texture2D" uid="uid://dsw3jmdsv2f4u" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/rhombus.svg" id="1_1f208"]
 [ext_resource type="Script" path="res://ui/battle_interface.gd" id="1_iesfx"]
 [ext_resource type="Script" path="res://ui/player_stats_ui.gd" id="2_6m8b4"]
 
@@ -34,13 +33,6 @@ layout_mode = 2
 [node name="Name" type="HBoxContainer" parent="LeftPlayerStatsUI/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 12
-
-[node name="InsecurityIcon" type="TextureRect" parent="LeftPlayerStatsUI/VBoxContainer/Name"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-texture = ExtResource("1_1f208")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="PlayerName" type="Label" parent="LeftPlayerStatsUI/VBoxContainer/Name"]
 layout_mode = 2
@@ -129,13 +121,6 @@ theme_override_constants/separation = 12
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Evil Scrimblo"
-
-[node name="InsecurityIcon" type="TextureRect" parent="RightPlayerStatsUI/VBoxContainer/Name"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-texture = ExtResource("1_1f208")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="HealthBar" type="ProgressBar" parent="RightPlayerStatsUI/VBoxContainer"]
 custom_minimum_size = Vector2(384, 32)
@@ -231,7 +216,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 18
-text = "T: Template Card Deck (0)"
+text = "Template Card Deck (0)"
 horizontal_alignment = 1
 
 [node name="TemplateCardBagLabel" type="Label" parent="GameInfoUI/VBoxContainer/MarginContainer/VBoxContainer"]
@@ -239,7 +224,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 18
-text = "Y: Template Card Bag (0)"
+text = "Template Card Bag (0)"
 horizontal_alignment = 1
 
 [node name="TemplateCardUI" type="CenterContainer" parent="."]
@@ -293,14 +278,14 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 18
-text = "Shift: Card Deck (7)"
+text = "Card Deck (7)"
 
 [node name="PlayerCardBagLabel" type="Label" parent="LeftOfDeckContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 18
-text = "Tab: Card Bag (3)"
+text = "Card Bag (3)"
 
 [node name="DeckContainer" type="GridContainer" parent="."]
 unique_name_in_owner = true
@@ -353,6 +338,14 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 8
+
+[node name="ViewPlayerInfoLabel" type="Label" parent="RightOfDeckContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 18
+text = "Tab: View Battle Info"
+horizontal_alignment = 2
 
 [node name="RerollButton" type="Button" parent="RightOfDeckContainer/VBoxContainer"]
 visible = false
