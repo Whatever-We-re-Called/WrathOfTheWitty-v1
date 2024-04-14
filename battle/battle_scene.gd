@@ -73,7 +73,7 @@ func _process(delta):
 	
 	# Debug
 	if Input.is_action_just_pressed("debug_1"):
-		player.stamina = player.config.max_stamina
+		player.stamina = player.info.stamina_stat
 		battle_interface.update_player_stats(player)
 	if Input.is_action_just_pressed("end_turn") and not is_changing_turns:
 		end_turn_early()

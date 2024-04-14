@@ -43,7 +43,7 @@ static func _execute_action_card_attack(battle_action_execution_data: BattleActi
 	
 	battle_action_execution_data.defender_player.damage(damage_dealt)
 	
-	_try_to_execute_action_card_effect(battle_action_execution_data)
+	_execute_action_card_effect(battle_action_execution_data)
 	_try_to_execute_action_card_enhancement(battle_action_execution_data)
 
 
@@ -73,38 +73,29 @@ static func _get_damage_dealt_value(battle_action_execution_data: BattleActionEx
 	return int(floor(damage_dealt))
 
 
-static func _try_to_execute_action_card_effect(battle_action_execution_data: BattleActionExecutionData):
-	var execution_times = 1
-	
-	var temp_magic_stat = battle_action_execution_data.attacker_player.info.magic_stat
-	var rng = RandomNumberGenerator.new()
-	while temp_magic_stat > 0:
-		var result = rng.randi_range(1, 20)
-		if result <= temp_magic_stat:
-			execution_times += 1
-		temp_magic_stat -= 20
-	
-	
-	for i in range(execution_times):
-		match battle_action_execution_data.card_info.action_type:
-			Constants.CardAction.PHYSICAL_APPEARANCE_ATTACK:
-				_inflict_hide_effect_onto_enemy(battle_action_execution_data)
-			Constants.CardAction.SELF_ESTEEM_ATTACK:
-				_inflict_weaken_effect_onto_enemy(battle_action_execution_data)
-			Constants.CardAction.INTELLIGENCE_ATTACK:
-				_inflict_poison_effect_onto_enemy(battle_action_execution_data)
-			Constants.CardAction.PHYSICAL_ABILITY_ATTACK:
-				_inflict_burn_effect_onto_enemy(battle_action_execution_data)
-			Constants.CardAction.SOCIAL_LIFE_ATTACK:
-				_inflict_freeze_effect_onto_enemy(battle_action_execution_data)
-			Constants.CardAction.FASHION_ATTACK:
-				_inflict_slime_effect_onto_enemy(battle_action_execution_data)
+static func _execute_action_card_effect(battle_action_execution_data: BattleActionExecutionData):
+	match battle_action_execution_data.card_info.action_type:
+		Constants.CardAction.PHYSICAL_APPEARANCE_ATTACK:
+			_inflict_hide_effect_onto_enemy(battle_action_execution_data)
+		Constants.CardAction.SELF_ESTEEM_ATTACK:
+			_inflict_weaken_effect_onto_enemy(battle_action_execution_data)
+		Constants.CardAction.INTELLIGENCE_ATTACK:
+			_inflict_poison_effect_onto_enemy(battle_action_execution_data)
+		Constants.CardAction.PHYSICAL_ABILITY_ATTACK:
+			_inflict_burn_effect_onto_enemy(battle_action_execution_data)
+		Constants.CardAction.SOCIAL_LIFE_ATTACK:
+			_inflict_freeze_effect_onto_enemy(battle_action_execution_data)
+		Constants.CardAction.FASHION_ATTACK:
+			_inflict_slime_effect_onto_enemy(battle_action_execution_data)
 
 
 static func _inflict_hide_effect_onto_enemy(battle_action_execution_data: BattleActionExecutionData):
 	var defender_player = battle_action_execution_data.defender_player
 	var status_effect = Constants.PlayerStatusEffect.HIDE
-	var applied_value = 1
+	var attacker_player = battle_action_execution_data.attacker_player
+	var magic_stat_value = attacker_player.info.hide_magic_stat
+	var times_applied = _get_insecurity_status_effect_times_applied(magic_stat_value)
+	var applied_value = 1 * times_applied
 	
 	defender_player.apply_status_effect(status_effect, applied_value)
 
@@ -112,7 +103,10 @@ static func _inflict_hide_effect_onto_enemy(battle_action_execution_data: Battle
 static func _inflict_weaken_effect_onto_enemy(battle_action_execution_data: BattleActionExecutionData):
 	var defender_player = battle_action_execution_data.defender_player
 	var status_effect = Constants.PlayerStatusEffect.WEAKEN
-	var applied_value = 1
+	var attacker_player = battle_action_execution_data.attacker_player
+	var magic_stat_value = attacker_player.info.weaken_magic_stat
+	var times_applied = _get_insecurity_status_effect_times_applied(magic_stat_value)
+	var applied_value = 1 * times_applied
 	
 	defender_player.apply_status_effect(status_effect, applied_value)
 
@@ -120,7 +114,10 @@ static func _inflict_weaken_effect_onto_enemy(battle_action_execution_data: Batt
 static func _inflict_poison_effect_onto_enemy(battle_action_execution_data: BattleActionExecutionData):
 	var defender_player = battle_action_execution_data.defender_player
 	var status_effect = Constants.PlayerStatusEffect.POISON
-	var applied_value = 2
+	var attacker_player = battle_action_execution_data.attacker_player
+	var magic_stat_value = attacker_player.info.poison_magic_stat
+	var times_applied = _get_insecurity_status_effect_times_applied(magic_stat_value)
+	var applied_value = 2 * times_applied
 	
 	defender_player.apply_status_effect(status_effect, applied_value)
 
@@ -128,7 +125,10 @@ static func _inflict_poison_effect_onto_enemy(battle_action_execution_data: Batt
 static func _inflict_burn_effect_onto_enemy(battle_action_execution_data: BattleActionExecutionData):
 	var defender_player = battle_action_execution_data.defender_player
 	var status_effect = Constants.PlayerStatusEffect.BURN
-	var applied_value = 1
+	var attacker_player = battle_action_execution_data.attacker_player
+	var magic_stat_value = attacker_player.info.burn_magic_stat
+	var times_applied = _get_insecurity_status_effect_times_applied(magic_stat_value)
+	var applied_value = 1 * times_applied
 	
 	defender_player.apply_status_effect(status_effect, applied_value)
 
@@ -136,7 +136,10 @@ static func _inflict_burn_effect_onto_enemy(battle_action_execution_data: Battle
 static func _inflict_freeze_effect_onto_enemy(battle_action_execution_data: BattleActionExecutionData):
 	var defender_player = battle_action_execution_data.defender_player
 	var status_effect = Constants.PlayerStatusEffect.FREEZE
-	var applied_value = 1
+	var attacker_player = battle_action_execution_data.attacker_player
+	var magic_stat_value = attacker_player.info.freeze_magic_stat
+	var times_applied = _get_insecurity_status_effect_times_applied(magic_stat_value)
+	var applied_value = 1 * times_applied
 	
 	defender_player.apply_status_effect(status_effect, applied_value)
 
@@ -144,9 +147,30 @@ static func _inflict_freeze_effect_onto_enemy(battle_action_execution_data: Batt
 static func _inflict_slime_effect_onto_enemy(battle_action_execution_data: BattleActionExecutionData):
 	var defender_player = battle_action_execution_data.defender_player
 	var status_effect = Constants.PlayerStatusEffect.SLIME
-	var applied_value = 1
+	var attacker_player = battle_action_execution_data.attacker_player
+	var magic_stat_value = attacker_player.info.slime_magic_stat
+	var times_applied = _get_insecurity_status_effect_times_applied(magic_stat_value)
+	var applied_value = 1 * times_applied
 	
 	defender_player.apply_status_effect(status_effect, applied_value)
+
+
+static func _get_insecurity_status_effect_times_applied(magic_stat_value: int) -> int:
+	var times_applied = 0
+	const GUARANTEE_VALUE = 10
+	
+	var rng = RandomNumberGenerator.new()
+	while magic_stat_value > 0:
+		if magic_stat_value > GUARANTEE_VALUE:
+			times_applied += 1
+		else:
+			var result = rng.randi_range(1, 10)
+			if result <= magic_stat_value:
+				times_applied += 1
+		
+		magic_stat_value -= 10
+	
+	return times_applied
 
 
 static func _try_to_execute_action_card_enhancement(battle_action_execution_data: BattleActionExecutionData):
