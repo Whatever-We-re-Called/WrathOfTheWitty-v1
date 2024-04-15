@@ -1,5 +1,7 @@
 class_name BattlePlayer extends AnimatedSprite2D
 
+signal decreased_opponents_max_health(amount: int, executing_player: BattlePlayer)
+
 var info: PlayerInfo
 var health: int
 var stamina: int
@@ -189,6 +191,10 @@ func get_frozen_stamina_count() -> int:
 		#if (i + 1) <= stamina:
 			#result += 1
 	#return result
+
+
+func handle_start_battle():
+	info.emit_battle_started_blessing_signal()
 
 
 func handle_start_turn():

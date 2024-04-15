@@ -12,6 +12,14 @@ func _on_unequipped(stack: int):
 	pass
 
 
+func _on_battle_started(stack: int):
+	pass
+
+
+func _on_battle_ended(stack: int):
+	pass
+
+
 func _on_turn_started(stack: int):
 	pass
 

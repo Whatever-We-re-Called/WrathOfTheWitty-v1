@@ -38,6 +38,16 @@ func init_unhandled_equipped_blessings():
 			equipped_blessing.blessing.equipped.emit(equipped_blessing.equipped_stack)
 
 
+func emit_battle_started_blessing_signal():
+	for equipped_blessing in equipped_blessings:
+		equipped_blessing.blessing.battle_started.emit(equipped_blessing.stack)
+
+
+func emit_battle_ended_blessing_signal():
+	for equipped_blessing in equipped_blessings:
+		equipped_blessing.blessing.battle_ended.emit(equipped_blessing.stack)
+
+
 func emit_turn_started_blessing_signal():
 	for equipped_blessing in equipped_blessings:
 		equipped_blessing.blessing.turn_started.emit(equipped_blessing.stack)

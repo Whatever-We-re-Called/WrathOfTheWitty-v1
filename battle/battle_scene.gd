@@ -37,6 +37,8 @@ func _ready():
 	_init_player(Constants.PlayerSide.LEFT, left_player_config.duplicate(), left_player_node)
 	_init_player(Constants.PlayerSide.RIGHT, right_player_config.duplicate(), right_player_node)
 	battle_interface.update_hand(players[active_side])
+	players[Constants.PlayerSide.LEFT].handle_start_battle()
+	players[Constants.PlayerSide.RIGHT].handle_start_battle()
 	
 	_init_template_card_deck()
 	
@@ -48,6 +50,7 @@ func _ready():
 func _init_player(side: Constants.PlayerSide, player_info: PlayerInfo, parent_node: Node2D):
 	var player = BattlePlayer.new()
 	player.init(player_info, side)
+	player.decreased_opponents_max_health.connect(_on_decreased_opponents_max_health)
 	parent_node.add_child(player)
 	var sprite_height = player.sprite_frames.get_frame_texture("default", 0).get_height()
 	player.global_position.y -= (sprite_height * player_info.sprite_scale.y) / 2.0
@@ -98,6 +101,17 @@ func activate_new_template_card():
 	
 	battle_interface.update_template_card_ui(active_template_card)
 	battle_interface.update_template_card_deck_and_bag_ui(template_cards_in_deck.size(), template_cards_in_bag.size())
+
+
+func _on_decreased_opponents_max_health(amount: int, executing_player: BattlePlayer):
+	if players[Constants.PlayerSide.LEFT] == executing_player:
+		players[Constants.PlayerSide.RIGHT].info.health_stat -= amount
+		players[Constants.PlayerSide.RIGHT].health -= amount
+		battle_interface.update_player_stats(players[Constants.PlayerSide.RIGHT])
+	else:
+		players[Constants.PlayerSide.LEFT].info.health_stat -= amount
+		players[Constants.PlayerSide.LEFT].health -= amount
+		battle_interface.update_player_stats(players[Constants.PlayerSide.LEFT])
 
 
 func get_next_template_card_in_deck(remove_result_card: bool) -> TemplateCardInfo:
