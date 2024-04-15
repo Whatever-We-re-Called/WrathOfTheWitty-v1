@@ -17,25 +17,25 @@
 [sub_resource type="Resource" id="Resource_6m7ey"]
 script = ExtResource("1_5bkd6")
 action_type = 0
-enhancement = 1
+enhancement = 4
 insult_text = "bitch"
 
 [sub_resource type="Resource" id="Resource_aq08t"]
 script = ExtResource("1_5bkd6")
 action_type = 0
-enhancement = 1
+enhancement = 4
 insult_text = "idiot"
 
 [sub_resource type="Resource" id="Resource_rtv6e"]
 script = ExtResource("1_5bkd6")
 action_type = 1
-enhancement = 2
+enhancement = 4
 insult_text = "confusing"
 
 [sub_resource type="Resource" id="Resource_hdbgq"]
 script = ExtResource("1_5bkd6")
 action_type = 1
-enhancement = 2
+enhancement = 4
 insult_text = "pain in the ass"
 
 [sub_resource type="Resource" id="Resource_onrjy"]

@@ -16,3 +16,4 @@ base_slime_stack_value = 1
 base_buff_enhancement_attack_increase_value = 6
 base_magical_enhancement_magic_increase_value = 10
 base_supportive_enhancement_magic_increase_value = 5
+base_refreshing_enhancement_stamnina_increase_value = 1

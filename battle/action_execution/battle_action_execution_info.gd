@@ -15,3 +15,4 @@ class_name BattleExecutionInfo extends Resource
 @export var base_buff_enhancement_attack_increase_value: int
 @export var base_magical_enhancement_magic_increase_value: int
 @export var base_supportive_enhancement_magic_increase_value: int
+@export var base_refreshing_enhancement_stamnina_increase_value: int

@@ -50,6 +50,9 @@ static func _execute_action_card_attack(battle_action_execution_data: BattleActi
 	
 	battle_action_execution_data.defender_player.damage(damage_dealt)
 	
+	if battle_action_execution_data.card_info.enhancement == Constants.CardEnhancement.REFRESHING:
+		battle_action_execution_data.attacker_player.replenish_stamina(BATTLE_ACTION_EXECUTION_INFO.base_refreshing_enhancement_stamnina_increase_value)
+	
 	_execute_action_card_effect(battle_action_execution_data)
 	_try_to_execute_action_card_enhancement(battle_action_execution_data)
 

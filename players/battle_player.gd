@@ -25,7 +25,7 @@ var cards_in_hand_scenes: Array[Card]
 
 const BASE_REROLL_STAMINA_COST = 1
 const STATUS_EFFECT_UI = preload("res://players/status_effects/status_effect_ui.tscn")
-
+const BATTLE_ACTION_EXECUTION_INFO = preload("res://battle/action_execution/battle_action_execution_info.tres")
 
 func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 	self.info = new_info.duplicate()
@@ -122,9 +122,12 @@ func send_card_to_bag(card_info: CardInfo):
 
 
 func reroll_card(card: Card):
-	if not _can_reroll(): return
-	
-	deplenish_stamina(get_reroll_stamina_cost())
+	if card.card_info.enhancement == Constants.CardEnhancement.REFRESHING:
+		replenish_stamina(BATTLE_ACTION_EXECUTION_INFO.base_refreshing_enhancement_stamnina_increase_value)
+	else:
+		if stamina < get_reroll_stamina_cost(): return
+		if get_frozen_stamina_count() == stamina: return
+		deplenish_stamina(get_reroll_stamina_cost())
 	
 	send_card_to_bag(card.card_info)
 	
@@ -140,8 +143,6 @@ func reroll_card(card: Card):
 
 
 func _can_reroll() -> bool:
-	if stamina < get_reroll_stamina_cost(): return false
-	if get_frozen_stamina_count() == stamina: return false
 	
 	return true
 
