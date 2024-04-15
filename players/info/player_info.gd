@@ -21,8 +21,28 @@ class_name PlayerInfo extends Resource
 @export var burn_magic_stat: int
 @export var freeze_magic_stat: int
 @export var slime_magic_stat: int
-@export_category("Deck")
+@export_category("Resources")
 @export var action_card_deck: Array[CardInfo]
 @export var template_card_deck: Array[TemplateCardInfo]
+@export var equipped_blessings: Array[EquippedBlessing]
 
+var current_player_instance = null
 var current_health: int = -1
+
+
+func init_unhandled_equipped_blessings():
+	for equipped_blessing in equipped_blessings:
+		equipped_blessing.blessing.init(self)
+		while equipped_blessing.equipped_stack < equipped_blessing.stack:
+			equipped_blessing.equipped_stack += 1
+			equipped_blessing.blessing.equipped.emit(equipped_blessing.equipped_stack)
+
+
+func emit_turn_started_blessing_signal():
+	for equipped_blessing in equipped_blessings:
+		equipped_blessing.blessing.turn_started.emit(equipped_blessing.stack)
+
+
+func emit_turn_ended_blessing_signal():
+	for equipped_blessing in equipped_blessings:
+		equipped_blessing.blessing.turn_started.emit(equipped_blessing.stack)

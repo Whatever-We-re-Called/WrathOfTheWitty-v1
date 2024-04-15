@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource("1_nnukc")
-base_attack_damage_value = 8
 insecurity_weakness_attack_multiplier = 1.25
 insecurity_strength_attack_multiplier = 0.75
 insecurity_block_attack_multiplier = 0.0
@@ -14,6 +13,4 @@ base_poison_stack_value = 2
 base_burn_stack_value = 1
 base_freeze_stack_value = 1
 base_slime_stack_value = 1
-base_heal_value = 6
-base_shield_value = 6
 base_life_steal_heal_percentage = 0.25

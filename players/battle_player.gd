@@ -27,6 +27,12 @@ const STATUS_EFFECT_UI = preload("res://players/status_effects/status_effect_ui.
 
 func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 	self.info = new_info.duplicate()
+	self.info.current_player_instance = self
+	
+	self.info.equipped_blessings.clear()
+	for equipped_blessing in new_info.equipped_blessings:
+		self.info.equipped_blessings.append(equipped_blessing.duplicate(true))
+	self.info.init_unhandled_equipped_blessings()
 	
 	self.health = info.health_stat if info.current_health < 0 else info.current_health
 	self.stamina = info.stamina_stat
@@ -150,7 +156,6 @@ func decrement_status_effect(status_effect: Constants.PlayerStatusEffect, decrem
 
 
 func _overwrite_card_info(card: Card, new_card_info: CardInfo):
-	
 	var old_card_info = card.card_info
 	for card_array in card_arrays:
 		for i in range(card_array.size()):
@@ -187,6 +192,7 @@ func get_frozen_stamina_count() -> int:
 
 
 func handle_start_turn():
+	info.emit_turn_started_blessing_signal()
 	_handle_stamina_recharge()
 	_handle_poison_status_effect()
 
@@ -199,6 +205,7 @@ func handle_delayed_start_turn():
 
 
 func handle_end_turn():
+	info.emit_turn_ended_blessing_signal()
 	_decrement_status_effects()
 	_reset_frozen_stamina()
 

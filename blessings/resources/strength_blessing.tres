@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=3 format=3 uid="uid://btwq1kw1wmqff"]
+
+[ext_resource type="Script" path="res://blessings/execution_scripts/strengh_blessing_execution.gd" id="1_i87sv"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="1_ycmyc"]
+
+[resource]
+script = ExtResource("1_ycmyc")
+name = "Strength"
+description = "Increases your Attack stat by 2 (+1 per stack)."
+rarity = 0
+execution_script = ExtResource("1_i87sv")
