@@ -172,8 +172,16 @@ func _overwrite_card_info(card: Card, new_card_info: CardInfo):
 
 func handle_played_selected_cards():
 	for card in selected_cards:
-		add_cards_to_hand(1)
-		send_card_to_bag(card)
+		if card.enhancement == Constants.CardEnhancement.DEPENDABLE:
+			var new_card_info = card.duplicate(true)
+			new_card_info.enhancement = Constants.CardEnhancement.NONE
+			new_card_info.dont_put_in_bag = true
+			cards_in_hand.push_back(new_card_info)
+		else:
+			add_cards_to_hand(1)
+		
+		if not card.dont_put_in_bag:
+			send_card_to_bag(card)
 	selected_cards.clear()
 
 
