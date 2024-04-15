@@ -13,4 +13,6 @@ base_poison_stack_value = 2
 base_burn_stack_value = 1
 base_freeze_stack_value = 1
 base_slime_stack_value = 1
-base_life_steal_heal_percentage = 0.25
+base_buff_enhancement_attack_increase_value = 6
+base_magical_enhancement_magic_increase_value = 10
+base_supportive_enhancement_magic_increase_value = 5

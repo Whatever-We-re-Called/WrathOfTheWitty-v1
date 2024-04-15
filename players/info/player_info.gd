@@ -55,4 +55,4 @@ func emit_turn_started_blessing_signal():
 
 func emit_turn_ended_blessing_signal():
 	for equipped_blessing in equipped_blessings:
-		equipped_blessing.blessing.turn_started.emit(equipped_blessing.stack)
+		equipped_blessing.blessing.turn_ended.emit(equipped_blessing.stack)

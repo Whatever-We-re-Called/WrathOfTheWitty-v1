@@ -26,11 +26,11 @@ enum Insecurity {
 
 enum CardEnhancement {
 	NONE,
-	REPLENISH,
-	LIFE_STEAL,
-	DEFENSE,
-	HOLLOW,
-	GUARANTEE
+	BUFF,
+	MAGICAL,
+	SUPPORTIVE,
+	REFRESHING,
+	DEPENDABLE
 }
 
 enum PlayerStatusEffect {

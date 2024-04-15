@@ -73,16 +73,16 @@ func get_enhancement_as_string(enhancement: Constants.CardEnhancement) -> String
 	match (enhancement):
 		Constants.CardEnhancement.NONE:
 			return "None"
-		Constants.CardEnhancement.REPLENISH:
-			return "Replenish"
-		Constants.CardEnhancement.LIFE_STEAL:
-			return "Life Steal"
-		Constants.CardEnhancement.DEFENSE:
-			return "Defense"
-		Constants.CardEnhancement.GUARANTEE:
-			return "Guarantee"
-		Constants.CardEnhancement.HOLLOW:
-			return "Hollow"
+		Constants.CardEnhancement.BUFF:
+			return "Buff"
+		Constants.CardEnhancement.MAGICAL:
+			return "Magical"
+		Constants.CardEnhancement.SUPPORTIVE:
+			return "Supportive"
+		Constants.CardEnhancement.REFRESHING:
+			return "Refreshing"
+		Constants.CardEnhancement.DEPENDABLE:
+			return "Dependable"
 	
 	return "N/A"
 

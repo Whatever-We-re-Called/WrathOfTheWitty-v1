@@ -12,4 +12,6 @@ class_name BattleExecutionInfo extends Resource
 @export var base_freeze_stack_value: int
 @export var base_slime_stack_value: int
 @export_group("Base Enhancement Values")
-@export var base_life_steal_heal_percentage: float
+@export var base_buff_enhancement_attack_increase_value: int
+@export var base_magical_enhancement_magic_increase_value: int
+@export var base_supportive_enhancement_magic_increase_value: int

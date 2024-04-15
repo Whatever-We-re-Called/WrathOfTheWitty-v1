@@ -2,6 +2,7 @@ extends BlessingExecution
 
 
 func _on_turn_started(stack: int):
+	print("!")
 	for i in range(stack):
 		if (i + 1) == 1:
 			print(player_info.current_player_instance)
