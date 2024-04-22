@@ -28,6 +28,7 @@ enum CardEnhancement {
 	NONE,
 	BUFF,
 	MAGICAL,
+	TEST,
 	SUPPORTIVE,
 	REFRESHING,
 	DEPENDABLE

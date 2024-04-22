@@ -50,7 +50,7 @@ func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 	scale = info.sprite_scale
 	sprite_frames = info.sprite_frames
 	play()
-
+	
 
 func damage(amount: int):
 	var shield_amount = 0
@@ -65,6 +65,8 @@ func damage(amount: int):
 	_execute_damage_visual()
 	
 	active_status_effects[Constants.PlayerStatusEffect.SHIELD] = shield_amount
+	
+	print(self.info.has_blessing(preload("res://blessings/resources/strength_blessing.tres")))
 
 
 func _execute_damage_visual():

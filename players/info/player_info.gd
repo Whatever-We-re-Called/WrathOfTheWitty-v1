@@ -56,3 +56,13 @@ func emit_turn_started_blessing_signal():
 func emit_turn_ended_blessing_signal():
 	for equipped_blessing in equipped_blessings:
 		equipped_blessing.blessing.turn_ended.emit(equipped_blessing.stack)
+
+
+func has_blessing(type_string) -> bool:
+	for equipped_blessing in equipped_blessings:
+		print(equipped_blessing.blessing.name)
+		print(type_string.name)
+		if equipped_blessing.blessing.name == type_string.name:
+			return true
+	
+	return false
