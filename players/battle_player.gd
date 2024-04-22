@@ -65,8 +65,6 @@ func damage(amount: int):
 	_execute_damage_visual()
 	
 	active_status_effects[Constants.PlayerStatusEffect.SHIELD] = shield_amount
-	
-	print(self.info.has_blessing(preload("res://blessings/resources/strength_blessing.tres")))
 
 
 func _execute_damage_visual():

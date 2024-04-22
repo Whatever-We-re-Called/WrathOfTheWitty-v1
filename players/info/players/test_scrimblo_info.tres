@@ -1,13 +1,10 @@
-[gd_resource type="Resource" script_class="PlayerInfo" load_steps=33 format=3 uid="uid://d23m4e07eg735"]
+[gd_resource type="Resource" script_class="PlayerInfo" load_steps=30 format=3 uid="uid://d23m4e07eg735"]
 
 [ext_resource type="Script" path="res://battle/cards/info/card_info.gd" id="1_5bkd6"]
-[ext_resource type="Resource" uid="uid://d13epowy1udwn" path="res://blessings/resources/test_haha.tres" id="2_5hqlg"]
-[ext_resource type="Resource" uid="uid://btwq1kw1wmqff" path="res://blessings/resources/poop.tres" id="2_c3bkw"]
 [ext_resource type="Script" path="res://players/info/player_info.gd" id="2_lpd0p"]
 [ext_resource type="Script" path="res://blessings/equipped_blessing.gd" id="3_dudy4"]
 [ext_resource type="SpriteFrames" uid="uid://2up8nj4es0st" path="res://players/animations/scrimblo_sprite_frames.tres" id="3_g3lwf"]
 [ext_resource type="Resource" uid="uid://t3jhw6k818rs" path="res://battle/template_cards/info/absolute_zero_template_card_info.tres" id="4_c3fsx"]
-[ext_resource type="Resource" uid="uid://5y58q0775q6d" path="res://blessings/resources/decrease_max_health_blessing.tres" id="5_77ug8"]
 [ext_resource type="Resource" uid="uid://b6sjpqlj4tbv6" path="res://battle/template_cards/info/brutal_punch_template_card_info.tres" id="5_c8oqt"]
 [ext_resource type="Resource" uid="uid://lju22pgkrq8" path="res://battle/template_cards/info/depression_template_card_info.tres" id="6_xxbjw"]
 [ext_resource type="Resource" uid="uid://d2y88ykc4c4k5" path="res://battle/template_cards/info/pyromancy_template_card_info.tres" id="7_cgc67"]
@@ -112,17 +109,17 @@ insult_text = "scary"
 
 [sub_resource type="Resource" id="Resource_bof22"]
 script = ExtResource("3_dudy4")
-blessing = ExtResource("2_5hqlg")
+type = 0
 stack = 4
 
 [sub_resource type="Resource" id="Resource_vyd6k"]
 script = ExtResource("3_dudy4")
-blessing = ExtResource("5_77ug8")
+type = 1
 stack = 3
 
 [sub_resource type="Resource" id="Resource_hpp5x"]
 script = ExtResource("3_dudy4")
-blessing = ExtResource("2_c3bkw")
+type = 2
 stack = 3
 
 [resource]

@@ -32,6 +32,7 @@ var current_health: int = -1
 
 func init_unhandled_equipped_blessings():
 	for equipped_blessing in equipped_blessings:
+		equipped_blessing.init()
 		equipped_blessing.blessing.init(self)
 		while equipped_blessing.equipped_stack < equipped_blessing.stack:
 			equipped_blessing.equipped_stack += 1
@@ -58,11 +59,9 @@ func emit_turn_ended_blessing_signal():
 		equipped_blessing.blessing.turn_ended.emit(equipped_blessing.stack)
 
 
-func has_blessing(type_string) -> bool:
+func has_blessing(type) -> bool:
 	for equipped_blessing in equipped_blessings:
-		print(equipped_blessing.blessing.name)
-		print(type_string.name)
-		if equipped_blessing.blessing.name == type_string.name:
+		if equipped_blessing.type == type:
 			return true
 	
 	return false

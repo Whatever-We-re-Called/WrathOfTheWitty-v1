@@ -19,8 +19,7 @@ var execution_script_instance = null
 
 
 func init(player_info: PlayerInfo):
-	if execution_script_instance == null:
-		execution_script_instance = execution_script.new()
+	execution_script_instance = execution_script.new()
 	
 	execution_script_instance.player_info = player_info
 	
