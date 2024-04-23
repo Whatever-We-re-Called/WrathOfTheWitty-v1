@@ -1,7 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://dckjyprl8cjwl"]
 
 [ext_resource type="Script" path="res://players/status_effects/status_effect_ui.gd" id="1_dkjur"]
-[ext_resource type="Texture2D" uid="uid://bwdm2kxwc6b3s" path="res://kenney_assets/kenney_board-game-icons/PNG/Default (64px)/shield.png" id="1_dq24w"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_un5vu"]
+load_path = "res://.godot/imported/shield.png-49f61ba6d59b2d0a1cb611479d296690.ctex"
 
 [node name="StatusEffectUI" type="HBoxContainer"]
 theme_override_constants/separation = 4
@@ -10,7 +12,7 @@ script = ExtResource("1_dkjur")
 [node name="TextureRect" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
-texture = ExtResource("1_dq24w")
+texture = SubResource("CompressedTexture2D_un5vu")
 expand_mode = 1
 stretch_mode = 5
 

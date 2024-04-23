@@ -1,7 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://byvl0ds2nui0e"]
 
 [ext_resource type="Script" path="res://battle/template_cards/template_card.gd" id="1_5xuhq"]
-[ext_resource type="Texture2D" uid="uid://d3nm5ic5n0uw5" path="res://kenney_assets/kenney_game-icons/PNG/White/1x/information.png" id="3_5kcht"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dbeir"]
+load_path = "res://.godot/imported/information.png-696776f34b0735611f4fee2e1e230774.ctex"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lt3aj"]
 bg_color = Color(0.219608, 0.666667, 0.235294, 1)
@@ -98,7 +100,7 @@ text = "Power Punch"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-texture = ExtResource("3_5kcht")
+texture = SubResource("CompressedTexture2D_dbeir")
 expand_mode = 1
 stretch_mode = 5
 
