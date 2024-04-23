@@ -11,6 +11,7 @@ base_hide_stack_value = 1
 base_weaken_stack_value = 1
 base_poison_stack_value = 2
 base_burn_stack_value = 1
+base_burn_damage_value = 3
 base_freeze_stack_value = 1
 base_slime_stack_value = 1
 base_buff_enhancement_attack_increase_value = 6

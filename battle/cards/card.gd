@@ -103,9 +103,8 @@ func set_on_fire(is_on_fire: bool):
 	self.is_burning = is_on_fire
 	burning_overlay.visible = is_on_fire
 	
-	#TODO: Fix 
-	#if is_burning:
-		#burning_label.text = str(BATTLE_ACTION_EXECUTION_INFO.base_burn_damage_value) + " HP"
+	if is_burning:
+		burning_label.text = str(BATTLE_ACTION_EXECUTION_INFO.base_burn_damage_value) + " HP"
 
 
 func set_as_slimed(slimed: bool):
@@ -130,7 +129,7 @@ func _on_button_gui_input(event):
 
 func _select():
 	if is_burning:
-		player.damage(BATTLE_ACTION_EXECUTION_INFO.base_fire_damage_value)
+		player.damage(BATTLE_ACTION_EXECUTION_INFO.base_burn_damage_value)
 		set_on_fire(false)
 	else:
 		toggle_selected.emit()

@@ -53,6 +53,8 @@ func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 	
 
 func damage(amount: int):
+	if amount <= 0: return
+	
 	var shield_amount = 0
 	if active_status_effects.has(Constants.PlayerStatusEffect.SHIELD):
 		shield_amount = active_status_effects[Constants.PlayerStatusEffect.SHIELD]

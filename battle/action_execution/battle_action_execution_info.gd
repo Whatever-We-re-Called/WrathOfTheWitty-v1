@@ -9,6 +9,7 @@ class_name BattleExecutionInfo extends Resource
 @export var base_weaken_stack_value: int
 @export var base_poison_stack_value: int
 @export var base_burn_stack_value: int
+@export var base_burn_damage_value: int
 @export var base_freeze_stack_value: int
 @export var base_slime_stack_value: int
 @export_group("Base Enhancement Values")
