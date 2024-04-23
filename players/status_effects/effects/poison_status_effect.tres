@@ -1,12 +1,11 @@
 [gd_resource type="Resource" script_class="StatusEffect" load_steps=3 format=3 uid="uid://dljevhbwumrjt"]
 
 [ext_resource type="Script" path="res://players/status_effects/effects/status_effect_info.gd" id="1_1u214"]
-[ext_resource type="Texture2D" uid="uid://beqkhgoofgamh" path="res://kenney_assets/kenney_board-game-icons/Vector/Icons/skull.svg" id="1_4q5f5"]
+[ext_resource type="Texture2D" uid="uid://beqkhgoofgamh" path="res://players/status_effects/textures/skull.svg" id="1_300fm"]
 
 [resource]
 script = ExtResource("1_1u214")
-type = 1
-icon = ExtResource("1_4q5f5")
+icon = ExtResource("1_300fm")
 color = Color(0.584314, 0.266667, 0.898039, 1)
 decrement_per_turn_value = 0
 handle_decrement_automatically = false

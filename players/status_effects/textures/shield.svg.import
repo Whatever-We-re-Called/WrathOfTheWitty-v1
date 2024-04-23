@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dulyfjbqm82d3"
-path="res://.godot/imported/fire.svg-b017b24083fec2864bc7baf405e1d37c.ctex"
+uid="uid://b3vklgp6qv7j1"
+path="res://.godot/imported/shield.svg-da1d9b15eb01e40517cf866d22b4a1f2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://kenney_assets/kenney_board-game-icons/Vector/Icons/fire.svg"
-dest_files=["res://.godot/imported/fire.svg-b017b24083fec2864bc7baf405e1d37c.ctex"]
+source_file="res://players/status_effects/textures/shield.svg"
+dest_files=["res://.godot/imported/shield.svg-da1d9b15eb01e40517cf866d22b4a1f2.ctex"]
 
 [params]
 

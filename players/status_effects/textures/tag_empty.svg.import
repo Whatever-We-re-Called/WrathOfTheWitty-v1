@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djqnbbo242nim"
-path="res://.godot/imported/d3.svg-10c25866dd5660e2ce6f709b3ec12f82.ctex"
+uid="uid://bvx24fl3573wx"
+path="res://.godot/imported/tag_empty.svg-64d5e8d5a8f6fff6c2a0e4f5f86b7372.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://kenney_assets/kenney_board-game-icons/Vector/Icons/d3.svg"
-dest_files=["res://.godot/imported/d3.svg-10c25866dd5660e2ce6f709b3ec12f82.ctex"]
+source_file="res://players/status_effects/textures/tag_empty.svg"
+dest_files=["res://.godot/imported/tag_empty.svg-64d5e8d5a8f6fff6c2a0e4f5f86b7372.ctex"]
 
 [params]
 

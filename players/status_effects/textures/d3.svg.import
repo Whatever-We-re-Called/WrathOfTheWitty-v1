@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6504hq7gltqp"
-path="res://.godot/imported/hexagon_question.svg-07b738211d83d174e7fc23a1385c0d14.ctex"
+uid="uid://djqnbbo242nim"
+path="res://.godot/imported/d3.svg-cdeed9a061039e15b42f0467e29ea972.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://kenney_assets/kenney_board-game-icons/Vector/Icons/hexagon_question.svg"
-dest_files=["res://.godot/imported/hexagon_question.svg-07b738211d83d174e7fc23a1385c0d14.ctex"]
+source_file="res://players/status_effects/textures/d3.svg"
+dest_files=["res://.godot/imported/d3.svg-cdeed9a061039e15b42f0467e29ea972.ctex"]
 
 [params]
 

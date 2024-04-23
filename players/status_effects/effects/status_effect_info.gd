@@ -1,6 +1,5 @@
 class_name StatusEffect extends Resource
 
-@export var type: Constants.PlayerStatusEffect
 @export_group("Visuals")
 @export var icon: Texture2D
 @export var color: Color

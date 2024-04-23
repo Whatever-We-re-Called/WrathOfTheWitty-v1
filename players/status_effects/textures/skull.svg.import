@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctuww5e5mv6hl"
-path="res://.godot/imported/card_lift.svg-d626fee3a2a4538e21c18f33c35e3641.ctex"
+uid="uid://beqkhgoofgamh"
+path="res://.godot/imported/skull.svg-f449c2fb2e1841e6453feb2c745ab45c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://kenney_assets/kenney_board-game-icons/Vector/Icons/card_lift.svg"
-dest_files=["res://.godot/imported/card_lift.svg-d626fee3a2a4538e21c18f33c35e3641.ctex"]
+source_file="res://players/status_effects/textures/skull.svg"
+dest_files=["res://.godot/imported/skull.svg-f449c2fb2e1841e6453feb2c745ab45c.ctex"]
 
 [params]
 

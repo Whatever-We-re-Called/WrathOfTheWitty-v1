@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Constants="*res://util/constants.gd"
-Blessings="*res://blessings/Blessings.gd"
+Blessings="*res://blessings/blessings.gd"
 
 [display]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://beqkhgoofgamh"
-path="res://.godot/imported/skull.svg-b8d428ce78d129b5de04c5f54d11c245.ctex"
+uid="uid://5llq274vnky1"
+path="res://.godot/imported/pawn_down.svg-ca36c0cd8e994163dd9dad39486334ab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://kenney_assets/kenney_board-game-icons/Vector/Icons/skull.svg"
-dest_files=["res://.godot/imported/skull.svg-b8d428ce78d129b5de04c5f54d11c245.ctex"]
+source_file="res://players/status_effects/textures/pawn_down.svg"
+dest_files=["res://.godot/imported/pawn_down.svg-ca36c0cd8e994163dd9dad39486334ab.ctex"]
 
 [params]
 
