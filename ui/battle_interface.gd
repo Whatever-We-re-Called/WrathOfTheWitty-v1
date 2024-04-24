@@ -12,8 +12,8 @@ signal card_throw(card: Card)
 @onready var template_card_ui = %TemplateCardUI
 @onready var player_card_deck_label = %PlayerCardDeckLabel
 @onready var player_card_bag_label = %PlayerCardBagLabel
-@onready var template_card_deck_label = %TemplateCardDeckLabel
-@onready var template_card_bag_label = %TemplateCardBagLabel
+@onready var player_template_card_deck_label = %PlayerTemplateCardDeckLabel
+@onready var player_template_card_bag_label = %PlayerTemplateCardBagLabel
 @onready var player_info_ui = %PlayerInfoUI
 
 
@@ -79,17 +79,16 @@ func update_template_card_ui(template_card: TemplateCard):
 	template_card_ui.add_child(template_card)
 
 
-func update_template_card_deck_and_bag_ui(deck_size: int, bag_size: int):
-	template_card_deck_label.text = "Template Card Deck (%s)" % deck_size
-	template_card_bag_label.text = "Template Card Bag (%s)" % bag_size
-
-
 func update_player_deck_and_bag_ui(player: BattlePlayer):
-	player_card_deck_label.text = "Card Deck (%s)" % player.cards_in_deck.size()
-	player_card_bag_label.text = "Card Bag (%s)" % player.cards_in_bag.size()
+	player_card_deck_label.text = "Action Card Deck (%s)" % player.cards_in_deck.size()
+	player_card_bag_label.text = "Action Card Bag (%s)" % player.cards_in_bag.size()
+	player_template_card_deck_label.text = "Template Card Deck (%s)" % player.template_cards_in_deck.size()
+	player_template_card_bag_label.text = "Template Card Bag (%s)" % player.template_cards_in_bag.size()
 
 
 func open_player_info_ui(player_info: PlayerInfo):
+	if player_info_ui.visible: return
+	
 	player_info_ui.visible = true
 	player_info_ui.init(player_info)
 

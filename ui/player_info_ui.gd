@@ -57,6 +57,7 @@ extends CenterContainer
 @onready var template_cards_deck_grid_container = %TemplateCardsDeckGridContainer
 @onready var template_cards_bag_label = %TemplateCardsBagLabel
 @onready var template_cards_bag_grid_container = %TemplateCardsBagGridContainer
+@onready var close_button = %CloseButton
 
 const CARD_SCENE = preload("res://battle/cards/card.tscn")
 const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.tscn")
@@ -65,6 +66,8 @@ const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.t
 func _ready():
 	for i in range(buttons.size()):
 		buttons[i].pressed.connect(_set_open_tab_index.bind(i))
+	
+	close_button.pressed.connect(func(): self.visible = false)
 
 
 func init(player_info: PlayerInfo):

@@ -269,10 +269,13 @@ func handle_delayed_start_turn():
 
 
 func handle_end_turn():
-	send_template_card_to_bag()
 	info.emit_turn_ended_blessing_signal()
 	_decrement_status_effects()
 	_reset_frozen_stamina()
+
+
+func handle_delayed_end_turn():
+	send_template_card_to_bag()
 
 
 func _handle_stamina_recharge():

@@ -39,7 +39,8 @@ func _ready():
 	players[Constants.PlayerSide.LEFT].handle_start_battle()
 	players[Constants.PlayerSide.LEFT].handle_start_turn()
 	players[Constants.PlayerSide.RIGHT].handle_start_battle()
-	battle_interface.update_hand(players[active_side])
+	battle_interface.update_hand(player)
+	battle_interface.update_player_deck_and_bag_ui(player)
 	
 	battle_interface.card_toggle_selected.connect(_on_card_toggle_selected)
 	battle_interface.card_reroll.connect(reroll_card)
@@ -61,20 +62,22 @@ func _init_player(side: Constants.PlayerSide, player_info: PlayerInfo, parent_no
 
 
 func _process(delta):
-	battle_interface.update_player_deck_and_bag_ui(player)
+	_handle_controls_input()
 	
 	# Debug
 	if Input.is_action_just_pressed("debug_1"):
 		player.stamina = player.info.stamina_stat
 		battle_interface.update_player_stats(player)
+
+
+func _handle_controls_input():
+	if Input.is_action_just_pressed("view_your_info"):
+		battle_interface.open_player_info_ui(players[Constants.PlayerSide.LEFT].info)
+	elif Input.is_action_just_pressed("view_opponents_info"):
+		battle_interface.open_player_info_ui(players[Constants.PlayerSide.RIGHT].info)
+	
 	if Input.is_action_just_pressed("end_turn") and not is_changing_turns:
 		end_turn_early()
-	if Input.is_action_just_pressed("debug_2"):
-		battle_interface.open_player_info_ui(players[Constants.PlayerSide.LEFT].info)
-	if Input.is_action_just_pressed("debug_3"):
-		battle_interface.open_player_info_ui(players[Constants.PlayerSide.RIGHT].info)
-	if Input.is_action_just_pressed("debug_4"):
-		battle_interface.close_player_info_ui()
 
 
 func _on_card_toggle_selected(card: Card):
@@ -105,8 +108,6 @@ func _on_inserted_template_card_into_hand(template_card_info: TemplateCardInfo):
 	active_template_card.play_selected_cards.connect(play_cards)
 	
 	battle_interface.update_template_card_ui(active_template_card)
-	battle_interface.update_template_card_deck_and_bag_ui(template_cards_in_deck.size(), template_cards_in_bag.size())
-
 
 
 func select_card(card: Card):
@@ -166,8 +167,8 @@ func change_turns():
 	battle_interface.update_player_stats(player)
 	battle_interface.update_player_stats(get_non_active_side_player())
 	battle_interface.toggle_hand_visibility(false)
-	
 	await get_tree().create_timer(2).timeout
+	player.handle_delayed_end_turn()
 	
 	if active_side == Constants.PlayerSide.LEFT:
 		active_side = Constants.PlayerSide.RIGHT
