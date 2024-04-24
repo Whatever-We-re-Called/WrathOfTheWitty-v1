@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="Blessing" load_steps=3 format=3 uid="uid://btwq1kw1wmqff"]
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://btwq1kw1wmqff"]
 
 [ext_resource type="Script" path="res://blessings/execution_scripts/strengh_blessing_execution.gd" id="1_i87sv"]
 [ext_resource type="Script" path="res://blessings/blessing.gd" id="1_ycmyc"]
+[ext_resource type="Texture2D" uid="uid://b4ixs3g5v12s1" path="res://ui/misc_textures/sword.svg" id="3_83bcp"]
 
 [resource]
 script = ExtResource("1_ycmyc")
 name = "Strength"
-description = "Increases your Attack stat by 2 (+1 per stack)."
+texture = ExtResource("3_83bcp")
+description = "Increases your Attack stat by 2."
 rarity = 0
 execution_script = ExtResource("1_i87sv")

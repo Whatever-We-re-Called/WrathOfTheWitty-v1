@@ -14,6 +14,8 @@ signal card_throw(card: Card)
 @onready var player_card_bag_label = %PlayerCardBagLabel
 @onready var template_card_deck_label = %TemplateCardDeckLabel
 @onready var template_card_bag_label = %TemplateCardBagLabel
+@onready var player_info_ui = %PlayerInfoUI
+
 
 var battle_scene: BattleScene
 
@@ -85,6 +87,15 @@ func update_template_card_deck_and_bag_ui(deck_size: int, bag_size: int):
 func update_player_deck_and_bag_ui(player: BattlePlayer):
 	player_card_deck_label.text = "Card Deck (%s)" % player.cards_in_deck.size()
 	player_card_bag_label.text = "Card Bag (%s)" % player.cards_in_bag.size()
+
+
+func open_player_info_ui(player_info: PlayerInfo):
+	player_info_ui.visible = true
+	player_info_ui.init(player_info)
+
+
+func close_player_info_ui():
+	player_info_ui.visible = false
 
 
 func _on_card_toggle_selected(card: Card):

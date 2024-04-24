@@ -45,6 +45,7 @@ func _ready():
 	battle_interface.card_toggle_selected.connect(_on_card_toggle_selected)
 	battle_interface.card_reroll.connect(reroll_card)
 	battle_interface.card_throw.connect(throw_card)
+	battle_interface.close_player_info_ui()
 
 
 func _init_player(side: Constants.PlayerSide, player_info: PlayerInfo, parent_node: Node2D):
@@ -80,6 +81,12 @@ func _process(delta):
 		battle_interface.update_player_stats(player)
 	if Input.is_action_just_pressed("end_turn") and not is_changing_turns:
 		end_turn_early()
+	if Input.is_action_just_pressed("debug_2"):
+		battle_interface.open_player_info_ui(players[Constants.PlayerSide.LEFT].info)
+	if Input.is_action_just_pressed("debug_3"):
+		battle_interface.open_player_info_ui(players[Constants.PlayerSide.RIGHT].info)
+	if Input.is_action_just_pressed("debug_4"):
+		battle_interface.close_player_info_ui()
 
 
 func _on_card_toggle_selected(card: Card):

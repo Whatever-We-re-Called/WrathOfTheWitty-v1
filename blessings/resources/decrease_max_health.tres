@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="Blessing" load_steps=3 format=3 uid="uid://5y58q0775q6d"]
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://5y58q0775q6d"]
 
 [ext_resource type="Script" path="res://blessings/execution_scripts/decrease_max_health_blessing_execution.gd" id="1_3xcad"]
 [ext_resource type="Script" path="res://blessings/blessing.gd" id="1_wve23"]
+[ext_resource type="Texture2D" uid="uid://xqsitq82rqha" path="res://ui/misc_textures/exploding.svg" id="3_5r022"]
 
 [resource]
 script = ExtResource("1_wve23")
 name = "Decrease Max Health"
-description = "At the beginning of a battle, decrease your opponent's max health by 3 HP (+2 per stack)."
+texture = ExtResource("3_5r022")
+description = "At the beginning of a battle, decrease your opponent's max health by 5 HP."
 rarity = 1
 execution_script = ExtResource("1_3xcad")

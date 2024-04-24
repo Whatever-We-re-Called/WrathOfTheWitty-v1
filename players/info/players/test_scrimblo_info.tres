@@ -124,7 +124,7 @@ stack = 3
 
 [resource]
 script = ExtResource("2_lpd0p")
-name = "Scrimblo (Test)"
+name = "Scrimblo"
 sprite_frames = ExtResource("3_g3lwf")
 sprite_scale = Vector2(0.375, 0.375)
 insecurity_weaknesses = Array[int]([4])

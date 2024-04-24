@@ -5,7 +5,6 @@
 
 [resource]
 script = ExtResource("1_alan5")
-type = 2
 icon = ExtResource("1_1clij")
 color = Color(0.898039, 0.266667, 0.266667, 1)
 decrement_per_turn_value = 0

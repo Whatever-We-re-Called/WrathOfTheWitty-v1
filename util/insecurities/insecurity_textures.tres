@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_uefih")
 insecurity_icon = ExtResource("1_nb2un")
-physical_apprance_color = Color(0.196078, 0.196078, 0.196078, 1)
+physical_apprance_color = Color(0.294118, 0.294118, 0.294118, 1)
 self_esteem_color = Color(0.407843, 0.447059, 0.176471, 1)
 intelligence_color = Color(0.266667, 0.176471, 0.447059, 1)
 physical_ability_color = Color(0.447059, 0.176471, 0.223529, 1)

@@ -11,6 +11,7 @@ signal turn_started(stack: int)
 signal turn_ended(stack: int)
 
 @export var name: String
+@export var texture: Texture2D
 @export_multiline var description: String
 @export var rarity: Rarity
 @export var execution_script: Script
