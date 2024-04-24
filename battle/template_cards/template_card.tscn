@@ -32,14 +32,28 @@ grow_vertical = 2
 size_flags_horizontal = 0
 script = ExtResource("1_5xuhq")
 
-[node name="LeftPlayerSpeakingGlyph" type="ColorRect" parent="."]
+[node name="LeftPlayerSpeakingGlyphContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 288
+theme_override_constants/margin_right = 768
+
+[node name="LeftPlayerSpeakingGlyph" type="ColorRect" parent="LeftPlayerSpeakingGlyphContainer"]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(128, 72)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
-[node name="RightPlayerSpeakingGlyph" type="ColorRect" parent="."]
+[node name="RightPlayerSpeakingGlyphContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 768
+theme_override_constants/margin_top = 288
+
+[node name="RightPlayerSpeakingGlyph" type="ColorRect" parent="RightPlayerSpeakingGlyphContainer"]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(128, 72)

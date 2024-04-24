@@ -15,6 +15,8 @@ signal play_selected_cards
 @onready var insecurity_icon_container = %InsecurityIconContainer
 @onready var top_cards_container = %TopCardsContainer
 @onready var button_container = %ButtonContainer
+@onready var left_player_speaking_glyph_container = %LeftPlayerSpeakingGlyphContainer
+@onready var right_player_speaking_glyph_container = %RightPlayerSpeakingGlyphContainer
 
 var template_card_info: TemplateCardInfo
 var max_insults_allowed = 0
@@ -60,6 +62,7 @@ func _init_execution_visuals():
 		insecurity_icon.texture = Constants.get_insecurity_icon()
 		insecurity_icon.self_modulate = Constants.get_insecurity_color(insecurity)
 		insecurity_icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+		insecurity_icon_container.custom_minimum_size = Vector2(48, 48)
 		insecurity_icon_container.add_child(insecurity_icon)
 	
 	var sentence_label_text = template_card_info.sentence
@@ -140,3 +143,5 @@ func _on_play_button_pressed():
 func remove_interactable_ui():
 	top_cards_container.queue_free()
 	button_container.queue_free()
+	left_player_speaking_glyph_container.queue_free()
+	right_player_speaking_glyph_container.queue_free()

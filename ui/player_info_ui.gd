@@ -124,8 +124,7 @@ func _init_blessings_page(player_info: PlayerInfo):
 		
 		var hovered_name = equipped_blessing.blessing.name
 		var hovered_info = equipped_blessing.blessing.description
-		texture_rect.mouse_entered.connect(_show_blessings_hovered_info.bind(hovered_name, hovered_info, color))
-		texture_rect.mouse_exited.connect(_hide_blessings_hovered_info)
+		texture_rect.tooltip_text = hovered_name + ": " + hovered_info
 		
 		blessings_grid_container.add_child(texture_rect)
 
@@ -175,15 +174,3 @@ func _get_template_card_instance(template_card_info: TemplateCardInfo) -> Templa
 	var new_template_card_scene = TEMPLATE_CARD_SCENE.instantiate()
 	new_template_card_scene.template_card_info = template_card_info
 	return new_template_card_scene
-
-
-func _show_blessings_hovered_info(name: String, info: String, color: Color):
-	print(color)
-	hovered_info_container.visible = true
-	hovered_name_label.text = name
-	hovered_name_label.label_settings.font_color = color
-	hovered_info_label.text = info
-
-
-func _hide_blessings_hovered_info():
-	hovered_info_container.visible = false
