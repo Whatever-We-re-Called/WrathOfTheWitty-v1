@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cbocnnnw4vt17"]
+[gd_scene load_steps=46 format=3 uid="uid://cbocnnnw4vt17"]
 
 [ext_resource type="Script" path="res://ui/battle_interface.gd" id="1_iesfx"]
 [ext_resource type="Script" path="res://ui/player_stats_ui.gd" id="2_6m8b4"]
@@ -124,6 +124,9 @@ font_color = Color(0.898039, 0.584314, 0.266667, 1)
 font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_iw7vr"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_sfcky"]
 font_size = 24
 
 [node name="BattleInterface" type="Control"]
@@ -1090,6 +1093,7 @@ label_settings = SubResource("LabelSettings_n210e")
 
 [node name="BlessingsInfoUI" type="CenterContainer" parent="PlayerInfoUI/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(1472, 640)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -1171,6 +1175,7 @@ label_settings = SubResource("LabelSettings_lseqt")
 
 [node name="HoveredInfoContainer" type="VBoxContainer" parent="PlayerInfoUI/VBoxContainer/BlessingsInfoUI/HBoxContainer/CenterContainer/VBoxContainer2"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 8
 
@@ -1276,8 +1281,152 @@ visible = false
 custom_minimum_size = Vector2(1472, 640)
 layout_mode = 2
 
+[node name="ScrollContainer" type="ScrollContainer" parent="PlayerInfoUI/VBoxContainer/ActionCardsInfoUI"]
+custom_minimum_size = Vector2(1392, 640)
+layout_mode = 2
+size_flags_vertical = 0
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerInfoUI/VBoxContainer/ActionCardsInfoUI/ScrollContainer"]
+layout_mode = 2
+
+[node name="ActionCardsHandLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/ActionCardsInfoUI/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1392, 0)
+layout_mode = 2
+text = "Hand:"
+label_settings = SubResource("LabelSettings_sfcky")
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="PlayerInfoUI/VBoxContainer/ActionCardsInfoUI/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="ActionCardsHandGridContainer" type="GridContainer" parent="PlayerInfoUI/VBoxContainer/ActionCardsInfoUI/ScrollContainer/VBoxContainer/CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 6
+
+[node name="ActionCardsDeckLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/ActionCardsInfoUI/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1392, 0)
+layout_mode = 2
+text = "Deck:"
+label_settings = SubResource("LabelSettings_sfcky")
+horizontal_alignment = 1
+
+[node name="CenterContainer2" type="CenterContainer" parent="PlayerInfoUI/VBoxContainer/ActionCardsInfoUI/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="ActionCardsDeckGridContainer" type="GridContainer" parent="PlayerInfoUI/VBoxContainer/ActionCardsInfoUI/ScrollContainer/VBoxContainer/CenterContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 6
+
+[node name="ActionCardsBagLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/ActionCardsInfoUI/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1392, 0)
+layout_mode = 2
+text = "Bag:"
+label_settings = SubResource("LabelSettings_sfcky")
+horizontal_alignment = 1
+
+[node name="CenterContainer3" type="CenterContainer" parent="PlayerInfoUI/VBoxContainer/ActionCardsInfoUI/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="ActionCardsBagGridContainer" type="GridContainer" parent="PlayerInfoUI/VBoxContainer/ActionCardsInfoUI/ScrollContainer/VBoxContainer/CenterContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 6
+
 [node name="TemplateCardsInfoUI" type="CenterContainer" parent="PlayerInfoUI/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(1472, 640)
 layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PlayerInfoUI/VBoxContainer/TemplateCardsInfoUI"]
+custom_minimum_size = Vector2(1392, 640)
+layout_mode = 2
+size_flags_vertical = 0
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerInfoUI/VBoxContainer/TemplateCardsInfoUI/ScrollContainer"]
+layout_mode = 2
+
+[node name="ActionCardsHandLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/TemplateCardsInfoUI/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1392, 0)
+layout_mode = 2
+text = "Hand:"
+label_settings = SubResource("LabelSettings_sfcky")
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="PlayerInfoUI/VBoxContainer/TemplateCardsInfoUI/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="TemplateCardsHandGridContainer" type="GridContainer" parent="PlayerInfoUI/VBoxContainer/TemplateCardsInfoUI/ScrollContainer/VBoxContainer/CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="ActionCardsDeckLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/TemplateCardsInfoUI/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1392, 0)
+layout_mode = 2
+text = "Deck:"
+label_settings = SubResource("LabelSettings_sfcky")
+horizontal_alignment = 1
+
+[node name="CenterContainer2" type="CenterContainer" parent="PlayerInfoUI/VBoxContainer/TemplateCardsInfoUI/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="ActionCardsDeckGridContainer" type="GridContainer" parent="PlayerInfoUI/VBoxContainer/TemplateCardsInfoUI/ScrollContainer/VBoxContainer/CenterContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 6
+
+[node name="ActionCardsBagLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/TemplateCardsInfoUI/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1392, 0)
+layout_mode = 2
+text = "Bag:"
+label_settings = SubResource("LabelSettings_sfcky")
+horizontal_alignment = 1
+
+[node name="CenterContainer3" type="CenterContainer" parent="PlayerInfoUI/VBoxContainer/TemplateCardsInfoUI/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="ActionCardsBagGridContainer" type="GridContainer" parent="PlayerInfoUI/VBoxContainer/TemplateCardsInfoUI/ScrollContainer/VBoxContainer/CenterContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 6

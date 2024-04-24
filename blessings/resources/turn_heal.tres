@@ -8,6 +8,6 @@
 script = ExtResource("1_0lc7i")
 name = "Turn Heal"
 texture = ExtResource("3_mhokm")
-description = "At the start of every turn, heal yourself for 3 HP."
+description = "At the start of every turn, heal yourself for 2 HP (+1 per stack)."
 rarity = 0
 execution_script = ExtResource("1_k67pf")

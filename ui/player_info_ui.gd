@@ -45,6 +45,17 @@ extends CenterContainer
 @onready var hovered_name_label = %HoveredNameLabel
 @onready var hovered_info_label = %HoveredInfoLabel
 @onready var blessings_grid_container = %BlessingsGridContainer
+@onready var action_cards_hand_grid_container = %ActionCardsHandGridContainer
+@onready var action_cards_deck_grid_container = %ActionCardsDeckGridContainer
+@onready var action_cards_bag_grid_container = %ActionCardsBagGridContainer
+@onready var action_cards_hand_label = %ActionCardsHandLabel
+@onready var action_cards_deck_label = %ActionCardsDeckLabel
+@onready var action_cards_bag_label = %ActionCardsBagLabel
+@onready var template_cards_hand_grid_container = %TemplateCardsHandGridContainer
+
+const CARD_SCENE = preload("res://battle/cards/card.tscn")
+const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.tscn")
+
 
 func _ready():
 	for i in range(buttons.size()):
@@ -57,6 +68,8 @@ func init(player_info: PlayerInfo):
 	name_label.text = player_info.name + "'s Stats"
 	_init_stats_page(player_info)
 	_init_blessings_page(player_info)
+	_init_action_cards_page(player_info)
+	_init_template_cards_page(player_info)
 
 
 func _set_open_tab_index(index: int):
@@ -115,6 +128,53 @@ func _init_blessings_page(player_info: PlayerInfo):
 		texture_rect.mouse_exited.connect(_hide_blessings_hovered_info)
 		
 		blessings_grid_container.add_child(texture_rect)
+
+
+func _init_action_cards_page(player_info: PlayerInfo):
+	for child in action_cards_hand_grid_container.get_children():
+		child.queue_free()
+	for child in action_cards_deck_grid_container.get_children():
+		child.queue_free()
+	for child in action_cards_bag_grid_container.get_children():
+		child.queue_free()
+	
+	action_cards_hand_label.text = "Hand (" + str(player_info.current_player_instance.cards_in_hand.size()) + "):"
+	for card_info in player_info.current_player_instance.cards_in_hand:
+		var card = _get_card_instance(card_info)
+		action_cards_hand_grid_container.add_child(card)
+	action_cards_deck_label.text = "Deck (" + str(player_info.current_player_instance.cards_in_deck.size()) + "):"
+	for card_info in player_info.current_player_instance.cards_in_deck:
+		var card = _get_card_instance(card_info)
+		action_cards_deck_grid_container.add_child(card)
+	action_cards_bag_label.text = "Bag (" + str(player_info.current_player_instance.cards_in_bag.size()) + "):"
+	for card_info in player_info.current_player_instance.cards_in_bag:
+		var card = _get_card_instance(card_info)
+		action_cards_bag_grid_container.add_child(card)
+
+
+func _get_card_instance(card_info: CardInfo) -> Card:
+	var new_card_scene = CARD_SCENE.instantiate()
+	new_card_scene.card_info = card_info
+	return new_card_scene
+
+
+func _init_template_cards_page(player_info: PlayerInfo):
+	for child in template_cards_hand_grid_container.get_children():
+		child.queue_free()
+	
+	print("A")
+	#action_cards_hand_label.text = "Hand (" + str(player_info.current_player_instance.cards_in_hand.size()) + "):"
+	for template_card_info in player_info.template_card_deck:
+		print("B")
+		var template_card = _get_template_card_instance(template_card_info)
+		template_cards_hand_grid_container.add_child(template_card)
+		template_card.remove_interactable_ui()
+
+
+func _get_template_card_instance(template_card_info: TemplateCardInfo) -> TemplateCard:
+	var new_template_card_scene = TEMPLATE_CARD_SCENE.instantiate()
+	new_template_card_scene.template_card_info = template_card_info
+	return new_template_card_scene
 
 
 func _show_blessings_hovered_info(name: String, info: String, color: Color):

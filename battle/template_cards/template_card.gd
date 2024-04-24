@@ -9,13 +9,12 @@ signal play_selected_cards
 @onready var right_player_speaking_glyph = %RightPlayerSpeakingGlyph
 @onready var card_name = %CardName
 @onready var information_description_icon = %InformationDescriptionIcon
-@onready var information_description_display = %InformationDescriptionDisplay
-@onready var info_description_label = %InfoDescriptionLabel
 @onready var sentence_label = %SentenceLabel
 @onready var play_button = %PlayButton
-@onready var selected_cards_text = %SelectedCardsText
 @onready var selected_cards_container = %SelectedCardsContainer
 @onready var insecurity_icon_container = %InsecurityIconContainer
+@onready var top_cards_container = %TopCardsContainer
+@onready var button_container = %ButtonContainer
 
 var template_card_info: TemplateCardInfo
 var max_insults_allowed = 0
@@ -48,10 +47,7 @@ func _init_glyphs():
 
 
 func _init_info_description():
-	information_description_display.visible = false
-	info_description_label.text = template_card_info.info_description
-	information_description_icon.mouse_entered.connect(_show_info_description_display)
-	information_description_icon.mouse_exited.connect(_hide_info_description_display)
+	information_description_icon.tooltip_text = template_card_info.info_description
 
 
 func _init_identity_visuals():
@@ -96,14 +92,6 @@ func _get_earliest_insult_grammar_placeholder(text: String) -> GrammarType:
 		return GrammarType.NONE
 
 
-func _show_info_description_display():
-	information_description_display.visible = true
-
-
-func _hide_info_description_display():
-	information_description_display.visible = false
-
-
 func is_full() -> bool:
 	return selected_cards.size() >= max_insults_allowed
 
@@ -137,7 +125,6 @@ func _update_play_button_status():
 	var current_insults = selected_cards.size()
 	var max_insults = max_insults_allowed
 	
-	selected_cards_text.text = str(current_insults) + "/" + str(max_insults)
 	play_button.disabled = current_insults != max_insults
 
 
@@ -148,3 +135,8 @@ func _on_play_button_pressed():
 	_update_play_button_status()
 	
 	play_selected_cards.emit()
+
+
+func remove_interactable_ui():
+	top_cards_container.queue_free()
+	button_container.queue_free()

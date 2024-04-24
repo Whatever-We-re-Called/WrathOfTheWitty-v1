@@ -43,7 +43,6 @@ func init():
 
 
 func _init_action_texture():
-	
 	var color = CARD_TEXTURES.get_action_color(card_info.action_type)
 	var style_box = StyleBoxFlat.new()
 	style_box.bg_color = color
