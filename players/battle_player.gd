@@ -48,7 +48,6 @@ func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 		cards_in_deck.push_back(card_info.duplicate())
 	randomize()
 	cards_in_deck.shuffle()
-	add_cards_to_hand(info.hand_stat)
 	
 	
 	for template_card_info in info.template_card_deck:
@@ -102,7 +101,6 @@ func deplenish_stamina(amount: int):
 
 
 func add_cards_to_hand(amount: int):
-	# TODO Add support for proper deck and bag handling.
 	for i in range(amount):
 		cards_in_hand.push_back(get_next_card_in_deck(true))
 
@@ -136,7 +134,7 @@ func send_card_to_bag(card_info: CardInfo):
 
 func activate_new_template_card():
 	var new_template_card = get_next_template_card_in_deck(true)
-	send_template_card_to_bag(new_template_card)
+	template_cards_in_hand.push_back(new_template_card)
 	inserted_template_card_into_hand.emit(new_template_card)
 
 
@@ -162,8 +160,12 @@ func _refill_template_deck_from_bag():
 	template_cards_in_bag.clear()
 
 
-func send_template_card_to_bag(template_card_info: TemplateCardInfo):
+func send_template_card_to_bag():
+	if template_cards_in_hand.size() <= 0: return
+	
+	var template_card_info = template_cards_in_hand[0]
 	template_cards_in_bag.push_back(template_card_info)
+	template_cards_in_hand.pop_at(0)
 
 
 func reroll_card(card: Card):
@@ -222,8 +224,6 @@ func handle_played_selected_cards():
 			new_card_info.enhancement = Constants.CardEnhancement.NONE
 			new_card_info.dont_put_in_bag = true
 			cards_in_hand.push_back(new_card_info)
-		else:
-			add_cards_to_hand(1)
 		
 		if not card.dont_put_in_bag:
 			send_card_to_bag(card)
@@ -253,6 +253,9 @@ func handle_start_battle():
 
 func handle_start_turn():
 	activate_new_template_card()
+	print(info.hand_stat - cards_in_hand.size())
+	add_cards_to_hand(info.hand_stat - cards_in_hand.size())
+	
 	info.emit_turn_started_blessing_signal()
 	_handle_stamina_recharge()
 	_handle_poison_status_effect()
@@ -266,6 +269,7 @@ func handle_delayed_start_turn():
 
 
 func handle_end_turn():
+	send_template_card_to_bag()
 	info.emit_turn_ended_blessing_signal()
 	_decrement_status_effects()
 	_reset_frozen_stamina()

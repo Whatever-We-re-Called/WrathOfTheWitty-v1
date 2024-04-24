@@ -1371,6 +1371,7 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 
 [node name="TemplateCardsHandLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/TemplateCardsInfoUI/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(1392, 0)
 layout_mode = 2
 text = "Hand:"
@@ -1392,6 +1393,7 @@ theme_override_constants/v_separation = 8
 columns = 2
 
 [node name="TemplateCardsDeckLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/TemplateCardsInfoUI/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(1392, 0)
 layout_mode = 2
 text = "Deck:"
@@ -1404,14 +1406,16 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 
 [node name="TemplateCardsDeckGridContainer" type="GridContainer" parent="PlayerInfoUI/VBoxContainer/TemplateCardsInfoUI/ScrollContainer/VBoxContainer/CenterContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
-columns = 6
+columns = 2
 
 [node name="TemplateCardsBagLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/TemplateCardsInfoUI/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(1392, 0)
 layout_mode = 2
 text = "Bag:"
@@ -1424,9 +1428,10 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 
 [node name="TemplateCardsBagGridContainer" type="GridContainer" parent="PlayerInfoUI/VBoxContainer/TemplateCardsInfoUI/ScrollContainer/VBoxContainer/CenterContainer3"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
-columns = 6
+columns = 2

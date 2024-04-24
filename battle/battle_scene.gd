@@ -36,10 +36,10 @@ func _ready():
 	
 	_init_player(Constants.PlayerSide.LEFT, left_player_config.duplicate(), left_player_node)
 	_init_player(Constants.PlayerSide.RIGHT, right_player_config.duplicate(), right_player_node)
-	battle_interface.update_hand(players[active_side])
 	players[Constants.PlayerSide.LEFT].handle_start_battle()
 	players[Constants.PlayerSide.LEFT].handle_start_turn()
 	players[Constants.PlayerSide.RIGHT].handle_start_battle()
+	battle_interface.update_hand(players[active_side])
 	
 	battle_interface.card_toggle_selected.connect(_on_card_toggle_selected)
 	battle_interface.card_reroll.connect(reroll_card)

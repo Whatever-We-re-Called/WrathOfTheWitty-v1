@@ -52,6 +52,11 @@ extends CenterContainer
 @onready var action_cards_deck_label = %ActionCardsDeckLabel
 @onready var action_cards_bag_label = %ActionCardsBagLabel
 @onready var template_cards_hand_grid_container = %TemplateCardsHandGridContainer
+@onready var template_cards_hand_label = %TemplateCardsHandLabel
+@onready var template_cards_deck_label = %TemplateCardsDeckLabel
+@onready var template_cards_deck_grid_container = %TemplateCardsDeckGridContainer
+@onready var template_cards_bag_label = %TemplateCardsBagLabel
+@onready var template_cards_bag_grid_container = %TemplateCardsBagGridContainer
 
 const CARD_SCENE = preload("res://battle/cards/card.tscn")
 const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.tscn")
@@ -137,7 +142,8 @@ func _init_action_cards_page(player_info: PlayerInfo):
 	for child in action_cards_bag_grid_container.get_children():
 		child.queue_free()
 	
-	action_cards_hand_label.text = "Hand (" + str(player_info.current_player_instance.cards_in_hand.size()) + "):"
+	var cards_in_hand = player_info.current_player_instance.cards_in_hand.size() + player_info.current_player_instance.selected_cards.size()
+	action_cards_hand_label.text = "Hand (" + str(cards_in_hand) + "):"
 	for card_info in player_info.current_player_instance.cards_in_hand:
 		var card = _get_card_instance(card_info)
 		action_cards_hand_grid_container.add_child(card)
@@ -163,14 +169,27 @@ func _get_card_instance(card_info: CardInfo) -> Card:
 func _init_template_cards_page(player_info: PlayerInfo):
 	for child in template_cards_hand_grid_container.get_children():
 		child.queue_free()
+	for child in template_cards_deck_grid_container.get_children():
+		child.queue_free()
+	for child in template_cards_bag_grid_container.get_children():
+		child.queue_free()
 	
-	print("A")
-	#action_cards_hand_label.text = "Hand (" + str(player_info.current_player_instance.cards_in_hand.size()) + "):"
-	for template_card_info in player_info.template_card_deck:
-		print("B")
-		var template_card = _get_template_card_instance(template_card_info)
-		template_cards_hand_grid_container.add_child(template_card)
-		template_card.remove_interactable_ui()
+	var cards_in_hand = player_info.current_player_instance.template_cards_in_hand.size()
+	template_cards_hand_label.text = "Hand (" + str(cards_in_hand) + "):"
+	for card_info in player_info.current_player_instance.template_cards_in_hand:
+		var card = _get_template_card_instance(card_info)
+		template_cards_hand_grid_container.add_child(card)
+		card.remove_interactable_ui()
+	template_cards_deck_label.text = "Deck (" + str(player_info.current_player_instance.template_cards_in_deck.size()) + "):"
+	for card_info in player_info.current_player_instance.template_cards_in_deck:
+		var card = _get_template_card_instance(card_info)
+		template_cards_deck_grid_container.add_child(card)
+		card.remove_interactable_ui()
+	template_cards_bag_label.text = "Bag (" + str(player_info.current_player_instance.template_cards_in_bag.size()) + "):"
+	for card_info in player_info.current_player_instance.template_cards_in_bag:
+		var card = _get_template_card_instance(card_info)
+		template_cards_bag_grid_container.add_child(card)
+		card.remove_interactable_ui()
 
 
 func _get_template_card_instance(template_card_info: TemplateCardInfo) -> TemplateCard:
