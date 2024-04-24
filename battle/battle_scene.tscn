@@ -12,6 +12,12 @@ left_player_config = ExtResource("2_gy65i")
 right_player_config = ExtResource("3_l1tik")
 debug_template_card_info = ExtResource("3_8q4u3")
 
+[node name="Background" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.313726, 0.313726, 0.313726, 1)
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="BattleInterface" parent="CanvasLayer" instance=ExtResource("1_yveat")]

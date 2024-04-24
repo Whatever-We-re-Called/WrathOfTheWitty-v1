@@ -138,14 +138,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iesfx")
 
-[node name="Background" type="ColorRect" parent="."]
-z_index = -50
-custom_minimum_size = Vector2(1920, 1080)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-color = Color(0.313726, 0.313726, 0.313726, 1)
-
 [node name="LeftPlayerStatsUI" type="MarginContainer" parent="."]
 layout_mode = 1
 offset_right = 177.0

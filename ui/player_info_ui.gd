@@ -73,7 +73,7 @@ func _ready():
 func init(player_info: PlayerInfo):
 	_set_open_tab_index(0)
 	
-	name_label.text = player_info.name + "'s Stats"
+	name_label.text = player_info.name + "'s Info"
 	_init_stats_page(player_info)
 	_init_blessings_page(player_info)
 	_init_action_cards_page(player_info)

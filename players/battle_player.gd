@@ -57,6 +57,7 @@ func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 	
 	self.side = side
 	
+	print("!")
 	scale = info.sprite_scale
 	sprite_frames = info.sprite_frames
 	play()
