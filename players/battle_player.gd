@@ -1,5 +1,6 @@
 class_name BattlePlayer extends AnimatedSprite2D
 
+signal inserted_template_card_into_hand(template_card_info: TemplateCardInfo)
 signal decreased_opponents_max_health(amount: int, executing_player: BattlePlayer)
 
 var info: PlayerInfo
@@ -20,6 +21,10 @@ var card_arrays = [
 	cards_in_deck,
 	cards_in_bag
 ]
+
+var template_cards_in_hand: Array[TemplateCardInfo]
+var template_cards_in_deck: Array[TemplateCardInfo]
+var template_cards_in_bag: Array[TemplateCardInfo]
 
 var cards_in_hand_scenes: Array[Card]
 
@@ -44,6 +49,12 @@ func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 	randomize()
 	cards_in_deck.shuffle()
 	add_cards_to_hand(info.hand_stat)
+	
+	
+	for template_card_info in info.template_card_deck:
+		template_cards_in_deck.push_back(template_card_info.duplicate(true))
+	randomize()
+	template_cards_in_deck.shuffle()
 	
 	self.side = side
 	
@@ -121,6 +132,38 @@ func _refill_deck_from_bag():
 func send_card_to_bag(card_info: CardInfo):
 	cards_in_bag.push_back(card_info)
 	card_info.reset_enhancement_stack()
+
+
+func activate_new_template_card():
+	var new_template_card = get_next_template_card_in_deck(true)
+	send_template_card_to_bag(new_template_card)
+	inserted_template_card_into_hand.emit(new_template_card)
+
+
+func get_next_template_card_in_deck(remove_result_card: bool) -> TemplateCardInfo:
+	if template_cards_in_deck.is_empty():
+		_refill_template_deck_from_bag()
+	
+	var result = template_cards_in_deck[0]
+	if remove_result_card:
+		template_cards_in_deck.pop_front()
+		if template_cards_in_deck.is_empty():
+			_refill_template_deck_from_bag()
+	
+	return result
+
+
+func _refill_template_deck_from_bag():
+	template_cards_in_deck = template_cards_in_bag.duplicate(true)
+	
+	randomize()
+	template_cards_in_deck.shuffle()
+	
+	template_cards_in_bag.clear()
+
+
+func send_template_card_to_bag(template_card_info: TemplateCardInfo):
+	template_cards_in_bag.push_back(template_card_info)
 
 
 func reroll_card(card: Card):
@@ -209,6 +252,7 @@ func handle_start_battle():
 
 
 func handle_start_turn():
+	activate_new_template_card()
 	info.emit_turn_started_blessing_signal()
 	_handle_stamina_recharge()
 	_handle_poison_status_effect()

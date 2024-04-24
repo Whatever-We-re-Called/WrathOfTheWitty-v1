@@ -38,9 +38,8 @@ func _ready():
 	_init_player(Constants.PlayerSide.RIGHT, right_player_config.duplicate(), right_player_node)
 	battle_interface.update_hand(players[active_side])
 	players[Constants.PlayerSide.LEFT].handle_start_battle()
+	players[Constants.PlayerSide.LEFT].handle_start_turn()
 	players[Constants.PlayerSide.RIGHT].handle_start_battle()
-	
-	_init_template_card_deck()
 	
 	battle_interface.card_toggle_selected.connect(_on_card_toggle_selected)
 	battle_interface.card_reroll.connect(reroll_card)
@@ -51,6 +50,7 @@ func _ready():
 func _init_player(side: Constants.PlayerSide, player_info: PlayerInfo, parent_node: Node2D):
 	var player = BattlePlayer.new()
 	player.init(player_info, side)
+	player.inserted_template_card_into_hand.connect(_on_inserted_template_card_into_hand)
 	player.decreased_opponents_max_health.connect(_on_decreased_opponents_max_health)
 	parent_node.add_child(player)
 	var sprite_height = player.sprite_frames.get_frame_texture("default", 0).get_height()
@@ -58,18 +58,6 @@ func _init_player(side: Constants.PlayerSide, player_info: PlayerInfo, parent_no
 	battle_interface.update_player_stats(player)
 	
 	players[side] = player
-
-
-func _init_template_card_deck():
-	for template_card_info in left_player_config.template_card_deck:
-		template_cards_in_deck.push_back(template_card_info.duplicate(true))
-	for template_card_info in right_player_config.template_card_deck:
-		template_cards_in_deck.push_back(template_card_info.duplicate(true))
-	
-	randomize()
-	template_cards_in_deck.shuffle()
-	
-	activate_new_template_card()
 
 
 func _process(delta):
@@ -97,19 +85,6 @@ func _on_card_toggle_selected(card: Card):
 		select_card(card)
 
 
-func activate_new_template_card():
-	if active_template_card != null:
-		send_template_card_to_bag(active_template_card.template_card_info)
-		active_template_card.free()
-	
-	active_template_card = TEMPLATE_CARD_SCENE.instantiate()
-	active_template_card.template_card_info = get_next_template_card_in_deck(true)
-	active_template_card.play_selected_cards.connect(play_cards)
-	
-	battle_interface.update_template_card_ui(active_template_card)
-	battle_interface.update_template_card_deck_and_bag_ui(template_cards_in_deck.size(), template_cards_in_bag.size())
-
-
 func _on_decreased_opponents_max_health(amount: int, executing_player: BattlePlayer):
 	if players[Constants.PlayerSide.LEFT] == executing_player:
 		players[Constants.PlayerSide.RIGHT].info.health_stat -= amount
@@ -121,30 +96,17 @@ func _on_decreased_opponents_max_health(amount: int, executing_player: BattlePla
 		battle_interface.update_player_stats(players[Constants.PlayerSide.LEFT])
 
 
-func get_next_template_card_in_deck(remove_result_card: bool) -> TemplateCardInfo:
-	if template_cards_in_deck.is_empty():
-		_refill_template_deck_from_bag()
+func _on_inserted_template_card_into_hand(template_card_info: TemplateCardInfo):
+	if active_template_card != null:
+		active_template_card.free()
 	
-	var result = template_cards_in_deck[0]
-	if remove_result_card:
-		template_cards_in_deck.pop_front()
-		if template_cards_in_deck.is_empty():
-			_refill_template_deck_from_bag()
+	active_template_card = TEMPLATE_CARD_SCENE.instantiate()
+	active_template_card.template_card_info = template_card_info
+	active_template_card.play_selected_cards.connect(play_cards)
 	
-	return result
+	battle_interface.update_template_card_ui(active_template_card)
+	battle_interface.update_template_card_deck_and_bag_ui(template_cards_in_deck.size(), template_cards_in_bag.size())
 
-
-func _refill_template_deck_from_bag():
-	template_cards_in_deck = template_cards_in_bag.duplicate(true)
-	
-	randomize()
-	template_cards_in_deck.shuffle()
-	
-	template_cards_in_bag.clear()
-
-
-func send_template_card_to_bag(template_card_info: TemplateCardInfo):
-	template_cards_in_bag.push_back(template_card_info)
 
 
 func select_card(card: Card):
@@ -212,7 +174,6 @@ func change_turns():
 	else:
 		active_side = Constants.PlayerSide.LEFT
 	
-	activate_new_template_card()
 	player.handle_start_turn()
 	battle_interface.update_hand(player)
 	active_template_card.set_talking_side(active_side)
