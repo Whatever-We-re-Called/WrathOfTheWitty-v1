@@ -95,7 +95,7 @@ func _init_insult_texture():
 	insult_label.text = card_info.insult_text
 
 
-func set_on_fire(is_on_fire: bool):
+func set_on_fire(is_on_fire: bool, extinguish_damage: int = 0):
 	if is_burning and not is_on_fire:
 		fire_extinguished.emit()
 	
@@ -103,7 +103,7 @@ func set_on_fire(is_on_fire: bool):
 	burning_overlay.visible = is_on_fire
 	
 	if is_burning:
-		burning_label.text = str(BATTLE_ACTION_EXECUTION_INFO.base_burn_damage_value) + " HP"
+		burning_label.text = str(extinguish_damage) + " HP"
 
 
 func set_as_slimed(slimed: bool):

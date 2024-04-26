@@ -28,6 +28,7 @@ var template_cards_in_deck: Array[TemplateCardInfo]
 var template_cards_in_bag: Array[TemplateCardInfo]
 
 var cards_in_hand_scenes: Array[Card]
+var opponent_player_info: PlayerInfo
 
 const BASE_REROLL_STAMINA_COST = 1
 const STATUS_EFFECT_UI = preload("res://players/status_effects/status_effect_ui.tscn")
@@ -292,6 +293,12 @@ func _handle_poison_status_effect():
 	if active_status_effects.has(Constants.PlayerStatusEffect.POISON):
 		damage(active_status_effects[Constants.PlayerStatusEffect.POISON], true)
 		decrement_status_effect(Constants.PlayerStatusEffect.POISON, 1)
+		
+		if info.has_blessing(Blessings.Type.POISON_RECOVERY):
+			if info.is_blessing_cosmic(Blessings.Type.POISON_RECOVERY):
+				decrement_status_effect(Constants.PlayerStatusEffect.POISON, 2)
+			else:
+				decrement_status_effect(Constants.PlayerStatusEffect.POISON, 1)
 
 
 func _handle_burn_status_effect():
@@ -306,7 +313,21 @@ func _handle_burn_status_effect():
 
 
 func _set_card_on_fire(card: Card):
-	card.set_on_fire(true)
+	var extinguish_damage = BATTLE_ACTION_EXECUTION_INFO.base_burn_damage_value
+	
+	if info.has_blessing(Blessings.Type.BURN_TOLERANCE):
+		if info.is_blessing_cosmic(Blessings.Type.BURN_TOLERANCE):
+			extinguish_damage -= 2
+		else:
+			extinguish_damage -= 1
+	
+	if opponent_player_info.has_blessing(Blessings.Type.BURN_STRENGTH):
+		if opponent_player_info.is_blessing_cosmic(Blessings.Type.BURN_STRENGTH):
+			extinguish_damage += 2
+		else:
+			extinguish_damage += 1
+	
+	card.set_on_fire(true, extinguish_damage)
 	decrement_status_effect(Constants.PlayerStatusEffect.BURN, 1)
 
 

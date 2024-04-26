@@ -70,6 +70,12 @@ static func _get_damage_dealt_value(battle_action_execution_data: BattleActionEx
 		var weaken_value = attacker_player.active_status_effects[weaken_status_effect]
 		damage_dealt -= weaken_value
 		attacker_player.decrement_status_effect(weaken_status_effect, 1)
+		
+		if attacker_player.info.has_blessing(Blessings.Type.WEAKEN_RECOVERY):
+			if attacker_player.info.is_blessing_cosmic(Blessings.Type.WEAKEN_RECOVERY):
+				attacker_player.decrement_status_effect(weaken_status_effect, 2)
+			else:
+				attacker_player.decrement_status_effect(weaken_status_effect, 1)
 	
 	# Handle Buff Enhancement
 	if card_info.enhancement == Constants.CardEnhancement.BUFF:
