@@ -41,7 +41,6 @@ theme_override_constants/margin_right = 768
 
 [node name="LeftPlayerSpeakingGlyph" type="ColorRect" parent="LeftPlayerSpeakingGlyphContainer"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(128, 72)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
