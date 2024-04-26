@@ -1,9 +1,32 @@
 extends Node
 
 enum Type {
-	STRENGTH,
-	TURN_HEAL,
-	DECREASE_MAX_HEALTH,
+	EXTRA_HEALTH_ONE,
+	EXTRA_STAMINA_ONE,
+	EXTRA_STAMINA_RECHARGE_ONE,
+	EXTRA_HAND_SPACE_ONE,
+	EXTRA_SPEED_ONE,
+	EXTRA_ATTACK_ONE,
+	EXTRA_SUPPORT_ONE,
+	EXTRA_HIDE_ONE,
+	EXTRA_WEAKEN_ONE,
+	EXTRA_POISON_ONE,
+	EXTRA_BURN_ONE,
+	EXTRA_FREEZE_ONE,
+	EXTRA_SLIME_ONE,
+	EXTRA_COSMIC_SLOTS_ONE,
+	FIRST_ATTACK_BONUS,
+	FIRST_SUPPORT_BONUS,
+	FIRST_MAGIC_BONUS,
+	PREPARED_PROTECTION_ONE,
+	THORNS_ONE,
+	TURN_HEAL_ONE,
+	BATTLE_HEAL_ONE,
+	DECREASE_MAX_HEALTH_ONE,
+	WEAKEN_RECOVERY,
+	POISON_RECOVERY,
+	BURN_TOLERANCE,
+	BURN_STRENGTH
 }
 
 func _ready():
@@ -22,6 +45,4 @@ static func get_blessing(type) -> Resource:
 
 
 static func load_all_blessings():
-	load_blessing(Type.STRENGTH, preload("res://blessings/resources/strength.tres"))
-	load_blessing(Type.TURN_HEAL, preload("res://blessings/resources/turn_heal.tres"))
-	load_blessing(Type.DECREASE_MAX_HEALTH, preload("res://blessings/resources/decrease_max_health.tres"))
+	load_blessing(Type.EXTRA_HEALTH_ONE, preload("res://blessings/resources/base_stats/extra_health_one.tres"))

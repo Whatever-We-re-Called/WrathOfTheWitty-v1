@@ -1,23 +1,23 @@
 class_name Blessing extends Resource
 
-enum Rarity { Common, Uncommon, Rare }
-enum Event { ON_EQUIP, ON_UNEQUIP, }
-
-signal equipped(stack: int)
-signal unequipped(stack: int)
-signal battle_started(stack: int)
-signal battle_ended(stack: int)
-signal turn_started(stack: int)
-signal turn_ended(stack: int)
+signal equipped()
+signal unequipped()
+signal battle_started()
+signal battle_ended()
+signal turn_started()
+signal turn_ended()
 
 @export var name: String
 @export var texture: Texture2D
-@export_multiline var description: String
-@export var rarity: Rarity
+@export_multiline var normal_description: String
+@export_multiline var cosmic_description: String
+@export var is_cosmic: bool
 @export var execution_script: Script
 
 var execution_script_instance = null
 
+const NORMAL_COLOR = Color("#e59544")
+const COSMIC_COLOR = Color("#9544e5")
 
 func init(player_info: PlayerInfo):
 	execution_script_instance = execution_script.new()

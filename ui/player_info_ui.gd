@@ -131,7 +131,7 @@ func _init_blessings_page(player_info: PlayerInfo):
 		texture_rect.modulate = color
 		
 		var hovered_name = equipped_blessing.blessing.name
-		var hovered_info = equipped_blessing.blessing.description
+		var hovered_info = equipped_blessing.blessing.normal_description
 		texture_rect.tooltip_text = hovered_name + ": " + hovered_info
 		
 		blessings_grid_container.add_child(texture_rect)

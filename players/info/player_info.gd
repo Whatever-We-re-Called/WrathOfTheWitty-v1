@@ -32,31 +32,30 @@ var current_health: int = -1
 
 func init_unhandled_equipped_blessings():
 	for equipped_blessing in equipped_blessings:
-		equipped_blessing.init()
-		equipped_blessing.blessing.init(self)
-		while equipped_blessing.equipped_stack < equipped_blessing.stack:
-			equipped_blessing.equipped_stack += 1
-			equipped_blessing.blessing.equipped.emit(equipped_blessing.equipped_stack)
+		if not equipped_blessing.is_init:
+			equipped_blessing.init()
+			equipped_blessing.blessing.init(self)
+			equipped_blessing.blessing.equipped.emit()
 
 
 func emit_battle_started_blessing_signal():
 	for equipped_blessing in equipped_blessings:
-		equipped_blessing.blessing.battle_started.emit(equipped_blessing.stack)
+		equipped_blessing.blessing.battle_started.emit()
 
 
 func emit_battle_ended_blessing_signal():
 	for equipped_blessing in equipped_blessings:
-		equipped_blessing.blessing.battle_ended.emit(equipped_blessing.stack)
+		equipped_blessing.blessing.battle_ended.emit()
 
 
 func emit_turn_started_blessing_signal():
 	for equipped_blessing in equipped_blessings:
-		equipped_blessing.blessing.turn_started.emit(equipped_blessing.stack)
+		equipped_blessing.blessing.turn_started.emit()
 
 
 func emit_turn_ended_blessing_signal():
 	for equipped_blessing in equipped_blessings:
-		equipped_blessing.blessing.turn_ended.emit(equipped_blessing.stack)
+		equipped_blessing.blessing.turn_ended.emit()
 
 
 func has_blessing(type) -> bool:

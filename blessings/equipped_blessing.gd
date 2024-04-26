@@ -1,15 +1,15 @@
 class_name EquippedBlessing extends Resource
 
 @export var type: Blessings.Type
-@export var stack: int
+@export var is_cosmic: bool
 
 var blessing: Blessing
-
-var equipped_stack: int = 0
+var is_init: bool = false
 
 func init():
 	if blessing == null:
 		blessing = Blessings.get_blessing(type).duplicate()
+		is_init = true
 
 
 func execute():
