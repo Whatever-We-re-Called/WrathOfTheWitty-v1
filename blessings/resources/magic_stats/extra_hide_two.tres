@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://bq4bmgf2nlytr"]
+
+[ext_resource type="Script" path="res://blessings/resources/magic_stats/extra_hide_two.gd" id="1_rnwrn"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_1gq41"]
+[ext_resource type="Texture2D" uid="uid://c6504hq7gltqp" path="res://players/status_effects/textures/hexagon_question.svg" id="3_h4nfb"]
+
+[resource]
+script = ExtResource("2_1gq41")
+name = "Extra Hide II"
+texture = ExtResource("3_h4nfb")
+normal_description = "Increase your Hide magic by 6."
+cosmic_description = "Increase your Hide magic by 12."
+execution_script = ExtResource("1_rnwrn")

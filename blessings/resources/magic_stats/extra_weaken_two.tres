@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://bnufmyrmku0t8"]
+
+[ext_resource type="Script" path="res://blessings/resources/magic_stats/extra_weaken_two.gd" id="1_w5ijd"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_lbjw7"]
+[ext_resource type="Texture2D" uid="uid://5llq274vnky1" path="res://players/status_effects/textures/pawn_down.svg" id="3_qlf51"]
+
+[resource]
+script = ExtResource("2_lbjw7")
+name = "Extra Weaken II"
+texture = ExtResource("3_qlf51")
+normal_description = "Increase your Weaken magic by 6."
+cosmic_description = "Increase your Weaken magic by 12."
+execution_script = ExtResource("1_w5ijd")
