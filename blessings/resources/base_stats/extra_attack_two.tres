@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://culgpa6jxxk14"]
+
+[ext_resource type="Script" path="res://blessings/resources/base_stats/extra_attack_two.gd" id="1_tcw5a"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_i7ors"]
+[ext_resource type="Texture2D" uid="uid://dbm8e3qdf8rv0" path="res://blessings/textures/sword.svg" id="3_n6ft2"]
+
+[resource]
+script = ExtResource("2_i7ors")
+name = "Extra Attack II"
+texture = ExtResource("3_n6ft2")
+normal_description = "Increase your Attack by 2."
+cosmic_description = "Increase your Attack by 4."
+execution_script = ExtResource("1_tcw5a")

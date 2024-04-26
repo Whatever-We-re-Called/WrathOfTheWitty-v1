@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://cbocnnnw4vt17"]
+[gd_scene load_steps=47 format=3 uid="uid://cbocnnnw4vt17"]
 
 [ext_resource type="Script" path="res://ui/battle_interface.gd" id="1_iesfx"]
 [ext_resource type="Script" path="res://ui/player_stats_ui.gd" id="2_6m8b4"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://ca3v8in5tgphd" path="res://ui/misc_textures/flag_triangle.svg" id="6_ntg7b"]
 [ext_resource type="Texture2D" uid="uid://b4ixs3g5v12s1" path="res://ui/misc_textures/sword.svg" id="7_66ww7"]
 [ext_resource type="Texture2D" uid="uid://c6504hq7gltqp" path="res://players/status_effects/textures/hexagon_question.svg" id="8_mslx6"]
+[ext_resource type="Texture2D" uid="uid://be0ge1lse2ska" path="res://ui/misc_textures/suit_spades.svg" id="9_r167w"]
 [ext_resource type="Texture2D" uid="uid://5llq274vnky1" path="res://players/status_effects/textures/pawn_down.svg" id="9_vc6rx"]
 [ext_resource type="Texture2D" uid="uid://beqkhgoofgamh" path="res://players/status_effects/textures/skull.svg" id="10_ltuh3"]
 [ext_resource type="Texture2D" uid="uid://dulyfjbqm82d3" path="res://players/status_effects/textures/fire.svg" id="11_1aah8"]
@@ -525,6 +526,7 @@ horizontal_alignment = 2
 
 [node name="PlayerInfoUI" type="CenterContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 z_index = 10
 layout_mode = 1
 anchors_preset = 8
@@ -621,7 +623,6 @@ text = "Template Cards"
 
 [node name="PlayerStatsInfoUI" type="CenterContainer" parent="PlayerInfoUI/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(1472, 640)
 layout_mode = 2
 
@@ -779,7 +780,7 @@ alignment = 1
 modulate = Color(0.898039, 0.898039, 0.266667, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-texture = ExtResource("6_ntg7b")
+texture = ExtResource("9_r167w")
 expand_mode = 2
 
 [node name="Label" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer7"]
@@ -1073,6 +1074,7 @@ label_settings = SubResource("LabelSettings_n210e")
 
 [node name="BlessingsInfoUI" type="CenterContainer" parent="PlayerInfoUI/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(1472, 640)
 layout_mode = 2
 size_flags_horizontal = 4

@@ -126,6 +126,7 @@ poison_magic_stat = 15
 burn_magic_stat = 15
 freeze_magic_stat = 15
 slime_magic_stat = 15
+cosmic_blessings_limit = 0
 action_card_deck = Array[ExtResource("1_0t5ug")]([SubResource("Resource_6m7ey"), SubResource("Resource_aq08t"), SubResource("Resource_rtv6e"), SubResource("Resource_hdbgq"), SubResource("Resource_onrjy"), SubResource("Resource_jmgmk"), SubResource("Resource_nyqgl"), SubResource("Resource_cd6nm"), SubResource("Resource_cnbq3"), SubResource("Resource_7pqpg"), SubResource("Resource_3jk3g"), SubResource("Resource_2x44g"), SubResource("Resource_j107m"), SubResource("Resource_ijkhp"), SubResource("Resource_xxfqt"), SubResource("Resource_qoerk")])
 template_card_deck = Array[Resource("res://battle/template_cards/info/template_card_info.gd")]([ExtResource("5_tdh45"), ExtResource("6_8x5fi"), ExtResource("7_ay80t"), ExtResource("8_fb4n6"), ExtResource("9_4qqkd"), ExtResource("10_jephb")])
 equipped_blessings = Array[Resource("res://blessings/equipped_blessing.gd")]([])
