@@ -9,6 +9,7 @@ var is_init: bool = false
 func init():
 	if blessing == null:
 		blessing = Blessings.get_blessing(type).duplicate()
+		blessing.is_cosmic = is_cosmic
 		is_init = true
 
 
