@@ -45,4 +45,30 @@ static func get_blessing(type) -> Resource:
 
 
 static func load_all_blessings():
-	load_blessing(Type.EXTRA_HEALTH_ONE, preload("res://blessings/resources/base_stats/extra_health_one.tres"))
+	var resource_file_paths = _get_all_blessing_resource_file_paths("res://blessings/resources/")
+	
+	var regex = RegEx.new()
+	regex.compile("[a-z,A-Z,0-9,_]*.tres")
+	for resource_file_path in resource_file_paths:
+		var result = regex.search(resource_file_path)
+		if result != null:
+			var result_string = result.get_string()
+			var file_name = result_string.substr(0, result_string.length() - 5)
+			var blessing_type = Type.get(file_name.to_upper())
+			
+			load_blessing(blessing_type, load(resource_file_path))
+
+
+static func _get_all_blessing_resource_file_paths(path: String) -> Array[String]:  
+	var file_paths: Array[String] = []  
+	var dir = DirAccess.open(path)  
+	dir.list_dir_begin()  
+	var file_name = dir.get_next()  
+	while file_name != "":  
+		var file_path = path + "/" + file_name  
+		if dir.current_is_dir():  
+			file_paths += _get_all_blessing_resource_file_paths(file_path)  
+		else:  
+			file_paths.append(file_path)  
+		file_name = dir.get_next()
+	return file_paths
