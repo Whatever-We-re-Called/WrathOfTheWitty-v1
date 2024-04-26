@@ -525,7 +525,6 @@ horizontal_alignment = 2
 
 [node name="PlayerInfoUI" type="CenterContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 z_index = 10
 layout_mode = 1
 anchors_preset = 8
@@ -1074,7 +1073,6 @@ label_settings = SubResource("LabelSettings_n210e")
 
 [node name="BlessingsInfoUI" type="CenterContainer" parent="PlayerInfoUI/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(1472, 640)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -1118,6 +1116,7 @@ layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="CosmicBlessingsValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/BlessingsInfoUI/HBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
 text = "0
@@ -1126,7 +1125,13 @@ label_settings = SubResource("LabelSettings_lseqt")
 
 [node name="Label" type="Label" parent="PlayerInfoUI/VBoxContainer/BlessingsInfoUI/HBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "/4"
+text = "/"
+label_settings = SubResource("LabelSettings_frdxf")
+
+[node name="CosmicBlessingsLimitValue" type="Label" parent="PlayerInfoUI/VBoxContainer/BlessingsInfoUI/HBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "4"
 label_settings = SubResource("LabelSettings_frdxf")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/BlessingsInfoUI/HBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer"]
@@ -1147,7 +1152,8 @@ theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
 text = "Normal"
 label_settings = SubResource("LabelSettings_ow4vm")
 
-[node name="CosmicBlessingsValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/BlessingsInfoUI/HBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+[node name="NormalBlessingsValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/BlessingsInfoUI/HBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
 text = "0
@@ -1339,6 +1345,7 @@ columns = 6
 
 [node name="TemplateCardsInfoUI" type="CenterContainer" parent="PlayerInfoUI/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(1472, 640)
 layout_mode = 2
 

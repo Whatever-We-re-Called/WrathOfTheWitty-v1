@@ -58,6 +58,9 @@ extends CenterContainer
 @onready var template_cards_bag_label = %TemplateCardsBagLabel
 @onready var template_cards_bag_grid_container = %TemplateCardsBagGridContainer
 @onready var close_button = %CloseButton
+@onready var cosmic_blessings_value_label = %CosmicBlessingsValueLabel
+@onready var normal_blessings_value_label = %NormalBlessingsValueLabel
+@onready var cosmic_blessings_limit_value = %CosmicBlessingsLimitValue
 
 const CARD_SCENE = preload("res://battle/cards/card.tscn")
 const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.tscn")
@@ -121,19 +124,42 @@ func _init_blessings_page(player_info: PlayerInfo):
 	for child in blessings_grid_container.get_children():
 		child.queue_free()
 	
+	var cosmic_blessings_count = 0
+	for equipped_blessing in player_info.equipped_blessings:
+		if equipped_blessing.is_cosmic:
+			cosmic_blessings_count += 1
+	cosmic_blessings_value_label.text = str(cosmic_blessings_count)
+	cosmic_blessings_limit_value.text = str(player_info.cosmic_blessings_limit)
+	
+	var normal_blessings_count = player_info.equipped_blessings.size() - cosmic_blessings_count
+	normal_blessings_value_label.text = str(normal_blessings_count)
+	
+	var cosmic_texture_rects = []
+	var normal_texture_rects = []
 	for equipped_blessing in player_info.equipped_blessings:
 		var texture_rect = TextureRect.new()
 		texture_rect.texture = equipped_blessing.blessing.texture
 		texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		texture_rect.custom_minimum_size = Vector2(96, 96)
-		# TODO Color for Cosmic Blessing
-		var color = Color("#e59544")
-		texture_rect.modulate = color
 		
 		var hovered_name = equipped_blessing.blessing.name
-		var hovered_info = equipped_blessing.blessing.normal_description
-		texture_rect.tooltip_text = hovered_name + ": " + hovered_info
+		var hovered_info = ""
 		
+		if equipped_blessing.is_cosmic:
+			hovered_name += " (Cosmic)"
+			hovered_info = equipped_blessing.blessing.cosmic_description
+			texture_rect.modulate = Blessing.COSMIC_COLOR
+			cosmic_texture_rects.append(texture_rect)
+		else:
+			hovered_info = equipped_blessing.blessing.normal_description
+			texture_rect.modulate = Blessing.NORMAL_COLOR
+			normal_texture_rects.append(texture_rect)
+		
+		texture_rect.tooltip_text = hovered_name + ": " + hovered_info
+	
+	for texture_rect in cosmic_texture_rects:
+		blessings_grid_container.add_child(texture_rect)
+	for texture_rect in normal_texture_rects:
 		blessings_grid_container.add_child(texture_rect)
 
 

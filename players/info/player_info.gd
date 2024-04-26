@@ -21,6 +21,8 @@ class_name PlayerInfo extends Resource
 @export var burn_magic_stat: int
 @export var freeze_magic_stat: int
 @export var slime_magic_stat: int
+@export_category("Misc")
+@export var cosmic_blessings_limit: int
 @export_category("Resources")
 @export var action_card_deck: Array[CardInfo]
 @export var template_card_deck: Array[TemplateCardInfo]
