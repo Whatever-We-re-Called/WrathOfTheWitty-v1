@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://cn1v7ua2h5isk"]
+
+[ext_resource type="Script" path="res://blessings/resources/battle/thorns_one.gd" id="1_4xgnu"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_5h81v"]
+[ext_resource type="Texture2D" uid="uid://ostcau8axks4" path="res://blessings/textures/resource_wheat.svg" id="3_l4o2g"]
+
+[resource]
+script = ExtResource("2_5h81v")
+name = "Thorns I"
+texture = ExtResource("3_l4o2g")
+normal_description = "When damaged, deal 2 damage back to your opponent."
+cosmic_description = "When damaged, deal 4 damage back to your opponent."
+execution_script = ExtResource("1_4xgnu")

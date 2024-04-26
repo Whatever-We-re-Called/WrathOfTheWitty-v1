@@ -26,3 +26,11 @@ func _on_turn_started():
 
 func _on_turn_ended():
 	pass
+
+
+func _on_damaged():
+	pass
+
+
+func _on_rerolled_card():
+	pass

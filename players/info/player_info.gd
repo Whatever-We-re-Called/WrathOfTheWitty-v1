@@ -60,9 +60,25 @@ func emit_turn_ended_blessing_signal():
 		equipped_blessing.blessing.turn_ended.emit()
 
 
+func emit_damaged_signal():
+	for equipped_blessing in equipped_blessings:
+		equipped_blessing.blessing.damaged.emit()
+
+
+func emit_rerolled_card_signal():
+	for equipped_blessing in equipped_blessings:
+		equipped_blessing.blessing.rerolled_card.emit()
+
+
 func has_blessing(type) -> bool:
 	for equipped_blessing in equipped_blessings:
 		if equipped_blessing.type == type:
 			return true
-	
+	return false
+
+
+func is_blessing_cosmic(type) -> bool:
+	for equipped_blessing in equipped_blessings:
+		if equipped_blessing.type == type:
+			return equipped_blessing.is_cosmic
 	return false

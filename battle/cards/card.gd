@@ -136,7 +136,7 @@ func _select():
 
 func _reroll():
 	if is_burning:
-		player.damage(BATTLE_ACTION_EXECUTION_INFO.base_fire_damage_value)
+		player.damage(BATTLE_ACTION_EXECUTION_INFO.base_burn_damage_value)
 		set_on_fire(false)
 	elif is_slimed:
 		return

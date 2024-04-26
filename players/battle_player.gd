@@ -1,7 +1,8 @@
 class_name BattlePlayer extends AnimatedSprite2D
 
 signal inserted_template_card_into_hand(template_card_info: TemplateCardInfo)
-signal decreased_opponents_max_health(amount: int, executing_player: BattlePlayer)
+signal decreased_opponents_max_health(percentage: float, executing_player: BattlePlayer)
+signal damaged_opponent(amount: int, executing_player: BattlePlayer)
 
 var info: PlayerInfo
 var health: int
@@ -63,7 +64,7 @@ func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 	play()
 	
 
-func damage(amount: int):
+func damage(amount: int, skip_blessing_signal: bool = false):
 	if amount <= 0: return
 	
 	var shield_amount = 0
@@ -76,6 +77,8 @@ func damage(amount: int):
 	health -= amount
 	health = clamp(health, 0, info.health_stat)
 	_execute_damage_visual()
+	if not skip_blessing_signal:
+		info.emit_damaged_signal()
 	
 	active_status_effects[Constants.PlayerStatusEffect.SHIELD] = shield_amount
 
@@ -188,6 +191,8 @@ func reroll_card(card: Card):
 		_set_card_as_hidden(card)
 	else:
 		card.set_as_hidden(false)
+	
+	info.emit_rerolled_card_signal()
 
 
 func _can_reroll() -> bool:
@@ -285,7 +290,7 @@ func _handle_stamina_recharge():
 
 func _handle_poison_status_effect():
 	if active_status_effects.has(Constants.PlayerStatusEffect.POISON):
-		damage(active_status_effects[Constants.PlayerStatusEffect.POISON])
+		damage(active_status_effects[Constants.PlayerStatusEffect.POISON], true)
 		decrement_status_effect(Constants.PlayerStatusEffect.POISON, 1)
 
 

@@ -41,6 +41,8 @@ func _ready():
 	players[Constants.PlayerSide.RIGHT].handle_start_battle()
 	battle_interface.update_hand(player)
 	battle_interface.update_player_deck_and_bag_ui(player)
+	battle_interface.update_player_stats(player)
+	battle_interface.update_player_stats(get_non_active_side_player())
 	
 	battle_interface.card_toggle_selected.connect(_on_card_toggle_selected)
 	battle_interface.card_reroll.connect(reroll_card)
@@ -53,6 +55,7 @@ func _init_player(side: Constants.PlayerSide, player_info: PlayerInfo, parent_no
 	player.init(player_info, side)
 	player.inserted_template_card_into_hand.connect(_on_inserted_template_card_into_hand)
 	player.decreased_opponents_max_health.connect(_on_decreased_opponents_max_health)
+	player.damaged_opponent.connect(_on_damaged_opponent)
 	parent_node.add_child(player)
 	var sprite_height = player.sprite_frames.get_frame_texture("default", 0).get_height()
 	player.global_position.y -= (sprite_height * player_info.sprite_scale.y) / 2.0
@@ -88,14 +91,16 @@ func _on_card_toggle_selected(card: Card):
 		select_card(card)
 
 
-func _on_decreased_opponents_max_health(amount: int, executing_player: BattlePlayer):
+func _on_decreased_opponents_max_health(percentage: float, executing_player: BattlePlayer):
 	if players[Constants.PlayerSide.LEFT] == executing_player:
-		players[Constants.PlayerSide.RIGHT].info.health_stat -= amount
-		players[Constants.PlayerSide.RIGHT].health -= amount
+		var new_health_amount = players[Constants.PlayerSide.RIGHT].info.health_stat * (1 - percentage)
+		players[Constants.PlayerSide.RIGHT].info.health_stat = new_health_amount
+		players[Constants.PlayerSide.RIGHT].health = new_health_amount
 		battle_interface.update_player_stats(players[Constants.PlayerSide.RIGHT])
 	else:
-		players[Constants.PlayerSide.LEFT].info.health_stat -= amount
-		players[Constants.PlayerSide.LEFT].health -= amount
+		var new_health_amount = players[Constants.PlayerSide.LEFT].info.health_stat * (1 - percentage)
+		players[Constants.PlayerSide.LEFT].info.health_stat = new_health_amount
+		players[Constants.PlayerSide.LEFT].health = new_health_amount
 		battle_interface.update_player_stats(players[Constants.PlayerSide.LEFT])
 
 
@@ -191,3 +196,12 @@ func get_non_active_side_player():
 		return players[Constants.PlayerSide.RIGHT]
 	elif active_side == Constants.PlayerSide.RIGHT:
 		return players[Constants.PlayerSide.LEFT]
+
+
+func _on_damaged_opponent(amount: int, executing_player: BattlePlayer):
+	if players[Constants.PlayerSide.LEFT] == executing_player:
+		players[Constants.PlayerSide.RIGHT].damage(amount)
+		battle_interface.update_player_stats(players[Constants.PlayerSide.RIGHT])
+	else:
+		players[Constants.PlayerSide.LEFT].damage(amount)
+		battle_interface.update_player_stats(players[Constants.PlayerSide.LEFT])

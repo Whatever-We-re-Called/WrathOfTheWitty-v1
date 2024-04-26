@@ -1,11 +1,13 @@
 class_name Blessing extends Resource
 
-signal equipped()
-signal unequipped()
-signal battle_started()
-signal battle_ended()
-signal turn_started()
-signal turn_ended()
+signal equipped
+signal unequipped
+signal battle_started
+signal battle_ended
+signal turn_started
+signal turn_ended
+signal damaged
+signal rerolled_card
 
 @export var name: String
 @export var texture: Texture2D
@@ -20,6 +22,8 @@ const NORMAL_COLOR = Color("#e59544")
 const COSMIC_COLOR = Color("#9544e5")
 
 func init(player_info: PlayerInfo):
+	if execution_script == null: return
+	
 	execution_script_instance = execution_script.new()
 	
 	execution_script_instance.player_info = player_info
@@ -31,3 +35,5 @@ func init(player_info: PlayerInfo):
 	battle_ended.connect(execution_script_instance._on_battle_ended)
 	turn_started.connect(execution_script_instance._on_turn_started)
 	turn_ended.connect(execution_script_instance._on_turn_ended)
+	damaged.connect(execution_script_instance._on_damaged)
+	rerolled_card.connect(execution_script_instance._on_rerolled_card)
