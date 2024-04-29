@@ -74,7 +74,7 @@ func toggle_hand_visibility(visible: bool):
 
 func update_template_card_ui(template_card: TemplateCard):
 	if template_card_ui.get_children().size() > 0:
-		template_card_ui.get_child(0).free()
+		template_card_ui.get_child(0).queue_free()
 	
 	template_card_ui.add_child(template_card)
 

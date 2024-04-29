@@ -109,15 +109,18 @@ func reset_active_template_card():
 
 func update_active_template_card():
 	if active_template_card != null:
-		active_template_card.free()
+		active_template_card.queue_free()
 	
 	var template_card_info = player.template_cards_in_hand[selected_template_card_hand_index]
 	active_template_card = TEMPLATE_CARD_SCENE.instantiate()
 	active_template_card.template_card_info = template_card_info
 	active_template_card.play_selected_cards.connect(play_cards)
+	active_template_card.selected_previous_template_card.connect(_on_selected_previous_template_card)
+	active_template_card.selected_next_template_card.connect(_on_selected_next_template_card)
 	
 	battle_interface.update_template_card_ui(active_template_card)
 	active_template_card.set_talking_side(active_side)
+	active_template_card.update_selected_buttons(selected_template_card_hand_index, player.template_cards_in_hand.size())
 
 
 func select_card(card: Card):
@@ -210,3 +213,13 @@ func _on_damaged_opponent(amount: int, executing_player: BattlePlayer):
 	else:
 		players[Constants.PlayerSide.LEFT].damage(amount)
 		battle_interface.update_player_stats(players[Constants.PlayerSide.LEFT])
+
+
+func _on_selected_previous_template_card():
+	selected_template_card_hand_index -= 1
+	update_active_template_card()
+
+
+func _on_selected_next_template_card():
+	selected_template_card_hand_index += 1
+	update_active_template_card()

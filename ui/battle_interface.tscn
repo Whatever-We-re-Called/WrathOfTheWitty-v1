@@ -347,8 +347,7 @@ layout_direction = 3
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="TemplateCardUI" type="CenterContainer" parent="."]
-unique_name_in_owner = true
+[node name="TemplateCardContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -361,6 +360,10 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="TemplateCardUI" type="CenterContainer" parent="TemplateCardContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="LeftOfDeckContainer" type="MarginContainer" parent="."]
 layout_mode = 1

@@ -3,6 +3,8 @@ class_name TemplateCard extends Control
 signal selected_card_added(card: Card)
 signal selected_card_removed(card: Card)
 signal play_selected_cards
+signal selected_previous_template_card
+signal selected_next_template_card
 
 @onready var background_glyph = %BackgroundGlyph
 @onready var left_player_speaking_glyph = %LeftPlayerSpeakingGlyph
@@ -17,6 +19,8 @@ signal play_selected_cards
 @onready var button_container = %ButtonContainer
 @onready var left_player_speaking_glyph_container = %LeftPlayerSpeakingGlyphContainer
 @onready var right_player_speaking_glyph_container = %RightPlayerSpeakingGlyphContainer
+@onready var previous_selected_button = %PreviousSelectedButton
+@onready var next_selected_button = %NextSelectedButton
 
 var template_card_info: TemplateCardInfo
 var max_insults_allowed = 0
@@ -145,3 +149,16 @@ func remove_interactable_ui():
 	button_container.queue_free()
 	left_player_speaking_glyph_container.queue_free()
 	right_player_speaking_glyph_container.queue_free()
+
+
+func update_selected_buttons(index: int, hand_size: int):
+	previous_selected_button.visible = index != 0
+	next_selected_button.visible = index != hand_size - 1
+
+
+func _on_previous_selected_button_pressed():
+	selected_previous_template_card.emit()
+
+
+func _on_next_selected_button_pressed():
+	selected_next_template_card.emit()
