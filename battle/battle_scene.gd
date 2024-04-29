@@ -117,6 +117,7 @@ func update_active_template_card():
 	active_template_card.play_selected_cards.connect(play_cards)
 	
 	battle_interface.update_template_card_ui(active_template_card)
+	active_template_card.set_talking_side(active_side)
 
 
 func select_card(card: Card):
@@ -186,12 +187,11 @@ func change_turns():
 	
 	player.handle_start_turn()
 	battle_interface.update_hand(player)
-	active_template_card.set_talking_side(active_side)
+	reset_active_template_card()
 	player.handle_delayed_start_turn()
 	battle_interface.update_player_deck_and_bag_ui(player)
 	battle_interface.update_player_stats(player)
 	battle_interface.toggle_hand_visibility(true)
-	reset_active_template_card()
 	
 	is_changing_turns = false
 
