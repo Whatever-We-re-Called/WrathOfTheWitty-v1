@@ -2,6 +2,7 @@ class_name BattlePlayer extends AnimatedSprite2D
 
 signal decreased_opponents_max_health(percentage: float, executing_player: BattlePlayer)
 signal damaged_opponent(amount: int, executing_player: BattlePlayer)
+signal stamina_changed
 
 var info: PlayerInfo
 var health: int
@@ -25,11 +26,18 @@ var card_arrays = [
 var template_cards_in_hand: Array[TemplateCardInfo]
 var template_cards_in_deck: Array[TemplateCardInfo]
 var template_cards_in_bag: Array[TemplateCardInfo]
+var template_card_arrays = [
+	template_cards_in_hand,
+	template_cards_in_deck,
+	template_cards_in_bag
+]
 
 var cards_in_hand_scenes: Array[Card]
 var opponent_player_info: PlayerInfo
+var selected_template_card_hand_index: int = 0
 
-const BASE_REROLL_STAMINA_COST = 1
+const BASE_CARD_REROLL_STAMINA_COST = 1
+const BASE_TEMPLATE_CARD_REROLL_STAMINA_COST = 3
 const STATUS_EFFECT_UI = preload("res://players/status_effects/status_effect_ui.tscn")
 const BATTLE_ACTION_EXECUTION_INFO = preload("res://battle/action_execution/battle_action_execution_info.tres")
 
@@ -55,7 +63,6 @@ func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 		template_cards_in_deck.push_back(template_card_info)
 	randomize()
 	template_cards_in_deck.shuffle()
-	print(template_cards_in_deck[0].insecurities.size())
 	
 	self.side = side
 	
@@ -97,11 +104,13 @@ func heal(amount: int):
 func replenish_stamina(amount: int):
 	stamina += amount
 	stamina = clamp(stamina, 0, info.stamina_stat)
+	stamina_changed.emit()
 
 
 func deplenish_stamina(amount: int):
 	stamina -= amount
 	stamina = clamp(stamina, 0, info.stamina_stat)
+	stamina_changed.emit()
 
 
 func add_cards_to_hand(amount: int):
@@ -173,21 +182,14 @@ func _refill_template_deck_from_bag():
 	template_cards_in_bag.clear()
 
 
-func send_template_card_to_bag():
-	if template_cards_in_hand.size() <= 0: return
-	
-	var template_card_info = template_cards_in_hand[0]
+func send_template_card_to_bag(template_card_info: TemplateCardInfo):
 	template_cards_in_bag.push_back(template_card_info)
-	template_cards_in_hand.pop_at(0)
 
 
 func reroll_card(card: Card):
-	if card.card_info.enhancement == Constants.CardEnhancement.REFRESHING:
-		replenish_stamina(BATTLE_ACTION_EXECUTION_INFO.base_refreshing_enhancement_stamnina_increase_value)
-	else:
-		if stamina < get_reroll_stamina_cost(): return
-		if get_frozen_stamina_count() == stamina: return
-		deplenish_stamina(get_reroll_stamina_cost())
+	if not can_afford_card_reroll(): return
+	if get_frozen_stamina_count() == stamina: return
+	deplenish_stamina(get_card_reroll_stamina_cost())
 	
 	send_card_to_bag(card.card_info)
 	
@@ -204,13 +206,29 @@ func reroll_card(card: Card):
 	info.emit_rerolled_card_signal()
 
 
-func _can_reroll() -> bool:
+func can_afford_card_reroll() -> bool:
+	return stamina >= get_card_reroll_stamina_cost()
+
+
+func get_card_reroll_stamina_cost() -> int:
+	return BASE_CARD_REROLL_STAMINA_COST
+
+
+func reroll_template_card(template_card: TemplateCard):
+	if not can_afford_template_card_reroll(): return
+	deplenish_stamina(get_template_card_reroll_stamina_cost())
 	
-	return true
+	send_template_card_to_bag(template_card.template_card_info)
+	
+	_overwrite_template_card_info(template_card, get_next_template_card_in_deck(true))
 
 
-func get_reroll_stamina_cost() -> int:
-	return BASE_REROLL_STAMINA_COST
+func can_afford_template_card_reroll() -> bool:
+	return stamina >= get_template_card_reroll_stamina_cost()
+
+
+func get_template_card_reroll_stamina_cost() -> int:
+	return BASE_TEMPLATE_CARD_REROLL_STAMINA_COST
 
 
 func decrement_status_effect(status_effect: Constants.PlayerStatusEffect, decrement_amount: int):
@@ -229,6 +247,18 @@ func _overwrite_card_info(card: Card, new_card_info: CardInfo):
 				new_card_info.card_scene = card
 				card.card_info = new_card_info
 				card.init()
+				return
+
+
+func _overwrite_template_card_info(template_card: TemplateCard, new_template_card_info: TemplateCardInfo):
+	var old_template_card_info = template_card.template_card_info
+	for template_card_array in template_card_arrays:
+		for i in range(template_card_array.size()):
+			if template_card_array[i] == old_template_card_info:
+				template_card_array[i] = new_template_card_info
+				template_card.template_card_info = new_template_card_info
+				template_card.init()
+				
 				return
 
 
@@ -289,7 +319,7 @@ func handle_end_turn():
 
 
 func handle_delayed_end_turn():
-	send_template_card_to_bag()
+	pass
 
 
 func _handle_stamina_recharge():

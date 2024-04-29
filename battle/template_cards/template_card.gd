@@ -3,6 +3,7 @@ class_name TemplateCard extends Control
 signal selected_card_added(card: Card)
 signal selected_card_removed(card: Card)
 signal play_selected_cards
+signal rerolled_template_card
 signal selected_previous_template_card
 signal selected_next_template_card
 
@@ -21,6 +22,9 @@ signal selected_next_template_card
 @onready var right_player_speaking_glyph_container = %RightPlayerSpeakingGlyphContainer
 @onready var previous_selected_button = %PreviousSelectedButton
 @onready var next_selected_button = %NextSelectedButton
+@onready var previous_selected_button_container = %PreviousSelectedButtonContainer
+@onready var next_selected_button_container = %NextSelectedButtonContainer
+@onready var reroll_button = %RerollButton
 
 var template_card_info: TemplateCardInfo
 var max_insults_allowed = 0
@@ -38,6 +42,10 @@ const EMPTY_UNDERLINE_TEXT = "__________"
 
 
 func _ready():
+	init()
+
+
+func init():
 	_init_glyphs()
 	_init_info_description()
 	_init_identity_visuals()
@@ -61,6 +69,9 @@ func _init_identity_visuals():
 
 
 func _init_execution_visuals():
+	for child in insecurity_icon_container.get_children():
+		child.queue_free()
+	
 	for insecurity in template_card_info.insecurities:
 		var insecurity_icon = TextureRect.new()
 		insecurity_icon.texture = Constants.get_insecurity_icon()
@@ -74,6 +85,7 @@ func _init_execution_visuals():
 
 func _init_insult_text():
 	var sentence_label_text = template_card_info.sentence
+	max_insults_allowed = 0
 	while true:
 		var grammar_type = _get_earliest_insult_grammar_placeholder(sentence_label_text)
 		if grammar_type == GrammarType.NONE:
@@ -149,6 +161,8 @@ func remove_interactable_ui():
 	button_container.queue_free()
 	left_player_speaking_glyph_container.queue_free()
 	right_player_speaking_glyph_container.queue_free()
+	previous_selected_button_container.queue_free()
+	next_selected_button_container.queue_free()
 
 
 func update_selected_buttons(index: int, hand_size: int):
@@ -162,3 +176,11 @@ func _on_previous_selected_button_pressed():
 
 func _on_next_selected_button_pressed():
 	selected_next_template_card.emit()
+
+
+func _on_reroll_button_pressed():
+	rerolled_template_card.emit()
+
+
+func toggle_reroll_button(active: bool):
+	reroll_button.disabled = not active

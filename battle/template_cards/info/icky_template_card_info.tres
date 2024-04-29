@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_p88ds")
 name = "Icky"
-sentence = "Your unbelieveably %adjective% and %adjective%"
+sentence = "You're unbelieveably %adjective% and %adjective%"
 nonupgraded_description = "Inflict 3 Slime onto your opponent."
 upgraded_description = "Inflict 5 Slime onto your opponent."
 background_color = Color(0.117647, 0.219608, 0.156863, 1)
