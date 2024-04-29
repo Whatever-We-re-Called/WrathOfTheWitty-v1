@@ -6,7 +6,8 @@
 script = ExtResource("1_43ahu")
 name = "Brutal Punch"
 sentence = "How are you %adjective%, %adjective%, and %adjective%? Pick a struggle."
-info_description = "Deal 20 damage to your opponent."
+nonupgraded_description = "Deal 20 damage to your opponent."
+upgraded_description = "Deal 30 damage to your opponent."
 background_color = Color(0.219608, 0.117647, 0.156863, 1)
-insecurities = Array[int]([0, 1, 3])
+insecurity_count = 3
 execute_function_name = "_execute_brutal_punch"

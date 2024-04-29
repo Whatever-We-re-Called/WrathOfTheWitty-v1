@@ -25,11 +25,19 @@ class_name PlayerInfo extends Resource
 @export var cosmic_blessings_limit: int
 @export_category("Resources")
 @export var action_card_deck: Array[CardInfo]
-@export var template_card_deck: Array[TemplateCardInfo]
+@export var equipped_template_cards: Array[EquippedTemplateCard]
 @export var equipped_blessings: Array[EquippedBlessing]
 
 var current_player_instance = null
 var current_health: int = -1
+
+const TEMPLATE_HAND_STAT = 2
+
+
+func init_unhandled_equipped_template_cards():
+	for equipped_template_card in equipped_template_cards:
+		if not equipped_template_card.is_init:
+			equipped_template_card.init()
 
 
 func init_unhandled_equipped_blessings():
@@ -38,6 +46,13 @@ func init_unhandled_equipped_blessings():
 			equipped_blessing.init()
 			equipped_blessing.blessing.init(self)
 			equipped_blessing.blessing.equipped.emit()
+
+
+func get_template_card_info() -> Array[TemplateCardInfo]:
+	var result: Array[TemplateCardInfo]
+	for equipped_template_card in equipped_template_cards:
+		result.append(equipped_template_card.template_card_info)
+	return result
 
 
 func emit_battle_started_blessing_signal():

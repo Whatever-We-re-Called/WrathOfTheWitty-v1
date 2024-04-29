@@ -49,7 +49,7 @@ func _init_glyphs():
 
 
 func _init_info_description():
-	information_description_icon.tooltip_text = template_card_info.info_description
+	information_description_icon.tooltip_text = template_card_info.description
 
 
 func _init_identity_visuals():

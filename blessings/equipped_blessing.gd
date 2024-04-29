@@ -6,12 +6,9 @@ class_name EquippedBlessing extends Resource
 var blessing: Blessing
 var is_init: bool = false
 
+
 func init():
 	if blessing == null:
 		blessing = Blessings.get_blessing(type).duplicate()
 		blessing.is_cosmic = is_cosmic
 		is_init = true
-
-
-func execute():
-	pass

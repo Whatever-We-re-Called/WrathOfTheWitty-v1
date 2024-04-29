@@ -1,6 +1,5 @@
 class_name BattlePlayer extends AnimatedSprite2D
 
-signal inserted_template_card_into_hand(template_card_info: TemplateCardInfo)
 signal decreased_opponents_max_health(percentage: float, executing_player: BattlePlayer)
 signal damaged_opponent(amount: int, executing_player: BattlePlayer)
 
@@ -51,15 +50,14 @@ func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 	randomize()
 	cards_in_deck.shuffle()
 	
-	
-	for template_card_info in info.template_card_deck:
+	self.info.init_unhandled_equipped_template_cards()
+	for template_card_info in self.info.get_template_card_info():
 		template_cards_in_deck.push_back(template_card_info.duplicate(true))
 	randomize()
 	template_cards_in_deck.shuffle()
 	
 	self.side = side
 	
-	print("!")
 	scale = info.sprite_scale
 	sprite_frames = info.sprite_frames
 	play()
@@ -114,6 +112,11 @@ func get_next_card_in_deck(remove_result_card: bool) -> CardInfo:
 	if cards_in_deck.is_empty():
 		_refill_deck_from_bag()
 	
+	# Edge case where there are so few cards that there is nothing
+	# in deck or bag.
+	if cards_in_deck.is_empty():
+		return
+	
 	var result = cards_in_deck[0]
 	if remove_result_card:
 		cards_in_deck.pop_front()
@@ -137,15 +140,19 @@ func send_card_to_bag(card_info: CardInfo):
 	card_info.reset_enhancement_stack()
 
 
-func activate_new_template_card():
-	var new_template_card = get_next_template_card_in_deck(true)
-	template_cards_in_hand.push_back(new_template_card)
-	inserted_template_card_into_hand.emit(new_template_card)
+func add_template_cards_to_hand(amount: int):
+	for i in range(amount):
+		template_cards_in_hand.push_back(get_next_template_card_in_deck(true))
 
 
 func get_next_template_card_in_deck(remove_result_card: bool) -> TemplateCardInfo:
 	if template_cards_in_deck.is_empty():
 		_refill_template_deck_from_bag()
+	
+	# Edge case where there are so few cards that there is nothing
+	# in deck or bag.
+	if template_cards_in_deck.is_empty():
+		return
 	
 	var result = template_cards_in_deck[0]
 	if remove_result_card:
@@ -259,9 +266,8 @@ func handle_start_battle():
 
 
 func handle_start_turn():
-	activate_new_template_card()
-	print(info.hand_stat - cards_in_hand.size())
 	add_cards_to_hand(info.hand_stat - cards_in_hand.size())
+	add_template_cards_to_hand(info.TEMPLATE_HAND_STAT - template_cards_in_hand.size())
 	
 	info.emit_turn_started_blessing_signal()
 	_handle_stamina_recharge()

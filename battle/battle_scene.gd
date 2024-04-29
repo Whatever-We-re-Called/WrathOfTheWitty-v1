@@ -19,12 +19,7 @@ var player: BattlePlayer:
 		players[active_side] = value
 
 var active_template_card: TemplateCard
-var template_cards_in_deck: Array[TemplateCardInfo]
-var template_cards_in_bag: Array[TemplateCardInfo]
-var template_card_arrays = [
-	template_cards_in_deck,
-	template_cards_in_bag,
-]
+var selected_template_card_hand_index: int = 0
 var is_changing_turns = false
 
 const ACTION_CARD_SCENE = preload("res://battle/cards/card.tscn")
@@ -46,6 +41,7 @@ func _ready():
 	battle_interface.update_player_deck_and_bag_ui(player)
 	battle_interface.update_player_stats(player)
 	battle_interface.update_player_stats(get_non_active_side_player())
+	reset_active_template_card()
 	
 	battle_interface.card_toggle_selected.connect(_on_card_toggle_selected)
 	battle_interface.card_reroll.connect(reroll_card)
@@ -56,7 +52,6 @@ func _ready():
 func _init_player(side: Constants.PlayerSide, player_info: PlayerInfo, parent_node: Node2D):
 	var player = BattlePlayer.new()
 	player.init(player_info, side)
-	player.inserted_template_card_into_hand.connect(_on_inserted_template_card_into_hand)
 	player.decreased_opponents_max_health.connect(_on_decreased_opponents_max_health)
 	player.damaged_opponent.connect(_on_damaged_opponent)
 	parent_node.add_child(player)
@@ -107,10 +102,16 @@ func _on_decreased_opponents_max_health(percentage: float, executing_player: Bat
 		battle_interface.update_player_stats(players[Constants.PlayerSide.LEFT])
 
 
-func _on_inserted_template_card_into_hand(template_card_info: TemplateCardInfo):
+func reset_active_template_card():
+	selected_template_card_hand_index = 0
+	update_active_template_card()
+
+
+func update_active_template_card():
 	if active_template_card != null:
 		active_template_card.free()
 	
+	var template_card_info = player.template_cards_in_hand[selected_template_card_hand_index]
 	active_template_card = TEMPLATE_CARD_SCENE.instantiate()
 	active_template_card.template_card_info = template_card_info
 	active_template_card.play_selected_cards.connect(play_cards)
@@ -190,6 +191,7 @@ func change_turns():
 	battle_interface.update_player_deck_and_bag_ui(player)
 	battle_interface.update_player_stats(player)
 	battle_interface.toggle_hand_visibility(true)
+	reset_active_template_card()
 	
 	is_changing_turns = false
 
