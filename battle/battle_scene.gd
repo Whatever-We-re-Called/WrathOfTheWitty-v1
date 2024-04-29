@@ -169,17 +169,20 @@ func end_turn_early():
 func reroll_card(card: Card):
 	player.reroll_card(card)
 	battle_interface.update_player_stats(player)
+	battle_interface.update_player_deck_and_bag_ui(player)
 
 
 func throw_card(card: Card):
 	player.throw_card(card, self)
 	battle_interface.update_player_stats(player)
+	battle_interface.update_player_deck_and_bag_ui(player)
 
 
 func reroll_template_card():
 	_reset_selected_cards()
 	player.reroll_template_card(active_template_card)
 	battle_interface.update_player_stats(player)
+	battle_interface.update_player_deck_and_bag_ui(player)
 
 
 func _reset_selected_cards():

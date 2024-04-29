@@ -129,3 +129,30 @@ static func _execute_icky(battle_ability_execution_data: BattleAbilityExecutionD
 		defender_player.apply_status_effect(status_effect, 5)
 	else:
 		defender_player.apply_status_effect(status_effect, 3)
+
+
+static func _execute_shield_bash(battle_ability_execution_data: BattleAbilityExecutionData):
+	var attacker_player = battle_ability_execution_data.attacker_player
+	var shield_status_effect = Constants.PlayerStatusEffect.SHIELD
+	var damage_dealt = attacker_player.active_status_effects[shield_status_effect]
+	var defender_player = battle_ability_execution_data.defender_player
+	
+	defender_player.damage(damage_dealt)
+	if not battle_ability_execution_data.is_upgraded:
+		attacker_player.decrement_status_effect(shield_status_effect, damage_dealt)
+
+
+static func _execute_decontaminate(battle_ability_execution_data: BattleAbilityExecutionData):
+	var attacker_player = battle_ability_execution_data.attacker_player
+	
+	var is_upgraded = battle_ability_execution_data.is_upgraded
+	for status_effect in Constants.PlayerStatusEffect:
+		if not attacker_player.active_status_effects.has(status_effect):
+			continue
+		
+		var applied_value = attacker_player.active_status_effects[status_effect]
+		
+		if not Constants.positive_status_effects.has(status_effect):
+			attacker_player.decrement_status_effect(status_effect, applied_value)
+		elif not is_upgraded:
+			attacker_player.decrement_status_effect(status_effect, applied_value)

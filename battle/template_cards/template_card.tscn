@@ -15,7 +15,7 @@ bg_color = Color(0.219608, 0.427451, 0.666667, 1)
 bg_color = Color(0.219608, 0.427451, 0.666667, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80lj5"]
-bg_color = Color(0.117647, 0.129412, 0.219608, 1)
+bg_color = Color(0.0588235, 0.0666667, 0.12549, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lt3aj"]
 bg_color = Color(0.219608, 0.666667, 0.235294, 1)
@@ -27,7 +27,7 @@ bg_color = Color(0.219608, 0.666667, 0.235294, 1)
 bg_color = Color(0.219608, 0.666667, 0.235294, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s64cm"]
-bg_color = Color(0.117647, 0.219608, 0.156863, 1)
+bg_color = Color(0.054902, 0.121569, 0.0784314, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0siw"]
 bg_color = Color(0.490196, 0.490196, 0.490196, 1)
@@ -173,6 +173,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_0n3bk")
 theme_override_styles/hover = SubResource("StyleBoxFlat_4j2uf")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_laqkb")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_80lj5")
+disabled = true
 text = "Reroll"
 
 [node name="PlayButton" type="Button" parent="ButtonContainer/HBoxContainer"]

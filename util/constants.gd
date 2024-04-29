@@ -36,15 +36,27 @@ enum CardEnhancement {
 
 enum PlayerStatusEffect {
 	SHIELD,
-	STRENTGH,
+	STRENGTH,
+	THORN,
+	DODGE,
+	PIERCE,
+	FURY,
 	POISON,
 	BURN,
 	FREEZE,
 	WEAKEN,
 	SLIME,
-	HIDE,
-	THORN
+	HIDE
 }
+
+var positive_status_effects = [
+	PlayerStatusEffect.SHIELD,
+	PlayerStatusEffect.STRENGTH,
+	PlayerStatusEffect.THORN,
+	PlayerStatusEffect.DODGE,
+	PlayerStatusEffect.PIERCE,
+	PlayerStatusEffect.FURY
+]
 
 var PlayerStatusEffectInfo = {
 	PlayerStatusEffect.SHIELD: preload("res://players/status_effects/effects/shield_status_effect_info.tres"),

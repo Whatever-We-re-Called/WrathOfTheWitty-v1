@@ -71,23 +71,24 @@ func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 	play()
 	
 
-func damage(amount: int, skip_blessing_signal: bool = false):
+func damage(amount: int, skip_blessing_signal: bool = false, ignore_shield: bool = false):
 	if amount <= 0: return
 	
-	var shield_amount = 0
-	if active_status_effects.has(Constants.PlayerStatusEffect.SHIELD):
-		shield_amount = active_status_effects[Constants.PlayerStatusEffect.SHIELD]
-	for i in range(shield_amount):
-		amount -= 1
-		shield_amount -= 1
+	if not ignore_shield:
+		var shield_amount = 0
+		if active_status_effects.has(Constants.PlayerStatusEffect.SHIELD):
+			shield_amount = active_status_effects[Constants.PlayerStatusEffect.SHIELD]
+		for i in range(shield_amount):
+			amount -= 1
+			shield_amount -= 1
+		active_status_effects[Constants.PlayerStatusEffect.SHIELD] = shield_amount
 	
 	health -= amount
 	health = clamp(health, 0, info.health_stat)
 	_execute_damage_visual()
+	
 	if not skip_blessing_signal:
 		info.emit_damaged_signal()
-	
-	active_status_effects[Constants.PlayerStatusEffect.SHIELD] = shield_amount
 
 
 func _execute_damage_visual():
@@ -335,7 +336,7 @@ func _handle_stamina_recharge():
 
 func _handle_poison_status_effect():
 	if active_status_effects.has(Constants.PlayerStatusEffect.POISON):
-		damage(active_status_effects[Constants.PlayerStatusEffect.POISON], true)
+		damage(active_status_effects[Constants.PlayerStatusEffect.POISON], true, true)
 		decrement_status_effect(Constants.PlayerStatusEffect.POISON, 1)
 		
 		if info.has_blessing(Blessings.Type.POISON_RECOVERY):

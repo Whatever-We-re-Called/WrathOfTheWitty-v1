@@ -1,79 +1,77 @@
-[gd_resource type="Resource" script_class="PlayerInfo" load_steps=87 format=3 uid="uid://d23m4e07eg735"]
+[gd_resource type="Resource" script_class="PlayerInfo" load_steps=28 format=3 uid="uid://d23m4e07eg735"]
 
 [ext_resource type="Script" path="res://battle/cards/info/card_info.gd" id="1_5bkd6"]
 [ext_resource type="Script" path="res://players/info/player_info.gd" id="2_lpd0p"]
-[ext_resource type="Script" path="res://blessings/equipped_blessing.gd" id="3_dudy4"]
 [ext_resource type="SpriteFrames" uid="uid://2up8nj4es0st" path="res://players/animations/scrimblo_sprite_frames.tres" id="3_g3lwf"]
 [ext_resource type="Script" path="res://battle/template_cards/equipped_template_card.gd" id="3_xbpv5"]
 [ext_resource type="Resource" uid="uid://t3jhw6k818rs" path="res://battle/template_cards/info/absolute_zero_template_card_info.tres" id="4_c3fsx"]
-[ext_resource type="Resource" uid="uid://bxxvru405kq5j" path="res://battle/template_cards/info/icky_template_card_info.tres" id="6_7053u"]
+[ext_resource type="Resource" uid="uid://dfyjhx2b6h30t" path="res://battle/template_cards/info/decontaminate_template_card_info.tres" id="5_e34f7"]
 [ext_resource type="Resource" uid="uid://d2y88ykc4c4k5" path="res://battle/template_cards/info/pyromancy_template_card_info.tres" id="7_cgc67"]
-[ext_resource type="Resource" uid="uid://b5v446vwd8u53" path="res://battle/template_cards/info/paper_bag_template_card_info.tres" id="7_j7vpy"]
 
 [sub_resource type="Resource" id="Resource_6m7ey"]
 script = ExtResource("1_5bkd6")
 action_type = 0
-enhancement = 4
+enhancement = 0
 insult_text = "bitch"
 
 [sub_resource type="Resource" id="Resource_aq08t"]
 script = ExtResource("1_5bkd6")
 action_type = 0
-enhancement = 4
+enhancement = 0
 insult_text = "idiot"
 
 [sub_resource type="Resource" id="Resource_rtv6e"]
 script = ExtResource("1_5bkd6")
 action_type = 1
-enhancement = 4
+enhancement = 0
 insult_text = "confusing"
 
 [sub_resource type="Resource" id="Resource_hdbgq"]
 script = ExtResource("1_5bkd6")
 action_type = 1
-enhancement = 4
+enhancement = 0
 insult_text = "pain in the ass"
 
 [sub_resource type="Resource" id="Resource_onrjy"]
 script = ExtResource("1_5bkd6")
 action_type = 2
-enhancement = 2
+enhancement = 0
 insult_text = "stupid fella"
 
 [sub_resource type="Resource" id="Resource_jmgmk"]
 script = ExtResource("1_5bkd6")
 action_type = 2
-enhancement = 3
+enhancement = 0
 insult_text = "repulsive"
 
 [sub_resource type="Resource" id="Resource_nyqgl"]
 script = ExtResource("1_5bkd6")
 action_type = 3
-enhancement = 3
+enhancement = 0
 insult_text = "incompetent"
 
 [sub_resource type="Resource" id="Resource_cd6nm"]
 script = ExtResource("1_5bkd6")
 action_type = 3
-enhancement = 5
+enhancement = 0
 insult_text = "disgustingly hideous"
 
 [sub_resource type="Resource" id="Resource_cnbq3"]
 script = ExtResource("1_5bkd6")
 action_type = 4
-enhancement = 5
+enhancement = 0
 insult_text = "icky"
 
 [sub_resource type="Resource" id="Resource_7pqpg"]
 script = ExtResource("1_5bkd6")
 action_type = 4
-enhancement = 5
+enhancement = 0
 insult_text = "confusing"
 
 [sub_resource type="Resource" id="Resource_3jk3g"]
 script = ExtResource("1_5bkd6")
 action_type = 5
-enhancement = 5
+enhancement = 0
 insult_text = "unlikeable"
 
 [sub_resource type="Resource" id="Resource_2x44g"]
@@ -106,291 +104,6 @@ action_type = 7
 enhancement = 0
 insult_text = "scary"
 
-[sub_resource type="Resource" id="Resource_hpp5x"]
-script = ExtResource("3_dudy4")
-type = 0
-is_cosmic = true
-
-[sub_resource type="Resource" id="Resource_whhjw"]
-script = ExtResource("3_dudy4")
-type = 1
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_fmq4m"]
-script = ExtResource("3_dudy4")
-type = 2
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_puw3m"]
-script = ExtResource("3_dudy4")
-type = 3
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_b64ai"]
-script = ExtResource("3_dudy4")
-type = 4
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_csgd6"]
-script = ExtResource("3_dudy4")
-type = 5
-is_cosmic = true
-
-[sub_resource type="Resource" id="Resource_p5dpk"]
-script = ExtResource("3_dudy4")
-type = 6
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_hfhs5"]
-script = ExtResource("3_dudy4")
-type = 7
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_3a2fg"]
-script = ExtResource("3_dudy4")
-type = 8
-is_cosmic = true
-
-[sub_resource type="Resource" id="Resource_t40sk"]
-script = ExtResource("3_dudy4")
-type = 9
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_fuhsq"]
-script = ExtResource("3_dudy4")
-type = 10
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_khtsl"]
-script = ExtResource("3_dudy4")
-type = 11
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_30sx2"]
-script = ExtResource("3_dudy4")
-type = 12
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_tho57"]
-script = ExtResource("3_dudy4")
-type = 13
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_h10j3"]
-script = ExtResource("3_dudy4")
-type = 14
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_f4mtr"]
-script = ExtResource("3_dudy4")
-type = 15
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_j63aj"]
-script = ExtResource("3_dudy4")
-type = 16
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_1er8k"]
-script = ExtResource("3_dudy4")
-type = 17
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_5tk5b"]
-script = ExtResource("3_dudy4")
-type = 18
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_r5ums"]
-script = ExtResource("3_dudy4")
-type = 19
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_jarox"]
-script = ExtResource("3_dudy4")
-type = 20
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_4m6tl"]
-script = ExtResource("3_dudy4")
-type = 21
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_33rji"]
-script = ExtResource("3_dudy4")
-type = 22
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_jsffx"]
-script = ExtResource("3_dudy4")
-type = 23
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_hlfrb"]
-script = ExtResource("3_dudy4")
-type = 24
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_yugeg"]
-script = ExtResource("3_dudy4")
-type = 25
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_4lhk7"]
-script = ExtResource("3_dudy4")
-type = 26
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_wemfq"]
-script = ExtResource("3_dudy4")
-type = 27
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_5u2t4"]
-script = ExtResource("3_dudy4")
-type = 28
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_lwr60"]
-script = ExtResource("3_dudy4")
-type = 29
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_jv4pl"]
-script = ExtResource("3_dudy4")
-type = 30
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_7jb7q"]
-script = ExtResource("3_dudy4")
-type = 31
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_21rd7"]
-script = ExtResource("3_dudy4")
-type = 32
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_usw28"]
-script = ExtResource("3_dudy4")
-type = 33
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_m22w8"]
-script = ExtResource("3_dudy4")
-type = 34
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_hdecv"]
-script = ExtResource("3_dudy4")
-type = 35
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_4sex7"]
-script = ExtResource("3_dudy4")
-type = 36
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_g0sga"]
-script = ExtResource("3_dudy4")
-type = 37
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_7k6jn"]
-script = ExtResource("3_dudy4")
-type = 38
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_5nk3v"]
-script = ExtResource("3_dudy4")
-type = 39
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_eny7b"]
-script = ExtResource("3_dudy4")
-type = 40
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_3u73i"]
-script = ExtResource("3_dudy4")
-type = 41
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_ijqyn"]
-script = ExtResource("3_dudy4")
-type = 42
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_sslxa"]
-script = ExtResource("3_dudy4")
-type = 43
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_i71m8"]
-script = ExtResource("3_dudy4")
-type = 44
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_y7s32"]
-script = ExtResource("3_dudy4")
-type = 45
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_rl37y"]
-script = ExtResource("3_dudy4")
-type = 46
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_riil4"]
-script = ExtResource("3_dudy4")
-type = 47
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_c45kh"]
-script = ExtResource("3_dudy4")
-type = 48
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_4lst8"]
-script = ExtResource("3_dudy4")
-type = 49
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_fpf0m"]
-script = ExtResource("3_dudy4")
-type = 51
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_by5bi"]
-script = ExtResource("3_dudy4")
-type = 52
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_57ucv"]
-script = ExtResource("3_dudy4")
-type = 57
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_tvvh6"]
-script = ExtResource("3_dudy4")
-type = 53
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_fxd4d"]
-script = ExtResource("3_dudy4")
-type = 54
-is_cosmic = false
-
-[sub_resource type="Resource" id="Resource_363gn"]
-script = ExtResource("3_dudy4")
-type = 55
-is_cosmic = true
-
-[sub_resource type="Resource" id="Resource_qsssr"]
-script = ExtResource("3_dudy4")
-type = 56
-is_cosmic = true
-
 [sub_resource type="Resource" id="Resource_n75qe"]
 script = ExtResource("3_xbpv5")
 template_card_info = ExtResource("7_cgc67")
@@ -405,13 +118,13 @@ insecurity_overrides = Array[int]([])
 
 [sub_resource type="Resource" id="Resource_ejtgv"]
 script = ExtResource("3_xbpv5")
-template_card_info = ExtResource("6_7053u")
-is_upgraded = true
+template_card_info = ExtResource("5_e34f7")
+is_upgraded = false
 insecurity_overrides = Array[int]([1, 3])
 
 [sub_resource type="Resource" id="Resource_128pv"]
 script = ExtResource("3_xbpv5")
-template_card_info = ExtResource("7_j7vpy")
+template_card_info = ExtResource("5_e34f7")
 is_upgraded = true
 insecurity_overrides = Array[int]([])
 
@@ -438,4 +151,4 @@ slime_magic_stat = 10
 cosmic_blessings_limit = 4
 action_card_deck = Array[ExtResource("1_5bkd6")]([SubResource("Resource_6m7ey"), SubResource("Resource_aq08t"), SubResource("Resource_rtv6e"), SubResource("Resource_hdbgq"), SubResource("Resource_onrjy"), SubResource("Resource_jmgmk"), SubResource("Resource_nyqgl"), SubResource("Resource_cd6nm"), SubResource("Resource_cnbq3"), SubResource("Resource_7pqpg"), SubResource("Resource_3jk3g"), SubResource("Resource_2x44g"), SubResource("Resource_j107m"), SubResource("Resource_ijkhp"), SubResource("Resource_xxfqt"), SubResource("Resource_qoerk")])
 equipped_template_cards = Array[ExtResource("3_xbpv5")]([SubResource("Resource_n75qe"), SubResource("Resource_fac1c"), SubResource("Resource_ejtgv"), SubResource("Resource_128pv")])
-equipped_blessings = Array[ExtResource("3_dudy4")]([SubResource("Resource_hpp5x"), SubResource("Resource_whhjw"), SubResource("Resource_fmq4m"), SubResource("Resource_puw3m"), SubResource("Resource_b64ai"), SubResource("Resource_csgd6"), SubResource("Resource_p5dpk"), SubResource("Resource_hfhs5"), SubResource("Resource_3a2fg"), SubResource("Resource_t40sk"), SubResource("Resource_fuhsq"), SubResource("Resource_khtsl"), SubResource("Resource_30sx2"), SubResource("Resource_tho57"), SubResource("Resource_h10j3"), SubResource("Resource_f4mtr"), SubResource("Resource_j63aj"), SubResource("Resource_1er8k"), SubResource("Resource_5tk5b"), SubResource("Resource_r5ums"), SubResource("Resource_jarox"), SubResource("Resource_4m6tl"), SubResource("Resource_33rji"), SubResource("Resource_jsffx"), SubResource("Resource_hlfrb"), SubResource("Resource_yugeg"), SubResource("Resource_4lhk7"), SubResource("Resource_wemfq"), SubResource("Resource_5u2t4"), SubResource("Resource_lwr60"), SubResource("Resource_jv4pl"), SubResource("Resource_7jb7q"), SubResource("Resource_21rd7"), SubResource("Resource_usw28"), SubResource("Resource_m22w8"), SubResource("Resource_hdecv"), SubResource("Resource_4sex7"), SubResource("Resource_g0sga"), SubResource("Resource_7k6jn"), SubResource("Resource_5nk3v"), SubResource("Resource_eny7b"), SubResource("Resource_3u73i"), SubResource("Resource_ijqyn"), SubResource("Resource_sslxa"), SubResource("Resource_i71m8"), SubResource("Resource_y7s32"), SubResource("Resource_rl37y"), SubResource("Resource_riil4"), SubResource("Resource_c45kh"), SubResource("Resource_4lst8"), SubResource("Resource_fpf0m"), SubResource("Resource_by5bi"), SubResource("Resource_57ucv"), SubResource("Resource_tvvh6"), SubResource("Resource_fxd4d"), SubResource("Resource_363gn"), SubResource("Resource_qsssr")])
+equipped_blessings = Array[Resource("res://blessings/equipped_blessing.gd")]([])

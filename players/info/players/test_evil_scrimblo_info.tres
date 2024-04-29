@@ -10,67 +10,67 @@
 [sub_resource type="Resource" id="Resource_6m7ey"]
 script = ExtResource("1_0t5ug")
 action_type = 0
-enhancement = 4
+enhancement = 0
 insult_text = "bitch"
 
 [sub_resource type="Resource" id="Resource_aq08t"]
 script = ExtResource("1_0t5ug")
 action_type = 0
-enhancement = 4
+enhancement = 0
 insult_text = "idiot"
 
 [sub_resource type="Resource" id="Resource_rtv6e"]
 script = ExtResource("1_0t5ug")
 action_type = 1
-enhancement = 4
+enhancement = 0
 insult_text = "confusing"
 
 [sub_resource type="Resource" id="Resource_hdbgq"]
 script = ExtResource("1_0t5ug")
 action_type = 1
-enhancement = 4
+enhancement = 0
 insult_text = "pain in the ass"
 
 [sub_resource type="Resource" id="Resource_onrjy"]
 script = ExtResource("1_0t5ug")
 action_type = 2
-enhancement = 2
+enhancement = 0
 insult_text = "stupid fella"
 
 [sub_resource type="Resource" id="Resource_jmgmk"]
 script = ExtResource("1_0t5ug")
 action_type = 2
-enhancement = 3
+enhancement = 0
 insult_text = "repulsive"
 
 [sub_resource type="Resource" id="Resource_nyqgl"]
 script = ExtResource("1_0t5ug")
 action_type = 3
-enhancement = 3
+enhancement = 0
 insult_text = "incompetent"
 
 [sub_resource type="Resource" id="Resource_cd6nm"]
 script = ExtResource("1_0t5ug")
 action_type = 3
-enhancement = 5
+enhancement = 0
 insult_text = "disgustingly hideous"
 
 [sub_resource type="Resource" id="Resource_cnbq3"]
 script = ExtResource("1_0t5ug")
 action_type = 4
-enhancement = 5
+enhancement = 0
 insult_text = "icky"
 
 [sub_resource type="Resource" id="Resource_7pqpg"]
 script = ExtResource("1_0t5ug")
 action_type = 4
-enhancement = 5
+enhancement = 0
 insult_text = "confusing"
 
 [sub_resource type="Resource" id="Resource_3jk3g"]
 script = ExtResource("1_0t5ug")
 action_type = 5
-enhancement = 5
+enhancement = 0
 insult_text = "unlikeable"
 
 [sub_resource type="Resource" id="Resource_2x44g"]
