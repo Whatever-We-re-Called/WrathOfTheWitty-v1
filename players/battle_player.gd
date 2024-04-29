@@ -188,7 +188,6 @@ func send_template_card_to_bag(template_card_info: TemplateCardInfo):
 
 func reroll_card(card: Card):
 	if not can_afford_card_reroll(): return
-	if get_frozen_stamina_count() == stamina: return
 	deplenish_stamina(get_card_reroll_stamina_cost())
 	
 	send_card_to_bag(card.card_info)
@@ -207,6 +206,9 @@ func reroll_card(card: Card):
 
 
 func can_afford_card_reroll() -> bool:
+	if get_frozen_stamina_count() >= stamina:
+		return false
+	
 	return stamina >= get_card_reroll_stamina_cost()
 
 
@@ -224,6 +226,11 @@ func reroll_template_card(template_card: TemplateCard):
 
 
 func can_afford_template_card_reroll() -> bool:
+	var cost = get_template_card_reroll_stamina_cost()
+	
+	if get_frozen_stamina_count() > (stamina - cost): 
+		return false
+	
 	return stamina >= get_template_card_reroll_stamina_cost()
 
 
