@@ -11,6 +11,7 @@ func init():
 	if is_init: return
 	
 	template_card_info = template_card_info.duplicate(true)
+	template_card_info.is_upgraded = is_upgraded
 	_init_insecurities()
 	
 	is_init = true

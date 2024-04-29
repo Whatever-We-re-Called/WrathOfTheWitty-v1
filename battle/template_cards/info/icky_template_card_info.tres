@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TemplateCardInfo" load_steps=2 format=3 uid="uid://bxxvru405kq5j"]
+
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="1_p88ds"]
+
+[resource]
+script = ExtResource("1_p88ds")
+name = "Icky"
+sentence = "Your unbelieveably %adjective% and %adjective%"
+nonupgraded_description = "Inflict 3 Slime onto your opponent."
+upgraded_description = "Inflict 5 Slime onto your opponent."
+background_color = Color(0.117647, 0.219608, 0.156863, 1)
+insecurity_count = 2
+execute_function_name = "_execute_icky"

@@ -4,6 +4,7 @@ class BattleAbilityExecutionData:
 	var battle_scene: BattleScene
 	var attacker_player: BattlePlayer
 	var defender_player: BattlePlayer
+	var is_upgraded: bool
 
 
 static func try_to_execute(template_card_info: TemplateCardInfo, card_infos: Array[CardInfo], battle_scene: BattleScene):
@@ -13,6 +14,7 @@ static func try_to_execute(template_card_info: TemplateCardInfo, card_infos: Arr
 	battle_ability_execution_data.battle_scene = battle_scene
 	battle_ability_execution_data.attacker_player = battle_scene.player
 	battle_ability_execution_data.defender_player = battle_scene.get_non_active_side_player()
+	battle_ability_execution_data.is_upgraded = template_card_info.is_upgraded
 	
 	_execute_callable(battle_ability_execution_data, template_card_info, template_card_info.execute_function_name)
 	
@@ -52,42 +54,78 @@ static func _is_matching_insecurities(template_card_info: TemplateCardInfo, card
 
 
 static func _execute_poison_dart(battle_ability_execution_data: BattleAbilityExecutionData):
-	const POISON_DART_POISON_STACK_INFLICTED = 6
 	var defender_player = battle_ability_execution_data.defender_player
+	var status_effect = Constants.PlayerStatusEffect.WEAKEN
 	
-	defender_player.apply_status_effect(Constants.PlayerStatusEffect.POISON, POISON_DART_POISON_STACK_INFLICTED)
+	if battle_ability_execution_data.is_upgraded:
+		defender_player.apply_status_effect(status_effect, 5)
+	else:
+		defender_player.apply_status_effect(status_effect, 3)
 
 
 static func _execute_punch(battle_ability_execution_data: BattleAbilityExecutionData):
-	const PUNCH_DAMAGE_INFLICTED = 12
 	var defender_player = battle_ability_execution_data.defender_player
 	
-	defender_player.damage(PUNCH_DAMAGE_INFLICTED)
+	if battle_ability_execution_data.is_upgraded:
+		defender_player.damage(18)
+	else:
+		defender_player.damage(12)
 
 
 static func _execute_brutal_punch(battle_ability_execution_data: BattleAbilityExecutionData):
-	const BRUTAL_PUNCH_DAMAGE_INFLICTED = 20
 	var defender_player = battle_ability_execution_data.defender_player
 	
-	defender_player.damage(BRUTAL_PUNCH_DAMAGE_INFLICTED)
+	if battle_ability_execution_data.is_upgraded:
+		defender_player.damage(30)
+	else:
+		defender_player.damage(20)
 
 
 static func _execute_pyromancy(battle_ability_execution_data: BattleAbilityExecutionData):
-	const PYROMANCY_BURN_STACK_INFLICTED = 3
 	var defender_player = battle_ability_execution_data.defender_player
+	var status_effect = Constants.PlayerStatusEffect.BURN
 	
-	defender_player.apply_status_effect(Constants.PlayerStatusEffect.BURN, PYROMANCY_BURN_STACK_INFLICTED)
+	if battle_ability_execution_data.is_upgraded:
+		defender_player.apply_status_effect(status_effect, 5)
+	else:
+		defender_player.apply_status_effect(status_effect, 3)
 
 
 static func _execute_absolute_zero(battle_ability_execution_data: BattleAbilityExecutionData):
-	const ABSOLUTE_ZERO_FREEZE_STACK_INFLICTED = 3
 	var defender_player = battle_ability_execution_data.defender_player
+	var status_effect = Constants.PlayerStatusEffect.FREEZE
 	
-	defender_player.apply_status_effect(Constants.PlayerStatusEffect.FREEZE, ABSOLUTE_ZERO_FREEZE_STACK_INFLICTED)
+	if battle_ability_execution_data.is_upgraded:
+		defender_player.apply_status_effect(status_effect, 5)
+	else:
+		defender_player.apply_status_effect(status_effect, 3)
 
 
 static func _execute_depression(battle_ability_execution_data: BattleAbilityExecutionData):
-	const DEPRESSION_WEAKEN_STACK_INFLICTED = 3
 	var defender_player = battle_ability_execution_data.defender_player
+	var status_effect = Constants.PlayerStatusEffect.WEAKEN
 	
-	defender_player.apply_status_effect(Constants.PlayerStatusEffect.WEAKEN, DEPRESSION_WEAKEN_STACK_INFLICTED)
+	if battle_ability_execution_data.is_upgraded:
+		defender_player.apply_status_effect(status_effect, 5)
+	else:
+		defender_player.apply_status_effect(status_effect, 3)
+
+
+static func _execute_paper_bag(battle_ability_execution_data: BattleAbilityExecutionData):
+	var defender_player = battle_ability_execution_data.defender_player
+	var status_effect = Constants.PlayerStatusEffect.HIDE
+	
+	if battle_ability_execution_data.is_upgraded:
+		defender_player.apply_status_effect(status_effect, 5)
+	else:
+		defender_player.apply_status_effect(status_effect, 3)
+
+
+static func _execute_icky(battle_ability_execution_data: BattleAbilityExecutionData):
+	var defender_player = battle_ability_execution_data.defender_player
+	var status_effect = Constants.PlayerStatusEffect.SLIME
+	
+	if battle_ability_execution_data.is_upgraded:
+		defender_player.apply_status_effect(status_effect, 5)
+	else:
+		defender_player.apply_status_effect(status_effect, 3)
