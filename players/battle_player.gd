@@ -52,9 +52,10 @@ func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 	
 	self.info.init_unhandled_equipped_template_cards()
 	for template_card_info in self.info.get_template_card_info():
-		template_cards_in_deck.push_back(template_card_info.duplicate(true))
+		template_cards_in_deck.push_back(template_card_info)
 	randomize()
 	template_cards_in_deck.shuffle()
+	print(template_cards_in_deck[0].insecurities.size())
 	
 	self.side = side
 	
