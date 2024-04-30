@@ -157,3 +157,12 @@ static func _execute_decontaminate(battle_ability_execution_data: BattleAbilityE
 			attacker_player.decrement_status_effect(status_effect, applied_value)
 		elif not is_upgraded:
 			attacker_player.decrement_status_effect(i, applied_value)
+
+
+static func _execute_energize(battle_ability_execution_data: BattleAbilityExecutionData):
+	var attacker_player = battle_ability_execution_data.attacker_player
+	
+	if battle_ability_execution_data.is_upgraded:
+		attacker_player.replenish_stamina(attacker_player.info.stamina_stat)
+	else:
+		attacker_player.replenish_stamina(5)

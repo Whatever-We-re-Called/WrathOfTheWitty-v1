@@ -155,6 +155,11 @@ func play_cards():
 	BattleActionExecution.execute_action_cards(player.selected_cards, self)
 	BattleAbilityExecution.try_to_execute(active_template_card.template_card_info, player.selected_cards, self)
 	player.handle_played_selected_cards()
+	
+	for i in range(player.template_cards_in_hand.size()):
+		if player.template_cards_in_hand[i] == active_template_card.template_card_info:
+			player.template_cards_in_hand.remove_at(i)
+			break
 	player.send_template_card_to_bag(active_template_card.template_card_info)
 	
 	change_turns()

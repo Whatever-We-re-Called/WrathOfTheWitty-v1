@@ -5,7 +5,7 @@
 [ext_resource type="SpriteFrames" uid="uid://2up8nj4es0st" path="res://players/animations/scrimblo_sprite_frames.tres" id="3_g3lwf"]
 [ext_resource type="Script" path="res://battle/template_cards/equipped_template_card.gd" id="3_xbpv5"]
 [ext_resource type="Resource" uid="uid://t3jhw6k818rs" path="res://battle/template_cards/info/absolute_zero_template_card_info.tres" id="4_c3fsx"]
-[ext_resource type="Resource" uid="uid://dfyjhx2b6h30t" path="res://battle/template_cards/info/decontaminate_template_card_info.tres" id="5_e34f7"]
+[ext_resource type="Resource" uid="uid://v1kqx5gx777c" path="res://battle/template_cards/info/energize_template_card_info.tres" id="5_stcju"]
 [ext_resource type="Resource" uid="uid://d2y88ykc4c4k5" path="res://battle/template_cards/info/pyromancy_template_card_info.tres" id="7_cgc67"]
 
 [sub_resource type="Resource" id="Resource_6m7ey"]
@@ -118,13 +118,13 @@ insecurity_overrides = Array[int]([])
 
 [sub_resource type="Resource" id="Resource_ejtgv"]
 script = ExtResource("3_xbpv5")
-template_card_info = ExtResource("5_e34f7")
+template_card_info = ExtResource("5_stcju")
 is_upgraded = false
 insecurity_overrides = Array[int]([1, 3])
 
 [sub_resource type="Resource" id="Resource_128pv"]
 script = ExtResource("3_xbpv5")
-template_card_info = ExtResource("5_e34f7")
+template_card_info = ExtResource("5_stcju")
 is_upgraded = true
 insecurity_overrides = Array[int]([])
 
@@ -137,7 +137,7 @@ insecurity_weaknesses = Array[int]([4])
 insecurity_strengths = Array[int]([])
 insecurity_blocks = Array[int]([])
 health_stat = 100
-stamina_stat = 3
+stamina_stat = 50
 hand_stat = 5
 speed_stat = 3
 attack_stat = 8
