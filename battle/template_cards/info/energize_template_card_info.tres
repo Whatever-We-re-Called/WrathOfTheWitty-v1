@@ -9,5 +9,5 @@ sentence = "You're quite %adjective%. Your %adjective% and %adjective% self amus
 nonupgraded_description = "Refill your stamina by 5."
 upgraded_description = "Completely refill your stamina."
 background_color = Color(0.117647, 0.129412, 0.219608, 1)
-insecurity_count = 3
+insecurity_count = 2
 execute_function_name = "_execute_energize"

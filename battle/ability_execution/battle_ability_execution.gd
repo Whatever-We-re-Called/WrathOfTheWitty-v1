@@ -166,3 +166,22 @@ static func _execute_energize(battle_ability_execution_data: BattleAbilityExecut
 		attacker_player.replenish_stamina(attacker_player.info.stamina_stat)
 	else:
 		attacker_player.replenish_stamina(5)
+
+
+static func _execute_first_aid(battle_ability_execution_data: BattleAbilityExecutionData):
+	var attacker_player = battle_ability_execution_data.attacker_player
+	
+	if battle_ability_execution_data.is_upgraded:
+		attacker_player.heal(12)
+	else:
+		attacker_player.heal(8)
+
+
+static func _execute_block(battle_ability_execution_data: BattleAbilityExecutionData):
+	var attack_player = battle_ability_execution_data.attacker_player
+	var status_effect = Constants.PlayerStatusEffect.SHIELD
+	
+	if battle_ability_execution_data.is_upgraded:
+		attack_player.apply_status_effect(status_effect, 12)
+	else:
+		attack_player.apply_status_effect(status_effect, 8)
