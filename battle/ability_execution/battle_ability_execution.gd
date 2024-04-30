@@ -55,12 +55,12 @@ static func _is_matching_insecurities(template_card_info: TemplateCardInfo, card
 
 static func _execute_poison_dart(battle_ability_execution_data: BattleAbilityExecutionData):
 	var defender_player = battle_ability_execution_data.defender_player
-	var status_effect = Constants.PlayerStatusEffect.WEAKEN
+	var status_effect = Constants.PlayerStatusEffect.POISON
 	
 	if battle_ability_execution_data.is_upgraded:
-		defender_player.apply_status_effect(status_effect, 5)
+		defender_player.apply_status_effect(status_effect, 10)
 	else:
-		defender_player.apply_status_effect(status_effect, 3)
+		defender_player.apply_status_effect(status_effect, 6)
 
 
 static func _execute_punch(battle_ability_execution_data: BattleAbilityExecutionData):
@@ -146,13 +146,14 @@ static func _execute_decontaminate(battle_ability_execution_data: BattleAbilityE
 	var attacker_player = battle_ability_execution_data.attacker_player
 	
 	var is_upgraded = battle_ability_execution_data.is_upgraded
-	for status_effect in Constants.PlayerStatusEffect:
-		if not attacker_player.active_status_effects.has(status_effect):
+	for i in range(Constants.PlayerStatusEffect.size()):
+		var status_effect = Constants.PlayerStatusEffect.values()[i]
+		if not attacker_player.active_status_effects.has(i):
 			continue
 		
-		var applied_value = attacker_player.active_status_effects[status_effect]
+		var applied_value = attacker_player.active_status_effects[i]
 		
-		if not Constants.positive_status_effects.has(status_effect):
+		if not Constants.positive_status_effects.has(i):
 			attacker_player.decrement_status_effect(status_effect, applied_value)
 		elif not is_upgraded:
-			attacker_player.decrement_status_effect(status_effect, applied_value)
+			attacker_player.decrement_status_effect(i, applied_value)
