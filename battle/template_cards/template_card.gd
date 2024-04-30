@@ -2,7 +2,7 @@ class_name TemplateCard extends Control
 
 signal selected_card_added(card: Card)
 signal selected_card_removed(card: Card)
-signal play_selected_cards
+signal played_selected_cards
 signal rerolled_template_card
 signal selected_previous_template_card
 signal selected_next_template_card
@@ -130,11 +130,6 @@ func remove_selected_card(card: Card):
 	_update_play_button_status()
 
 
-func clear_selected_cards():
-	selected_cards.clear()
-	_update_play_button_status()
-
-
 func set_talking_side(side: Constants.PlayerSide):
 	left_player_speaking_glyph.visible = side == Constants.PlayerSide.LEFT
 	right_player_speaking_glyph.visible = side == Constants.PlayerSide.RIGHT
@@ -149,20 +144,20 @@ func _update_play_button_status():
 
 func _on_play_button_pressed():
 	for card in selected_cards:
-		card.free()
-	selected_cards.clear()
-	_update_play_button_status()
+		card.set_as_hidden(false)
+		card.set_as_slimed(false)
 	
-	play_selected_cards.emit()
+	played_selected_cards.emit()
 
 
-func remove_interactable_ui():
-	top_cards_container.queue_free()
+func remove_context_ui(keep_turn_end_context: bool = false):
 	button_container.queue_free()
-	left_player_speaking_glyph_container.queue_free()
-	right_player_speaking_glyph_container.queue_free()
 	previous_selected_button_container.queue_free()
 	next_selected_button_container.queue_free()
+	if not keep_turn_end_context:
+		top_cards_container.queue_free()
+		left_player_speaking_glyph_container.queue_free()
+		right_player_speaking_glyph_container.queue_free()
 
 
 func update_selected_buttons(index: int, hand_size: int):

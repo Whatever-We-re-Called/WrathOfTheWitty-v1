@@ -208,17 +208,17 @@ func _init_template_cards_page(player_info: PlayerInfo):
 	for card_info in player_info.current_player_instance.template_cards_in_hand:
 		var card = _get_template_card_instance(card_info)
 		template_cards_hand_grid_container.add_child(card)
-		card.remove_interactable_ui()
+		card.remove_context_ui()
 	template_cards_deck_label.text = "Deck (" + str(player_info.current_player_instance.template_cards_in_deck.size()) + "):"
 	for card_info in player_info.current_player_instance.template_cards_in_deck:
 		var card = _get_template_card_instance(card_info)
 		template_cards_deck_grid_container.add_child(card)
-		card.remove_interactable_ui()
+		card.remove_context_ui()
 	template_cards_bag_label.text = "Bag (" + str(player_info.current_player_instance.template_cards_in_bag.size()) + "):"
 	for card_info in player_info.current_player_instance.template_cards_in_bag:
 		var card = _get_template_card_instance(card_info)
 		template_cards_bag_grid_container.add_child(card)
-		card.remove_interactable_ui()
+		card.remove_context_ui()
 
 
 func _get_template_card_instance(template_card_info: TemplateCardInfo) -> TemplateCard:

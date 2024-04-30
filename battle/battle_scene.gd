@@ -114,7 +114,7 @@ func update_active_template_card():
 	var template_card_info = player.template_cards_in_hand[player.selected_template_card_hand_index]
 	active_template_card = TEMPLATE_CARD_SCENE.instantiate()
 	active_template_card.template_card_info = template_card_info
-	active_template_card.play_selected_cards.connect(play_cards)
+	active_template_card.played_selected_cards.connect(play_cards)
 	active_template_card.selected_previous_template_card.connect(_on_selected_previous_template_card)
 	active_template_card.selected_next_template_card.connect(_on_selected_next_template_card)
 	active_template_card.rerolled_template_card.connect(reroll_template_card)
@@ -195,6 +195,7 @@ func change_turns():
 	is_changing_turns = true
 	
 	player.handle_end_turn()
+	active_template_card.remove_context_ui(true)
 	battle_interface.update_player_stats(player)
 	battle_interface.update_player_stats(get_non_active_side_player())
 	battle_interface.toggle_hand_visibility(false)
@@ -255,4 +256,6 @@ func _on_stamina_changed():
 
 
 func _update_template_card_reroll_button():
+	if is_changing_turns: return
+	
 	active_template_card.toggle_reroll_button(player.can_afford_template_card_reroll())
