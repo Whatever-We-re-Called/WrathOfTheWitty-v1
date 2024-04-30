@@ -305,12 +305,21 @@ func handle_start_battle():
 
 
 func handle_start_turn():
-	add_cards_to_hand(info.hand_stat - cards_in_hand.size())
-	add_template_cards_to_hand(info.TEMPLATE_HAND_STAT - template_cards_in_hand.size())
-	
+	add_cards_to_hand(_get_needed_cards_count())
+	add_template_cards_to_hand(_get_needed_template_cards_count())
 	info.emit_turn_started_blessing_signal()
 	_handle_stamina_recharge()
 	_handle_poison_status_effect()
+
+
+func _get_needed_cards_count() -> int:
+	var space = clamp(info.action_card_deck.size(), 1, info.hand_stat)
+	return space - cards_in_hand.size()
+
+
+func _get_needed_template_cards_count() -> int:
+	var space = clamp(info.equipped_template_cards.size(), 1, info.TEMPLATE_HAND_STAT)
+	return space - template_cards_in_hand.size()
 
 
 func handle_delayed_start_turn():
