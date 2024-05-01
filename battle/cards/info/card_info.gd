@@ -1,6 +1,7 @@
 class_name CardInfo extends Resource
 
 @export var insecurity: Constants.Insecurity
+@export var attack_value: int
 @export var enhancement: Constants.CardEnhancement = Constants.CardEnhancement.NONE:
 	get:
 		return card_enhancement_stack[0]

@@ -16,9 +16,9 @@ signal fire_extinguished
 @onready var enhancement_info = %EnhancementInfo
 @onready var enhancement_icon = %EnhancementIcon
 @onready var enhancement_label = %EnhancementLabel
-@onready var action_type_label = %ActionTypeLabel
 @onready var slimed_overlay = %SlimedOverlay
 @onready var hidden_overlay = %HiddenOverlay
+@onready var attack_value_label = %AttackValueLabel
 
 var card_info: CardInfo
 var player: BattlePlayer
@@ -37,12 +37,12 @@ func _ready():
 
 
 func init():
-	_init_action_texture()
+	_init_attack_texture()
 	_init_enhancement_texture()
 	_init_insult_texture()
 
 
-func _init_action_texture():
+func _init_attack_texture():
 	var color = Constants.get_insecurity_color(card_info.insecurity)
 	var style_box = StyleBoxFlat.new()
 	style_box.bg_color = color
@@ -55,10 +55,12 @@ func _init_action_texture():
 	var corner_color_gradient = Gradient.new()
 	corner_color_gradient.add_point(0, color)
 	corner_color_gradient.add_point(1, Color.WHITE)
-	
 	var corner_color = corner_color_gradient.sample(0.1)
 	for corner_rect in corner_rects:
 		corner_rect.color = corner_color
+	
+	print(card_info.insecurity)
+	attack_value_label.text = str(card_info.attack_value)
 
 
 func _init_enhancement_texture():
@@ -67,16 +69,11 @@ func _init_enhancement_texture():
 	else:
 		enhancement_info.visible = true
 		
-		var enhancement = card_info.enhancement
-		var enhancement_color_gradient = Gradient.new()
-		enhancement_color_gradient.add_point(0, CARD_TEXTURES.get_enhancement_color(enhancement))
-		enhancement_color_gradient.add_point(1, Color.WHITE)
-		var enhancement_color = enhancement_color_gradient.sample(0.5)
-		
+		var color = Color.WHITE
 		enhancement_icon.texture = CARD_TEXTURES.enhancement_icon
-		enhancement_icon.self_modulate = enhancement_color
-		enhancement_label.text = CARD_TEXTURES.get_enhancement_as_string(enhancement)
-		enhancement_label.add_theme_color_override("font_color", enhancement_color)
+		enhancement_icon.self_modulate = color
+		#enhancement_label.text = CARD_TEXTURES.get_enhancement_as_string(enhancement)
+		enhancement_label.add_theme_color_override("font_color", color)
 
 
 func _init_insult_texture():

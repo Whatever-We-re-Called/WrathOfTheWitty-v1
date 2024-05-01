@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cr5knc1fwhkm3"]
+[gd_scene load_steps=6 format=3 uid="uid://cr5knc1fwhkm3"]
 
 [ext_resource type="Script" path="res://battle/cards/card.gd" id="1_72ex4"]
 [ext_resource type="Texture2D" uid="uid://bvx24fl3573wx" path="res://players/status_effects/textures/tag_empty.svg" id="2_8745d"]
 [ext_resource type="Texture2D" uid="uid://dulyfjbqm82d3" path="res://players/status_effects/textures/fire.svg" id="3_7tppc"]
+[ext_resource type="Texture2D" uid="uid://b4ixs3g5v12s1" path="res://ui/misc_textures/sword.svg" id="4_sp0us"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uois1"]
 load_path = "res://.godot/imported/str_icon.png-4dbb2f5f79c143b857bb5cf2788a2b07.ctex"
@@ -181,6 +182,15 @@ theme_override_constants/margin_right = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Button/EnhancementInfo"]
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="EnhancementLabel" type="Label" parent="Button/EnhancementInfo/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="EnhancementIcon" type="TextureRect" parent="Button/EnhancementInfo/HBoxContainer"]
 unique_name_in_owner = true
@@ -190,15 +200,7 @@ texture = SubResource("CompressedTexture2D_uois1")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="EnhancementLabel" type="Label" parent="Button/EnhancementInfo/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = " "
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TypeInfo" type="MarginContainer" parent="Button"]
+[node name="AttackInfo" type="MarginContainer" parent="Button"]
 unique_name_in_owner = true
 layout_mode = 1
 offset_right = 9.0
@@ -207,12 +209,22 @@ theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 0
 
-[node name="ActionTypeLabel" type="Label" parent="Button/TypeInfo"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Button/AttackInfo"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="AttackIcon" type="TextureRect" parent="Button/AttackInfo/HBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("4_sp0us")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AttackValueLabel" type="Label" parent="Button/AttackInfo/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
-text = " "
-horizontal_alignment = 1
+text = "6"
 vertical_alignment = 1
 
 [node name="CornerColorRect" type="ColorRect" parent="Button"]
