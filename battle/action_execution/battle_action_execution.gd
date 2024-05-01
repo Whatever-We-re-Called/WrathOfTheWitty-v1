@@ -49,20 +49,21 @@ static func _get_damage_dealt_value(battle_action_execution_data: BattleActionEx
 	var attacker_player = battle_action_execution_data.attacker_player
 	var defender_player = battle_action_execution_data.defender_player
 	
-	var damage_dealt = attacker_player.info.attack_stat
+	var damage_dealt = card_info.attack_value
 	
 	# Handle Weak
 	var weaken_status_effect = Constants.PlayerStatusEffect.WEAKEN
 	if attacker_player.active_status_effects.has(weaken_status_effect):
 		var weaken_value = attacker_player.active_status_effects[weaken_status_effect]
 		damage_dealt -= weaken_value
-		attacker_player.decrement_status_effect(weaken_status_effect, 1)
 		
 		if attacker_player.info.has_blessing(Blessings.Type.WEAKEN_RECOVERY):
 			if attacker_player.info.is_blessing_cosmic(Blessings.Type.WEAKEN_RECOVERY):
-				attacker_player.decrement_status_effect(weaken_status_effect, 2)
+				attacker_player.decrement_status_effect(weaken_status_effect, 3)
 			else:
-				attacker_player.decrement_status_effect(weaken_status_effect, 1)
+				attacker_player.decrement_status_effect(weaken_status_effect, 2)
+		else:
+			attacker_player.decrement_status_effect(weaken_status_effect, 1)
 	
 	# Handle Insecurity Matchings
 	var card_insecurity = battle_action_execution_data.card_info.insecurity
