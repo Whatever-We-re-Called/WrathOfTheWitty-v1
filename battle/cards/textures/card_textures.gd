@@ -19,28 +19,6 @@ class_name CardTextures extends Resource
 @export var stamina_enhancement_color: Color
 
 
-func get_action_color(action: Constants.CardAction) -> Color:
-	match (action):
-		Constants.CardAction.PHYSICAL_APPEARANCE_ATTACK:
-			return Constants.get_insecurity_color(Constants.Insecurity.PHYSICAL_APPEARANCE)
-		Constants.CardAction.SELF_ESTEEM_ATTACK:
-			return Constants.get_insecurity_color(Constants.Insecurity.SELF_ESTEEM)
-		Constants.CardAction.INTELLIGENCE_ATTACK:
-			return Constants.get_insecurity_color(Constants.Insecurity.INTELLIGENCE)
-		Constants.CardAction.PHYSICAL_ABILITY_ATTACK:
-			return Constants.get_insecurity_color(Constants.Insecurity.PHYSICAL_ABILITY)
-		Constants.CardAction.SOCIAL_LIFE_ATTACK:
-			return Constants.get_insecurity_color(Constants.Insecurity.SOCIAL_LIFE)
-		Constants.CardAction.FASHION_ATTACK:
-			return Constants.get_insecurity_color(Constants.Insecurity.FASHION)
-		Constants.CardAction.HEAL:
-			return heal_action_color
-		Constants.CardAction.SHIELD:
-			return shield_action_color
-	
-	return Color.BLACK
-
-
 func get_enhancement_color(enhancement: Constants.CardEnhancement) -> Color:
 	#match (enhancement):
 		#Constants.CardEnhancement.WEAK:
@@ -70,30 +48,18 @@ func get_enhancement_color(enhancement: Constants.CardEnhancement) -> Color:
 
 
 func get_enhancement_as_string(enhancement: Constants.CardEnhancement) -> String:
-	match (enhancement):
-		Constants.CardEnhancement.NONE:
-			return "None"
-		Constants.CardEnhancement.BUFF:
-			return "Buff"
-		Constants.CardEnhancement.MAGICAL:
-			return "Magical"
-		Constants.CardEnhancement.SUPPORTIVE:
-			return "Supportive"
-		Constants.CardEnhancement.REFRESHING:
-			return "Refreshing"
-		Constants.CardEnhancement.DEPENDABLE:
-			return "Dependable"
-	
-	return "N/A"
-
-
-func get_action_as_string(action: Constants.CardAction) -> String:
-	match (action):
-		Constants.CardAction.PHYSICAL_APPEARANCE_ATTACK, Constants.CardAction.SELF_ESTEEM_ATTACK, Constants.CardAction.INTELLIGENCE_ATTACK, Constants.CardAction.PHYSICAL_ABILITY_ATTACK, Constants.CardAction.SOCIAL_LIFE_ATTACK, Constants.CardAction.FASHION_ATTACK:
-			return "Attack"
-		Constants.CardAction.HEAL:
-			return "Heal"
-		Constants.CardAction.SHIELD:
-			return "Shield"
+	#match (enhancement):
+		#Constants.CardEnhancement.NONE:
+			#return "None"
+		#Constants.CardEnhancement.BUFF:
+			#return "Buff"
+		#Constants.CardEnhancement.MAGICAL:
+			#return "Magical"
+		#Constants.CardEnhancement.SUPPORTIVE:
+			#return "Supportive"
+		#Constants.CardEnhancement.REFRESHING:
+			#return "Refreshing"
+		#Constants.CardEnhancement.DEPENDABLE:
+			#return "Dependable"
 	
 	return "N/A"

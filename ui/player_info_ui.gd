@@ -26,20 +26,18 @@ extends CenterContainer
 @onready var freeze_value_label = %FreezeValueLabel
 @onready var slime_value_label = %SlimeValueLabel
 @onready var insecurity_containers = {
-	Constants.Insecurity.PHYSICAL_APPEARANCE: %PhysicalAppearanceContainer,
+	Constants.Insecurity.APPEARANCE: %PhysicalAppearanceContainer,
 	Constants.Insecurity.SELF_ESTEEM: %SelfEsteemContainer,
 	Constants.Insecurity.INTELLIGENCE: %IntelligenceContainer,
 	Constants.Insecurity.PHYSICAL_ABILITY: %PhysicalAbilityContainer,
-	Constants.Insecurity.SOCIAL_LIFE: %SocialLifeContainer,
-	Constants.Insecurity.FASHION: %FashionContainer
+	Constants.Insecurity.SOCIAL_LIFE: %SocialLifeContainer
 }
 @onready var insecurity_labels = {
-	Constants.Insecurity.PHYSICAL_APPEARANCE: %PhysicalAppearanceLabel,
+	Constants.Insecurity.APPEARANCE: %PhysicalAppearanceLabel,
 	Constants.Insecurity.SELF_ESTEEM: %SelfEsteemLabel,
 	Constants.Insecurity.INTELLIGENCE: %IntelligenceLabel,
 	Constants.Insecurity.PHYSICAL_ABILITY: %PhysicalAbilityLabel,
-	Constants.Insecurity.SOCIAL_LIFE: %SocialLifeLabel,
-	Constants.Insecurity.FASHION: %FashionLabel
+	Constants.Insecurity.SOCIAL_LIFE: %SocialLifeLabel
 }
 @onready var hovered_info_container = %HoveredInfoContainer
 @onready var hovered_name_label = %HoveredNameLabel

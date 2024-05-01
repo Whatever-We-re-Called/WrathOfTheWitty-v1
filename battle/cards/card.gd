@@ -43,7 +43,7 @@ func init():
 
 
 func _init_action_texture():
-	var color = CARD_TEXTURES.get_action_color(card_info.action_type)
+	var color = Constants.get_insecurity_color(card_info.insecurity)
 	var style_box = StyleBoxFlat.new()
 	style_box.bg_color = color
 	button.add_theme_stylebox_override("normal", style_box)
@@ -59,14 +59,10 @@ func _init_action_texture():
 	var corner_color = corner_color_gradient.sample(0.1)
 	for corner_rect in corner_rects:
 		corner_rect.color = corner_color
-	
-	var text_color = corner_color_gradient.sample(0.75)
-	action_type_label.text = CARD_TEXTURES.get_action_as_string(card_info.action_type)
-	action_type_label.add_theme_color_override("font_color", text_color)
 
 
 func _init_enhancement_texture():
-	if not _can_have_enhancement_ui():
+	if card_info.enhancement == Constants.CardEnhancement.NONE:
 		enhancement_info.visible = false
 	else:
 		enhancement_info.visible = true
@@ -81,14 +77,6 @@ func _init_enhancement_texture():
 		enhancement_icon.self_modulate = enhancement_color
 		enhancement_label.text = CARD_TEXTURES.get_enhancement_as_string(enhancement)
 		enhancement_label.add_theme_color_override("font_color", enhancement_color)
-
-
-func _can_have_enhancement_ui() -> bool:
-	# Calculates if it should show Enhancement UI based off
-	# Constants.CardEnhancement enum (indexes 0-5 are attack
-	# cards).
-	var action_type = card_info.action_type
-	return action_type >= 0 and action_type <= 5
 
 
 func _init_insult_texture():

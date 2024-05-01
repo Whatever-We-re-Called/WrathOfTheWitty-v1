@@ -25,8 +25,9 @@ func _init_insecurities():
 	
 	# Handle generating the random rest.
 	var rng = RandomNumberGenerator.new()
+	var max_insecurity_index = Constants.Insecurity.keys().size() - 1
 	while template_card_info.insecurities.size() < template_card_info.insecurity_count:
-		var result = rng.randi_range(0, 5)
+		var result = rng.randi_range(0, max_insecurity_index)
 		while template_card_info.insecurities.has(result):
-			result = rng.randi_range(0, 5)
+			result = rng.randi_range(0, max_insecurity_index)
 		template_card_info.insecurities.append(result)

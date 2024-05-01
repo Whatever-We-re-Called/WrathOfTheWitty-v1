@@ -37,7 +37,7 @@ var opponent_player_info: PlayerInfo
 var selected_template_card_hand_index: int = 0
 
 const BASE_CARD_REROLL_STAMINA_COST = 1
-const BASE_TEMPLATE_CARD_REROLL_STAMINA_COST = 3
+const BASE_TEMPLATE_CARD_REROLL_STAMINA_COST = 2
 const STATUS_EFFECT_UI = preload("res://players/status_effects/status_effect_ui.tscn")
 const BATTLE_ACTION_EXECUTION_INFO = preload("res://battle/action_execution/battle_action_execution_info.tres")
 

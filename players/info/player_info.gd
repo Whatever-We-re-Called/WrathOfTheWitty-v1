@@ -31,7 +31,7 @@ class_name PlayerInfo extends Resource
 var current_player_instance = null
 var current_health: int = -1
 
-const TEMPLATE_HAND_STAT = 3
+const TEMPLATE_HAND_STAT = 2
 
 
 func init_unhandled_equipped_template_cards():

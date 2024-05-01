@@ -35,20 +35,15 @@ static func _execute_callable(battle_ability_execution_data: BattleAbilityExecut
 	execute_callable.call(battle_ability_execution_data)
 
 
-
 static func _is_matching_insecurities(template_card_info: TemplateCardInfo, card_infos: Array[CardInfo]) -> bool:
 	if card_infos.size() == 1: return false
 	
-	var first_action_type = card_infos[0].action_type
 	for card_info in card_infos:
-		if not card_info.is_attack_card():
-			return false
-		else:
-			var found_match = false
-			for insecurity in template_card_info.insecurities:
-				if Constants.get_insecurity_of_action_type(card_info.action_type) == insecurity:
-					found_match = true
-			if not found_match: return false
+		var found_match = false
+		for insecurity in template_card_info.insecurities:
+			if card_info.insecurity == insecurity:
+				found_match = true
+		if not found_match: return false
 	
 	return true
 
