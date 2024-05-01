@@ -9,5 +9,5 @@ sentence = "Are you going to cry? You, a shitty little %noun%? A pissy little %n
 nonupgraded_description = "Inflict 2 Hide and 3 Weaken onto your opponent."
 upgraded_description = "Inflict 3 Hide and 5 Weaken onto your opponent."
 background_color = Color(0.180392, 0.219608, 0.117647, 1)
-insecurity_count = 1
+insecurity_count = 2
 execute_function_name = "_execute_shit_and_piss"

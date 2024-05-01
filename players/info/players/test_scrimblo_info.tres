@@ -36,7 +36,7 @@ insult_text = "confusing"
 script = ExtResource("1_5bkd6")
 insecurity = 1
 attack_value = 5
-enhancement = 0
+enhancement = 1
 insult_text = "pain in the ass"
 
 [sub_resource type="Resource" id="Resource_onrjy"]
@@ -50,21 +50,21 @@ insult_text = "stupid fella"
 script = ExtResource("1_5bkd6")
 insecurity = 1
 attack_value = 7
-enhancement = 0
+enhancement = 1
 insult_text = "repulsive"
 
 [sub_resource type="Resource" id="Resource_nyqgl"]
 script = ExtResource("1_5bkd6")
 insecurity = 2
 attack_value = 7
-enhancement = 0
+enhancement = 2
 insult_text = "incompetent"
 
 [sub_resource type="Resource" id="Resource_cd6nm"]
 script = ExtResource("1_5bkd6")
 insecurity = 2
 attack_value = 6
-enhancement = 0
+enhancement = 1
 insult_text = "disgustingly hideous"
 
 [sub_resource type="Resource" id="Resource_cnbq3"]
@@ -92,14 +92,14 @@ insult_text = "unlikeable"
 script = ExtResource("1_5bkd6")
 insecurity = 3
 attack_value = 5
-enhancement = 0
+enhancement = 1
 insult_text = "nerd"
 
 [sub_resource type="Resource" id="Resource_j107m"]
 script = ExtResource("1_5bkd6")
 insecurity = 4
 attack_value = 7
-enhancement = 0
+enhancement = 2
 insult_text = "goober"
 
 [sub_resource type="Resource" id="Resource_ijkhp"]
@@ -113,7 +113,7 @@ insult_text = "laughable"
 script = ExtResource("1_5bkd6")
 insecurity = 4
 attack_value = 7
-enhancement = 0
+enhancement = 1
 insult_text = "abominable"
 
 [sub_resource type="Resource" id="Resource_n75qe"]

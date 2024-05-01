@@ -21,6 +21,15 @@ enum CardEnhancement {
 	RANDOM
 }
 
+const enhancement_strings = {
+	Constants.CardEnhancement.NONE: "None",
+	Constants.CardEnhancement.REFRESHING: "Refreshing",
+	Constants.CardEnhancement.DEPENDABLE: "Dependable",
+	Constants.CardEnhancement.REPRESS: "Repress",
+	Constants.CardEnhancement.WILDCARD: "Wildcard",
+	Constants.CardEnhancement.RANDOM: "Random"
+}
+
 enum PlayerStatusEffect {
 	SHIELD,
 	STRENGTH,

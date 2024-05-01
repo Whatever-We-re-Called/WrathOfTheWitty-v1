@@ -59,7 +59,6 @@ func _init_attack_texture():
 	for corner_rect in corner_rects:
 		corner_rect.color = corner_color
 	
-	print(card_info.insecurity)
 	attack_value_label.text = str(card_info.attack_value)
 
 
@@ -72,7 +71,7 @@ func _init_enhancement_texture():
 		var color = Color.WHITE
 		enhancement_icon.texture = CARD_TEXTURES.enhancement_icon
 		enhancement_icon.self_modulate = color
-		#enhancement_label.text = CARD_TEXTURES.get_enhancement_as_string(enhancement)
+		enhancement_label.text = Constants.enhancement_strings[card_info.enhancement]
 		enhancement_label.add_theme_color_override("font_color", color)
 
 
