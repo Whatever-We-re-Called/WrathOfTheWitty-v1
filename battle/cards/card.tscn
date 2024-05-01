@@ -28,7 +28,7 @@ offset_left = -112.0
 offset_top = -56.0
 offset_right = 112.0
 offset_bottom = 56.0
-color = Color(0.396078, 0.45098, 0.494118, 1)
+color = Color(0.52549, 0.309804, 0.262745, 1)
 
 [node name="ColorRect2" type="ColorRect" parent="HiddenOverlay"]
 custom_minimum_size = Vector2(224, 4)
@@ -37,7 +37,7 @@ offset_left = -112.0
 offset_top = -60.0
 offset_right = 112.0
 offset_bottom = -56.0
-color = Color(0.439216, 0.498039, 0.545098, 1)
+color = Color(0.584314, 0.34902, 0.298039, 1)
 
 [node name="Label" type="Label" parent="HiddenOverlay"]
 layout_mode = 1

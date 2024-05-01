@@ -79,9 +79,9 @@ static func _get_damage_dealt_value(battle_action_execution_data: BattleActionEx
 static func _execute_action_card_effect(battle_action_execution_data: BattleActionExecutionData):
 	match battle_action_execution_data.card_info.insecurity:
 		Constants.Insecurity.APPEARANCE:
-			_inflict_slime_effect_onto_enemy(battle_action_execution_data)
-		Constants.Insecurity.SELF_ESTEEM:
 			_inflict_hide_effect_onto_enemy(battle_action_execution_data)
+		Constants.Insecurity.SELF_ESTEEM:
+			_inflict_slime_effect_onto_enemy(battle_action_execution_data)
 		Constants.Insecurity.INTELLIGENCE:
 			_inflict_poison_effect_onto_enemy(battle_action_execution_data)
 		Constants.Insecurity.PHYSICAL_ABILITY:

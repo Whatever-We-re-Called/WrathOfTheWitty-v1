@@ -180,3 +180,16 @@ static func _execute_block(battle_ability_execution_data: BattleAbilityExecution
 		attack_player.apply_status_effect(status_effect, 12)
 	else:
 		attack_player.apply_status_effect(status_effect, 8)
+
+
+static func _execute_shit_and_piss(battle_ability_execution_data: BattleAbilityExecutionData):
+	var defender_player = battle_ability_execution_data.defender_player
+	var hide_status_effect = Constants.PlayerStatusEffect.HIDE
+	var weaken_status_effect = Constants.PlayerStatusEffect.WEAKEN
+	
+	if battle_ability_execution_data.is_upgraded:
+		defender_player.apply_status_effect(hide_status_effect, 3)
+		defender_player.apply_status_effect(weaken_status_effect, 5)
+	else:
+		defender_player.apply_status_effect(hide_status_effect, 2)
+		defender_player.apply_status_effect(weaken_status_effect, 3)

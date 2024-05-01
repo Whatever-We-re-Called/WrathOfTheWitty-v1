@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TemplateCardInfo" load_steps=2 format=3 uid="uid://dafmt5vf7g5xo"]
+
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="1_gh2f0"]
+
+[resource]
+script = ExtResource("1_gh2f0")
+name = "Shit and Piss"
+sentence = "Are you going to cry? You, a shitty little %noun%? A pissy little %noun%?"
+nonupgraded_description = "Inflict 2 Hide and 3 Weaken onto your opponent."
+upgraded_description = "Inflict 3 Hide and 5 Weaken onto your opponent."
+background_color = Color(0.180392, 0.219608, 0.117647, 1)
+insecurity_count = 1
+execute_function_name = "_execute_shit_and_piss"
