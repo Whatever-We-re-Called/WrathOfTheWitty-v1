@@ -30,11 +30,6 @@ static func try_to_execute(template_card_info: TemplateCardInfo, card_infos: Arr
 			_execute_callable(battle_ability_execution_data, template_card_info, template_card_info.execute_function_name)
 
 
-static func _execute_callable(battle_ability_execution_data: BattleAbilityExecutionData, template_card_info: TemplateCardInfo, called_function: String):
-	var execute_callable = Callable(BattleAbilityExecution, template_card_info.execute_function_name)
-	execute_callable.call(battle_ability_execution_data)
-
-
 static func _is_matching_insecurities(template_card_info: TemplateCardInfo, card_infos: Array[CardInfo]) -> bool:
 	if card_infos.size() == 1: return false
 	
@@ -43,9 +38,16 @@ static func _is_matching_insecurities(template_card_info: TemplateCardInfo, card
 		for insecurity in template_card_info.insecurities:
 			if card_info.insecurity == insecurity:
 				found_match = true
+			elif card_info.enhancement == Constants.CardEnhancement.WILDCARD:
+				found_match = true
 		if not found_match: return false
 	
 	return true
+
+
+static func _execute_callable(battle_ability_execution_data: BattleAbilityExecutionData, template_card_info: TemplateCardInfo, called_function: String):
+	var execute_callable = Callable(BattleAbilityExecution, template_card_info.execute_function_name)
+	execute_callable.call(battle_ability_execution_data)
 
 
 static func _execute_poison_dart(battle_ability_execution_data: BattleAbilityExecutionData):

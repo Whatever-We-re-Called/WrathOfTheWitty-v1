@@ -22,7 +22,7 @@ insult_text = "bitch"
 script = ExtResource("1_5bkd6")
 insecurity = 0
 attack_value = 6
-enhancement = 0
+enhancement = 4
 insult_text = "idiot"
 
 [sub_resource type="Resource" id="Resource_rtv6e"]
@@ -85,7 +85,7 @@ insult_text = "confusing"
 script = ExtResource("1_5bkd6")
 insecurity = 3
 attack_value = 5
-enhancement = 0
+enhancement = 4
 insult_text = "unlikeable"
 
 [sub_resource type="Resource" id="Resource_2x44g"]
