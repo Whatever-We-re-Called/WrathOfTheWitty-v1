@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TemplateCardInfo" load_steps=2 format=3 uid="uid://be7qv7emwv865"]
+
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="1_w7lfk"]
+
+[resource]
+script = ExtResource("1_w7lfk")
+name = "Pierce"
+sentence = "Between being %noun% and %noun%, I'm surprised you're still fighting."
+nonupgraded_description = "Receive 2 Pierce."
+upgraded_description = "Receive 3 Pierce."
+background_color = Color(0.219608, 0.12549, 0.117647, 1)
+insecurity_count = 1
+execute_function_name = "_execute_pierce"

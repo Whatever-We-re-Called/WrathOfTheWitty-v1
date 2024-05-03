@@ -74,6 +74,7 @@ var PlayerStatusEffectInfo = {
 	PlayerStatusEffect.REPRESS_SELF_ESTEEM: preload("res://players/status_effects/effects/repress_self_esteem_status_effect.tres"),
 	PlayerStatusEffect.REPRESS_SOCIAL_LIFE: preload("res://players/status_effects/effects/repress_social_life_status_effect.tres"),
 	PlayerStatusEffect.STRENGTH: preload("res://players/status_effects/effects/strength_status_effect.tres"),
+	PlayerStatusEffect.PIERCE: preload("res://players/status_effects/effects/pierce_status_effect.tres"),
 }
 
 enum PlayerSide {

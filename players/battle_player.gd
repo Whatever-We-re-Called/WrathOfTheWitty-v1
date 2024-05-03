@@ -33,7 +33,7 @@ var template_card_arrays = [
 ]
 
 var cards_in_hand_scenes: Array[Card]
-var opponent_player_info: PlayerInfo
+var opponent_battle_player: BattlePlayer
 var selected_template_card_hand_index: int = 0
 
 const BASE_CARD_REROLL_STAMINA_COST = 1
@@ -69,10 +69,14 @@ func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 	scale = info.sprite_scale
 	sprite_frames = info.sprite_frames
 	play()
-	
+
 
 func damage(amount: int, skip_blessing_signal: bool = false, ignore_shield: bool = false):
 	if amount <= 0: return
+	
+	if opponent_battle_player.active_status_effects.has(Constants.PlayerStatusEffect.PIERCE):
+		opponent_battle_player.decrement_status_effect(Constants.PlayerStatusEffect.PIERCE, 1)
+		ignore_shield = true 
 	
 	if not ignore_shield:
 		var shield_amount = 0
@@ -430,8 +434,8 @@ func _set_card_on_fire(card: Card):
 		else:
 			extinguish_damage -= 1
 	
-	if opponent_player_info.has_blessing(Blessings.Type.BURN_STRENGTH):
-		if opponent_player_info.is_blessing_cosmic(Blessings.Type.BURN_STRENGTH):
+	if opponent_battle_player.info.has_blessing(Blessings.Type.BURN_STRENGTH):
+		if opponent_battle_player.info.is_blessing_cosmic(Blessings.Type.BURN_STRENGTH):
 			extinguish_damage += 2
 		else:
 			extinguish_damage += 1

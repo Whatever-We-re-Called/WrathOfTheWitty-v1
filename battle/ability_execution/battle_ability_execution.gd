@@ -205,3 +205,13 @@ static func _execute_power_up(battle_ability_execution_data: BattleAbilityExecut
 		defender_player.apply_status_effect(status_effect, 8)
 	else:
 		defender_player.apply_status_effect(status_effect, 5)
+
+
+static func _execute_pierce(battle_ability_execution_data: BattleAbilityExecutionData):
+	var defender_player = battle_ability_execution_data.attacker_player
+	var status_effect = Constants.PlayerStatusEffect.PIERCE
+	
+	if battle_ability_execution_data.is_upgraded:
+		defender_player.apply_status_effect(status_effect, 3)
+	else:
+		defender_player.apply_status_effect(status_effect, 2)

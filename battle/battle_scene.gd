@@ -30,8 +30,8 @@ func _ready():
 	
 	_init_player(Constants.PlayerSide.LEFT, left_player_config.duplicate(), left_player_node)
 	_init_player(Constants.PlayerSide.RIGHT, right_player_config.duplicate(), right_player_node)
-	players[Constants.PlayerSide.LEFT].opponent_player_info = players[Constants.PlayerSide.RIGHT].info
-	players[Constants.PlayerSide.RIGHT].opponent_player_info = players[Constants.PlayerSide.LEFT].info
+	players[Constants.PlayerSide.LEFT].opponent_battle_player = players[Constants.PlayerSide.RIGHT]
+	players[Constants.PlayerSide.RIGHT].opponent_battle_player = players[Constants.PlayerSide.LEFT]
 	
 	players[Constants.PlayerSide.LEFT].handle_start_battle()
 	players[Constants.PlayerSide.LEFT].handle_start_turn()
