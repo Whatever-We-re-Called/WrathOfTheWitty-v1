@@ -11,13 +11,11 @@ class BattleActionExecutionData:
 
 
 static func execute_action_cards(card_infos: Array[CardInfo], battle_scene: BattleScene):
-	var supportive_enhancement_value = 0
-	
 	for card_info in card_infos:
-		execute_action_card(card_info, battle_scene, supportive_enhancement_value)
+		execute_action_card(card_info, battle_scene)
 
 
-static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene, supportive_enhancement_value: int = 0):
+static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene):
 	var attacker_player = battle_scene.player
 	var defender_player = battle_scene.get_non_active_side_player() 
 	
@@ -28,12 +26,15 @@ static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene, 
 	battle_action_execution_data.defender_player = battle_scene.get_non_active_side_player()
 	
 	_execute_action_card_attack(battle_action_execution_data)
+	_execute_enhancement_if_applicable(battle_action_execution_data)
 	
 	battle_action_execution_data.battle_scene.battle_interface.update_player_stats(attacker_player)
 	battle_action_execution_data.battle_scene.battle_interface.update_player_stats(defender_player)
 
 
 static func _execute_action_card_attack(battle_action_execution_data: BattleActionExecutionData):
+	if battle_action_execution_data.card_info.is_repressed: return
+	
 	var damage_dealt = _get_damage_dealt_value(battle_action_execution_data)
 	
 	battle_action_execution_data.defender_player.damage(damage_dealt)
@@ -169,3 +170,14 @@ static func _get_insecurity_status_effect_times_applied(magic_stat_value: int, b
 		magic_stat_value -= 10
 	
 	return times_applied
+
+
+static func _execute_enhancement_if_applicable(battle_action_execution_data: BattleActionExecutionData):
+	var enhancement = battle_action_execution_data.card_info.enhancement
+	if enhancement == Constants.CardEnhancement.NONE: return
+	
+	var card_info = battle_action_execution_data.card_info
+	var defender_player = battle_action_execution_data.defender_player
+	match enhancement:
+		Constants.CardEnhancement.REPRESS:
+			defender_player.apply_repress(card_info.insecurity)

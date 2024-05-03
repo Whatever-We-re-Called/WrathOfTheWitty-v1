@@ -290,6 +290,23 @@ func apply_status_effect(effect: Constants.PlayerStatusEffect, value: int):
 		active_status_effects[effect] = value
 
 
+func apply_repress(insecurity: Constants.Insecurity):
+	var effect: Constants.PlayerStatusEffect
+	match insecurity:
+		Constants.Insecurity.APPEARANCE:
+			effect = Constants.PlayerStatusEffect.REPRESS_APPEARANCE
+		Constants.Insecurity.SELF_ESTEEM:
+			effect = Constants.PlayerStatusEffect.REPRESS_SELF_ESTEEM
+		Constants.Insecurity.INTELLIGENCE:
+			effect = Constants.PlayerStatusEffect.REPRESS_INTELLIGENCE
+		Constants.Insecurity.PHYSICAL_ABILITY:
+			effect = Constants.PlayerStatusEffect.REPRESS_PHYSICAL_ABILITY
+		Constants.Insecurity.SOCIAL_LIFE:
+			effect = Constants.PlayerStatusEffect.REPRESS_SOCIAL_LIFE
+	
+	active_status_effects[effect] = 1
+
+
 func get_frozen_stamina_count() -> int:
 	return frozen_stamina_count
 	
@@ -308,6 +325,7 @@ func handle_start_turn():
 	add_cards_to_hand(_get_needed_cards_count())
 	add_template_cards_to_hand(_get_needed_template_cards_count())
 	info.emit_turn_started_blessing_signal()
+	
 	_handle_stamina_recharge()
 	_handle_poison_status_effect()
 
@@ -327,6 +345,7 @@ func handle_delayed_start_turn():
 	_handle_slime_status_effect()
 	_handle_hide_status_effect()
 	_handle_freeze_status_effect()
+	_update_hand_repressed_status()
 
 
 func handle_end_turn():
@@ -336,7 +355,7 @@ func handle_end_turn():
 
 
 func handle_delayed_end_turn():
-	pass
+	remove_repressed_status()
 
 
 func _handle_stamina_recharge():
@@ -445,3 +464,35 @@ func _decrement_status_effects():
 
 func _reset_frozen_stamina():
 	frozen_stamina_count = 0
+
+
+func _update_hand_repressed_status():
+	for card_info in cards_in_hand:
+		var insecurity = card_info.insecurity
+		var is_repessed = false
+		if insecurity == Constants.Insecurity.APPEARANCE and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_APPEARANCE):
+			is_repessed = true
+		if insecurity == Constants.Insecurity.SELF_ESTEEM and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_SELF_ESTEEM):
+			is_repessed = true
+		if insecurity == Constants.Insecurity.INTELLIGENCE and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_INTELLIGENCE):
+			is_repessed = true
+		if insecurity == Constants.Insecurity.PHYSICAL_ABILITY and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_PHYSICAL_ABILITY):
+			is_repessed = true
+		if insecurity == Constants.Insecurity.SOCIAL_LIFE and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_SOCIAL_LIFE):
+			is_repessed = true
+		
+		card_info.is_repressed = is_repessed
+		card_info.card_scene.set_as_repressed(is_repessed)
+
+
+func remove_repressed_status():
+	var repress_status_effects = [
+		Constants.PlayerStatusEffect.REPRESS_APPEARANCE,
+		Constants.PlayerStatusEffect.REPRESS_SELF_ESTEEM,
+		Constants.PlayerStatusEffect.REPRESS_INTELLIGENCE,
+		Constants.PlayerStatusEffect.REPRESS_PHYSICAL_ABILITY,
+		Constants.PlayerStatusEffect.REPRESS_SOCIAL_LIFE
+	]
+	for repress_status_effect in repress_status_effects:
+		if active_status_effects.has(repress_status_effect):
+			decrement_status_effect(repress_status_effect, 1000)

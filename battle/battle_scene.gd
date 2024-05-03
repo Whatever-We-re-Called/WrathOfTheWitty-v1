@@ -218,6 +218,7 @@ func change_turns():
 	player.handle_delayed_start_turn()
 	battle_interface.update_player_deck_and_bag_ui(player)
 	battle_interface.update_player_stats(player)
+	battle_interface.update_player_stats(get_non_active_side_player())
 	battle_interface.toggle_hand_visibility(true)
 	
 	is_changing_turns = false

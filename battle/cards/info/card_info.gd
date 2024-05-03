@@ -13,6 +13,7 @@ class_name CardInfo extends Resource
 var card_scene: Card
 var card_enhancement_stack: Array[Constants.CardEnhancement]
 var dont_put_in_bag = false
+var is_repressed = false
 
 
 func add_to_enhancement_stack(enhancement: Constants.CardEnhancement):

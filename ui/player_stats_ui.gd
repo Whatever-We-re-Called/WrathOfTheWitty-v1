@@ -37,7 +37,8 @@ func _update_status_effect_ui(player: BattlePlayer):
 		var status_effect_info = Constants.PlayerStatusEffectInfo[status_effect]
 		var icon = status_effect_info.icon
 		var color = status_effect_info.color
+		var hide_text = Constants.PlayerStatusEffectInfo[status_effect].hide_quantity_text
 		
 		var status_effect_ui = STATUS_EFFECT_UI_SCENE.instantiate()
-		status_effect_ui.init(icon, value, color)
+		status_effect_ui.init(icon, value, color, hide_text)
 		status_effect_container.add_child(status_effect_ui)

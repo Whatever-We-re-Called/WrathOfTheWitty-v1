@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=3 format=3 uid="uid://cotehbuxouvrf"]
+
+[ext_resource type="Texture2D" uid="uid://dulyfjbqm82d3" path="res://players/status_effects/textures/fire.svg" id="1_2yfpq"]
+[ext_resource type="Script" path="res://players/status_effects/effects/status_effect_info.gd" id="2_dvgsi"]
+
+[resource]
+script = ExtResource("2_dvgsi")
+icon = ExtResource("1_2yfpq")
+color = Color(0.898039, 0.266667, 0.266667, 1)
+decrement_per_turn_value = 0
+handle_decrement_automatically = false

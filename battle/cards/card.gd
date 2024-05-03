@@ -19,6 +19,8 @@ signal fire_extinguished
 @onready var slimed_overlay = %SlimedOverlay
 @onready var hidden_overlay = %HiddenOverlay
 @onready var attack_value_label = %AttackValueLabel
+@onready var repressed_background = %RepressedBackground
+@onready var repress_overlay = %RepressOverlay
 
 var card_info: CardInfo
 var player: BattlePlayer
@@ -27,6 +29,7 @@ var card_enhancement_stack: Array[Constants.CardEnhancement]
 var is_burning = false
 var is_slimed = false
 var is_hidden = false
+var is_repressed = false
 
 const CARD_TEXTURES = preload("res://battle/cards/textures/card_textures.tres")
 const BATTLE_ACTION_EXECUTION_INFO = preload("res://battle/action_execution/battle_action_execution_info.tres")
@@ -51,6 +54,7 @@ func _init_attack_texture():
 	button.add_theme_stylebox_override("pressed", style_box)
 	button.add_theme_stylebox_override("disabled", style_box)
 	button.add_theme_stylebox_override("focus", style_box)
+	repressed_background.color = color
 	
 	var corner_color_gradient = Gradient.new()
 	corner_color_gradient.add_point(0, color)
@@ -98,6 +102,11 @@ func set_as_slimed(slimed: bool):
 func set_as_hidden(hidden: bool):
 	self.is_hidden = hidden
 	hidden_overlay.visible = hidden
+
+
+func set_as_repressed(repressed: bool):
+	self.is_repressed = repressed
+	repress_overlay.visible = repressed
 
 
 func _on_button_gui_input(event):
