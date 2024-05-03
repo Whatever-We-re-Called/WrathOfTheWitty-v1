@@ -33,7 +33,10 @@ static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene):
 
 
 static func _execute_action_card_attack(battle_action_execution_data: BattleActionExecutionData):
-	if battle_action_execution_data.card_info.is_repressed: return
+	var attacker_player = battle_action_execution_data.attacker_player
+	var card_info = battle_action_execution_data.card_info
+	if attacker_player.is_repressed_for_insecurity(card_info.insecurity):
+		return
 	
 	var damage_dealt = _get_damage_dealt_value(battle_action_execution_data)
 	

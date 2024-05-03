@@ -203,6 +203,8 @@ func reroll_card(card: Card):
 	else:
 		card.set_as_hidden(false)
 	
+	card.set_as_repressed(is_repressed_for_insecurity(card.card_info.insecurity))
+	
 	info.emit_rerolled_card_signal()
 
 
@@ -315,6 +317,23 @@ func get_frozen_stamina_count() -> int:
 		#if (i + 1) <= stamina:
 			#result += 1
 	#return result
+
+
+func is_repressed_for_insecurity(insecurity: Constants.Insecurity) -> bool:
+	var is_repressed = false
+	
+	if insecurity == Constants.Insecurity.APPEARANCE and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_APPEARANCE):
+		is_repressed = true
+	if insecurity == Constants.Insecurity.SELF_ESTEEM and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_SELF_ESTEEM):
+		is_repressed = true
+	if insecurity == Constants.Insecurity.INTELLIGENCE and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_INTELLIGENCE):
+		is_repressed = true
+	if insecurity == Constants.Insecurity.PHYSICAL_ABILITY and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_PHYSICAL_ABILITY):
+		is_repressed = true
+	if insecurity == Constants.Insecurity.SOCIAL_LIFE and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_SOCIAL_LIFE):
+		is_repressed = true
+	
+	return is_repressed
 
 
 func handle_start_battle():
@@ -468,21 +487,8 @@ func _reset_frozen_stamina():
 
 func _update_hand_repressed_status():
 	for card_info in cards_in_hand:
-		var insecurity = card_info.insecurity
-		var is_repessed = false
-		if insecurity == Constants.Insecurity.APPEARANCE and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_APPEARANCE):
-			is_repessed = true
-		if insecurity == Constants.Insecurity.SELF_ESTEEM and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_SELF_ESTEEM):
-			is_repessed = true
-		if insecurity == Constants.Insecurity.INTELLIGENCE and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_INTELLIGENCE):
-			is_repessed = true
-		if insecurity == Constants.Insecurity.PHYSICAL_ABILITY and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_PHYSICAL_ABILITY):
-			is_repessed = true
-		if insecurity == Constants.Insecurity.SOCIAL_LIFE and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_SOCIAL_LIFE):
-			is_repessed = true
-		
-		card_info.is_repressed = is_repessed
-		card_info.card_scene.set_as_repressed(is_repessed)
+		var is_repressed = is_repressed_for_insecurity(card_info.insecurity)
+		card_info.card_scene.set_as_repressed(is_repressed)
 
 
 func remove_repressed_status():
