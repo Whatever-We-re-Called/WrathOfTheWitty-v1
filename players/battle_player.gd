@@ -129,7 +129,11 @@ func get_next_card_in_deck(remove_result_card: bool) -> CardInfo:
 		return
 	
 	var result = cards_in_deck[0]
+	
 	if remove_result_card:
+		if result.enhancement == Constants.CardEnhancement.RANDOM:
+			_ranomize_card_info(result)
+		
 		cards_in_deck.pop_front()
 		if cards_in_deck.is_empty():
 			_refill_deck_from_bag()
@@ -148,6 +152,7 @@ func _refill_deck_from_bag():
 
 func send_card_to_bag(card_info: CardInfo):
 	cards_in_bag.push_back(card_info)
+	card_info.reset_insecurity_stack()
 	card_info.reset_enhancement_stack()
 
 
@@ -239,6 +244,18 @@ func can_afford_template_card_reroll() -> bool:
 
 func get_template_card_reroll_stamina_cost() -> int:
 	return BASE_TEMPLATE_CARD_REROLL_STAMINA_COST
+
+
+func _ranomize_card_info(card_info: CardInfo):
+	var rng = RandomNumberGenerator.new()
+	var new_insecurity = Constants.Insecurity.values()[rng.randi_range(0, Constants.Insecurity.keys().size() - 1)]
+	var new_enhancement = Constants.CardEnhancement.NONE
+	while new_enhancement == Constants.CardEnhancement.NONE or new_enhancement == Constants.CardEnhancement.RANDOM:
+		new_enhancement = Constants.CardEnhancement.values()[rng.randi_range(1, Constants.CardEnhancement.keys().size() - 1)]
+	
+	card_info.insecurity = new_insecurity
+	card_info.add_to_enhancement_stack(new_enhancement)
+	
 
 
 func decrement_status_effect(status_effect: Constants.PlayerStatusEffect, decrement_amount: int):

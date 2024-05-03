@@ -15,7 +15,7 @@
 script = ExtResource("1_5bkd6")
 insecurity = 0
 attack_value = 6
-enhancement = 0
+enhancement = 5
 insult_text = "bitch"
 
 [sub_resource type="Resource" id="Resource_aq08t"]
@@ -50,7 +50,7 @@ insult_text = "stupid fella"
 script = ExtResource("1_5bkd6")
 insecurity = 1
 attack_value = 7
-enhancement = 3
+enhancement = 5
 insult_text = "repulsive"
 
 [sub_resource type="Resource" id="Resource_nyqgl"]

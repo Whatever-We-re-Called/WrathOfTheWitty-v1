@@ -57,6 +57,37 @@ text = "???"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="RepressOverlay" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 4
+layout_mode = 2
+
+[node name="RepressedBackground" type="ColorRect" parent="RepressOverlay"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -112.0
+offset_top = -56.0
+offset_right = -22.0
+offset_bottom = -24.0
+color = Color(0, 0, 0, 1)
+
+[node name="AttackInfo" type="MarginContainer" parent="RepressOverlay/RepressedBackground"]
+layout_mode = 1
+offset_right = 85.0
+offset_bottom = 27.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 0
+
+[node name="Label" type="Label" parent="RepressOverlay/RepressedBackground/AttackInfo"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 12
+text = "Repressed"
+vertical_alignment = 1
+
 [node name="SlimedOverlay" type="Control" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -101,37 +132,6 @@ offset_right = 100.0
 offset_bottom = 44.0
 texture = ExtResource("2_8745d")
 stretch_mode = 4
-
-[node name="RepressOverlay" type="Control" parent="."]
-unique_name_in_owner = true
-visible = false
-z_index = 4
-layout_mode = 2
-
-[node name="RepressedBackground" type="ColorRect" parent="RepressOverlay"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = -112.0
-offset_top = -56.0
-offset_right = -22.0
-offset_bottom = -24.0
-color = Color(0, 0, 0, 1)
-
-[node name="AttackInfo" type="MarginContainer" parent="RepressOverlay/RepressedBackground"]
-layout_mode = 1
-offset_right = 85.0
-offset_bottom = 27.0
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 0
-
-[node name="Label" type="Label" parent="RepressOverlay/RepressedBackground/AttackInfo"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 12
-text = "Repressed"
-vertical_alignment = 1
 
 [node name="BurningOverlay" type="ColorRect" parent="."]
 unique_name_in_owner = true
