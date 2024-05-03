@@ -55,6 +55,14 @@ static func _get_damage_dealt_value(battle_action_execution_data: BattleActionEx
 	
 	var damage_dealt = card_info.attack_value
 	
+	# Handle Strength
+	var strength_status_effect = Constants.PlayerStatusEffect.STRENGTH
+	if attacker_player.active_status_effects.has(strength_status_effect):
+		var strength_value = attacker_player.active_status_effects[strength_status_effect]
+		damage_dealt += strength_status_effect
+		
+		attacker_player.decrement_status_effect(strength_status_effect, 1)
+	
 	# Handle Weak
 	var weaken_status_effect = Constants.PlayerStatusEffect.WEAKEN
 	if attacker_player.active_status_effects.has(weaken_status_effect):
