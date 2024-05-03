@@ -133,48 +133,56 @@ offset_bottom = 44.0
 texture = ExtResource("2_8745d")
 stretch_mode = 4
 
-[node name="BurningOverlay" type="ColorRect" parent="."]
+[node name="BurningOverlay" type="Control" parent="."]
 unique_name_in_owner = true
 visible = false
 z_index = 5
 custom_minimum_size = Vector2(224, 112)
 layout_mode = 2
-color = Color(0.898039, 0.266667, 0.266667, 0.588235)
 
-[node name="TopOverlayFix" type="ColorRect" parent="BurningOverlay"]
-z_index = 5
-custom_minimum_size = Vector2(224, 4)
-layout_mode = 2
-offset_top = -4.0
-offset_right = 224.0
-color = Color(0.898039, 0.266667, 0.266667, 0.588235)
-
-[node name="HBoxContainer" type="HBoxContainer" parent="BurningOverlay"]
+[node name="TextureRect4" type="TextureRect" parent="BurningOverlay"]
+modulate = Color(0.898039, 0.266667, 0.266667, 0.588235)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -60.5
-offset_top = -22.5
-offset_right = 60.5
-offset_bottom = 22.5
+offset_left = -43.0
+offset_top = -75.0
+offset_right = 43.0
+offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 16
-
-[node name="TextureRect" type="TextureRect" parent="BurningOverlay/HBoxContainer"]
-layout_mode = 2
 texture = ExtResource("3_7tppc")
-expand_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BurningOverlay"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -39.0
+offset_top = -23.0
+offset_right = 40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="BurningOverlay/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Extinguish Cost: "
 
 [node name="BurningLabel" type="Label" parent="BurningOverlay/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 16
 text = "2 HP"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="InsultContainer" type="MarginContainer" parent="."]
 z_index = 1
