@@ -74,10 +74,12 @@ func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 func damage(amount: int, skip_blessing_signal: bool = false, ignore_shield: bool = false):
 	if amount <= 0: return
 	
+	# Pierce detection.
 	if opponent_battle_player.active_status_effects.has(Constants.PlayerStatusEffect.PIERCE):
 		opponent_battle_player.decrement_status_effect(Constants.PlayerStatusEffect.PIERCE, 1)
 		ignore_shield = true 
 	
+	# Pierce / Ignore shield handling.
 	if not ignore_shield:
 		var shield_amount = 0
 		if active_status_effects.has(Constants.PlayerStatusEffect.SHIELD):
@@ -85,6 +87,8 @@ func damage(amount: int, skip_blessing_signal: bool = false, ignore_shield: bool
 		for i in range(shield_amount):
 			amount -= 1
 			shield_amount -= 1
+			if amount <= 0:
+				break
 		active_status_effects[Constants.PlayerStatusEffect.SHIELD] = shield_amount
 	
 	health -= amount
@@ -93,6 +97,18 @@ func damage(amount: int, skip_blessing_signal: bool = false, ignore_shield: bool
 	
 	if not skip_blessing_signal:
 		info.emit_damaged_signal()
+	
+	# Thorns handling.
+	if active_status_effects.has(Constants.PlayerStatusEffect.THORNS):
+		var thorns_amount = active_status_effects[Constants.PlayerStatusEffect.THORNS]
+		var thorns_damage = 0
+		for i in range(thorns_amount):
+			amount -= 1
+			thorns_damage += 1
+			if amount <= 0:
+				break
+		decrement_status_effect(Constants.PlayerStatusEffect.THORNS, thorns_damage)
+		opponent_battle_player.damage(thorns_damage)
 
 
 func _execute_damage_visual():

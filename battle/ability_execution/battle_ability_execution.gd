@@ -215,3 +215,13 @@ static func _execute_pierce(battle_ability_execution_data: BattleAbilityExecutio
 		defender_player.apply_status_effect(status_effect, 3)
 	else:
 		defender_player.apply_status_effect(status_effect, 2)
+
+
+static func _execute_thorns(battle_ability_execution_data: BattleAbilityExecutionData):
+	var defender_player = battle_ability_execution_data.attacker_player
+	var status_effect = Constants.PlayerStatusEffect.THORNS
+	
+	if battle_ability_execution_data.is_upgraded:
+		defender_player.apply_status_effect(status_effect, 12)
+	else:
+		defender_player.apply_status_effect(status_effect, 8)

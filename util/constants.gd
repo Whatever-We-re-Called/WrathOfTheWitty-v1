@@ -33,8 +33,9 @@ const enhancement_strings = {
 enum PlayerStatusEffect {
 	SHIELD,
 	STRENGTH,
-	THORN,
+	THORNS,
 	DODGE,
+	SURVIVE,
 	PIERCE,
 	FURY,
 	RAGE,
@@ -54,10 +55,12 @@ enum PlayerStatusEffect {
 var positive_status_effects = [
 	PlayerStatusEffect.SHIELD,
 	PlayerStatusEffect.STRENGTH,
-	PlayerStatusEffect.THORN,
+	PlayerStatusEffect.THORNS,
 	PlayerStatusEffect.DODGE,
 	PlayerStatusEffect.PIERCE,
-	PlayerStatusEffect.FURY
+	PlayerStatusEffect.FURY,
+	PlayerStatusEffect.RAGE,
+	PlayerStatusEffect.SURVIVE
 ]
 
 var PlayerStatusEffectInfo = {
@@ -75,6 +78,7 @@ var PlayerStatusEffectInfo = {
 	PlayerStatusEffect.REPRESS_SOCIAL_LIFE: preload("res://players/status_effects/effects/repress_social_life_status_effect.tres"),
 	PlayerStatusEffect.STRENGTH: preload("res://players/status_effects/effects/strength_status_effect.tres"),
 	PlayerStatusEffect.PIERCE: preload("res://players/status_effects/effects/pierce_status_effect.tres"),
+	PlayerStatusEffect.THORNS: preload("res://players/status_effects/effects/thorns_status_effect.tres")
 }
 
 enum PlayerSide {
