@@ -35,7 +35,6 @@ func _update_insecurity_affinities_ui(player: BattlePlayer):
 	var insecurity_affinities = player.info.get_insecurity_affinities()
 	for insecurity in insecurity_affinities:
 		var affinity_type = insecurity_affinities[insecurity]
-		print(player.info.name, " ", insecurity, " ", affinity_type)
 		var texture_rect = TextureRect.new()
 		texture_rect.texture = Constants.get_insecurity_icon(affinity_type)
 		texture_rect.modulate = Constants.get_insecurity_color(insecurity)

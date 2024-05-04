@@ -437,7 +437,7 @@ func _handle_burn_status_effect():
 		copy_of_cards_in_hands_scene.shuffle()
 		
 		for i in range(active_status_effects[Constants.PlayerStatusEffect.BURN]):
-			if i >= info.hand_stat: break
+			if i >= info.action_hand_stat: break
 			_set_card_on_fire(copy_of_cards_in_hands_scene[i])
 
 
@@ -467,7 +467,7 @@ func _handle_slime_status_effect():
 		copy_of_cards_in_hands_scene.shuffle()
 		
 		for i in range(active_status_effects[Constants.PlayerStatusEffect.SLIME]):
-			if i >= info.hand_stat: break
+			if i >= info.action_hand_stat: break
 			_set_card_as_slimed(copy_of_cards_in_hands_scene[i])
 
 
@@ -483,7 +483,7 @@ func _handle_hide_status_effect():
 		copy_of_cards_in_hands_scene.shuffle()
 		
 		for i in range(active_status_effects[Constants.PlayerStatusEffect.HIDE]):
-			if i >= info.hand_stat: break
+			if i >= info.action_hand_stat: break
 			_set_card_as_hidden(copy_of_cards_in_hands_scene[i])
 
 

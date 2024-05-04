@@ -1,9 +1,8 @@
 class_name BattleExecutionInfo extends Resource
 
-@export_group("Insecurity Attack Multipliers")
-@export var insecurity_weakness_attack_multiplier: float
-@export var insecurity_strength_attack_multiplier: float
-@export var insecurity_block_attack_multiplier: float
+@export_group("Insecurity Affinity Modifiers")
+@export var weak_insecurity_affinity_attack_modifier: int
+@export var strong_insecurity_affinity_attack_modifier: int
 @export_group("Base Magic Values")
 @export var base_hide_stack_value: int
 @export var base_weaken_stack_value: int

@@ -4,9 +4,8 @@
 
 [resource]
 script = ExtResource("1_nnukc")
-insecurity_weakness_attack_multiplier = 1.5
-insecurity_strength_attack_multiplier = 0.5
-insecurity_block_attack_multiplier = 0.0
+weak_insecurity_affinity_attack_modifier = 2
+strong_insecurity_affinity_attack_modifier = -2
 base_hide_stack_value = 1
 base_weaken_stack_value = 1
 base_poison_stack_value = 2
