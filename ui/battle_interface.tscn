@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cbocnnnw4vt17"]
+[gd_scene load_steps=48 format=3 uid="uid://cbocnnnw4vt17"]
 
 [ext_resource type="Script" path="res://ui/battle_interface.gd" id="1_iesfx"]
 [ext_resource type="Script" path="res://ui/player_stats_ui.gd" id="2_6m8b4"]
@@ -8,10 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://xqsitq82rqha" path="res://ui/misc_textures/exploding.svg" id="4_043ot"]
 [ext_resource type="Texture2D" uid="uid://cdma2fvepjxak" path="res://ui/misc_textures/hand_card.svg" id="5_58npj"]
 [ext_resource type="Texture2D" uid="uid://ca3v8in5tgphd" path="res://ui/misc_textures/flag_triangle.svg" id="6_ntg7b"]
-[ext_resource type="Texture2D" uid="uid://b4ixs3g5v12s1" path="res://ui/misc_textures/sword.svg" id="7_66ww7"]
+[ext_resource type="Texture2D" uid="uid://bijwlc3ea7soj" path="res://ui/misc_textures/hand_hexagon.svg" id="7_qdmwh"]
 [ext_resource type="Texture2D" uid="uid://c6504hq7gltqp" path="res://players/status_effects/textures/hexagon_question.svg" id="8_mslx6"]
-[ext_resource type="Texture2D" uid="uid://be0ge1lse2ska" path="res://ui/misc_textures/suit_spades.svg" id="9_r167w"]
-[ext_resource type="Texture2D" uid="uid://5llq274vnky1" path="res://players/status_effects/textures/pawn_down.svg" id="9_vc6rx"]
 [ext_resource type="Texture2D" uid="uid://beqkhgoofgamh" path="res://players/status_effects/textures/skull.svg" id="10_ltuh3"]
 [ext_resource type="Texture2D" uid="uid://dulyfjbqm82d3" path="res://players/status_effects/textures/fire.svg" id="11_1aah8"]
 [ext_resource type="Texture2D" uid="uid://djqnbbo242nim" path="res://players/status_effects/textures/d3.svg" id="12_72868"]
@@ -70,28 +68,24 @@ font_color = Color(0.266667, 0.584314, 0.898039, 1)
 font_size = 32
 font_color = Color(0.756863, 0.521569, 0.4, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_m78jh"]
+font_size = 32
+font_color = Color(0.898039, 0.898039, 0.266667, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_u1ewq"]
 font_size = 32
 font_color = Color(0.654902, 0.678431, 0.729412, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_kdwrb"]
-font_size = 32
-font_color = Color(0.898039, 0.266667, 0.266667, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_00ih5"]
-font_size = 32
-font_color = Color(0.898039, 0.898039, 0.266667, 1)
-
 [sub_resource type="LabelSettings" id="LabelSettings_46api"]
 font_size = 32
-font_color = Color(0.392157, 0.392157, 0.392157, 1)
+font_color = Color(0.52549, 0.309804, 0.262745, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_n210e"]
 font_size = 32
 
-[sub_resource type="LabelSettings" id="LabelSettings_lj3u4"]
+[sub_resource type="LabelSettings" id="LabelSettings_4w7ga"]
 font_size = 32
-font_color = Color(0.898039, 0.898039, 0.266667, 1)
+font_color = Color(0.266667, 0.898039, 0.266667, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_h1nn2"]
 font_size = 32
@@ -105,9 +99,25 @@ font_color = Color(0.898039, 0.266667, 0.266667, 1)
 font_size = 32
 font_color = Color(0.266667, 0.898039, 0.898039, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_4w7ga"]
+[sub_resource type="LabelSettings" id="LabelSettings_kvinn"]
 font_size = 32
-font_color = Color(0.266667, 0.898039, 0.266667, 1)
+font_color = Color(0.345098, 0.235294, 0.172549, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_27i57"]
+font_size = 32
+font_color = Color(0.176471, 0.447059, 0.219608, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_oflr2"]
+font_size = 32
+font_color = Color(0.266667, 0.176471, 0.447059, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_r2t44"]
+font_size = 32
+font_color = Color(0.447059, 0.176471, 0.223529, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_r0skr"]
+font_size = 32
+font_color = Color(0.176471, 0.407843, 0.447059, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_cjt0m"]
 font_size = 32
@@ -535,7 +545,6 @@ horizontal_alignment = 2
 
 [node name="PlayerInfoUI" type="CenterContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 z_index = 10
 layout_mode = 1
 anchors_preset = 8
@@ -670,7 +679,7 @@ expand_mode = 2
 [node name="Label" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
-text = "Health"
+text = "Max Health"
 label_settings = SubResource("LabelSettings_6eyk2")
 
 [node name="HealthValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
@@ -695,7 +704,7 @@ expand_mode = 2
 [node name="Label" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
-text = "Stamina"
+text = "Max Stamina"
 label_settings = SubResource("LabelSettings_hfnni")
 
 [node name="StaminaValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer3"]
@@ -720,7 +729,7 @@ expand_mode = 2
 [node name="Label" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer4"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
-text = "Hand"
+text = "Action Hand"
 label_settings = SubResource("LabelSettings_w46lb")
 
 [node name="HandValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer4"]
@@ -728,6 +737,31 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
 text = "5"
+label_settings = SubResource("LabelSettings_lseqt")
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer8"]
+modulate = Color(0.898039, 0.898039, 0.266667, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_qdmwh")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer8"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
+text = "Template Hand"
+label_settings = SubResource("LabelSettings_m78jh")
+
+[node name="TemplateHandValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer8"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
+text = "2"
 label_settings = SubResource("LabelSettings_lseqt")
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2"]
@@ -755,56 +789,6 @@ theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
 text = "1"
 label_settings = SubResource("LabelSettings_lseqt")
 
-[node name="HBoxContainer6" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-theme_override_constants/separation = 8
-alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer6"]
-modulate = Color(0.898039, 0.266667, 0.266667, 1)
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("7_66ww7")
-expand_mode = 2
-
-[node name="Label" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer6"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
-text = "Attack"
-label_settings = SubResource("LabelSettings_kdwrb")
-
-[node name="AttackValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer6"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
-text = "8"
-label_settings = SubResource("LabelSettings_lseqt")
-
-[node name="HBoxContainer7" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-theme_override_constants/separation = 8
-alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer7"]
-modulate = Color(0.898039, 0.898039, 0.266667, 1)
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("9_r167w")
-expand_mode = 2
-
-[node name="Label" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer7"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
-text = "Support"
-label_settings = SubResource("LabelSettings_00ih5")
-
-[node name="SupportValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer7"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
-text = "6"
-label_settings = SubResource("LabelSettings_lseqt")
-
 [node name="VBoxContainer" type="VBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
@@ -812,7 +796,7 @@ theme_override_constants/separation = 8
 [node name="Label" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(384, 0)
 layout_mode = 2
-text = "Magic"
+text = "Effects"
 label_settings = SubResource("LabelSettings_xgd82")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -823,7 +807,7 @@ theme_override_constants/separation = 8
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
-modulate = Color(0.392157, 0.392157, 0.392157, 1)
+modulate = Color(0.52549, 0.309804, 0.262745, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("8_mslx6")
@@ -840,24 +824,24 @@ layout_mode = 2
 text = "10"
 label_settings = SubResource("LabelSettings_n210e")
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer7" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
-modulate = Color(0.898039, 0.898039, 0.266667, 1)
+[node name="TextureRect" type="TextureRect" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer7"]
+modulate = Color(0.266667, 0.898039, 0.266667, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-texture = ExtResource("9_vc6rx")
+texture = ExtResource("13_e6e2d")
 expand_mode = 2
 
-[node name="Label" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="Label" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer7"]
 layout_mode = 2
-text = "Weaken"
-label_settings = SubResource("LabelSettings_lj3u4")
+text = "Slime"
+label_settings = SubResource("LabelSettings_4w7ga")
 
-[node name="WeakenValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="SlimeValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer7"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "10"
@@ -932,29 +916,6 @@ layout_mode = 2
 text = "10"
 label_settings = SubResource("LabelSettings_n210e")
 
-[node name="HBoxContainer7" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 8
-alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer7"]
-modulate = Color(0.266667, 0.898039, 0.266667, 1)
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("13_e6e2d")
-expand_mode = 2
-
-[node name="Label" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer7"]
-layout_mode = 2
-text = "Slime"
-label_settings = SubResource("LabelSettings_4w7ga")
-
-[node name="SlimeValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer7"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "10"
-label_settings = SubResource("LabelSettings_n210e")
-
 [node name="InsecuritiesInfoContainer" type="VBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
@@ -973,18 +934,19 @@ layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/PhysicalAppearanceContainer"]
-modulate = Color(0.294118, 0.294118, 0.294118, 1)
-custom_minimum_size = Vector2(32, 32)
+[node name="AppearanceIcon" type="TextureRect" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/PhysicalAppearanceContainer"]
+unique_name_in_owner = true
+modulate = Color(0.345098, 0.235294, 0.172549, 1)
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("3_5hh1y")
-expand_mode = 2
+expand_mode = 1
+stretch_mode = 5
 
-[node name="PhysicalAppearanceLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/PhysicalAppearanceContainer"]
-unique_name_in_owner = true
+[node name="AppearanceLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/PhysicalAppearanceContainer"]
 layout_mode = 2
-text = "Weak"
-label_settings = SubResource("LabelSettings_n210e")
+text = "Appearance"
+label_settings = SubResource("LabelSettings_kvinn")
 
 [node name="SelfEsteemContainer" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer"]
 unique_name_in_owner = true
@@ -992,18 +954,18 @@ layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="TextureRect2" type="TextureRect" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/SelfEsteemContainer"]
-modulate = Color(0.407843, 0.447059, 0.176471, 1)
+[node name="SelfEsteemIcon" type="TextureRect" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/SelfEsteemContainer"]
+unique_name_in_owner = true
+modulate = Color(0.176471, 0.447059, 0.219608, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("3_5hh1y")
 expand_mode = 2
 
 [node name="SelfEsteemLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/SelfEsteemContainer"]
-unique_name_in_owner = true
 layout_mode = 2
-text = "Strong"
-label_settings = SubResource("LabelSettings_n210e")
+text = "Self-esteem"
+label_settings = SubResource("LabelSettings_27i57")
 
 [node name="IntelligenceContainer" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer"]
 unique_name_in_owner = true
@@ -1011,18 +973,18 @@ layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="TextureRect2" type="TextureRect" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/IntelligenceContainer"]
+[node name="IntelligenceIcon" type="TextureRect" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/IntelligenceContainer"]
+unique_name_in_owner = true
 modulate = Color(0.266667, 0.176471, 0.447059, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("3_5hh1y")
 expand_mode = 2
 
-[node name="IntelligenceLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/IntelligenceContainer"]
-unique_name_in_owner = true
+[node name="SelfEsteemLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/IntelligenceContainer"]
 layout_mode = 2
-text = "Strong"
-label_settings = SubResource("LabelSettings_n210e")
+text = "Intelligence"
+label_settings = SubResource("LabelSettings_oflr2")
 
 [node name="PhysicalAbilityContainer" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer"]
 unique_name_in_owner = true
@@ -1030,7 +992,8 @@ layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="TextureRect2" type="TextureRect" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/PhysicalAbilityContainer"]
+[node name="PhysicalAbilityIcon" type="TextureRect" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/PhysicalAbilityContainer"]
+unique_name_in_owner = true
 modulate = Color(0.447059, 0.176471, 0.223529, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -1038,10 +1001,9 @@ texture = ExtResource("3_5hh1y")
 expand_mode = 2
 
 [node name="PhysicalAbilityLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/PhysicalAbilityContainer"]
-unique_name_in_owner = true
 layout_mode = 2
-text = "Strong"
-label_settings = SubResource("LabelSettings_n210e")
+text = "Physical Ability"
+label_settings = SubResource("LabelSettings_r2t44")
 
 [node name="SocialLifeContainer" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer"]
 unique_name_in_owner = true
@@ -1049,7 +1011,8 @@ layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="TextureRect2" type="TextureRect" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/SocialLifeContainer"]
+[node name="SocialLifeIcon" type="TextureRect" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/SocialLifeContainer"]
+unique_name_in_owner = true
 modulate = Color(0.176471, 0.407843, 0.447059, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -1057,29 +1020,9 @@ texture = ExtResource("3_5hh1y")
 expand_mode = 2
 
 [node name="SocialLifeLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/SocialLifeContainer"]
-unique_name_in_owner = true
 layout_mode = 2
-text = "Strong"
-label_settings = SubResource("LabelSettings_n210e")
-
-[node name="FashionContainer" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/separation = 8
-alignment = 1
-
-[node name="TextureRect2" type="TextureRect" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/FashionContainer"]
-modulate = Color(0.176471, 0.447059, 0.219608, 1)
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("3_5hh1y")
-expand_mode = 2
-
-[node name="FashionLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/InsecuritiesInfoContainer/FashionContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Strong"
-label_settings = SubResource("LabelSettings_n210e")
+text = "Social Life"
+label_settings = SubResource("LabelSettings_r0skr")
 
 [node name="BlessingsInfoUI" type="CenterContainer" parent="PlayerInfoUI/VBoxContainer"]
 unique_name_in_owner = true

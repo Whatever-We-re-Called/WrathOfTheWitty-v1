@@ -17,27 +17,17 @@ extends CenterContainer
 @onready var stamina_value_label = %StaminaValueLabel
 @onready var hand_value_label = %HandValueLabel
 @onready var speed_value_label = %SpeedValueLabel
-@onready var attack_value_label = %AttackValueLabel
-@onready var support_value_label = %SupportValueLabel
 @onready var hide_value_label = %HideValueLabel
-@onready var weaken_value_label = %WeakenValueLabel
 @onready var poison_value_label = %PoisonValueLabel
 @onready var burn_value_label = %BurnValueLabel
 @onready var freeze_value_label = %FreezeValueLabel
 @onready var slime_value_label = %SlimeValueLabel
-@onready var insecurity_containers = {
-	Constants.Insecurity.APPEARANCE: %PhysicalAppearanceContainer,
-	Constants.Insecurity.SELF_ESTEEM: %SelfEsteemContainer,
-	Constants.Insecurity.INTELLIGENCE: %IntelligenceContainer,
-	Constants.Insecurity.PHYSICAL_ABILITY: %PhysicalAbilityContainer,
-	Constants.Insecurity.SOCIAL_LIFE: %SocialLifeContainer
-}
-@onready var insecurity_labels = {
-	Constants.Insecurity.APPEARANCE: %PhysicalAppearanceLabel,
-	Constants.Insecurity.SELF_ESTEEM: %SelfEsteemLabel,
-	Constants.Insecurity.INTELLIGENCE: %IntelligenceLabel,
-	Constants.Insecurity.PHYSICAL_ABILITY: %PhysicalAbilityLabel,
-	Constants.Insecurity.SOCIAL_LIFE: %SocialLifeLabel
+@onready var insecurity_icons = {
+	Constants.Insecurity.APPEARANCE: %AppearanceIcon,
+	Constants.Insecurity.SELF_ESTEEM: %SelfEsteemIcon,
+	Constants.Insecurity.INTELLIGENCE: %IntelligenceIcon,
+	Constants.Insecurity.PHYSICAL_ABILITY: %PhysicalAbilityIcon,
+	Constants.Insecurity.SOCIAL_LIFE: %SocialLifeIcon
 }
 @onready var hovered_info_container = %HoveredInfoContainer
 @onready var hovered_name_label = %HoveredNameLabel
@@ -59,6 +49,7 @@ extends CenterContainer
 @onready var cosmic_blessings_value_label = %CosmicBlessingsValueLabel
 @onready var normal_blessings_value_label = %NormalBlessingsValueLabel
 @onready var cosmic_blessings_limit_value = %CosmicBlessingsLimitValue
+@onready var template_hand_value_label = %TemplateHandValueLabel
 
 const CARD_SCENE = preload("res://battle/cards/card.tscn")
 const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.tscn")
@@ -93,29 +84,26 @@ func _set_open_tab_index(index: int):
 func _init_stats_page(player_info: PlayerInfo):
 	health_value_label.text = str(player_info.health_stat)
 	stamina_value_label.text = str(player_info.stamina_stat)
-	hand_value_label.text = str(player_info.hand_stat)
+	hand_value_label.text = str(player_info.action_hand_stat)
+	template_hand_value_label.text = str(player_info.template_hand_stat)
 	speed_value_label.text = str(player_info.speed_stat)
-	attack_value_label.text = str(player_info.attack_stat)
-	support_value_label.text = str(player_info.support_stat)
 	
 	hide_value_label.text = str(player_info.hide_magic_stat)
-	weaken_value_label.text = str(player_info.weaken_magic_stat)
+	slime_value_label.text = str(player_info.slime_magic_stat)
 	poison_value_label.text = str(player_info.poison_magic_stat)
 	burn_value_label.text = str(player_info.burn_magic_stat)
 	freeze_value_label.text = str(player_info.freeze_magic_stat)
-	slime_value_label.text = str(player_info.slime_magic_stat)
 	
-	for insecurity_container in insecurity_containers.values():
-		insecurity_container.visible = false
-	for insecurity in player_info.insecurity_weaknesses:
-		insecurity_containers[insecurity].visible = true
-		insecurity_labels[insecurity].text = "Weak"
-	for insecurity in player_info.insecurity_strengths:
-		insecurity_containers[insecurity].visible = true
-		insecurity_labels[insecurity].text = "Strong"
-	for insecurity in player_info.insecurity_blocks:
-		insecurity_containers[insecurity].visible = true
-		insecurity_labels[insecurity].text = "Block"
+	var insecurity_affinities = player_info.get_insecurity_affinities()
+	# https://github.com/godotengine/godot/issues/85882
+	# Can't cast an enum to a god damn int for some reason?
+	for i in range(Constants.Insecurity.keys().size()):
+		if insecurity_affinities.has(i):
+			insecurity_icons[i].texture = Constants.get_insecurity_icon(insecurity_affinities[i])
+		else:
+			insecurity_icons[i].texture = Constants.get_insecurity_icon(Constants.InsecurityAffinityType.NONE)
+		insecurity_icons[i].modulate = Constants.get_insecurity_color(i)
+		
 
 
 func _init_blessings_page(player_info: PlayerInfo):
