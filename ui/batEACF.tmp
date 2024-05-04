@@ -261,13 +261,13 @@ layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/separation = 12
 
-[node name="InsecurityAffinitiesContainer" type="HBoxContainer" parent="RightPlayerStatsUI/VBoxContainer/Name"]
-layout_mode = 2
-
 [node name="PlayerName" type="Label" parent="RightPlayerStatsUI/VBoxContainer/Name"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Evil Scrimblo"
+
+[node name="InsecurityAffinitiesContainer" type="HBoxContainer" parent="RightPlayerStatsUI/VBoxContainer/Name"]
+layout_mode = 2
 
 [node name="HealthBar" type="ProgressBar" parent="RightPlayerStatsUI/VBoxContainer"]
 custom_minimum_size = Vector2(384, 32)

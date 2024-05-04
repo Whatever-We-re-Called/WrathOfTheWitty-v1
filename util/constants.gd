@@ -2,7 +2,7 @@
 # Otherwise, a startup erorr will always occur.
 extends Node
 
-var insecurity_colors = preload("res://util/insecurities/insecurity_textures.tres")
+const INSECURITY_TEXTURES = preload("res://util/insecurities/insecurity_textures.tres")
 
 enum Insecurity {
 	APPEARANCE,
@@ -86,21 +86,42 @@ enum PlayerSide {
 	RIGHT
 }
 
+enum InsecurityAffinityType { 
+	NONE,
+	WEAK,
+	STRONG,
+	BLOCK,
+	CONTEMPT,
+	REPEL
+}
+
 func get_insecurity_color(insecurity: Insecurity) -> Color:
 	match (insecurity):
 		Insecurity.APPEARANCE:
-			return insecurity_colors.appearance_color
+			return INSECURITY_TEXTURES.appearance_color
 		Insecurity.SELF_ESTEEM:
-			return insecurity_colors.self_esteem_color
+			return INSECURITY_TEXTURES.self_esteem_color
 		Insecurity.INTELLIGENCE:
-			return insecurity_colors.intelligence_color
+			return INSECURITY_TEXTURES.intelligence_color
 		Insecurity.PHYSICAL_ABILITY:
-			return insecurity_colors.physical_ability_color
+			return INSECURITY_TEXTURES.physical_ability_color
 		Insecurity.SOCIAL_LIFE:
-			return insecurity_colors.social_life_color
+			return INSECURITY_TEXTURES.social_life_color
 	
 	return Color.BLACK
 
 
-func get_insecurity_icon() -> Texture2D:
-	return insecurity_colors.insecurity_icon
+func get_insecurity_icon(insecurity_affinity_type: InsecurityAffinityType = InsecurityAffinityType.NONE) -> Texture2D:
+	match insecurity_affinity_type:
+		InsecurityAffinityType.WEAK:
+			return INSECURITY_TEXTURES.weak_insecurity_affinity_icon
+		InsecurityAffinityType.STRONG:
+			return INSECURITY_TEXTURES.strong_insecurity_affinity_icon
+		InsecurityAffinityType.BLOCK:
+			return INSECURITY_TEXTURES.block_insecurity_affinity_icon
+		InsecurityAffinityType.CONTEMPT:
+			return INSECURITY_TEXTURES.contempt_insecurity_affinity_icon
+		InsecurityAffinityType.REPEL:
+			return INSECURITY_TEXTURES.repel_insecurity_affinity_icon
+	
+	return INSECURITY_TEXTURES.insecurity_icon

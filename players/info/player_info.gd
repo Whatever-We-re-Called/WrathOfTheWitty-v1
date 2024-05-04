@@ -5,16 +5,17 @@ class_name PlayerInfo extends Resource
 @export var sprite_frames: SpriteFrames
 @export var sprite_scale: Vector2 = Vector2.ONE
 @export_category("Insecurities")
-@export var insecurity_weaknesses: Array[Constants.Insecurity]
-@export var insecurity_strengths: Array[Constants.Insecurity]
-@export var insecurity_blocks: Array[Constants.Insecurity]
+@export var weak_insecurity_affinities: Array[Constants.Insecurity]
+@export var strong_insecurity_affinities: Array[Constants.Insecurity]
+@export var block_insecurity_affinities: Array[Constants.Insecurity]
+@export var contempt_insecurity_affinities: Array[Constants.Insecurity]
+@export var repel_insecurity_affinities: Array[Constants.Insecurity]
 @export_category("Stats")
 @export var health_stat: int
 @export var stamina_stat: int
-@export var hand_stat: int
+@export var action_hand_stat: int
+@export var template_hand_stat: int
 @export var speed_stat: int
-@export var attack_stat: int
-@export var support_stat: int
 @export var hide_magic_stat: int
 @export var weaken_magic_stat: int
 @export var poison_magic_stat: int
@@ -31,7 +32,7 @@ class_name PlayerInfo extends Resource
 var current_player_instance = null
 var current_health: int = -1
 
-const TEMPLATE_HAND_STAT = 2
+const TEMPLATE_HAND_STAT = 3
 
 
 func init_unhandled_equipped_template_cards():
@@ -97,3 +98,19 @@ func is_blessing_cosmic(type) -> bool:
 		if equipped_blessing.type == type:
 			return equipped_blessing.is_cosmic
 	return false
+
+
+func get_insecurity_affinities() -> Dictionary:
+	var result: Dictionary
+	for insecurity in weak_insecurity_affinities:
+		result[insecurity] = Constants.InsecurityAffinityType.WEAK
+	for insecurity in strong_insecurity_affinities:
+		result[insecurity] = Constants.InsecurityAffinityType.STRONG
+	for insecurity in block_insecurity_affinities:
+		result[insecurity] = Constants.InsecurityAffinityType.BLOCK
+	for insecurity in contempt_insecurity_affinities:
+		result[insecurity] = Constants.InsecurityAffinityType.CONTEMPT
+	for insecurity in repel_insecurity_affinities:
+		result[insecurity] = Constants.InsecurityAffinityType.REPEL
+	
+	return result

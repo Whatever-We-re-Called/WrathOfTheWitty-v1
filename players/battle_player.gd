@@ -387,12 +387,12 @@ func handle_start_turn():
 
 
 func _get_needed_cards_count() -> int:
-	var space = clamp(info.action_card_deck.size(), 1, info.hand_stat)
+	var space = clamp(info.action_card_deck.size(), 1, info.action_hand_stat)
 	return space - cards_in_hand.size()
 
 
 func _get_needed_template_cards_count() -> int:
-	var space = clamp(info.equipped_template_cards.size(), 1, info.TEMPLATE_HAND_STAT)
+	var space = clamp(info.equipped_template_cards.size(), 1, info.template_hand_stat)
 	return space - template_cards_in_hand.size()
 
 
