@@ -32,20 +32,10 @@ func update_player_stats(player: BattlePlayer):
 
 func update_hand(player: BattlePlayer):
 	_clear_hand()
-	player.cards_in_hand_scenes.clear()
+	player.reset_card_hand()
 	
 	for card_info in player.cards_in_hand:
-		var new_card_scene = CARD_SCENE.instantiate()
-		new_card_scene.card_info = card_info
-		new_card_scene.player = player
-		new_card_scene.toggle_selected.connect(_on_card_toggle_selected.bind(new_card_scene))
-		new_card_scene.reroll.connect(_on_card_reroll.bind(new_card_scene))
-		new_card_scene.throw.connect(_on_card_throw.bind(new_card_scene))
-		new_card_scene.fire_extinguished.connect(_on_card_fire_extinguished.bind(player))
-		card_info.card_scene = new_card_scene
-		
-		add_card(new_card_scene)
-		player.cards_in_hand_scenes.append(new_card_scene)
+		add_card_to_hand(card_info, player)
 
 
 func _clear_hand():
@@ -66,6 +56,20 @@ func add_card(card_scene: Control):
 			deck_second_row.add_child(card_scene)
 		else:
 			card_scene.reparent(deck_second_row)
+
+
+func add_card_to_hand(card_info: CardInfo, player: BattlePlayer):
+	var new_card_scene = CARD_SCENE.instantiate()
+	new_card_scene.card_info = card_info
+	new_card_scene.player = player
+	new_card_scene.toggle_selected.connect(_on_card_toggle_selected.bind(new_card_scene))
+	new_card_scene.reroll.connect(_on_card_reroll.bind(new_card_scene))
+	new_card_scene.throw.connect(_on_card_throw.bind(new_card_scene))
+	new_card_scene.fire_extinguished.connect(_on_card_fire_extinguished.bind(player))
+	card_info.card_scene = new_card_scene
+	
+	add_card(new_card_scene)
+	player.cards_in_hand_scenes.append(new_card_scene)
 
 
 func toggle_hand_visibility(visible: bool):

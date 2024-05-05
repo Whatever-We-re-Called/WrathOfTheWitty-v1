@@ -526,14 +526,21 @@ text = "Throw"
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 18
-text = "Left-Click: Select Card"
+text = "Left-Click: Select Action Card"
 horizontal_alignment = 2
 
 [node name="Label2" type="Label" parent="RightOfDeckContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 18
-text = "Right-Click: Reroll Card"
+text = "Right-Click: Reroll Action Card"
+horizontal_alignment = 2
+
+[node name="Label4" type="Label" parent="RightOfDeckContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 18
+text = "Middle-Click: Draw Action Card"
 horizontal_alignment = 2
 
 [node name="Label3" type="Label" parent="RightOfDeckContainer/VBoxContainer"]
@@ -545,6 +552,7 @@ horizontal_alignment = 2
 
 [node name="PlayerInfoUI" type="CenterContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 z_index = 10
 layout_mode = 1
 anchors_preset = 8

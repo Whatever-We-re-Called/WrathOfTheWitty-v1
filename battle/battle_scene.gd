@@ -44,7 +44,6 @@ func _ready():
 	
 	battle_interface.card_toggle_selected.connect(_on_card_toggle_selected)
 	battle_interface.card_reroll.connect(reroll_card)
-	battle_interface.card_throw.connect(throw_card)
 	battle_interface.close_player_info_ui()
 
 
@@ -54,6 +53,7 @@ func _init_player(side: Constants.PlayerSide, player_info: PlayerInfo, parent_no
 	player.decreased_opponents_max_health.connect(_on_decreased_opponents_max_health)
 	player.damaged_opponent.connect(_on_damaged_opponent)
 	player.stamina_changed.connect(_on_stamina_changed)
+	player.drew_card.connect(_on_drew_card)
 	parent_node.add_child(player)
 	var sprite_height = player.sprite_frames.get_frame_texture("default", 0).get_height()
 	player.global_position.y -= (sprite_height * player_info.sprite_scale.y) / 2.0
@@ -76,6 +76,9 @@ func _handle_controls_input():
 		battle_interface.open_player_info_ui(players[Constants.PlayerSide.LEFT].info)
 	elif Input.is_action_just_pressed("view_opponents_info"):
 		battle_interface.open_player_info_ui(players[Constants.PlayerSide.RIGHT].info)
+	
+	if Input.is_action_just_pressed("draw_card"):
+		player.draw_card()
 	
 	if Input.is_action_just_pressed("end_turn") and not is_changing_turns:
 		end_turn_early()
@@ -162,8 +165,11 @@ func play_cards():
 			break
 	player.send_template_card_to_bag(active_template_card.template_card_info)
 	
-	player.update_template_card_hand_logic() 
-	update_active_template_card()
+	if player.template_cards_in_hand.size() > 0:
+		player.update_template_card_hand_logic() 
+		update_active_template_card()
+	else:
+		change_turns()
 
 
 func end_turn_early():
@@ -174,12 +180,6 @@ func end_turn_early():
 
 func reroll_card(card: Card):
 	player.reroll_card(card)
-	battle_interface.update_player_stats(player)
-	battle_interface.update_player_deck_and_bag_ui(player)
-
-
-func throw_card(card: Card):
-	player.throw_card(card, self)
 	battle_interface.update_player_stats(player)
 	battle_interface.update_player_deck_and_bag_ui(player)
 
@@ -195,6 +195,11 @@ func _reset_selected_cards():
 	var selected_cards_copy = player.selected_cards.duplicate()
 	for selected_card in selected_cards_copy:
 		unselect_card(selected_card.card_scene)
+
+
+func _on_drew_card(card_info: CardInfo):
+	battle_interface.add_card_to_hand(card_info, player)
+	battle_interface.update_player_stats(player)
 
 
 func change_turns():

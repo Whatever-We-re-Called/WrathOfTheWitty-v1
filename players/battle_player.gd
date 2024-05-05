@@ -3,6 +3,7 @@ class_name BattlePlayer extends AnimatedSprite2D
 signal decreased_opponents_max_health(percentage: float, executing_player: BattlePlayer)
 signal damaged_opponent(amount: int, executing_player: BattlePlayer)
 signal stamina_changed
+signal drew_card(card_info: CardInfo)
 
 var info: PlayerInfo
 var health: int
@@ -37,6 +38,7 @@ var opponent_battle_player: BattlePlayer
 var selected_template_card_hand_index: int = 0
 
 const BASE_CARD_REROLL_STAMINA_COST = 1
+const BASE_CARD_DRAW_STAMINA_COST = 1
 const BASE_TEMPLATE_CARD_REROLL_STAMINA_COST = 2
 const STATUS_EFFECT_UI = preload("res://players/status_effects/status_effect_ui.tscn")
 const BATTLE_ACTION_EXECUTION_INFO = preload("res://battle/action_execution/battle_action_execution_info.tres")
@@ -244,6 +246,34 @@ func get_card_reroll_stamina_cost() -> int:
 	return BASE_CARD_REROLL_STAMINA_COST
 
 
+func draw_card():
+	if not can_afford_card_draw(): return
+	if cards_in_hand.size() + selected_cards.size() >= info.action_hand_stat: return
+	deplenish_stamina(BASE_CARD_DRAW_STAMINA_COST)
+	
+	add_cards_to_hand(1)
+	
+	drew_card.emit(cards_in_hand[-1])
+
+
+func can_afford_card_draw() -> bool:
+	if get_frozen_stamina_count() >= stamina:
+		return false
+	
+	return stamina >= get_card_draw_stamina_cost()
+
+
+func get_card_draw_stamina_cost() -> int:
+	return BASE_CARD_DRAW_STAMINA_COST
+
+
+func reset_card_hand():
+	cards_in_hand_scenes.clear()
+	for i in range(selected_cards.size()):
+		cards_in_hand.append(selected_cards[i])
+	selected_cards.clear()
+
+
 func reroll_template_card(template_card: TemplateCard):
 	if not can_afford_template_card_reroll(): return
 	deplenish_stamina(get_template_card_reroll_stamina_cost())
@@ -348,12 +378,6 @@ func apply_repress(insecurity: Constants.Insecurity):
 
 func get_frozen_stamina_count() -> int:
 	return frozen_stamina_count
-	
-	#var result = 0
-	#for i in range(active_status_effects[Constants.PlayerStatusEffect.FREEZE]):
-		#if (i + 1) <= stamina:
-			#result += 1
-	#return result
 
 
 func is_repressed_for_insecurity(insecurity: Constants.Insecurity) -> bool:
