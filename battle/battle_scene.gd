@@ -19,8 +19,9 @@ var player: BattlePlayer:
 		players[active_side] = value
 
 var active_template_card: TemplateCard
-var is_changing_turns = false
+var is_executing_turn = false
 
+const EXECUTE_TURN_SIMULATED_DELAY = 1.5
 const ACTION_CARD_SCENE = preload("res://battle/cards/card.tscn")
 const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.tscn")
 
@@ -80,7 +81,7 @@ func _handle_controls_input():
 	if Input.is_action_just_pressed("draw_card"):
 		player.draw_card()
 	
-	if Input.is_action_just_pressed("end_turn") and not is_changing_turns:
+	if Input.is_action_just_pressed("end_turn") and not is_executing_turn:
 		end_turn_early()
 
 
@@ -166,6 +167,9 @@ func play_cards():
 	player.send_template_card_to_bag(active_template_card.template_card_info)
 	
 	if player.template_cards_in_hand.size() > 0:
+		is_executing_turn = true
+		await get_tree().create_timer(EXECUTE_TURN_SIMULATED_DELAY).timeout
+		is_executing_turn = false
 		player.update_template_card_hand_logic() 
 		update_active_template_card()
 	else:
@@ -203,14 +207,14 @@ func _on_drew_card(card_info: CardInfo):
 
 
 func change_turns():
-	is_changing_turns = true
+	is_executing_turn = true
 	
 	player.handle_end_turn()
 	active_template_card.remove_context_ui(true)
 	battle_interface.update_player_stats(player)
 	battle_interface.update_player_stats(get_non_active_side_player())
 	battle_interface.toggle_hand_visibility(false)
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(EXECUTE_TURN_SIMULATED_DELAY).timeout
 	player.handle_delayed_end_turn()
 	
 	if active_side == Constants.PlayerSide.LEFT:
@@ -227,7 +231,7 @@ func change_turns():
 	battle_interface.update_player_stats(get_non_active_side_player())
 	battle_interface.toggle_hand_visibility(true)
 	
-	is_changing_turns = false
+	is_executing_turn = false
 
 
 func get_non_active_side_player():
@@ -247,7 +251,7 @@ func _on_damaged_opponent(amount: int, executing_player: BattlePlayer):
 
 
 func _on_selected_previous_template_card():
-	if is_changing_turns: return
+	if is_executing_turn: return
 	
 	_reset_selected_cards()
 	player.selected_template_card_hand_index -= 1
@@ -255,7 +259,7 @@ func _on_selected_previous_template_card():
 
 
 func _on_selected_next_template_card():
-	if is_changing_turns: return
+	if is_executing_turn: return
 	
 	_reset_selected_cards()
 	player.selected_template_card_hand_index += 1
@@ -268,6 +272,6 @@ func _on_stamina_changed():
 
 
 func _update_template_card_reroll_button():
-	if is_changing_turns: return
+	if is_executing_turn: return
 	
 	active_template_card.toggle_reroll_button(player.can_afford_template_card_reroll())
