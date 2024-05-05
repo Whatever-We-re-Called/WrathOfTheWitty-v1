@@ -162,7 +162,8 @@ func play_cards():
 			break
 	player.send_template_card_to_bag(active_template_card.template_card_info)
 	
-	change_turns()
+	player.update_template_card_hand_logic() 
+	update_active_template_card()
 
 
 func end_turn_early():

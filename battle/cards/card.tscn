@@ -18,7 +18,7 @@ script = ExtResource("1_72ex4")
 [node name="HiddenOverlay" type="Control" parent="."]
 unique_name_in_owner = true
 visible = false
-z_index = 2
+z_index = 3
 layout_mode = 2
 
 [node name="ColorRect" type="ColorRect" parent="HiddenOverlay"]
@@ -60,7 +60,7 @@ vertical_alignment = 1
 [node name="RepressOverlay" type="Control" parent="."]
 unique_name_in_owner = true
 visible = false
-z_index = 4
+z_index = 2
 layout_mode = 2
 
 [node name="RepressedBackground" type="ColorRect" parent="RepressOverlay"]

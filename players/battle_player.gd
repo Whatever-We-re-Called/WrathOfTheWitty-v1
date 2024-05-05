@@ -396,6 +396,10 @@ func _get_needed_template_cards_count() -> int:
 	return space - template_cards_in_hand.size()
 
 
+func update_template_card_hand_logic():
+	selected_template_card_hand_index = clamp(selected_template_card_hand_index, 0, template_cards_in_hand.size() - 1)
+
+
 func handle_delayed_start_turn():
 	_handle_burn_status_effect()
 	_handle_slime_status_effect()
