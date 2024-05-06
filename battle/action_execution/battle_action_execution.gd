@@ -43,7 +43,6 @@ static func _execute_action_card_attack(battle_action_execution_data: BattleActi
 		return
 	else:
 		var damage_dealt = _get_damage_dealt_value(battle_action_execution_data)
-		print(damage_dealt)
 		
 		if defender_player.info.contempt_insecurity_affinities.has(card_insecurity):
 			defender_player.heal(damage_dealt)

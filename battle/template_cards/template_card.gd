@@ -147,6 +147,8 @@ func _on_play_button_pressed():
 		card.set_as_hidden(false)
 		card.set_as_slimed(false)
 	
+	play_button.disabled = true
+	reroll_button.disabled = true
 	played_selected_cards.emit()
 
 
