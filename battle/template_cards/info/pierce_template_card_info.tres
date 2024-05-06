@@ -6,8 +6,8 @@
 script = ExtResource("1_w7lfk")
 name = "Pierce"
 sentence = "Between being %noun% and %noun%, I'm surprised you're still fighting."
-nonupgraded_description = "Receive 2 Pierce."
-upgraded_description = "Receive 3 Pierce."
+nonupgraded_description = "Receive 2 Pierce. Your next attack will ignore all of your opponent's active Shield."
+upgraded_description = "Receive 4 Pierce. Your next attack will ignore all of your opponent's active Shield."
 background_color = Color(0.219608, 0.12549, 0.117647, 1)
 insecurity_count = 1
 execute_function_name = "_execute_pierce"

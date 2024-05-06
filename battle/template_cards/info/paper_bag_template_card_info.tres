@@ -6,8 +6,8 @@
 script = ExtResource("1_duodt")
 name = "Paper Bag"
 sentence = "Please never show your %adjective% %adjective% face ever again."
-nonupgraded_description = "Inflict 3 Hide onto your opponent."
-upgraded_description = "Inflict 5 Hide onto your opponent."
+nonupgraded_description = "Inflict 2 Hide onto your opponent."
+upgraded_description = "Inflict 4 Hide onto your opponent."
 background_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
 insecurity_count = 2
 execute_function_name = "_execute_paper_bag"

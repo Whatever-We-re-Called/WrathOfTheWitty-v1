@@ -1,16 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsp1sp8onn48s"]
+[gd_scene load_steps=7 format=3 uid="uid://dsp1sp8onn48s"]
 
 [ext_resource type="Script" path="res://battle/battle_scene.gd" id="1_s8m45"]
 [ext_resource type="PackedScene" uid="uid://cbocnnnw4vt17" path="res://ui/battle_interface.tscn" id="1_yveat"]
 [ext_resource type="Resource" uid="uid://d23m4e07eg735" path="res://players/info/players/test_scrimblo_info.tres" id="2_gy65i"]
-[ext_resource type="Resource" uid="uid://lju22pgkrq8" path="res://battle/template_cards/info/depression_template_card_info.tres" id="3_8q4u3"]
 [ext_resource type="Resource" uid="uid://c3bq2xmv8tbpl" path="res://players/info/players/test_evil_scrimblo_info.tres" id="3_l1tik"]
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="4_tyopb"]
+
+[sub_resource type="Resource" id="Resource_a3nmf"]
+script = ExtResource("4_tyopb")
+name = "Depression"
+sentence = "Do you really think that a %adjective% %noun% can take me down?"
+nonupgraded_description = "Inflict 3 Weaken onto your opponent."
+upgraded_description = "Inflict 5 Weaken onto your opponent."
+background_color = Color(0.180392, 0.219608, 0.117647, 1)
+insecurity_count = 2
+execute_function_name = "_execute_depression"
 
 [node name="BattleScene" type="Node2D"]
 script = ExtResource("1_s8m45")
 left_player_config = ExtResource("2_gy65i")
 right_player_config = ExtResource("3_l1tik")
-debug_template_card_info = ExtResource("3_8q4u3")
+debug_template_card_info = SubResource("Resource_a3nmf")
 
 [node name="Background" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(1920, 1080)

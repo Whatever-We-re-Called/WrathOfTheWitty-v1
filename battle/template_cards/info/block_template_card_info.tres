@@ -5,9 +5,9 @@
 [resource]
 script = ExtResource("1_jfup1")
 name = "Block"
-sentence = "Please just stop. Such a %adjective% %adjective% %noun% such as yourself is just sad."
+sentence = "Please just stop. Such a %adjective% %noun% such as yourself is just sad."
 nonupgraded_description = "Receive 8 Shield."
 upgraded_description = "Receive 12 Shield."
 background_color = Color(0.219608, 0.12549, 0.117647, 1)
-insecurity_count = 3
+insecurity_count = 2
 execute_function_name = "_execute_block"

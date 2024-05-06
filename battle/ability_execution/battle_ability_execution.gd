@@ -61,27 +61,18 @@ static func _execute_poison_dart(battle_ability_execution_data: BattleAbilityExe
 	var status_effect = Constants.PlayerStatusEffect.POISON
 	
 	if battle_ability_execution_data.is_upgraded:
-		defender_player.apply_status_effect(status_effect, 10)
+		defender_player.apply_status_effect(status_effect, 4)
 	else:
-		defender_player.apply_status_effect(status_effect, 6)
+		defender_player.apply_status_effect(status_effect, 2)
 
 
 static func _execute_punch(battle_ability_execution_data: BattleAbilityExecutionData):
 	var defender_player = battle_ability_execution_data.defender_player
 	
 	if battle_ability_execution_data.is_upgraded:
-		defender_player.damage(18)
-	else:
 		defender_player.damage(12)
-
-
-static func _execute_brutal_punch(battle_ability_execution_data: BattleAbilityExecutionData):
-	var defender_player = battle_ability_execution_data.defender_player
-	
-	if battle_ability_execution_data.is_upgraded:
-		defender_player.damage(30)
 	else:
-		defender_player.damage(20)
+		defender_player.damage(8)
 
 
 static func _execute_pyromancy(battle_ability_execution_data: BattleAbilityExecutionData):
@@ -89,9 +80,9 @@ static func _execute_pyromancy(battle_ability_execution_data: BattleAbilityExecu
 	var status_effect = Constants.PlayerStatusEffect.BURN
 	
 	if battle_ability_execution_data.is_upgraded:
-		defender_player.apply_status_effect(status_effect, 5)
+		defender_player.apply_status_effect(status_effect, 4)
 	else:
-		defender_player.apply_status_effect(status_effect, 3)
+		defender_player.apply_status_effect(status_effect, 2)
 
 
 static func _execute_absolute_zero(battle_ability_execution_data: BattleAbilityExecutionData):
@@ -99,19 +90,9 @@ static func _execute_absolute_zero(battle_ability_execution_data: BattleAbilityE
 	var status_effect = Constants.PlayerStatusEffect.FREEZE
 	
 	if battle_ability_execution_data.is_upgraded:
-		defender_player.apply_status_effect(status_effect, 5)
+		defender_player.apply_status_effect(status_effect, 4)
 	else:
-		defender_player.apply_status_effect(status_effect, 3)
-
-
-static func _execute_depression(battle_ability_execution_data: BattleAbilityExecutionData):
-	var defender_player = battle_ability_execution_data.defender_player
-	var status_effect = Constants.PlayerStatusEffect.WEAKEN
-	
-	if battle_ability_execution_data.is_upgraded:
-		defender_player.apply_status_effect(status_effect, 5)
-	else:
-		defender_player.apply_status_effect(status_effect, 3)
+		defender_player.apply_status_effect(status_effect, 2)
 
 
 static func _execute_paper_bag(battle_ability_execution_data: BattleAbilityExecutionData):
@@ -119,9 +100,9 @@ static func _execute_paper_bag(battle_ability_execution_data: BattleAbilityExecu
 	var status_effect = Constants.PlayerStatusEffect.HIDE
 	
 	if battle_ability_execution_data.is_upgraded:
-		defender_player.apply_status_effect(status_effect, 5)
+		defender_player.apply_status_effect(status_effect, 4)
 	else:
-		defender_player.apply_status_effect(status_effect, 3)
+		defender_player.apply_status_effect(status_effect, 2)
 
 
 static func _execute_icky(battle_ability_execution_data: BattleAbilityExecutionData):
@@ -129,9 +110,9 @@ static func _execute_icky(battle_ability_execution_data: BattleAbilityExecutionD
 	var status_effect = Constants.PlayerStatusEffect.SLIME
 	
 	if battle_ability_execution_data.is_upgraded:
-		defender_player.apply_status_effect(status_effect, 5)
+		defender_player.apply_status_effect(status_effect, 4)
 	else:
-		defender_player.apply_status_effect(status_effect, 3)
+		defender_player.apply_status_effect(status_effect, 2)
 
 
 static func _execute_shield_bash(battle_ability_execution_data: BattleAbilityExecutionData):
@@ -166,9 +147,9 @@ static func _execute_energize(battle_ability_execution_data: BattleAbilityExecut
 	var attacker_player = battle_ability_execution_data.attacker_player
 	
 	if battle_ability_execution_data.is_upgraded:
-		attacker_player.replenish_stamina(attacker_player.info.stamina_stat)
-	else:
 		attacker_player.replenish_stamina(5)
+	else:
+		attacker_player.replenish_stamina(3)
 
 
 static func _execute_first_aid(battle_ability_execution_data: BattleAbilityExecutionData):
@@ -196,11 +177,11 @@ static func _execute_shit_and_piss(battle_ability_execution_data: BattleAbilityE
 	var weaken_status_effect = Constants.PlayerStatusEffect.WEAKEN
 	
 	if battle_ability_execution_data.is_upgraded:
-		defender_player.apply_status_effect(hide_status_effect, 3)
-		defender_player.apply_status_effect(weaken_status_effect, 5)
-	else:
 		defender_player.apply_status_effect(hide_status_effect, 2)
 		defender_player.apply_status_effect(weaken_status_effect, 3)
+	else:
+		defender_player.apply_status_effect(hide_status_effect, 1)
+		defender_player.apply_status_effect(weaken_status_effect, 2)
 
 
 static func _execute_power_up(battle_ability_execution_data: BattleAbilityExecutionData):
@@ -208,9 +189,19 @@ static func _execute_power_up(battle_ability_execution_data: BattleAbilityExecut
 	var status_effect = Constants.PlayerStatusEffect.STRENGTH
 	
 	if battle_ability_execution_data.is_upgraded:
-		defender_player.apply_status_effect(status_effect, 8)
-	else:
 		defender_player.apply_status_effect(status_effect, 5)
+	else:
+		defender_player.apply_status_effect(status_effect, 3)
+
+
+static func _execute_weak(battle_ability_execution_data: BattleAbilityExecutionData):
+	var defender_player = battle_ability_execution_data.attacker_player
+	var status_effect = Constants.PlayerStatusEffect.WEAKEN
+	
+	if battle_ability_execution_data.is_upgraded:
+		defender_player.apply_status_effect(status_effect, 5)
+	else:
+		defender_player.apply_status_effect(status_effect, 3)
 
 
 static func _execute_pierce(battle_ability_execution_data: BattleAbilityExecutionData):
@@ -218,7 +209,7 @@ static func _execute_pierce(battle_ability_execution_data: BattleAbilityExecutio
 	var status_effect = Constants.PlayerStatusEffect.PIERCE
 	
 	if battle_ability_execution_data.is_upgraded:
-		defender_player.apply_status_effect(status_effect, 3)
+		defender_player.apply_status_effect(status_effect, 4)
 	else:
 		defender_player.apply_status_effect(status_effect, 2)
 

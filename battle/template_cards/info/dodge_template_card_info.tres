@@ -6,8 +6,8 @@
 script = ExtResource("1_syahx")
 name = "Dodge"
 sentence = "To think that I would be hurt by such a %adjective% %noun%."
-nonupgraded_description = "Receive 1 Dodge."
-upgraded_description = "Receive 2 Dodge."
+nonupgraded_description = "Receive 1 Dodge. Your opponent's next attack will miss you."
+upgraded_description = "Receive 2 Dodge. Your opponent's next attack will miss you."
 background_color = Color(0.180392, 0.219608, 0.117647, 1)
-insecurity_count = 2
+insecurity_count = 1
 execute_function_name = "_execute_dodge"

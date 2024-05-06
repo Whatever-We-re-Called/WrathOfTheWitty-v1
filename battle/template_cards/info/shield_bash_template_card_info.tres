@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_l0wej")
 name = "Shield Bash"
-sentence = "Take this, you %adjective% %noun%!"
+sentence = "Take this, you %adjective% %adjective% %noun%!"
 nonupgraded_description = "Deal an amount of damage equivalent to your active Shield, then remove all active Shield."
 upgraded_description = "Deal an amount of damage equivalent to your active Shield."
 background_color = Color(0.219608, 0.12549, 0.117647, 1)

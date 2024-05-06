@@ -9,5 +9,5 @@ sentence = "Oh your %adjective% %adjective% has really done it now."
 nonupgraded_description = "Heal yourself for 8 HP."
 upgraded_description = "Heal yourself for 12 HP."
 background_color = Color(0.219608, 0.117647, 0.207843, 1)
-insecurity_count = 3
+insecurity_count = 2
 execute_function_name = "_execute_first_aid"
