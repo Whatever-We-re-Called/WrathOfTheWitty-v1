@@ -78,9 +78,6 @@ func _handle_controls_input():
 	elif Input.is_action_just_pressed("view_opponents_info"):
 		battle_interface.open_player_info_ui(players[Constants.PlayerSide.RIGHT].info)
 	
-	if Input.is_action_just_pressed("draw_card"):
-		player.draw_card()
-	
 	if Input.is_action_just_pressed("end_turn") and not is_executing_turn:
 		end_turn_early()
 
