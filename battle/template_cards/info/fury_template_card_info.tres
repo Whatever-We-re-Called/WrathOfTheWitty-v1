@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TemplateCardInfo" load_steps=2 format=3 uid="uid://deoi22wkr2dvd"]
+
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="1_qykyc"]
+
+[resource]
+script = ExtResource("1_qykyc")
+name = "Fury"
+sentence = "You're %adjective% and %adjective%. Why does a %noun% like you even exist?"
+nonupgraded_description = "Receive 1 Fury."
+upgraded_description = "Receive 2 Fury."
+background_color = Color(0.117647, 0.117647, 0.219608, 1)
+insecurity_count = 1
+execute_function_name = "_execute_fury"

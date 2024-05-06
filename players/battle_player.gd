@@ -253,7 +253,7 @@ func get_card_reroll_stamina_cost() -> int:
 	return BASE_CARD_REROLL_STAMINA_COST
 
 
-func draw_card():
+func draw_card(ignore_hand_limit: bool):
 	if not can_afford_card_draw(): return
 	if cards_in_hand.size() + selected_cards.size() >= info.action_hand_stat: return
 	deplenish_stamina(BASE_CARD_DRAW_STAMINA_COST)

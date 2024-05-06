@@ -27,6 +27,11 @@ static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene):
 	
 	_execute_action_card_attack(battle_action_execution_data)
 	
+	var fury_status_effect = Constants.PlayerStatusEffect.FURY
+	if attacker_player.active_status_effects.has(fury_status_effect):
+		_execute_action_card_attack(battle_action_execution_data)
+		attacker_player.decrement_status_effect(fury_status_effect, 1)
+	
 	battle_action_execution_data.battle_scene.battle_interface.update_player_stats(attacker_player)
 	battle_action_execution_data.battle_scene.battle_interface.update_player_stats(defender_player)
 

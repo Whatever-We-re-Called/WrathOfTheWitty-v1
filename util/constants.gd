@@ -80,6 +80,8 @@ var PlayerStatusEffectInfo = {
 	PlayerStatusEffect.PIERCE: preload("res://players/status_effects/effects/pierce_status_effect.tres"),
 	PlayerStatusEffect.THORNS: preload("res://players/status_effects/effects/thorns_status_effect.tres"),
 	PlayerStatusEffect.DODGE: preload("res://players/status_effects/effects/dodge_status_effect_info.tres"),
+	PlayerStatusEffect.FURY: preload("res://players/status_effects/effects/fury_status_effect_info.tres"),
+	PlayerStatusEffect.RAGE: preload("res://players/status_effects/effects/rage_status_effect_info.tres")
 }
 
 enum PlayerSide {

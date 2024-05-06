@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=3 format=3 uid="uid://lqythn4mdj77"]
+
+[ext_resource type="Texture2D" uid="uid://b3vklgp6qv7j1" path="res://players/status_effects/textures/shield.svg" id="1_baklb"]
+[ext_resource type="Script" path="res://players/status_effects/effects/status_effect_info.gd" id="2_fvwwe"]
+
+[resource]
+script = ExtResource("2_fvwwe")
+icon = ExtResource("1_baklb")
+color = Color(0.898039, 0.584314, 0.266667, 1)
+hide_quantity_text = false
+decrement_per_turn_value = 0
+handle_decrement_automatically = false

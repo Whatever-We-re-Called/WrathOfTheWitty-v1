@@ -264,11 +264,9 @@ func _on_selected_next_template_card():
 
 
 func _on_stamina_changed():
-	if active_template_card != null:
+	if active_template_card != null and not is_executing_turn:
 		_update_template_card_reroll_button()
 
 
 func _update_template_card_reroll_button():
-	if is_executing_turn: return
-	
 	active_template_card.toggle_reroll_button(player.can_afford_template_card_reroll())

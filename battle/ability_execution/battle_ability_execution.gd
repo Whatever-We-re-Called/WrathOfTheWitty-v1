@@ -18,6 +18,12 @@ static func try_to_execute(template_card_info: TemplateCardInfo, card_infos: Arr
 	
 	_execute_callable(battle_ability_execution_data, template_card_info, template_card_info.execute_function_name)
 	
+	var attacker_player = battle_ability_execution_data.attacker_player
+	var rage_status_effect = Constants.PlayerStatusEffect.RAGE
+	if attacker_player.active_status_effects.has(rage_status_effect):
+		_execute_callable(battle_ability_execution_data, template_card_info, template_card_info.execute_function_name)
+		attacker_player.decrement_status_effect(rage_status_effect, 1)
+	
 	# TEMPLATE_ACTION_REPEAT Blessing
 	if battle_ability_execution_data.attacker_player.info.has_blessing(Blessings.Type.TEMPLATE_ACTION_REPEAT):
 		var rng = RandomNumberGenerator.new()
@@ -228,10 +234,32 @@ static func _execute_thorns(battle_ability_execution_data: BattleAbilityExecutio
 
 
 static func _execute_dodge(battle_ability_execution_data: BattleAbilityExecutionData):
-	var defender_player = battle_ability_execution_data.attacker_player
+	var attacker_player = battle_ability_execution_data.attacker_player
 	var status_effect = Constants.PlayerStatusEffect.DODGE
 	
 	if battle_ability_execution_data.is_upgraded:
-		defender_player.apply_status_effect(status_effect, 2)
+		attacker_player.apply_status_effect(status_effect, 2)
 	else:
-		defender_player.apply_status_effect(status_effect, 1)
+		attacker_player.apply_status_effect(status_effect, 1)
+
+
+static func _execute_fury(battle_ability_execution_data: BattleAbilityExecutionData):
+	var attacker_player = battle_ability_execution_data.attacker_player
+	var status_effect = Constants.PlayerStatusEffect.FURY
+	
+	if battle_ability_execution_data.is_upgraded:
+		attacker_player.apply_status_effect(status_effect, 2)
+	else:
+		attacker_player.apply_status_effect(status_effect, 1)
+
+
+static func _execute_rage(battle_ability_execution_data: BattleAbilityExecutionData):
+	var attacker_player = battle_ability_execution_data.attacker_player
+	var status_effect = Constants.PlayerStatusEffect.RAGE
+	
+	if battle_ability_execution_data.is_upgraded:
+		attacker_player.apply_status_effect(status_effect, 1)
+		for i in range(2):
+			attacker_player.draw_card(true)
+	else:
+		attacker_player.apply_status_effect(status_effect, 1)
