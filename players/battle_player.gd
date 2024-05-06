@@ -76,6 +76,12 @@ func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 func damage(amount: int, skip_blessing_signal: bool = false, ignore_shield: bool = false):
 	if amount <= 0: return
 	
+	# Dodge detection.
+	var dodge_status_effect = Constants.PlayerStatusEffect.DODGE
+	if active_status_effects.has(dodge_status_effect):
+		decrement_status_effect(dodge_status_effect, 1)
+		return
+	
 	# Pierce detection.
 	if opponent_battle_player.active_status_effects.has(Constants.PlayerStatusEffect.PIERCE):
 		opponent_battle_player.decrement_status_effect(Constants.PlayerStatusEffect.PIERCE, 1)
@@ -94,6 +100,7 @@ func damage(amount: int, skip_blessing_signal: bool = false, ignore_shield: bool
 		active_status_effects[Constants.PlayerStatusEffect.SHIELD] = shield_amount
 	
 	health -= amount
+	print(amount)
 	health = clamp(health, 0, info.health_stat)
 	_execute_damage_visual()
 	

@@ -78,7 +78,8 @@ var PlayerStatusEffectInfo = {
 	PlayerStatusEffect.REPRESS_SOCIAL_LIFE: preload("res://players/status_effects/effects/repress_social_life_status_effect.tres"),
 	PlayerStatusEffect.STRENGTH: preload("res://players/status_effects/effects/strength_status_effect.tres"),
 	PlayerStatusEffect.PIERCE: preload("res://players/status_effects/effects/pierce_status_effect.tres"),
-	PlayerStatusEffect.THORNS: preload("res://players/status_effects/effects/thorns_status_effect.tres")
+	PlayerStatusEffect.THORNS: preload("res://players/status_effects/effects/thorns_status_effect.tres"),
+	PlayerStatusEffect.DODGE: preload("res://players/status_effects/effects/dodge_status_effect_info.tres"),
 }
 
 enum PlayerSide {

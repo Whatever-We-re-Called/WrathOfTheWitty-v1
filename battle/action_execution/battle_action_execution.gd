@@ -36,7 +36,8 @@ static func _execute_action_card_attack(battle_action_execution_data: BattleActi
 	var defender_player = battle_action_execution_data.defender_player
 	var card_info = battle_action_execution_data.card_info
 	var card_insecurity = battle_action_execution_data.card_info.insecurity
-	if attacker_player.is_repressed_for_insecurity(card_info.insecurity):
+	
+	if _did_nullify_attack(battle_action_execution_data):
 		return
 	
 	if defender_player.info.block_insecurity_affinities.has(card_insecurity):
@@ -58,6 +59,16 @@ static func _execute_action_card_attack(battle_action_execution_data: BattleActi
 		if battle_action_execution_data.card_info.enhancement == Constants.CardEnhancement.REFRESHING:
 			battle_action_execution_data.attacker_player.replenish_stamina(BATTLE_ACTION_EXECUTION_INFO.base_refreshing_enhancement_stamnina_increase_value)
 
+
+static func _did_nullify_attack(battle_action_execution_data: BattleActionExecutionData) -> bool:
+	var attacker_player = battle_action_execution_data.attacker_player
+	var defender_player = battle_action_execution_data.defender_player
+	var card_info = battle_action_execution_data.card_info
+	
+	if attacker_player.is_repressed_for_insecurity(card_info.insecurity):
+		return true
+	
+	return false
 
 
 static func _get_damage_dealt_value(battle_action_execution_data: BattleActionExecutionData) -> int:
