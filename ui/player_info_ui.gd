@@ -50,6 +50,15 @@ extends CenterContainer
 @onready var normal_blessings_value_label = %NormalBlessingsValueLabel
 @onready var cosmic_blessings_limit_value = %CosmicBlessingsLimitValue
 @onready var template_hand_value_label = %TemplateHandValueLabel
+@onready var hide_dividend_label = %HideDividendLabel
+@onready var slime_dividend_label = %SlimeDividendLabel
+@onready var poison_dividend_label = %PoisonDividendLabel
+@onready var burn_dividend_label = %BurnDividendLabel
+@onready var freeze_dividend_label = %FreezeDividendLabel
+@onready var health_max_label = %HealthMaxLabel
+@onready var stamina_max_label = %StaminaMaxLabel
+@onready var hand_max_label = %HandMaxLabel
+@onready var template_hand_max_label = %TemplateHandMaxLabel
 
 const CARD_SCENE = preload("res://battle/cards/card.tscn")
 const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.tscn")
@@ -82,17 +91,26 @@ func _set_open_tab_index(index: int):
 
 
 func _init_stats_page(player_info: PlayerInfo):
-	health_value_label.text = str(player_info.health_stat)
-	stamina_value_label.text = str(player_info.stamina_stat)
-	hand_value_label.text = str(player_info.action_hand_stat)
-	template_hand_value_label.text = str(player_info.template_hand_stat)
+	health_value_label.text = str(player_info.current_player_instance.health)
+	health_max_label.text = str(player_info.health_stat)
+	stamina_value_label.text = str(player_info.current_player_instance.stamina)
+	stamina_max_label.text = str(player_info.stamina_stat)
+	hand_value_label.text = str(player_info.current_player_instance.get_all_cards_in_hand().size())
+	hand_max_label.text = str(player_info.action_hand_stat)
+	template_hand_value_label.text = str(player_info.current_player_instance.template_cards_in_hand.size())
+	template_hand_max_label.text = str(player_info.template_hand_stat)
 	speed_value_label.text = str(player_info.speed_stat)
 	
-	hide_value_label.text = str(player_info.hide_magic_stat)
-	slime_value_label.text = str(player_info.slime_magic_stat)
-	poison_value_label.text = str(player_info.poison_magic_stat)
-	burn_value_label.text = str(player_info.burn_magic_stat)
-	freeze_value_label.text = str(player_info.freeze_magic_stat)
+	hide_value_label.text = str(player_info.hide_effect_stat)
+	hide_dividend_label.text = str(player_info.hide_dividend_stat)
+	slime_value_label.text = str(player_info.slime_effect_stat)
+	slime_dividend_label.text = str(player_info.slime_dividend_stat)
+	poison_value_label.text = str(player_info.poison_effect_stat)
+	poison_dividend_label.text = str(player_info.poison_dividend_stat)
+	burn_value_label.text = str(player_info.burn_effect_stat)
+	burn_dividend_label.text = str(player_info.burn_dividend_stat)
+	freeze_value_label.text = str(player_info.freeze_effect_stat)
+	freeze_dividend_label.text = str(player_info.freeze_dividend_stat)
 	
 	var insecurity_affinities = player_info.get_insecurity_affinities()
 	# https://github.com/godotengine/godot/issues/85882

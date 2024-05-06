@@ -4,24 +4,29 @@ class_name PlayerInfo extends Resource
 @export var name: String
 @export var sprite_frames: SpriteFrames
 @export var sprite_scale: Vector2 = Vector2.ONE
-@export_category("Insecurities")
-@export var weak_insecurity_affinities: Array[Constants.Insecurity]
-@export var strong_insecurity_affinities: Array[Constants.Insecurity]
-@export var block_insecurity_affinities: Array[Constants.Insecurity]
-@export var contempt_insecurity_affinities: Array[Constants.Insecurity]
-@export var repel_insecurity_affinities: Array[Constants.Insecurity]
-@export_category("Stats")
+@export_category("Base Stats")
 @export var health_stat: int
 @export var stamina_stat: int
 @export var action_hand_stat: int
 @export var template_hand_stat: int
 @export var speed_stat: int
-@export var hide_magic_stat: int
-@export var weaken_magic_stat: int
-@export var poison_magic_stat: int
-@export var burn_magic_stat: int
-@export var freeze_magic_stat: int
-@export var slime_magic_stat: int
+@export_category("Effect Stats")
+@export var hide_effect_stat: int
+@export var slime_effect_stat: int
+@export var poison_effect_stat: int
+@export var burn_effect_stat: int
+@export var freeze_effect_stat: int
+@export var hide_dividend_stat: int
+@export var slime_dividend_stat: int
+@export var poison_dividend_stat: int
+@export var burn_dividend_stat: int
+@export var freeze_dividend_stat: int
+@export_category("Insecurity Stats")
+@export var weak_insecurity_affinities: Array[Constants.Insecurity]
+@export var strong_insecurity_affinities: Array[Constants.Insecurity]
+@export var block_insecurity_affinities: Array[Constants.Insecurity]
+@export var contempt_insecurity_affinities: Array[Constants.Insecurity]
+@export var repel_insecurity_affinities: Array[Constants.Insecurity]
 @export_category("Misc")
 @export var cosmic_blessings_limit: int
 @export_category("Resources")

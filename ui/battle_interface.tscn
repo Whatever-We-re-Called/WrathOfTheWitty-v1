@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cbocnnnw4vt17"]
+[gd_scene load_steps=49 format=3 uid="uid://cbocnnnw4vt17"]
 
 [ext_resource type="Script" path="res://ui/battle_interface.gd" id="1_iesfx"]
 [ext_resource type="Script" path="res://ui/player_stats_ui.gd" id="2_6m8b4"]
@@ -59,6 +59,10 @@ font_color = Color(0.917647, 0.301961, 0.588235, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_lseqt"]
 font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_85bwo"]
+font_size = 32
+font_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_hfnni"]
 font_size = 32
@@ -552,7 +556,6 @@ horizontal_alignment = 2
 
 [node name="PlayerInfoUI" type="CenterContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 z_index = 10
 layout_mode = 1
 anchors_preset = 8
@@ -687,15 +690,30 @@ expand_mode = 2
 [node name="Label" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
-text = "Max Health"
+text = "Health"
 label_settings = SubResource("LabelSettings_6eyk2")
 
-[node name="HealthValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HealthValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
 text = "100"
 label_settings = SubResource("LabelSettings_lseqt")
+
+[node name="Label2" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+text = "/"
+label_settings = SubResource("LabelSettings_85bwo")
+
+[node name="HealthMaxLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100"
+label_settings = SubResource("LabelSettings_85bwo")
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -715,12 +733,27 @@ theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
 text = "Max Stamina"
 label_settings = SubResource("LabelSettings_hfnni")
 
-[node name="StaminaValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer3"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="StaminaValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer3/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
 text = "3"
 label_settings = SubResource("LabelSettings_lseqt")
+
+[node name="Label2" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer3/HBoxContainer"]
+layout_mode = 2
+text = "/"
+label_settings = SubResource("LabelSettings_85bwo")
+
+[node name="StaminaMaxLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer3/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "3"
+label_settings = SubResource("LabelSettings_85bwo")
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -740,12 +773,27 @@ theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
 text = "Action Hand"
 label_settings = SubResource("LabelSettings_w46lb")
 
-[node name="HandValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer4"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer4"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HandValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer4/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
 text = "5"
 label_settings = SubResource("LabelSettings_lseqt")
+
+[node name="Label2" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer4/HBoxContainer"]
+layout_mode = 2
+text = "/"
+label_settings = SubResource("LabelSettings_85bwo")
+
+[node name="HandMaxLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer4/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100"
+label_settings = SubResource("LabelSettings_85bwo")
 
 [node name="HBoxContainer8" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -765,12 +813,27 @@ theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
 text = "Template Hand"
 label_settings = SubResource("LabelSettings_m78jh")
 
-[node name="TemplateHandValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer8"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer8"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TemplateHandValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer8/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
 text = "2"
 label_settings = SubResource("LabelSettings_lseqt")
+
+[node name="Label2" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer8/HBoxContainer"]
+layout_mode = 2
+text = "/"
+label_settings = SubResource("LabelSettings_85bwo")
+
+[node name="TemplateHandMaxLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer8/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100"
+label_settings = SubResource("LabelSettings_85bwo")
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -832,6 +895,26 @@ layout_mode = 2
 text = "10"
 label_settings = SubResource("LabelSettings_n210e")
 
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label2" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+text = "["
+label_settings = SubResource("LabelSettings_85bwo")
+
+[node name="HideDividendLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10"
+label_settings = SubResource("LabelSettings_85bwo")
+
+[node name="Label3" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+text = "]"
+label_settings = SubResource("LabelSettings_85bwo")
+
 [node name="HBoxContainer7" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
@@ -854,6 +937,26 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "10"
 label_settings = SubResource("LabelSettings_n210e")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label2" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer7/HBoxContainer"]
+layout_mode = 2
+text = "["
+label_settings = SubResource("LabelSettings_85bwo")
+
+[node name="SlimeDividendLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer7/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10"
+label_settings = SubResource("LabelSettings_85bwo")
+
+[node name="Label3" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer7/HBoxContainer"]
+layout_mode = 2
+text = "]"
+label_settings = SubResource("LabelSettings_85bwo")
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -878,6 +981,26 @@ layout_mode = 2
 text = "10"
 label_settings = SubResource("LabelSettings_n210e")
 
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label2" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer4/HBoxContainer"]
+layout_mode = 2
+text = "["
+label_settings = SubResource("LabelSettings_85bwo")
+
+[node name="PoisonDividendLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer4/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10"
+label_settings = SubResource("LabelSettings_85bwo")
+
+[node name="Label3" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer4/HBoxContainer"]
+layout_mode = 2
+text = "]"
+label_settings = SubResource("LabelSettings_85bwo")
+
 [node name="HBoxContainer5" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
@@ -901,6 +1024,26 @@ layout_mode = 2
 text = "10"
 label_settings = SubResource("LabelSettings_n210e")
 
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label2" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
+layout_mode = 2
+text = "["
+label_settings = SubResource("LabelSettings_85bwo")
+
+[node name="BurnDividendLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10"
+label_settings = SubResource("LabelSettings_85bwo")
+
+[node name="Label3" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
+layout_mode = 2
+text = "]"
+label_settings = SubResource("LabelSettings_85bwo")
+
 [node name="HBoxContainer6" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
@@ -921,8 +1064,28 @@ label_settings = SubResource("LabelSettings_5yrx0")
 [node name="FreezeValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer6"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "10"
+text = "15"
 label_settings = SubResource("LabelSettings_n210e")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label2" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+text = "["
+label_settings = SubResource("LabelSettings_85bwo")
+
+[node name="FreezeDividendLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer6/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10"
+label_settings = SubResource("LabelSettings_85bwo")
+
+[node name="Label3" type="Label" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+text = "]"
+label_settings = SubResource("LabelSettings_85bwo")
 
 [node name="InsecuritiesInfoContainer" type="VBoxContainer" parent="PlayerInfoUI/VBoxContainer/PlayerStatsInfoUI/CenterContainer/HBoxContainer"]
 layout_mode = 2

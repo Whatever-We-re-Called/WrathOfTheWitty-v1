@@ -118,7 +118,7 @@ static func _inflict_hide_effect_onto_enemy(target_player: BattlePlayer, battle_
 	var status_effect = Constants.PlayerStatusEffect.HIDE
 	var attacker_player = battle_action_execution_data.attacker_player
 	var base_stack_value = BATTLE_ACTION_EXECUTION_INFO.base_hide_stack_value
-	var magic_stat_value = attacker_player.info.hide_magic_stat
+	var magic_stat_value = attacker_player.info.hide_effect_stat
 	var applied_value = _get_magic_applied_value(base_stack_value, magic_stat_value, battle_action_execution_data)
 	
 	target_player.apply_status_effect(status_effect, applied_value)
@@ -128,7 +128,7 @@ static func _inflict_poison_effect_onto_enemy(target_player: BattlePlayer, battl
 	var status_effect = Constants.PlayerStatusEffect.POISON
 	var attacker_player = battle_action_execution_data.attacker_player
 	var base_stack_value = BATTLE_ACTION_EXECUTION_INFO.base_poison_stack_value
-	var magic_stat_value = attacker_player.info.poison_magic_stat
+	var magic_stat_value = attacker_player.info.poison_effect_stat
 	var applied_value = _get_magic_applied_value(base_stack_value, magic_stat_value, battle_action_execution_data)
 	
 	target_player.apply_status_effect(status_effect, applied_value)
@@ -138,7 +138,7 @@ static func _inflict_burn_effect_onto_enemy(target_player: BattlePlayer, battle_
 	var status_effect = Constants.PlayerStatusEffect.BURN
 	var attacker_player = battle_action_execution_data.attacker_player
 	var base_stack_value = BATTLE_ACTION_EXECUTION_INFO.base_burn_stack_value
-	var magic_stat_value = attacker_player.info.burn_magic_stat
+	var magic_stat_value = attacker_player.info.burn_effect_stat
 	var applied_value = _get_magic_applied_value(base_stack_value, magic_stat_value, battle_action_execution_data)
 	
 	target_player.apply_status_effect(status_effect, applied_value)
@@ -148,7 +148,7 @@ static func _inflict_freeze_effect_onto_enemy(target_player: BattlePlayer, battl
 	var status_effect = Constants.PlayerStatusEffect.FREEZE
 	var attacker_player = battle_action_execution_data.attacker_player
 	var base_stack_value = BATTLE_ACTION_EXECUTION_INFO.base_freeze_stack_value
-	var magic_stat_value = attacker_player.info.freeze_magic_stat
+	var magic_stat_value = attacker_player.info.freeze_effect_stat
 	var applied_value = _get_magic_applied_value(base_stack_value, magic_stat_value, battle_action_execution_data)
 	
 	target_player.apply_status_effect(status_effect, applied_value)
@@ -158,7 +158,7 @@ static func _inflict_slime_effect_onto_enemy(target_player: BattlePlayer, battle
 	var status_effect = Constants.PlayerStatusEffect.SLIME
 	var attacker_player = battle_action_execution_data.attacker_player
 	var base_stack_value = BATTLE_ACTION_EXECUTION_INFO.base_slime_stack_value
-	var magic_stat_value = attacker_player.info.slime_magic_stat
+	var magic_stat_value = attacker_player.info.slime_effect_stat
 	var applied_value = _get_magic_applied_value(base_stack_value, magic_stat_value, battle_action_execution_data)
 	
 	target_player.apply_status_effect(status_effect, applied_value)

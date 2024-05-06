@@ -339,6 +339,15 @@ func _overwrite_template_card_info(template_card: TemplateCard, new_template_car
 				return
 
 
+func get_all_cards_in_hand() -> Array[CardInfo]:
+	var result: Array[CardInfo]
+	for card_info in cards_in_hand:
+		result.append(card_info)
+	for card_info in selected_cards:
+		result.append(card_info)
+	return result
+
+
 func handle_played_selected_cards():
 	for card in selected_cards:
 		if card.enhancement == Constants.CardEnhancement.DEPENDABLE:
