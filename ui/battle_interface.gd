@@ -62,7 +62,6 @@ func add_card(card_scene: Control):
 	card_hand_root_container.add_child(new_card_hand_container)
 	card_hand_root_container.move_child(new_card_hand_container, 0)
 	new_card_hand_container.add_child(card_scene)
-	print("Create")
 
 
 func remove_card(card_scene: Control):

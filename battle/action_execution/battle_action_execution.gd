@@ -134,7 +134,8 @@ static func _inflict_hide_effect_onto_enemy(target_player: BattlePlayer, battle_
 	var attacker_player = battle_action_execution_data.attacker_player
 	var base_stack_value = BATTLE_ACTION_EXECUTION_INFO.base_hide_stack_value
 	var magic_stat_value = attacker_player.info.hide_effect_stat
-	var applied_value = _get_magic_applied_value(base_stack_value, magic_stat_value, battle_action_execution_data)
+	var magic_dividend_value = attacker_player.info.hide_dividend_stat
+	var applied_value = _get_magic_applied_value(base_stack_value, magic_stat_value, magic_dividend_value, battle_action_execution_data)
 	
 	target_player.apply_status_effect(status_effect, applied_value)
 
@@ -144,7 +145,8 @@ static func _inflict_poison_effect_onto_enemy(target_player: BattlePlayer, battl
 	var attacker_player = battle_action_execution_data.attacker_player
 	var base_stack_value = BATTLE_ACTION_EXECUTION_INFO.base_poison_stack_value
 	var magic_stat_value = attacker_player.info.poison_effect_stat
-	var applied_value = _get_magic_applied_value(base_stack_value, magic_stat_value, battle_action_execution_data)
+	var magic_dividend_value = attacker_player.info.poison_dividend_stat
+	var applied_value = _get_magic_applied_value(base_stack_value, magic_stat_value, magic_dividend_value, battle_action_execution_data)
 	
 	target_player.apply_status_effect(status_effect, applied_value)
 
@@ -154,7 +156,8 @@ static func _inflict_burn_effect_onto_enemy(target_player: BattlePlayer, battle_
 	var attacker_player = battle_action_execution_data.attacker_player
 	var base_stack_value = BATTLE_ACTION_EXECUTION_INFO.base_burn_stack_value
 	var magic_stat_value = attacker_player.info.burn_effect_stat
-	var applied_value = _get_magic_applied_value(base_stack_value, magic_stat_value, battle_action_execution_data)
+	var magic_dividend_value = attacker_player.info.burn_dividend_stat
+	var applied_value = _get_magic_applied_value(base_stack_value, magic_stat_value, magic_dividend_value, battle_action_execution_data)
 	
 	target_player.apply_status_effect(status_effect, applied_value)
 
@@ -164,7 +167,8 @@ static func _inflict_freeze_effect_onto_enemy(target_player: BattlePlayer, battl
 	var attacker_player = battle_action_execution_data.attacker_player
 	var base_stack_value = BATTLE_ACTION_EXECUTION_INFO.base_freeze_stack_value
 	var magic_stat_value = attacker_player.info.freeze_effect_stat
-	var applied_value = _get_magic_applied_value(base_stack_value, magic_stat_value, battle_action_execution_data)
+	var magic_dividend_value = attacker_player.info.freeze_dividend_stat
+	var applied_value = _get_magic_applied_value(base_stack_value, magic_stat_value, magic_dividend_value, battle_action_execution_data)
 	
 	target_player.apply_status_effect(status_effect, applied_value)
 
@@ -174,32 +178,32 @@ static func _inflict_slime_effect_onto_enemy(target_player: BattlePlayer, battle
 	var attacker_player = battle_action_execution_data.attacker_player
 	var base_stack_value = BATTLE_ACTION_EXECUTION_INFO.base_slime_stack_value
 	var magic_stat_value = attacker_player.info.slime_effect_stat
-	var applied_value = _get_magic_applied_value(base_stack_value, magic_stat_value, battle_action_execution_data)
+	var magic_dividend_value = attacker_player.info.slime_dividend_stat
+	var applied_value = _get_magic_applied_value(base_stack_value, magic_stat_value, magic_dividend_value, battle_action_execution_data)
 	
 	target_player.apply_status_effect(status_effect, applied_value)
 
 
-static func _get_magic_applied_value(base_stack_value: int, magic_stat_value: int, battle_action_execution_data: BattleActionExecutionData):
-	var times_applied = _get_insecurity_status_effect_times_applied(magic_stat_value, battle_action_execution_data)
+static func _get_magic_applied_value(base_stack_value: int, magic_stat_value: int, magic_dividend_value: int, battle_action_execution_data: BattleActionExecutionData):
+	var times_applied = _get_insecurity_status_effect_times_applied(magic_stat_value, magic_dividend_value, battle_action_execution_data)
 	var applied_value = base_stack_value * times_applied
 	
 	return applied_value
 
 
-static func _get_insecurity_status_effect_times_applied(magic_stat_value: int, battle_action_execution_data: BattleActionExecutionData) -> int:
+static func _get_insecurity_status_effect_times_applied(magic_stat_value: int, magic_dividend_value: int, battle_action_execution_data: BattleActionExecutionData) -> int:
 	var times_applied = 0
-	const GUARANTEE_VALUE = 10
 	
 	var rng = RandomNumberGenerator.new()
 	while magic_stat_value > 0:
-		if magic_stat_value >= GUARANTEE_VALUE:
+		if magic_stat_value >= magic_dividend_value:
 			times_applied += 1
 		else:
-			var result = rng.randi_range(1, 10)
+			var result = rng.randi_range(1, magic_dividend_value)
 			if result <= magic_stat_value:
 				times_applied += 1
 		
-		magic_stat_value -= 10
+		magic_stat_value -= magic_dividend_value
 	
 	return times_applied
 
