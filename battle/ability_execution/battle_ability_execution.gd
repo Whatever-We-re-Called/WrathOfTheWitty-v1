@@ -254,3 +254,23 @@ static func _execute_rage(battle_ability_execution_data: BattleAbilityExecutionD
 			attacker_player.draw_card(true)
 	else:
 		attacker_player.apply_status_effect(status_effect, 1)
+
+
+static func _execute_self_reset(battle_ability_execution_data: BattleAbilityExecutionData):
+	var attacker_player = battle_ability_execution_data.attacker_player
+	
+	if battle_ability_execution_data.is_upgraded:
+		attacker_player.reset_action_hand()
+		attacker_player.reset_template_hand()
+	else:
+		attacker_player.reset_action_hand()
+
+
+static func _execute_reset(battle_ability_execution_data: BattleAbilityExecutionData):
+	var defender_player = battle_ability_execution_data.defender_player
+	
+	if battle_ability_execution_data.is_upgraded:
+		defender_player.reset_action_hand()
+		defender_player.reset_template_hand()
+	else:
+		defender_player.reset_action_hand()

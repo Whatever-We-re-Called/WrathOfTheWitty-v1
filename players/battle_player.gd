@@ -365,7 +365,22 @@ func handle_played_selected_cards():
 		
 		if not card.dont_put_in_bag:
 			send_card_to_bag(card)
-	selected_cards.clear()
+
+
+func reset_action_hand():
+	for i in range(cards_in_hand.size()):
+		send_card_to_bag(cards_in_hand[0])
+		cards_in_hand.remove_at(0)
+	
+	fill_action_hand()
+
+
+func reset_template_hand():
+	for i in range(template_cards_in_hand.size()):
+		send_template_card_to_bag(template_cards_in_hand[0])
+		template_cards_in_hand.remove_at(0)
+	
+	fill_template_hand()
 
 
 func apply_status_effect(effect: Constants.PlayerStatusEffect, value: int):
@@ -418,17 +433,25 @@ func handle_start_battle():
 
 
 func handle_start_turn():
-	add_cards_to_hand(_get_needed_cards_count())
-	add_template_cards_to_hand(_get_needed_template_cards_count())
+	fill_action_hand()
+	fill_template_hand()
 	info.emit_turn_started_blessing_signal()
 	
 	_handle_stamina_recharge()
 	_handle_poison_status_effect()
 
 
+func fill_action_hand():
+	add_cards_to_hand(_get_needed_cards_count())
+
+
 func _get_needed_cards_count() -> int:
 	var space = clamp(info.action_card_deck.size(), 1, info.action_hand_stat)
 	return space - cards_in_hand.size()
+
+
+func fill_template_hand():
+	add_template_cards_to_hand(_get_needed_template_cards_count())
 
 
 func _get_needed_template_cards_count() -> int:

@@ -153,9 +153,10 @@ func unselect_card(card: Card):
 
 
 func play_cards():
+	player.handle_played_selected_cards()
 	BattleAbilityExecution.try_to_execute(active_template_card.template_card_info, player.selected_cards, self)
 	BattleActionExecution.execute_action_cards(player.selected_cards, self)
-	player.handle_played_selected_cards()
+	player.selected_cards.clear()
 	
 	for i in range(player.template_cards_in_hand.size()):
 		if player.template_cards_in_hand[i] == active_template_card.template_card_info:
@@ -171,6 +172,8 @@ func play_cards():
 		update_active_template_card()
 	else:
 		change_turns()
+	
+	battle_interface.update_hand(player)
 
 
 func end_turn_early():

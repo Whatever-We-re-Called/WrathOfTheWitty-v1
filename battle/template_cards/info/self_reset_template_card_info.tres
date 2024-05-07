@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TemplateCardInfo" load_steps=2 format=3 uid="uid://8pohmf3cu763"]
+
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="1_7h4vg"]
+
+[resource]
+script = ExtResource("1_7h4vg")
+name = "Self Reset"
+sentence = "Let's try this again. I can't lose to such as %adjective% %adjective% %noun%."
+nonupgraded_description = "Send all of the Action Cards in your hand to your bag, then redraw your hand."
+upgraded_description = "Send all of the Action Cards and Template Cards in your hands to your bags, then redraw your hands."
+background_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+insecurity_count = 2
+execute_function_name = "_execute_self_reset"
