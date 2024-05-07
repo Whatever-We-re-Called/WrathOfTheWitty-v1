@@ -15,7 +15,10 @@ signal card_throw(card: Card)
 @onready var player_template_card_deck_label = %PlayerTemplateCardDeckLabel
 @onready var player_template_card_bag_label = %PlayerTemplateCardBagLabel
 @onready var player_info_ui = %PlayerInfoUI
-
+@onready var card_hand_containers = [
+	%DeckFirstRow,
+	%DeckSecondRow
+]
 
 var battle_scene: BattleScene
 
@@ -58,6 +61,18 @@ func add_card(card_scene: Control):
 			card_scene.reparent(deck_second_row)
 
 
+func remove_card(card_scene: Control):
+	for card_hand_container in card_hand_containers:
+		print("!")
+		for card in card_hand_container.get_children():
+			if card == card_scene:
+				card.free()
+
+
+func reflatten_hand_container():
+	pass
+
+
 func add_card_to_hand(card_info: CardInfo, player: BattlePlayer):
 	var new_card_scene = CARD_SCENE.instantiate()
 	new_card_scene.card_info = card_info
@@ -69,7 +84,10 @@ func add_card_to_hand(card_info: CardInfo, player: BattlePlayer):
 	card_info.card_scene = new_card_scene
 	
 	add_card(new_card_scene)
-	player.cards_in_hand_scenes.append(new_card_scene)
+
+
+func remove_card_from_hand(card_info: CardInfo):
+	remove_card(card_info.card_scene)
 
 
 func toggle_hand_visibility(visible: bool):

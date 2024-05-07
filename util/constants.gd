@@ -39,6 +39,11 @@ enum PlayerStatusEffect {
 	PIERCE,
 	FURY,
 	RAGE,
+	DELAY,
+	MAJOR_ATTACK_BUFF,
+	MINOR_ATTACK_BUFF,
+	MAJOR_EFFECT_BUFF,
+	MINOR_EFFECT_BUFF,
 	POISON,
 	BURN,
 	FREEZE,
@@ -50,6 +55,7 @@ enum PlayerStatusEffect {
 	REPRESS_PHYSICAL_ABILITY,
 	REPRESS_SELF_ESTEEM,
 	REPRESS_SOCIAL_LIFE,
+	SILENCE,
 }
 
 var positive_status_effects = [

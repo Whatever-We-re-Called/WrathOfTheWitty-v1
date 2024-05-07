@@ -95,7 +95,7 @@ func _init_stats_page(player_info: PlayerInfo):
 	health_max_label.text = str(player_info.health_stat)
 	stamina_value_label.text = str(player_info.current_player_instance.stamina)
 	stamina_max_label.text = str(player_info.stamina_stat)
-	hand_value_label.text = str(player_info.current_player_instance.get_all_cards_in_hand().size())
+	hand_value_label.text = str(player_info.current_player_instance.cards_in_hand.size())
 	hand_max_label.text = str(player_info.action_hand_stat)
 	template_hand_value_label.text = str(player_info.current_player_instance.template_cards_in_hand.size())
 	template_hand_max_label.text = str(player_info.template_hand_stat)

@@ -6,8 +6,8 @@
 script = ExtResource("1_ow8la")
 name = "Thorns"
 sentence = "Sticks and stones may break my bones, but a %adjective% %noun% could never."
-nonupgraded_description = "Receive 8 Thorns."
-upgraded_description = "Receive 12 Thorns."
+nonupgraded_description = "Receive 8 Thorns. Your opponent's next attack will damage them too."
+upgraded_description = "Receive 12 Thorns. Your opponent's next attack will damage them too."
 background_color = Color(0.129412, 0.219608, 0.117647, 1)
 insecurity_count = 2
 execute_function_name = "_execute_thorns"

@@ -259,21 +259,29 @@ static func _execute_rage(battle_ability_execution_data: BattleAbilityExecutionD
 static func _execute_self_reset(battle_ability_execution_data: BattleAbilityExecutionData):
 	var attacker_player = battle_ability_execution_data.attacker_player
 	
+	for i in range(attacker_player.cards_in_hand.size()):
+		attacker_player.remove_card(attacker_player.cards_in_hand[0])
+	
+	for i in range(attacker_player.info.action_hand_stat):
+		attacker_player.draw_card(true)
+	
 	if battle_ability_execution_data.is_upgraded:
-		attacker_player.reset_action_hand()
-		attacker_player.reset_template_hand()
-	else:
-		attacker_player.reset_action_hand()
+		for i in range(attacker_player.template_cards_in_hand.size()):
+			attacker_player.send_template_card_to_bag(attacker_player.template_cards_in_hand[0])
+			attacker_player.template_cards_in_hand.remove_at(0)
+		attacker_player.fill_template_hand()
 
 
 static func _execute_reset(battle_ability_execution_data: BattleAbilityExecutionData):
 	var defender_player = battle_ability_execution_data.defender_player
 	
+	#for i in ran
+	
 	if battle_ability_execution_data.is_upgraded:
-		defender_player.reset_action_hand()
-		defender_player.reset_template_hand()
-	else:
-		defender_player.reset_action_hand()
+		for i in range(defender_player.template_cards_in_hand.size()):
+			defender_player.send_template_card_to_bag(defender_player.template_cards_in_hand[0])
+			defender_player.template_cards_in_hand.remove_at(0)
+		defender_player.fill_template_hand()
 
 
 static func _execute_drain(battle_ability_execution_data: BattleAbilityExecutionData):

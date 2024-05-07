@@ -3,7 +3,9 @@ class_name BattlePlayer extends AnimatedSprite2D
 signal decreased_opponents_max_health(percentage: float, executing_player: BattlePlayer)
 signal damaged_opponent(amount: int, executing_player: BattlePlayer)
 signal stamina_changed
+signal updated_hand
 signal drew_card(card_info: CardInfo)
+signal removed_card(card_info: CardInfo)
 
 var info: PlayerInfo
 var health: int
@@ -18,7 +20,6 @@ var cards_in_hand: Array[CardInfo]
 var cards_in_bag: Array[CardInfo]
 var selected_cards: Array[CardInfo]
 var card_arrays = [
-	selected_cards,
 	cards_in_hand,
 	cards_in_deck,
 	cards_in_bag
@@ -33,7 +34,6 @@ var template_card_arrays = [
 	template_cards_in_bag
 ]
 
-var cards_in_hand_scenes: Array[Card]
 var opponent_battle_player: BattlePlayer
 var selected_template_card_hand_index: int = 0
 
@@ -227,7 +227,7 @@ func reroll_card(card: Card):
 	
 	send_card_to_bag(card.card_info)
 	
-	_overwrite_card_info(card, get_next_card_in_deck(true))
+	overwrite_card_info(card, get_next_card_in_deck(true))
 	
 	if active_status_effects.has(Constants.PlayerStatusEffect.BURN):
 		_set_card_on_fire(card)
@@ -254,20 +254,22 @@ func get_card_reroll_stamina_cost() -> int:
 
 
 func draw_card(ignore_hand_limit: bool):
-	if not can_afford_card_draw(): return
-	if cards_in_hand.size() + selected_cards.size() >= info.action_hand_stat: return
-	deplenish_stamina(BASE_CARD_DRAW_STAMINA_COST)
+	if not ignore_hand_limit:
+		if cards_in_hand.size() >= info.action_hand_stat: return
 	
 	add_cards_to_hand(1)
 	
 	drew_card.emit(cards_in_hand[-1])
 
 
-func can_afford_card_draw() -> bool:
-	if get_frozen_stamina_count() >= stamina:
-		return false
+func remove_card(card_info: CardInfo):
+	for i in range(cards_in_hand.size()):
+		if card_info == cards_in_hand[i]:
+			cards_in_hand.remove_at(i)
+			send_card_to_bag(card_info)
+			removed_card.emit(card_info)
+			break
 	
-	return stamina >= get_card_draw_stamina_cost()
 
 
 func get_card_draw_stamina_cost() -> int:
@@ -275,9 +277,6 @@ func get_card_draw_stamina_cost() -> int:
 
 
 func reset_card_hand():
-	cards_in_hand_scenes.clear()
-	for i in range(selected_cards.size()):
-		cards_in_hand.append(selected_cards[i])
 	selected_cards.clear()
 
 
@@ -322,7 +321,7 @@ func decrement_status_effect(status_effect: Constants.PlayerStatusEffect, decrem
 			active_status_effects.erase(status_effect)
 
 
-func _overwrite_card_info(card: Card, new_card_info: CardInfo):
+func overwrite_card_info(card: Card, new_card_info: CardInfo):
 	var old_card_info = card.card_info
 	for card_array in card_arrays:
 		for i in range(card_array.size()):
@@ -346,41 +345,20 @@ func _overwrite_template_card_info(template_card: TemplateCard, new_template_car
 				return
 
 
-func get_all_cards_in_hand() -> Array[CardInfo]:
-	var result: Array[CardInfo]
-	for card_info in cards_in_hand:
-		result.append(card_info)
-	for card_info in selected_cards:
-		result.append(card_info)
-	return result
-
-
 func handle_played_selected_cards():
 	for card in selected_cards:
 		if card.enhancement == Constants.CardEnhancement.DEPENDABLE:
 			var new_card_info = card.duplicate(true)
 			new_card_info.enhancement = Constants.CardEnhancement.NONE
 			new_card_info.dont_put_in_bag = true
-			cards_in_hand.push_back(new_card_info)
+		
+		for i in range(cards_in_hand.size()):
+			if card == cards_in_hand[i]:
+				cards_in_hand.remove_at(i)
+				break
 		
 		if not card.dont_put_in_bag:
 			send_card_to_bag(card)
-
-
-func reset_action_hand():
-	for i in range(cards_in_hand.size()):
-		send_card_to_bag(cards_in_hand[0])
-		cards_in_hand.remove_at(0)
-	
-	fill_action_hand()
-
-
-func reset_template_hand():
-	for i in range(template_cards_in_hand.size()):
-		send_template_card_to_bag(template_cards_in_hand[0])
-		template_cards_in_hand.remove_at(0)
-	
-	fill_template_hand()
 
 
 func apply_status_effect(effect: Constants.PlayerStatusEffect, value: int):
@@ -498,14 +476,16 @@ func _handle_poison_status_effect():
 
 
 func _handle_burn_status_effect():
-	if active_status_effects.has(Constants.PlayerStatusEffect.BURN):
-		var copy_of_cards_in_hands_scene = cards_in_hand_scenes
-		randomize()
-		copy_of_cards_in_hands_scene.shuffle()
-		
-		for i in range(active_status_effects[Constants.PlayerStatusEffect.BURN]):
-			if i >= info.action_hand_stat: break
-			_set_card_on_fire(copy_of_cards_in_hands_scene[i])
+	pass
+	#if active_status_effects.has(Constants.PlayerStatusEffect.BURN):
+		#
+		#var copy_of_cards_in_hands_scene = cards_in_hand_scenes
+		#randomize()
+		#copy_of_cards_in_hands_scene.shuffle()
+		#
+		#for i in range(active_status_effects[Constants.PlayerStatusEffect.BURN]):
+			#if i >= info.action_hand_stat: break
+			#_set_card_on_fire(copy_of_cards_in_hands_scene[i])
 
 
 func _set_card_on_fire(card: Card):
@@ -528,14 +508,15 @@ func _set_card_on_fire(card: Card):
 
 
 func _handle_slime_status_effect():
-	if active_status_effects.has(Constants.PlayerStatusEffect.SLIME):
-		var copy_of_cards_in_hands_scene = cards_in_hand_scenes
-		randomize()
-		copy_of_cards_in_hands_scene.shuffle()
-		
-		for i in range(active_status_effects[Constants.PlayerStatusEffect.SLIME]):
-			if i >= info.action_hand_stat: break
-			_set_card_as_slimed(copy_of_cards_in_hands_scene[i])
+	pass
+	#if active_status_effects.has(Constants.PlayerStatusEffect.SLIME):
+		#var copy_of_cards_in_hands_scene = cards_in_hand_scenes
+		#randomize()
+		#copy_of_cards_in_hands_scene.shuffle()
+		#
+		#for i in range(active_status_effects[Constants.PlayerStatusEffect.SLIME]):
+			#if i >= info.action_hand_stat: break
+			#_set_card_as_slimed(copy_of_cards_in_hands_scene[i])
 
 
 func _set_card_as_slimed(card: Card):
@@ -544,14 +525,15 @@ func _set_card_as_slimed(card: Card):
 
 
 func _handle_hide_status_effect():
-	if active_status_effects.has(Constants.PlayerStatusEffect.HIDE):
-		var copy_of_cards_in_hands_scene = cards_in_hand_scenes
-		randomize()
-		copy_of_cards_in_hands_scene.shuffle()
-		
-		for i in range(active_status_effects[Constants.PlayerStatusEffect.HIDE]):
-			if i >= info.action_hand_stat: break
-			_set_card_as_hidden(copy_of_cards_in_hands_scene[i])
+	pass
+	#if active_status_effects.has(Constants.PlayerStatusEffect.HIDE):
+		#var copy_of_cards_in_hands_scene = cards_in_hand_scenes
+		#randomize()
+		#copy_of_cards_in_hands_scene.shuffle()
+		#
+		#for i in range(active_status_effects[Constants.PlayerStatusEffect.HIDE]):
+			#if i >= info.action_hand_stat: break
+			#_set_card_as_hidden(copy_of_cards_in_hands_scene[i])
 
 
 func _set_card_as_hidden(card: Card):

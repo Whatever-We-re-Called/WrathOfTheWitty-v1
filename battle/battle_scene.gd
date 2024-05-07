@@ -54,7 +54,9 @@ func _init_player(side: Constants.PlayerSide, player_info: PlayerInfo, parent_no
 	player.decreased_opponents_max_health.connect(_on_decreased_opponents_max_health)
 	player.damaged_opponent.connect(_on_damaged_opponent)
 	player.stamina_changed.connect(_on_stamina_changed)
+	player.updated_hand.connect(_on_updated_hand)
 	player.drew_card.connect(_on_drew_card)
+	player.removed_card.connect(_on_removed_card)
 	parent_node.add_child(player)
 	var sprite_height = player.sprite_frames.get_frame_texture("default", 0).get_height()
 	player.global_position.y -= (sprite_height * player_info.sprite_scale.y) / 2.0
@@ -130,10 +132,6 @@ func select_card(card: Card):
 	if active_template_card.is_full(): return
 	
 	var card_info = card.card_info
-	for i in range(player.cards_in_hand.size()):
-		if player.cards_in_hand[i] == card_info:
-			player.cards_in_hand.remove_at(i)
-			break
 	player.selected_cards.push_back(card_info)
 	
 	active_template_card.add_selected_card(card)
@@ -141,7 +139,6 @@ func select_card(card: Card):
 
 func unselect_card(card: Card):
 	var card_info = card.card_info
-	player.cards_in_hand.push_back(card_info)
 	for i in range(player.selected_cards.size()):
 		if player.selected_cards[i] == card_info:
 			player.selected_cards.remove_at(i)
@@ -172,8 +169,6 @@ func play_cards():
 		update_active_template_card()
 	else:
 		change_turns()
-	
-	battle_interface.update_hand(player)
 
 
 func end_turn_early():
@@ -204,6 +199,10 @@ func _reset_selected_cards():
 func _on_drew_card(card_info: CardInfo):
 	battle_interface.add_card_to_hand(card_info, player)
 	battle_interface.update_player_stats(player)
+
+
+func _on_removed_card(card_info: CardInfo):
+	battle_interface.remove_card_from_hand(card_info)
 
 
 func change_turns():
@@ -239,6 +238,10 @@ func get_non_active_side_player():
 		return players[Constants.PlayerSide.RIGHT]
 	elif active_side == Constants.PlayerSide.RIGHT:
 		return players[Constants.PlayerSide.LEFT]
+
+
+func _on_updated_hand():
+	battle_interface.update_hand(player)
 
 
 func _on_damaged_opponent(amount: int, executing_player: BattlePlayer):
