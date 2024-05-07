@@ -4,9 +4,6 @@ signal card_toggle_selected(card: Card)
 signal card_reroll(card: Card)
 signal card_throw(card: Card)
 
-@onready var deck_container = %DeckContainer
-@onready var deck_first_row = %DeckFirstRow
-@onready var deck_second_row = %DeckSecondRow
 @onready var left_player_stats_ui = $LeftPlayerStatsUI
 @onready var right_player_stats_ui = $RightPlayerStatsUI
 @onready var template_card_ui = %TemplateCardUI
@@ -15,13 +12,13 @@ signal card_throw(card: Card)
 @onready var player_template_card_deck_label = %PlayerTemplateCardDeckLabel
 @onready var player_template_card_bag_label = %PlayerTemplateCardBagLabel
 @onready var player_info_ui = %PlayerInfoUI
-@onready var card_hand_containers = [
-	%DeckFirstRow,
-	%DeckSecondRow
-]
+@onready var card_hand_root_container = %CardHandRootContainer
 
+
+var card_hand_containers = []
 var battle_scene: BattleScene
 
+const CARDS_PER_HAND_CONTAINER = 5
 const CARD_SCENE = preload("res://battle/cards/card.tscn")
 
 
@@ -42,35 +39,46 @@ func update_hand(player: BattlePlayer):
 
 
 func _clear_hand():
-	for card in deck_first_row.get_children():
-		card.free()
-	for card in deck_second_row.get_children():
-		card.free()
+	for card_hand_container in card_hand_containers:
+		for child in card_hand_container.get_children():
+			child.free()
 
 
 func add_card(card_scene: Control):
-	if deck_second_row.get_children().size() >= 5:
-		if card_scene.get_parent() == null:
-			deck_first_row.add_child(card_scene)
+	for card_hand_container in card_hand_containers:
+		if card_hand_container.get_children().size() >= CARDS_PER_HAND_CONTAINER:
+			continue
 		else:
-			card_scene.reparent(deck_first_row)
-	else:
-		if card_scene.get_parent() == null:
-			deck_second_row.add_child(card_scene)
-		else:
-			card_scene.reparent(deck_second_row)
+			if card_scene.get_parent() == null:
+				card_hand_container.add_child(card_scene)
+			else:
+				card_scene.reparent(card_hand_container)
+			return
+	
+	# Create new container
+	var new_card_hand_container = HBoxContainer.new()
+	new_card_hand_container.alignment = BoxContainer.ALIGNMENT_CENTER
+	card_hand_containers.append(new_card_hand_container)
+	card_hand_root_container.add_child(new_card_hand_container)
+	card_hand_root_container.move_child(new_card_hand_container, 0)
+	new_card_hand_container.add_child(card_scene)
+	print("Create")
 
 
 func remove_card(card_scene: Control):
 	for card_hand_container in card_hand_containers:
-		print("!")
 		for card in card_hand_container.get_children():
 			if card == card_scene:
 				card.free()
 
 
 func reflatten_hand_container():
-	pass
+	for i in range(card_hand_containers.size()):
+		if i == card_hand_containers.size() - 1: return
+		if card_hand_containers[i].get_children().size() < CARDS_PER_HAND_CONTAINER:
+			if card_hand_containers[i + 1].get_children().size() > 0:
+				card_hand_containers[i + 1].get_children()[0].reparent(card_hand_containers[i])
+				reflatten_hand_container()
 
 
 func add_card_to_hand(card_info: CardInfo, player: BattlePlayer):
@@ -91,7 +99,8 @@ func remove_card_from_hand(card_info: CardInfo):
 
 
 func toggle_hand_visibility(visible: bool):
-	deck_container.visible = visible
+	for card_hand_container in card_hand_containers:
+		card_hand_container.visible = visible
 
 
 func update_template_card_ui(template_card: TemplateCard):

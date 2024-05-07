@@ -135,6 +135,7 @@ func select_card(card: Card):
 	player.selected_cards.push_back(card_info)
 	
 	active_template_card.add_selected_card(card)
+	battle_interface.reflatten_hand_container()
 
 
 func unselect_card(card: Card):
