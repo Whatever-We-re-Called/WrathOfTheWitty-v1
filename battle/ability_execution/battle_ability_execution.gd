@@ -274,3 +274,12 @@ static func _execute_reset(battle_ability_execution_data: BattleAbilityExecution
 		defender_player.reset_template_hand()
 	else:
 		defender_player.reset_action_hand()
+
+
+static func _execute_drain(battle_ability_execution_data: BattleAbilityExecutionData):
+	var defender_player = battle_ability_execution_data.defender_player
+	
+	if battle_ability_execution_data.is_upgraded:
+		defender_player.deplenish_stamina(5)
+	else:
+		defender_player.deplenish_stamina(3)

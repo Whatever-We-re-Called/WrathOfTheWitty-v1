@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://battle/cards/info/card_info.gd" id="1_5bkd6"]
 [ext_resource type="Script" path="res://players/info/player_info.gd" id="2_lpd0p"]
+[ext_resource type="Resource" uid="uid://b5llnudgk5gbg" path="res://battle/template_cards/info/drain_template_card_info.tres" id="3_e6cu6"]
 [ext_resource type="SpriteFrames" uid="uid://2up8nj4es0st" path="res://players/animations/scrimblo_sprite_frames.tres" id="3_g3lwf"]
-[ext_resource type="Resource" uid="uid://8pohmf3cu763" path="res://battle/template_cards/info/self_reset_template_card_info.tres" id="3_iq0pn"]
 [ext_resource type="Script" path="res://battle/template_cards/equipped_template_card.gd" id="3_xbpv5"]
 [ext_resource type="Resource" uid="uid://di2mjnu4o50qe" path="res://battle/template_cards/info/rage_template_card_info.tres" id="4_asbgl"]
 [ext_resource type="Resource" uid="uid://c7jpbs7ikdodm" path="res://battle/template_cards/info/first_aid_template_card_info.tres" id="5_lsiwv"]
@@ -116,13 +116,13 @@ insult_text = "abominable"
 
 [sub_resource type="Resource" id="Resource_n75qe"]
 script = ExtResource("3_xbpv5")
-template_card_info = ExtResource("3_iq0pn")
+template_card_info = ExtResource("3_e6cu6")
 is_upgraded = false
 insecurity_overrides = Array[int]([])
 
 [sub_resource type="Resource" id="Resource_fac1c"]
 script = ExtResource("3_xbpv5")
-template_card_info = ExtResource("3_iq0pn")
+template_card_info = ExtResource("3_e6cu6")
 is_upgraded = true
 insecurity_overrides = Array[int]([])
 
