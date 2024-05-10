@@ -94,6 +94,18 @@ func set_on_fire(is_on_fire: bool, extinguish_damage: int = 0):
 		burning_label.text = str(extinguish_damage) + " HP"
 
 
+func reset_effects():
+	var effect_functions = [
+		"set_on_fire",
+		"set_as_slimed",
+		"set_as_hidden",
+		"set_as_repressed"
+	]
+	
+	for effect_function in effect_functions:
+		Callable(self, effect_function).call(false)
+
+
 func set_as_slimed(slimed: bool):
 	self.is_slimed = slimed
 	slimed_overlay.visible = slimed

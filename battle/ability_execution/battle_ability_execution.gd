@@ -275,7 +275,11 @@ static func _execute_self_reset(battle_ability_execution_data: BattleAbilityExec
 static func _execute_reset(battle_ability_execution_data: BattleAbilityExecutionData):
 	var defender_player = battle_ability_execution_data.defender_player
 	
-	#for i in ran
+	for i in range(defender_player.cards_in_hand.size()):
+		defender_player.remove_card(defender_player.cards_in_hand[0])
+	
+	for i in range(defender_player.info.action_hand_stat):
+		defender_player.draw_card(true)
 	
 	if battle_ability_execution_data.is_upgraded:
 		for i in range(defender_player.template_cards_in_hand.size()):

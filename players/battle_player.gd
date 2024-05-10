@@ -227,16 +227,7 @@ func reroll_card(card: Card):
 	send_card_to_bag(card.card_info)
 	
 	overwrite_card_info(card, get_next_card_in_deck(true))
-	
-	if active_status_effects.has(Constants.PlayerStatusEffect.BURN):
-		_set_card_on_fire(card)
-	
-	if active_status_effects.has(Constants.PlayerStatusEffect.HIDE):
-		_set_card_as_hidden(card)
-	else:
-		card.set_as_hidden(false)
-	
-	card.set_as_repressed(is_repressed_for_insecurity(card.card_info.insecurity))
+	apply_status_effects_to_hand(card.card_info)
 	
 	info.emit_rerolled_card_signal()
 
@@ -258,7 +249,9 @@ func draw_card(ignore_hand_limit: bool):
 	
 	add_cards_to_hand(1)
 	
-	drew_card.emit(cards_in_hand[-1])
+	var drawn_card = cards_in_hand[-1]
+	apply_status_effects_to_hand(drawn_card)
+	drew_card.emit(drawn_card)
 
 
 func remove_card(card_info: CardInfo):
@@ -321,6 +314,7 @@ func decrement_status_effect(status_effect: Constants.PlayerStatusEffect, decrem
 
 
 func overwrite_card_info(card: Card, new_card_info: CardInfo):
+	card.reset_effects()
 	var old_card_info = card.card_info
 	for card_array in card_arrays:
 		for i in range(card_array.size()):
@@ -441,16 +435,14 @@ func update_template_card_hand_logic():
 
 
 func handle_delayed_start_turn():
-	_handle_burn_status_effect()
-	_handle_slime_status_effect()
-	_handle_hide_status_effect()
+	apply_status_effects_to_hand()
+	_handle_poison_status_effect()
 	_handle_freeze_status_effect()
 	_update_hand_repressed_status()
 
 
 func handle_end_turn():
 	info.emit_turn_ended_blessing_signal()
-	_decrement_status_effects()
 	_reset_frozen_stamina()
 
 
@@ -474,70 +466,48 @@ func _handle_poison_status_effect():
 				decrement_status_effect(Constants.PlayerStatusEffect.POISON, 1)
 
 
-func _handle_burn_status_effect():
-	pass
-	#if active_status_effects.has(Constants.PlayerStatusEffect.BURN):
-		#
-		#var copy_of_cards_in_hands_scene = cards_in_hand_scenes
-		#randomize()
-		#copy_of_cards_in_hands_scene.shuffle()
-		#
-		#for i in range(active_status_effects[Constants.PlayerStatusEffect.BURN]):
-			#if i >= info.action_hand_stat: break
-			#_set_card_on_fire(copy_of_cards_in_hands_scene[i])
-
-
-func _set_card_on_fire(card: Card):
-	var extinguish_damage = BATTLE_ACTION_EXECUTION_INFO.base_burn_damage_value
+func apply_status_effects_to_hand(target_card: CardInfo = null):
+	var list_of_status_effects_to_apply = {
+		Constants.PlayerStatusEffect.HIDE: "_apply_hide_status_effect",
+		Constants.PlayerStatusEffect.SLIME: "_apply_slime_status_effect",
+		Constants.PlayerStatusEffect.BURN: "_apply_burn_status_effect"
+	}
 	
-	if info.has_blessing(Blessings.Type.BURN_TOLERANCE):
-		if info.is_blessing_cosmic(Blessings.Type.BURN_TOLERANCE):
-			extinguish_damage -= 2
+	var rng = RandomNumberGenerator.new()
+	for status_effect_to_apply in list_of_status_effects_to_apply:
+		if not active_status_effects.has(status_effect_to_apply):
+			continue
 		else:
-			extinguish_damage -= 1
-	
-	if opponent_battle_player.info.has_blessing(Blessings.Type.BURN_STRENGTH):
-		if opponent_battle_player.info.is_blessing_cosmic(Blessings.Type.BURN_STRENGTH):
-			extinguish_damage += 2
-		else:
-			extinguish_damage += 1
-	
-	card.set_on_fire(true, extinguish_damage)
-	decrement_status_effect(Constants.PlayerStatusEffect.BURN, 1)
+			var targeted_cards: Array[CardInfo]
+			if target_card == null:
+				targeted_cards = cards_in_hand
+				randomize()
+				targeted_cards.shuffle()
+			else:
+				targeted_cards.append(target_card)
+			
+			for i in range(active_status_effects[status_effect_to_apply]):
+				if i < targeted_cards.size():
+					var apply_callable = Callable(self, list_of_status_effects_to_apply[status_effect_to_apply])
+					apply_callable.call(targeted_cards[i])
+				else:
+					break
 
 
-func _handle_slime_status_effect():
-	pass
-	#if active_status_effects.has(Constants.PlayerStatusEffect.SLIME):
-		#var copy_of_cards_in_hands_scene = cards_in_hand_scenes
-		#randomize()
-		#copy_of_cards_in_hands_scene.shuffle()
-		#
-		#for i in range(active_status_effects[Constants.PlayerStatusEffect.SLIME]):
-			#if i >= info.action_hand_stat: break
-			#_set_card_as_slimed(copy_of_cards_in_hands_scene[i])
+func _apply_hide_status_effect(target_card: CardInfo):
+	target_card.card_scene.set_as_hidden(true)
+	decrement_status_effect(Constants.PlayerStatusEffect.HIDE, 1)
 
 
-func _set_card_as_slimed(card: Card):
-	card.set_as_slimed(true)
+func _apply_slime_status_effect(target_card: CardInfo):
+	target_card.card_scene.set_as_slimed(true)
 	decrement_status_effect(Constants.PlayerStatusEffect.SLIME, 1)
 
 
-func _handle_hide_status_effect():
-	pass
-	#if active_status_effects.has(Constants.PlayerStatusEffect.HIDE):
-		#var copy_of_cards_in_hands_scene = cards_in_hand_scenes
-		#randomize()
-		#copy_of_cards_in_hands_scene.shuffle()
-		#
-		#for i in range(active_status_effects[Constants.PlayerStatusEffect.HIDE]):
-			#if i >= info.action_hand_stat: break
-			#_set_card_as_hidden(copy_of_cards_in_hands_scene[i])
-
-
-func _set_card_as_hidden(card: Card):
-	card.set_as_hidden(true)
-	decrement_status_effect(Constants.PlayerStatusEffect.HIDE, 1)
+func _apply_burn_status_effect(target_card: CardInfo):
+	var extinguish_damage = BATTLE_ACTION_EXECUTION_INFO.base_burn_damage_value
+	target_card.card_scene.set_on_fire(true, extinguish_damage)
+	decrement_status_effect(Constants.PlayerStatusEffect.BURN, 1)
 
 
 func _handle_freeze_status_effect():
@@ -550,20 +520,6 @@ func _handle_freeze_status_effect():
 		
 		frozen_stamina_count += 1
 		decrement_status_effect(Constants.PlayerStatusEffect.FREEZE, 1)
-
-
-func _decrement_status_effects():
-	for status_effect in active_status_effects.keys():
-		var status_effect_info = Constants.PlayerStatusEffectInfo[status_effect]
-		if not status_effect_info.handle_decrement_automatically: continue
-		
-		var decrement_value = status_effect_info.decrement_per_turn_value
-		
-		active_status_effects[status_effect] -= decrement_value
-		
-		if active_status_effects[status_effect] <= 0:
-			active_status_effects.erase(status_effect)
-			continue
 
 
 func _reset_frozen_stamina():
