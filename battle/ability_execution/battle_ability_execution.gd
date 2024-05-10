@@ -18,14 +18,12 @@ static func try_to_execute(template_card_info: TemplateCardInfo, card_infos: Arr
 	
 	var ability_execution_count = 1
 	
+	# Rage Status Effect
 	var attacker_player = battle_ability_execution_data.attacker_player
 	var rage_status_effect = Constants.PlayerStatusEffect.RAGE
 	if attacker_player.active_status_effects.has(rage_status_effect):
 		ability_execution_count += 1
 		attacker_player.decrement_status_effect(rage_status_effect, 1)
-	
-	for i in range(ability_execution_count):
-		_execute_callable(battle_ability_execution_data, template_card_info, template_card_info.execute_function_name)
 	
 	# TEMPLATE_ACTION_REPEAT Blessing
 	if battle_ability_execution_data.attacker_player.info.has_blessing(Blessings.Type.TEMPLATE_ACTION_REPEAT):
@@ -37,6 +35,10 @@ static func try_to_execute(template_card_info: TemplateCardInfo, card_infos: Arr
 			_execute_callable(battle_ability_execution_data, template_card_info, template_card_info.execute_function_name)
 		elif result <= 6 and is_cosmic:
 			_execute_callable(battle_ability_execution_data, template_card_info, template_card_info.execute_function_name)
+	
+	for i in range(ability_execution_count):
+		_execute_callable(battle_ability_execution_data, template_card_info, template_card_info.execute_function_name)
+	
 
 
 static func _is_matching_insecurities(template_card_info: TemplateCardInfo, card_infos: Array[CardInfo]) -> bool:
@@ -298,3 +300,13 @@ static func _execute_drain(battle_ability_execution_data: BattleAbilityExecution
 		defender_player.deplenish_stamina(5)
 	else:
 		defender_player.deplenish_stamina(3)
+
+
+static func _execute_delay(battle_ability_execution_data: BattleAbilityExecutionData):
+	var attacker_player = battle_ability_execution_data.attacker_player
+	var status_effect = Constants.PlayerStatusEffect.DELAY
+	
+	if battle_ability_execution_data.is_upgraded:
+		attacker_player.apply_status_effect(status_effect, 2)
+	else:
+		attacker_player.apply_status_effect(status_effect, 1)

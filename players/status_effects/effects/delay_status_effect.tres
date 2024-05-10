@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=3 format=3 uid="uid://bi6crkh17a6x0"]
+
+[ext_resource type="Texture2D" uid="uid://n1fbgclh31pw" path="res://players/status_effects/textures/hourglass.svg" id="1_b65lo"]
+[ext_resource type="Script" path="res://players/status_effects/effects/status_effect_info.gd" id="2_a4pxk"]
+
+[resource]
+script = ExtResource("2_a4pxk")
+icon = ExtResource("1_b65lo")
+color = Color(0.266667, 0.898039, 0.584314, 1)
+hide_quantity_text = false
+decrement_per_turn_value = 0
+handle_decrement_automatically = false

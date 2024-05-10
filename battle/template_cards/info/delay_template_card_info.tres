@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TemplateCardInfo" load_steps=2 format=3 uid="uid://bqsyc758nxxr7"]
+
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="1_u0vqn"]
+
+[resource]
+script = ExtResource("1_u0vqn")
+name = "Delay"
+sentence = "To-do sentence. Blanks: %noun% %noun% %noun%"
+nonupgraded_description = "Receive 1 Delay. Your next activated Template Card's execution will happen after your Action Cards are executed."
+upgraded_description = "Receive 2 Delay. Your next activated Template Card's execution will happen after your Action Cards are executed."
+background_color = Color(0.117647, 0.219608, 0.207843, 1)
+insecurity_count = 1
+execute_function_name = "_execute_delay"

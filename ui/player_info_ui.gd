@@ -175,7 +175,7 @@ func _init_action_cards_page(player_info: PlayerInfo):
 	for child in action_cards_bag_grid_container.get_children():
 		child.queue_free()
 	
-	var cards_in_hand = player_info.current_player_instance.cards_in_hand.size() + player_info.current_player_instance.selected_cards.size()
+	var cards_in_hand = player_info.current_player_instance.cards_in_hand.size()
 	action_cards_hand_label.text = "Hand (" + str(cards_in_hand) + "):"
 	for card_info in player_info.current_player_instance.cards_in_hand:
 		var card = _get_card_instance(card_info)

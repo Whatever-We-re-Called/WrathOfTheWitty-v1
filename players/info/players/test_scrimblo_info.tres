@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="PlayerInfo" load_steps=29 format=3 uid="uid://d23m4e07eg735"]
+[gd_resource type="Resource" script_class="PlayerInfo" load_steps=30 format=3 uid="uid://d23m4e07eg735"]
 
 [ext_resource type="Script" path="res://battle/cards/info/card_info.gd" id="1_5bkd6"]
 [ext_resource type="Script" path="res://players/info/player_info.gd" id="2_lpd0p"]
+[ext_resource type="Resource" uid="uid://bqsyc758nxxr7" path="res://battle/template_cards/info/delay_template_card_info.tres" id="3_7nkgu"]
 [ext_resource type="SpriteFrames" uid="uid://2up8nj4es0st" path="res://players/animations/scrimblo_sprite_frames.tres" id="3_g3lwf"]
 [ext_resource type="Script" path="res://battle/template_cards/equipped_template_card.gd" id="3_xbpv5"]
 [ext_resource type="Resource" uid="uid://di2mjnu4o50qe" path="res://battle/template_cards/info/rage_template_card_info.tres" id="4_asbgl"]
@@ -12,7 +13,7 @@
 script = ExtResource("1_5bkd6")
 insecurity = 0
 attack_value = 4
-enhancement = 5
+enhancement = 0
 insult_text = "bitch"
 
 [sub_resource type="Resource" id="Resource_aq08t"]
@@ -47,7 +48,7 @@ insult_text = "stupid fella"
 script = ExtResource("1_5bkd6")
 insecurity = 1
 attack_value = 3
-enhancement = 5
+enhancement = 0
 insult_text = "repulsive"
 
 [sub_resource type="Resource" id="Resource_nyqgl"]
@@ -115,13 +116,13 @@ insult_text = "abominable"
 
 [sub_resource type="Resource" id="Resource_n75qe"]
 script = ExtResource("3_xbpv5")
-template_card_info = ExtResource("4_asbgl")
+template_card_info = ExtResource("3_7nkgu")
 is_upgraded = false
 insecurity_overrides = Array[int]([])
 
 [sub_resource type="Resource" id="Resource_fac1c"]
 script = ExtResource("3_xbpv5")
-template_card_info = ExtResource("4_asbgl")
+template_card_info = ExtResource("3_7nkgu")
 is_upgraded = true
 insecurity_overrides = Array[int]([])
 
