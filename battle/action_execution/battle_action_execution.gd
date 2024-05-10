@@ -8,14 +8,30 @@ class BattleActionExecutionData:
 	var battle_scene: BattleScene
 	var attacker_player: BattlePlayer
 	var defender_player: BattlePlayer
+	var attack_multiplier: float = 1.0
+	var effect_multiplier: float = 1.0
 
 
 static func execute_action_cards(card_infos: Array[CardInfo], battle_scene: BattleScene):
+	var attacker_player = battle_scene.player
+	
+	var attack_multiplier: float = 1.0
+	var attack_buff_status_effect = Constants.PlayerStatusEffect.ATTACK_BUFF
+	while battle_scene.player.active_status_effects.has(attack_buff_status_effect):
+		attack_multiplier += BATTLE_ACTION_EXECUTION_INFO.attack_buff_multiplier_increase_value
+		attacker_player.decrement_status_effect(attack_buff_status_effect, 1)
+	
+	var effect_multiplier: float = 1.0
+	var effect_buff_status_effect = Constants.PlayerStatusEffect.EFFECT_BUFF
+	while battle_scene.player.active_status_effects.has(effect_buff_status_effect):
+		effect_multiplier += BATTLE_ACTION_EXECUTION_INFO.attack_buff_multiplier_increase_value
+		attacker_player.decrement_status_effect(effect_buff_status_effect, 1)
+	
 	for card_info in card_infos:
-		execute_action_card(card_info, battle_scene)
+		execute_action_card(card_info, battle_scene, attack_multiplier, effect_multiplier)
 
 
-static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene):
+static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene, attack_multiplier: float = 1.0, effect_multiplier: float = 1.0):
 	var attacker_player = battle_scene.player
 	var defender_player = battle_scene.get_non_active_side_player() 
 	
@@ -24,6 +40,8 @@ static func execute_action_card(card_info: CardInfo, battle_scene: BattleScene):
 	battle_action_execution_data.battle_scene = battle_scene
 	battle_action_execution_data.attacker_player = battle_scene.player
 	battle_action_execution_data.defender_player = battle_scene.get_non_active_side_player()
+	battle_action_execution_data.attack_multiplier = attack_multiplier
+	battle_action_execution_data.effect_multiplier = effect_multiplier
 	
 	_execute_action_card_attack(battle_action_execution_data)
 	
@@ -112,6 +130,9 @@ static func _get_damage_dealt_value(battle_action_execution_data: BattleActionEx
 	elif defender_player.info.strong_insecurity_affinities.has(card_insecurity):
 		damage_dealt += BATTLE_ACTION_EXECUTION_INFO.strong_insecurity_affinity_attack_modifier
 	
+	# Handle Attack Multiplier
+	damage_dealt *= battle_action_execution_data.attack_multiplier
+	
 	return int(floor(damage_dealt))
 
 
@@ -193,6 +214,9 @@ static func _get_magic_applied_value(base_stack_value: int, magic_stat_value: in
 
 static func _get_insecurity_status_effect_times_applied(magic_stat_value: int, magic_dividend_value: int, battle_action_execution_data: BattleActionExecutionData) -> int:
 	var times_applied = 0
+	
+	# Handle Effect Buff
+	magic_stat_value = int(float(magic_stat_value) * battle_action_execution_data.effect_multiplier)
 	
 	var rng = RandomNumberGenerator.new()
 	while magic_stat_value > 0:

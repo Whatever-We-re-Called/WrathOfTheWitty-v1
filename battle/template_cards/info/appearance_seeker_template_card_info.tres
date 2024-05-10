@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TemplateCardInfo" load_steps=2 format=3 uid="uid://ebaw0myhjqct"]
+
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="1_856qk"]
+
+[resource]
+script = ExtResource("1_856qk")
+name = "Appearance Seeker"
+sentence = "To-do sentence. Blanks: %noun% %noun% %noun%"
+nonupgraded_description = "Draw 2 Appearance Attack Cards from your deck, if possible."
+upgraded_description = "Draw 2 Appearance Attack Cards from your deck or bag, if possible."
+background_color = Color(0.219608, 0.12549, 0.105882, 1)
+insecurity_count = 1
+execute_function_name = "_execute_appearance_seeker"

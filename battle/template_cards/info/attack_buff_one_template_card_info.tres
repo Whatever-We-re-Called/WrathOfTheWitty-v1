@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TemplateCardInfo" load_steps=2 format=3 uid="uid://ch2ea7qd1ta3o"]
+
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="1_rfefe"]
+
+[resource]
+script = ExtResource("1_rfefe")
+name = "Attack Buff I"
+sentence = "To-do sentence. Blanks: %noun% %noun%"
+nonupgraded_description = "Receive 1 Attack Buff. Your next group of played Action Cards will deal 50% more damage."
+upgraded_description = "Receive 2 Attack Buff. Your next group of played Action Cards will deal 100% more damage."
+background_color = Color(0.219608, 0.117647, 0.156863, 1)
+insecurity_count = 1
+execute_function_name = "_execute_attack_buff_one"

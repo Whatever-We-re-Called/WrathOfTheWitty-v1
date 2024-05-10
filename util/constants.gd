@@ -40,10 +40,8 @@ enum PlayerStatusEffect {
 	FURY,
 	RAGE,
 	DELAY,
-	MAJOR_ATTACK_BUFF,
-	MINOR_ATTACK_BUFF,
-	MAJOR_EFFECT_BUFF,
-	MINOR_EFFECT_BUFF,
+	ATTACK_BUFF,
+	EFFECT_BUFF,
 	POISON,
 	BURN,
 	FREEZE,
@@ -66,7 +64,10 @@ var positive_status_effects = [
 	PlayerStatusEffect.PIERCE,
 	PlayerStatusEffect.FURY,
 	PlayerStatusEffect.RAGE,
-	PlayerStatusEffect.SURVIVE
+	PlayerStatusEffect.SURVIVE,
+	PlayerStatusEffect.DELAY,
+	PlayerStatusEffect.ATTACK_BUFF,
+	PlayerStatusEffect.EFFECT_BUFF
 ]
 
 var PlayerStatusEffectInfo = {
@@ -88,7 +89,9 @@ var PlayerStatusEffectInfo = {
 	PlayerStatusEffect.DODGE: preload("res://players/status_effects/effects/dodge_status_effect_info.tres"),
 	PlayerStatusEffect.FURY: preload("res://players/status_effects/effects/fury_status_effect_info.tres"),
 	PlayerStatusEffect.RAGE: preload("res://players/status_effects/effects/rage_status_effect_info.tres"),
-	PlayerStatusEffect.DELAY: preload("res://players/status_effects/effects/delay_status_effect.tres")
+	PlayerStatusEffect.DELAY: preload("res://players/status_effects/effects/delay_status_effect.tres"),
+	PlayerStatusEffect.ATTACK_BUFF: preload("res://players/status_effects/effects/attack_buff_status_effect.tres"),
+	PlayerStatusEffect.EFFECT_BUFF: preload("res://players/status_effects/effects/effect_buff_status_effect.tres")
 }
 
 enum PlayerSide {

@@ -310,3 +310,97 @@ static func _execute_delay(battle_ability_execution_data: BattleAbilityExecution
 		attacker_player.apply_status_effect(status_effect, 2)
 	else:
 		attacker_player.apply_status_effect(status_effect, 1)
+
+
+static func _execute_attack_buff_one(battle_ability_execution_data: BattleAbilityExecutionData):
+	var attacker_player = battle_ability_execution_data.attacker_player
+	var status_effect = Constants.PlayerStatusEffect.ATTACK_BUFF
+	
+	if battle_ability_execution_data.is_upgraded:
+		attacker_player.apply_status_effect(status_effect, 2)
+	else:
+		attacker_player.apply_status_effect(status_effect, 1)
+
+
+static func _execute_attack_buff_two(battle_ability_execution_data: BattleAbilityExecutionData):
+	var attacker_player = battle_ability_execution_data.attacker_player
+	var status_effect = Constants.PlayerStatusEffect.ATTACK_BUFF
+	
+	if battle_ability_execution_data.is_upgraded:
+		attacker_player.apply_status_effect(status_effect, 3)
+	else:
+		attacker_player.apply_status_effect(status_effect, 2)
+
+
+static func _execute_attack_buff_three(battle_ability_execution_data: BattleAbilityExecutionData):
+	var attacker_player = battle_ability_execution_data.attacker_player
+	var status_effect = Constants.PlayerStatusEffect.ATTACK_BUFF
+	
+	if battle_ability_execution_data.is_upgraded:
+		attacker_player.apply_status_effect(status_effect, 4)
+	else:
+		attacker_player.apply_status_effect(status_effect, 3)
+
+
+static func _execute_effect_buff_one(battle_ability_execution_data: BattleAbilityExecutionData):
+	var attacker_player = battle_ability_execution_data.attacker_player
+	var status_effect = Constants.PlayerStatusEffect.EFFECT_BUFF
+	
+	if battle_ability_execution_data.is_upgraded:
+		attacker_player.apply_status_effect(status_effect, 2)
+	else:
+		attacker_player.apply_status_effect(status_effect, 1)
+
+
+static func _execute_effect_buff_two(battle_ability_execution_data: BattleAbilityExecutionData):
+	var attacker_player = battle_ability_execution_data.attacker_player
+	var status_effect = Constants.PlayerStatusEffect.EFFECT_BUFF
+	
+	if battle_ability_execution_data.is_upgraded:
+		attacker_player.apply_status_effect(status_effect, 3)
+	else:
+		attacker_player.apply_status_effect(status_effect, 2)
+
+
+static func _execute_effect_buff_three(battle_ability_execution_data: BattleAbilityExecutionData):
+	var attacker_player = battle_ability_execution_data.attacker_player
+	var status_effect = Constants.PlayerStatusEffect.EFFECT_BUFF
+	
+	if battle_ability_execution_data.is_upgraded:
+		attacker_player.apply_status_effect(status_effect, 4)
+	else:
+		attacker_player.apply_status_effect(status_effect, 3)
+
+
+static func _execute_appearance_seeker(battle_ability_execution_data: BattleAbilityExecutionData):
+	var attacker_player = battle_ability_execution_data.attacker_player
+	var status_effect = Constants.PlayerStatusEffect.EFFECT_BUFF
+	
+	var times_drawn = 0
+	
+
+
+static func _draw_cards_of_insecurity_type(target_player: BattlePlayer, insecurity: Constants.Insecurity, include_bag: bool, cards_to_draw: int):
+	var pool: Array[CardInfo]
+	
+	var cards_drawn = 0
+	for card in target_player.cards_in_deck:
+		if card.insecurity == insecurity:
+			target_player.cards_in_hand.append(card)
+			target_player.drew_card(card)
+			cards_drawn += 1
+			
+			if cards_drawn >= cards_to_draw:
+				return
+	
+	if 
+	
+	if include_bag:
+		for card in target_player.cards_in_bag:
+			pool.append(card)
+	
+	randomize()
+	pool.shuffle()
+	for card in pool:
+		if card.insecurity == insecurity:
+			
