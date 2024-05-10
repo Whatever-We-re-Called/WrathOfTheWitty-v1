@@ -7,6 +7,6 @@
 script = ExtResource("2_s53mq")
 icon = ExtResource("1_sql1t")
 color = Color(0.596078, 0.25098, 0.309804, 1)
-hide_quantity_text = true
+hide_quantity_text = false
 decrement_per_turn_value = 0
 handle_decrement_automatically = false

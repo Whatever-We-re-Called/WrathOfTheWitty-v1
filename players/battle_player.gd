@@ -42,6 +42,14 @@ const BASE_CARD_DRAW_STAMINA_COST = 1
 const BASE_TEMPLATE_CARD_REROLL_STAMINA_COST = 2
 const STATUS_EFFECT_UI = preload("res://players/status_effects/status_effect_ui.tscn")
 const BATTLE_ACTION_EXECUTION_INFO = preload("res://battle/action_execution/battle_action_execution_info.tres")
+const INSECURITY_TO_REPRESS_STATUS_EFFECTS = {
+	Constants.Insecurity.APPEARANCE: Constants.PlayerStatusEffect.REPRESS_APPEARANCE,
+	Constants.Insecurity.SELF_ESTEEM: Constants.PlayerStatusEffect.REPRESS_SELF_ESTEEM,
+	Constants.Insecurity.INTELLIGENCE: Constants.PlayerStatusEffect.REPRESS_INTELLIGENCE,
+	Constants.Insecurity.PHYSICAL_ABILITY: Constants.PlayerStatusEffect.REPRESS_PHYSICAL_ABILITY,
+	Constants.Insecurity.SOCIAL_LIFE: Constants.PlayerStatusEffect.REPRESS_SOCIAL_LIFE
+}
+
 
 func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 	self.info = new_info.duplicate()
@@ -228,6 +236,7 @@ func reroll_card(card: Card):
 	
 	overwrite_card_info(card, get_next_card_in_deck(true))
 	apply_status_effects_to_hand(card.card_info)
+	apply_repress_to_hand(card.card_info)
 	
 	info.emit_rerolled_card_signal()
 
@@ -251,6 +260,7 @@ func draw_card(ignore_hand_limit: bool):
 	
 	var drawn_card = cards_in_hand[-1]
 	apply_status_effects_to_hand(drawn_card)
+	apply_repress_to_hand(drawn_card)
 	drew_card.emit(drawn_card)
 
 
@@ -361,42 +371,8 @@ func apply_status_effect(effect: Constants.PlayerStatusEffect, value: int):
 		active_status_effects[effect] = value
 
 
-func apply_repress(insecurity: Constants.Insecurity):
-	var effect: Constants.PlayerStatusEffect
-	match insecurity:
-		Constants.Insecurity.APPEARANCE:
-			effect = Constants.PlayerStatusEffect.REPRESS_APPEARANCE
-		Constants.Insecurity.SELF_ESTEEM:
-			effect = Constants.PlayerStatusEffect.REPRESS_SELF_ESTEEM
-		Constants.Insecurity.INTELLIGENCE:
-			effect = Constants.PlayerStatusEffect.REPRESS_INTELLIGENCE
-		Constants.Insecurity.PHYSICAL_ABILITY:
-			effect = Constants.PlayerStatusEffect.REPRESS_PHYSICAL_ABILITY
-		Constants.Insecurity.SOCIAL_LIFE:
-			effect = Constants.PlayerStatusEffect.REPRESS_SOCIAL_LIFE
-	
-	active_status_effects[effect] = 1
-
-
 func get_frozen_stamina_count() -> int:
 	return frozen_stamina_count
-
-
-func is_repressed_for_insecurity(insecurity: Constants.Insecurity) -> bool:
-	var is_repressed = false
-	
-	if insecurity == Constants.Insecurity.APPEARANCE and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_APPEARANCE):
-		is_repressed = true
-	if insecurity == Constants.Insecurity.SELF_ESTEEM and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_SELF_ESTEEM):
-		is_repressed = true
-	if insecurity == Constants.Insecurity.INTELLIGENCE and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_INTELLIGENCE):
-		is_repressed = true
-	if insecurity == Constants.Insecurity.PHYSICAL_ABILITY and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_PHYSICAL_ABILITY):
-		is_repressed = true
-	if insecurity == Constants.Insecurity.SOCIAL_LIFE and active_status_effects.has(Constants.PlayerStatusEffect.REPRESS_SOCIAL_LIFE):
-		is_repressed = true
-	
-	return is_repressed
 
 
 func handle_start_battle():
@@ -436,9 +412,9 @@ func update_template_card_hand_logic():
 
 func handle_delayed_start_turn():
 	apply_status_effects_to_hand()
+	apply_repress_to_hand()
 	_handle_poison_status_effect()
 	_handle_freeze_status_effect()
-	_update_hand_repressed_status()
 
 
 func handle_end_turn():
@@ -447,7 +423,7 @@ func handle_end_turn():
 
 
 func handle_delayed_end_turn():
-	remove_repressed_status()
+	pass
 
 
 func _handle_stamina_recharge():
@@ -510,6 +486,22 @@ func _apply_burn_status_effect(target_card: CardInfo):
 	decrement_status_effect(Constants.PlayerStatusEffect.BURN, 1)
 
 
+func apply_repress_to_hand(target_card: CardInfo = null):
+	var handled_cards: Array[CardInfo]
+	if target_card == null:
+		handled_cards = cards_in_hand
+		randomize()
+		handled_cards.shuffle()
+	else:
+		handled_cards.append(target_card)
+	
+	for card in handled_cards:
+		var repress_status_effect = INSECURITY_TO_REPRESS_STATUS_EFFECTS[card.insecurity]
+		if active_status_effects.has(repress_status_effect):
+			card.card_scene.set_as_repressed(true)
+			decrement_status_effect(repress_status_effect, 1)
+
+
 func _handle_freeze_status_effect():
 	if not active_status_effects.has(Constants.PlayerStatusEffect.FREEZE): return
 	
@@ -524,22 +516,3 @@ func _handle_freeze_status_effect():
 
 func _reset_frozen_stamina():
 	frozen_stamina_count = 0
-
-
-func _update_hand_repressed_status():
-	for card_info in cards_in_hand:
-		var is_repressed = is_repressed_for_insecurity(card_info.insecurity)
-		card_info.card_scene.set_as_repressed(is_repressed)
-
-
-func remove_repressed_status():
-	var repress_status_effects = [
-		Constants.PlayerStatusEffect.REPRESS_APPEARANCE,
-		Constants.PlayerStatusEffect.REPRESS_SELF_ESTEEM,
-		Constants.PlayerStatusEffect.REPRESS_INTELLIGENCE,
-		Constants.PlayerStatusEffect.REPRESS_PHYSICAL_ABILITY,
-		Constants.PlayerStatusEffect.REPRESS_SOCIAL_LIFE
-	]
-	for repress_status_effect in repress_status_effects:
-		if active_status_effects.has(repress_status_effect):
-			decrement_status_effect(repress_status_effect, 1000)

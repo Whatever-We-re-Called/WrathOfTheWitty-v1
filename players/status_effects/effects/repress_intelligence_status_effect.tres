@@ -7,6 +7,6 @@
 script = ExtResource("2_mu4um")
 icon = ExtResource("1_8m7do")
 color = Color(0.376471, 0.262745, 0.611765, 1)
-hide_quantity_text = true
+hide_quantity_text = false
 decrement_per_turn_value = 0
 handle_decrement_automatically = false

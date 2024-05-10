@@ -70,7 +70,7 @@ static func _did_nullify_attack(battle_action_execution_data: BattleActionExecut
 	var defender_player = battle_action_execution_data.defender_player
 	var card_info = battle_action_execution_data.card_info
 	
-	if attacker_player.is_repressed_for_insecurity(card_info.insecurity):
+	if card_info.card_scene.is_repressed:
 		return true
 	
 	return false
@@ -215,4 +215,5 @@ static func _execute_repress_enhancement_if_applicable(target_player: BattlePlay
 	var card_info = battle_action_execution_data.card_info
 	match enhancement:
 		Constants.CardEnhancement.REPRESS:
-			target_player.apply_repress(card_info.insecurity)
+			var repress_status_effect = BattlePlayer.INSECURITY_TO_REPRESS_STATUS_EFFECTS[card_info.insecurity]
+			target_player.apply_status_effect(repress_status_effect, 1)
