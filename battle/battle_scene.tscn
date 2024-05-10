@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://battle/battle_scene.gd" id="1_s8m45"]
 [ext_resource type="PackedScene" uid="uid://cbocnnnw4vt17" path="res://ui/battle_interface.tscn" id="1_yveat"]
 [ext_resource type="Resource" uid="uid://d23m4e07eg735" path="res://players/info/players/test_scrimblo_info.tres" id="2_gy65i"]
-[ext_resource type="Resource" uid="uid://c3bq2xmv8tbpl" path="res://players/info/players/test_evil_scrimblo_info.tres" id="3_l1tik"]
+[ext_resource type="Resource" uid="uid://6o0qqxklimre" path="res://players/info/players/colon_d_info.tres" id="3_mj6a3"]
 [ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="4_tyopb"]
 
 [sub_resource type="Resource" id="Resource_a3nmf"]
@@ -19,7 +19,7 @@ execute_function_name = "_execute_depression"
 [node name="BattleScene" type="Node2D"]
 script = ExtResource("1_s8m45")
 left_player_config = ExtResource("2_gy65i")
-right_player_config = ExtResource("3_l1tik")
+right_player_config = ExtResource("3_mj6a3")
 debug_template_card_info = SubResource("Resource_a3nmf")
 
 [node name="Background" type="ColorRect" parent="."]

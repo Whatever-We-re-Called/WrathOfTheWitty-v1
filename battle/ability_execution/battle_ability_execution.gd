@@ -16,13 +16,16 @@ static func try_to_execute(template_card_info: TemplateCardInfo, card_infos: Arr
 	battle_ability_execution_data.defender_player = battle_scene.get_non_active_side_player()
 	battle_ability_execution_data.is_upgraded = template_card_info.is_upgraded
 	
-	_execute_callable(battle_ability_execution_data, template_card_info, template_card_info.execute_function_name)
+	var ability_execution_count = 1
 	
 	var attacker_player = battle_ability_execution_data.attacker_player
 	var rage_status_effect = Constants.PlayerStatusEffect.RAGE
 	if attacker_player.active_status_effects.has(rage_status_effect):
-		_execute_callable(battle_ability_execution_data, template_card_info, template_card_info.execute_function_name)
+		ability_execution_count += 1
 		attacker_player.decrement_status_effect(rage_status_effect, 1)
+	
+	for i in range(ability_execution_count):
+		_execute_callable(battle_ability_execution_data, template_card_info, template_card_info.execute_function_name)
 	
 	# TEMPLATE_ACTION_REPEAT Blessing
 	if battle_ability_execution_data.attacker_player.info.has_blessing(Blessings.Type.TEMPLATE_ACTION_REPEAT):
