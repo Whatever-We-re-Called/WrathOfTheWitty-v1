@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://cbocnnnw4vt17"]
+[gd_scene load_steps=48 format=3 uid="uid://cbocnnnw4vt17"]
 
 [ext_resource type="Script" path="res://ui/battle_interface.gd" id="1_iesfx"]
 [ext_resource type="Script" path="res://ui/player_stats_ui.gd" id="2_6m8b4"]
@@ -126,10 +126,6 @@ font_color = Color(0.176471, 0.407843, 0.447059, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_cjt0m"]
 font_size = 32
 font_color = Color(0.584314, 0.266667, 0.898039, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_frdxf"]
-font_size = 32
-font_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ow4vm"]
 font_size = 32
@@ -540,7 +536,6 @@ layout_mode = 2
 
 [node name="PlayerInfoUI" type="CenterContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 z_index = 10
 layout_mode = 1
 anchors_preset = 8
@@ -637,6 +632,7 @@ text = "Template Cards"
 
 [node name="PlayerStatsInfoUI" type="CenterContainer" parent="PlayerInfoUI/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(1472, 640)
 layout_mode = 2
 
@@ -1182,7 +1178,6 @@ label_settings = SubResource("LabelSettings_r0skr")
 
 [node name="BlessingsInfoUI" type="CenterContainer" parent="PlayerInfoUI/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(1472, 640)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -1221,28 +1216,13 @@ theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
 text = "Cosmic"
 label_settings = SubResource("LabelSettings_cjt0m")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/BlessingsInfoUI/HBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="CosmicBlessingsValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/BlessingsInfoUI/HBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="CosmicBlessingsValueLabel" type="Label" parent="PlayerInfoUI/VBoxContainer/BlessingsInfoUI/HBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.898039, 0.266667, 0.266667, 1)
 text = "0
 "
 label_settings = SubResource("LabelSettings_lseqt")
-
-[node name="Label" type="Label" parent="PlayerInfoUI/VBoxContainer/BlessingsInfoUI/HBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/HBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "/"
-label_settings = SubResource("LabelSettings_frdxf")
-
-[node name="CosmicBlessingsLimitValue" type="Label" parent="PlayerInfoUI/VBoxContainer/BlessingsInfoUI/HBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/HBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "4"
-label_settings = SubResource("LabelSettings_frdxf")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PlayerInfoUI/VBoxContainer/BlessingsInfoUI/HBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2

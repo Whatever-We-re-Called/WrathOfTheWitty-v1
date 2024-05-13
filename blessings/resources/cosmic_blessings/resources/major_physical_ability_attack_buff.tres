@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=3 format=3 uid="uid://c1hjje8aermc2"]
+
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="1_ugg4w"]
+[ext_resource type="Texture2D" uid="uid://dbm8e3qdf8rv0" path="res://blessings/textures/sword.svg" id="2_burbb"]
+
+[resource]
+script = ExtResource("1_ugg4w")
+name = "Major Physical Ability Attack Buff"
+texture = ExtResource("2_burbb")
+is_cosmic = true
+description = "Add +5 Damage to all Physical Ability attacks."

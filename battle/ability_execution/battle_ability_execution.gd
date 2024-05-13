@@ -25,20 +25,8 @@ static func try_to_execute(template_card_info: TemplateCardInfo, card_infos: Arr
 		ability_execution_count += 1
 		attacker_player.decrement_status_effect(rage_status_effect, 1)
 	
-	# TEMPLATE_ACTION_REPEAT Blessing
-	if battle_ability_execution_data.attacker_player.info.has_blessing(Blessings.Type.TEMPLATE_ACTION_REPEAT):
-		var rng = RandomNumberGenerator.new()
-		var result = rng.randi_range(1, 20)
-		var is_cosmic = battle_ability_execution_data.attacker_player.info.is_blessing_cosmic(Blessings.Type.TEMPLATE_ACTION_REPEAT)
-		
-		if result <= 3:
-			_execute_callable(battle_ability_execution_data, template_card_info, template_card_info.execute_function_name)
-		elif result <= 6 and is_cosmic:
-			_execute_callable(battle_ability_execution_data, template_card_info, template_card_info.execute_function_name)
-	
 	for i in range(ability_execution_count):
 		_execute_callable(battle_ability_execution_data, template_card_info, template_card_info.execute_function_name)
-	
 
 
 static func _is_matching_insecurities(template_card_info: TemplateCardInfo, card_infos: Array[CardInfo]) -> bool:

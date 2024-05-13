@@ -11,11 +11,10 @@ signal rerolled_card
 
 @export var name: String
 @export var texture: Texture2D
-@export_multiline var normal_description: String
-@export_multiline var cosmic_description: String
+@export var is_cosmic: bool
+@export_multiline var description: String
 @export var execution_script: Script
 
-var is_cosmic: bool
 var execution_script_instance = null
 
 const NORMAL_COLOR = Color("#e59544")

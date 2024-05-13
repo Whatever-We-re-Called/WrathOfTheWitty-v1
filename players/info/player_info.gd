@@ -27,8 +27,6 @@ class_name PlayerInfo extends Resource
 @export var block_insecurity_affinities: Array[Constants.Insecurity]
 @export var contempt_insecurity_affinities: Array[Constants.Insecurity]
 @export var repel_insecurity_affinities: Array[Constants.Insecurity]
-@export_category("Misc")
-@export var cosmic_blessings_limit: int
 @export_category("Resources")
 @export var action_card_deck: Array[CardInfo]
 @export var equipped_template_cards: Array[EquippedTemplateCard]
@@ -49,9 +47,7 @@ func init_unhandled_equipped_template_cards():
 func init_unhandled_equipped_blessings():
 	for equipped_blessing in equipped_blessings:
 		if not equipped_blessing.is_init:
-			equipped_blessing.init()
-			equipped_blessing.blessing.init(self)
-			equipped_blessing.blessing.equipped.emit()
+			equipped_blessing.init(self)
 
 
 func get_template_card_info() -> Array[TemplateCardInfo]:
@@ -91,12 +87,22 @@ func emit_rerolled_card_signal():
 		equipped_blessing.blessing.rerolled_card.emit()
 
 
-#func has_blessing(type) -> bool:
-	#for equipped_blessing in equipped_blessings:
-		#if equipped_blessing.type == type:
-			#return true
-	#return false
-#
+func has_blessing(type: Blessings.Type) -> bool:
+	for equipped_blessing in equipped_blessings:
+		if equipped_blessing.type == type:
+			return true
+	return false
+
+
+func get_stack_size_of_blessing(type: Blessings.Type) -> int:
+	var result = 0
+	for equipped_blessing in equipped_blessings:
+		if equipped_blessing.type == type:
+			result += 1
+	
+	return result
+
+
 #
 #func is_blessing_cosmic(type) -> bool:
 	#for equipped_blessing in equipped_blessings:

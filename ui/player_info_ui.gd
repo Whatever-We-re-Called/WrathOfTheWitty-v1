@@ -48,7 +48,6 @@ extends CenterContainer
 @onready var close_button = %CloseButton
 @onready var cosmic_blessings_value_label = %CosmicBlessingsValueLabel
 @onready var normal_blessings_value_label = %NormalBlessingsValueLabel
-@onready var cosmic_blessings_limit_value = %CosmicBlessingsLimitValue
 @onready var template_hand_value_label = %TemplateHandValueLabel
 @onready var hide_dividend_label = %HideDividendLabel
 @onready var slime_dividend_label = %SlimeDividendLabel
@@ -130,10 +129,9 @@ func _init_blessings_page(player_info: PlayerInfo):
 	
 	var cosmic_blessings_count = 0
 	for equipped_blessing in player_info.equipped_blessings:
-		if equipped_blessing.is_cosmic:
+		if equipped_blessing.blessing.is_cosmic:
 			cosmic_blessings_count += 1
 	cosmic_blessings_value_label.text = str(cosmic_blessings_count)
-	cosmic_blessings_limit_value.text = str(player_info.cosmic_blessings_limit)
 	
 	var normal_blessings_count = player_info.equipped_blessings.size() - cosmic_blessings_count
 	normal_blessings_value_label.text = str(normal_blessings_count)
@@ -147,18 +145,14 @@ func _init_blessings_page(player_info: PlayerInfo):
 		texture_rect.custom_minimum_size = Vector2(96, 96)
 		
 		var hovered_name = equipped_blessing.blessing.name
-		var hovered_info = ""
-		
-		if equipped_blessing.is_cosmic:
+		if equipped_blessing.blessing.is_cosmic:
 			hovered_name += " (Cosmic)"
-			hovered_info = equipped_blessing.blessing.cosmic_description
 			texture_rect.modulate = Blessing.COSMIC_COLOR
 			cosmic_texture_rects.append(texture_rect)
 		else:
-			hovered_info = equipped_blessing.blessing.normal_description
 			texture_rect.modulate = Blessing.NORMAL_COLOR
 			normal_texture_rects.append(texture_rect)
-		
+		var hovered_info = equipped_blessing.blessing.description
 		texture_rect.tooltip_text = hovered_name + ": " + hovered_info
 	
 	for texture_rect in cosmic_texture_rects:
