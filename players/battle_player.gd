@@ -434,12 +434,6 @@ func _handle_poison_status_effect():
 	if active_status_effects.has(Constants.PlayerStatusEffect.POISON):
 		damage(active_status_effects[Constants.PlayerStatusEffect.POISON], true, true)
 		decrement_status_effect(Constants.PlayerStatusEffect.POISON, 1)
-		
-		if info.has_blessing(Blessings.Type.POISON_RECOVERY):
-			if info.is_blessing_cosmic(Blessings.Type.POISON_RECOVERY):
-				decrement_status_effect(Constants.PlayerStatusEffect.POISON, 2)
-			else:
-				decrement_status_effect(Constants.PlayerStatusEffect.POISON, 1)
 
 
 func apply_status_effects_to_hand(target_card: CardInfo = null):

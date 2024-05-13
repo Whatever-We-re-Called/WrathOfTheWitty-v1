@@ -116,13 +116,7 @@ static func _get_damage_dealt_value(battle_action_execution_data: BattleActionEx
 		var weaken_value = attacker_player.active_status_effects[weaken_status_effect]
 		damage_dealt -= weaken_value
 		
-		if attacker_player.info.has_blessing(Blessings.Type.WEAKEN_RECOVERY):
-			if attacker_player.info.is_blessing_cosmic(Blessings.Type.WEAKEN_RECOVERY):
-				attacker_player.decrement_status_effect(weaken_status_effect, 3)
-			else:
-				attacker_player.decrement_status_effect(weaken_status_effect, 2)
-		else:
-			attacker_player.decrement_status_effect(weaken_status_effect, 1)
+		attacker_player.decrement_status_effect(weaken_status_effect, 1)
 	
 	# Handle Strong & Weak Insecurity Affinity 
 	if defender_player.info.weak_insecurity_affinities.has(card_insecurity):

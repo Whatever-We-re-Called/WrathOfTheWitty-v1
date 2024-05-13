@@ -91,18 +91,18 @@ func emit_rerolled_card_signal():
 		equipped_blessing.blessing.rerolled_card.emit()
 
 
-func has_blessing(type) -> bool:
-	for equipped_blessing in equipped_blessings:
-		if equipped_blessing.type == type:
-			return true
-	return false
-
-
-func is_blessing_cosmic(type) -> bool:
-	for equipped_blessing in equipped_blessings:
-		if equipped_blessing.type == type:
-			return equipped_blessing.is_cosmic
-	return false
+#func has_blessing(type) -> bool:
+	#for equipped_blessing in equipped_blessings:
+		#if equipped_blessing.type == type:
+			#return true
+	#return false
+#
+#
+#func is_blessing_cosmic(type) -> bool:
+	#for equipped_blessing in equipped_blessings:
+		#if equipped_blessing.type == type:
+			#return equipped_blessing.is_cosmic
+	#return false
 
 
 func get_insecurity_affinities() -> Dictionary:
