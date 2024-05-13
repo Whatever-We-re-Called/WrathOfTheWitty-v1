@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=3 format=3 uid="uid://bu7gvs30ytj70"]
+
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="1_5mlvs"]
+[ext_resource type="Texture2D" uid="uid://c6504hq7gltqp" path="res://players/status_effects/textures/hexagon_question.svg" id="2_7xjcm"]
+
+[resource]
+script = ExtResource("1_5mlvs")
+name = "Hide Effect Buff"
+texture = ExtResource("2_7xjcm")
+is_cosmic = false
+description = "Add +2 Hide to all Appearance attacks."

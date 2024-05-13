@@ -174,7 +174,6 @@ strong_insecurity_affinities = Array[int]([])
 block_insecurity_affinities = Array[int]([])
 contempt_insecurity_affinities = Array[int]([])
 repel_insecurity_affinities = Array[int]([])
-cosmic_blessings_limit = 4
 action_card_deck = Array[ExtResource("1_5hnfm")]([SubResource("Resource_6m7ey"), SubResource("Resource_aq08t"), SubResource("Resource_rtv6e"), SubResource("Resource_hdbgq"), SubResource("Resource_onrjy"), SubResource("Resource_jmgmk"), SubResource("Resource_nyqgl"), SubResource("Resource_cd6nm"), SubResource("Resource_cnbq3"), SubResource("Resource_7pqpg"), SubResource("Resource_3jk3g"), SubResource("Resource_2x44g"), SubResource("Resource_j107m"), SubResource("Resource_ijkhp"), SubResource("Resource_xxfqt")])
 equipped_template_cards = Array[ExtResource("2_2bws2")]([SubResource("Resource_n75qe"), SubResource("Resource_fac1c"), SubResource("Resource_ejtgv"), SubResource("Resource_xj1vw"), SubResource("Resource_lnxfc"), SubResource("Resource_xe2c8")])
 equipped_blessings = Array[Resource("res://blessings/equipped_blessing.gd")]([])

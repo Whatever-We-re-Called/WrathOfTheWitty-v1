@@ -232,7 +232,35 @@ static func _get_magic_applied_value(base_stack_value: int, magic_stat_value: in
 
 
 static func _get_insecurity_status_effect_times_applied(magic_stat_value: int, magic_dividend_value: int, battle_action_execution_data: BattleActionExecutionData) -> int:
+	var attacker_player = battle_action_execution_data.attacker_player
+	var card_insecurity = battle_action_execution_data.card_info.insecurity
+	
 	var times_applied = 0
+	
+	# Handle Blessings
+	var regular_matches = 0
+	var major_matches = 0
+	var all_matches = 0
+	match card_insecurity:
+		Constants.Insecurity.APPEARANCE:
+			regular_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.HIDE_EFFECT_BUFF)
+			major_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.MAJOR_HIDE_EFFECT_BUFF)
+		Constants.Insecurity.SELF_ESTEEM:
+			regular_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.SLIME_EFFECT_BUFF)
+			major_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.MAJOR_SLIME_EFFECT_BUFF)
+		Constants.Insecurity.INTELLIGENCE:
+			regular_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.POISON_EFFECT_BUFF)
+			major_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.MAJOR_POISON_EFFECT_BUFF)
+		Constants.Insecurity.PHYSICAL_ABILITY:
+			regular_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.BURN_EFFECT_BUFF)
+			major_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.MAJOR_BURN_EFFECT_BUFF)
+		Constants.Insecurity.SOCIAL_LIFE:
+			regular_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.FREEZE_EFFECT_BUFF)
+			major_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.MAJOR_FREEZE_EFFECT_BUFF)
+	all_matches = attacker_player.info.get_stack_size_of_blessing(Blessings.Type.ALL_EFFECT_BUFF)
+	magic_stat_value += regular_matches * 2
+	magic_stat_value += major_matches * 10
+	magic_stat_value += all_matches * 2
 	
 	# Handle Effect Buff
 	magic_stat_value = int(float(magic_stat_value) * battle_action_execution_data.effect_multiplier)

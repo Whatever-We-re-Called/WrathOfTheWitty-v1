@@ -125,23 +125,23 @@ insult_text = "silly"
 
 [sub_resource type="Resource" id="Resource_qgm2t"]
 script = ExtResource("2_br1q2")
-type = 0
+type = 11
 
 [sub_resource type="Resource" id="Resource_agq3c"]
 script = ExtResource("2_br1q2")
-type = 0
+type = 11
 
 [sub_resource type="Resource" id="Resource_fm3tl"]
 script = ExtResource("2_br1q2")
-type = 0
+type = 16
 
 [sub_resource type="Resource" id="Resource_ob465"]
 script = ExtResource("2_br1q2")
-type = 5
+type = 16
 
 [sub_resource type="Resource" id="Resource_ttpww"]
 script = ExtResource("2_br1q2")
-type = 10
+type = 21
 
 [sub_resource type="Resource" id="Resource_n75qe"]
 script = ExtResource("3_xbpv5")
@@ -204,7 +204,6 @@ strong_insecurity_affinities = Array[int]([])
 block_insecurity_affinities = Array[int]([])
 contempt_insecurity_affinities = Array[int]([])
 repel_insecurity_affinities = Array[int]([])
-cosmic_blessings_limit = 4
 action_card_deck = Array[ExtResource("1_5bkd6")]([SubResource("Resource_6m7ey"), SubResource("Resource_aq08t"), SubResource("Resource_rtv6e"), SubResource("Resource_hdbgq"), SubResource("Resource_onrjy"), SubResource("Resource_jmgmk"), SubResource("Resource_nyqgl"), SubResource("Resource_cd6nm"), SubResource("Resource_cnbq3"), SubResource("Resource_7pqpg"), SubResource("Resource_3jk3g"), SubResource("Resource_2x44g"), SubResource("Resource_j107m"), SubResource("Resource_ijkhp"), SubResource("Resource_xxfqt"), SubResource("Resource_xkt0g")])
 equipped_template_cards = Array[ExtResource("3_xbpv5")]([SubResource("Resource_n75qe"), SubResource("Resource_fac1c"), SubResource("Resource_ejtgv"), SubResource("Resource_xj1vw"), SubResource("Resource_cpd7l"), SubResource("Resource_1td4l")])
 equipped_blessings = Array[ExtResource("2_br1q2")]([SubResource("Resource_qgm2t"), SubResource("Resource_agq3c"), SubResource("Resource_fm3tl"), SubResource("Resource_ob465"), SubResource("Resource_ttpww")])

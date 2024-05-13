@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=3 format=3 uid="uid://6n62vy448d2w"]
+
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="1_8uyg0"]
+[ext_resource type="Texture2D" uid="uid://dulyfjbqm82d3" path="res://players/status_effects/textures/fire.svg" id="2_3ccnj"]
+
+[resource]
+script = ExtResource("1_8uyg0")
+name = "Burn Effect Buff"
+texture = ExtResource("2_3ccnj")
+is_cosmic = false
+description = "Add +2 Burn to all Physical Ability attacks."
