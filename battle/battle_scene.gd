@@ -154,11 +154,11 @@ func play_cards():
 	player.handle_played_selected_cards()
 	if player.active_status_effects.has(Constants.PlayerStatusEffect.DELAY):
 		BattleActionExecution.execute_action_cards(player.selected_cards, self)
-		BattleAbilityExecution.try_to_execute(active_template_card.template_card_info, player.selected_cards, self)
+		#BattleAbilityExecution.try_to_execute(active_template_card.template_card_info, player.selected_cards, self)
 		player.decrement_status_effect(Constants.PlayerStatusEffect.DELAY, 1)
 		battle_interface.update_player_stats(player)
 	else:
-		BattleAbilityExecution.try_to_execute(active_template_card.template_card_info, player.selected_cards, self)
+		#BattleAbilityExecution.try_to_execute(active_template_card.template_card_info, player.selected_cards, self)
 		BattleActionExecution.execute_action_cards(player.selected_cards, self)
 	player.selected_cards.clear()
 	
