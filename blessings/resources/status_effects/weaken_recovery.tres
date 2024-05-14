@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=3 format=3 uid="uid://b3lcwi102gd54"]
+
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_16rwc"]
+[ext_resource type="Texture2D" uid="uid://uypxowusupxn" path="res://blessings/textures/pawn_up.svg" id="3_ujc05"]
+
+[resource]
+script = ExtResource("2_16rwc")
+name = "Weaken Recovery"
+texture = ExtResource("3_ujc05")
+normal_description = "With every attack, lose an additional 1 Weaken."
+cosmic_description = "With every attack, lose an additional 2 Weaken."

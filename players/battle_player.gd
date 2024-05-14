@@ -1,6 +1,11 @@
 class_name BattlePlayer extends AnimatedSprite2D
 
-signal decreased_opponents_max_health(amount: int, executing_player: BattlePlayer)
+signal decreased_opponents_max_health(percentage: float, executing_player: BattlePlayer)
+signal damaged_opponent(amount: int, executing_player: BattlePlayer)
+signal stamina_changed
+signal updated_hand
+signal drew_card(card_info: CardInfo)
+signal removed_card(card_info: CardInfo)
 
 var info: PlayerInfo
 var health: int
@@ -15,17 +20,36 @@ var cards_in_hand: Array[CardInfo]
 var cards_in_bag: Array[CardInfo]
 var selected_cards: Array[CardInfo]
 var card_arrays = [
-	selected_cards,
 	cards_in_hand,
 	cards_in_deck,
 	cards_in_bag
 ]
 
-var cards_in_hand_scenes: Array[Card]
+var template_cards_in_hand: Array[TemplateCardInfo]
+var template_cards_in_deck: Array[TemplateCardInfo]
+var template_cards_in_bag: Array[TemplateCardInfo]
+var template_card_arrays = [
+	template_cards_in_hand,
+	template_cards_in_deck,
+	template_cards_in_bag
+]
 
-const BASE_REROLL_STAMINA_COST = 1
+var opponent_battle_player: BattlePlayer
+var selected_template_card_hand_index: int = 0
+
+const BASE_CARD_REROLL_STAMINA_COST = 1
+const BASE_CARD_DRAW_STAMINA_COST = 1
+const BASE_TEMPLATE_CARD_REROLL_STAMINA_COST = 2
 const STATUS_EFFECT_UI = preload("res://players/status_effects/status_effect_ui.tscn")
 const BATTLE_ACTION_EXECUTION_INFO = preload("res://battle/action_execution/battle_action_execution_info.tres")
+const INSECURITY_TO_REPRESS_STATUS_EFFECTS = {
+	Constants.Insecurity.APPEARANCE: Constants.PlayerStatusEffect.REPRESS_APPEARANCE,
+	Constants.Insecurity.SELF_ESTEEM: Constants.PlayerStatusEffect.REPRESS_SELF_ESTEEM,
+	Constants.Insecurity.INTELLIGENCE: Constants.PlayerStatusEffect.REPRESS_INTELLIGENCE,
+	Constants.Insecurity.PHYSICAL_ABILITY: Constants.PlayerStatusEffect.REPRESS_PHYSICAL_ABILITY,
+	Constants.Insecurity.SOCIAL_LIFE: Constants.PlayerStatusEffect.REPRESS_SOCIAL_LIFE
+}
+
 
 func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 	self.info = new_info.duplicate()
@@ -43,30 +67,64 @@ func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 		cards_in_deck.push_back(card_info.duplicate())
 	randomize()
 	cards_in_deck.shuffle()
-	add_cards_to_hand(info.hand_stat)
+	
+	self.info.init_unhandled_equipped_template_cards()
+	for template_card_info in self.info.get_template_card_info():
+		template_cards_in_deck.push_back(template_card_info)
+	randomize()
+	template_cards_in_deck.shuffle()
 	
 	self.side = side
 	
 	scale = info.sprite_scale
 	sprite_frames = info.sprite_frames
 	play()
-	
 
-func damage(amount: int):
+
+func damage(amount: int, skip_blessing_signal: bool = false, ignore_shield: bool = false):
 	if amount <= 0: return
 	
-	var shield_amount = 0
-	if active_status_effects.has(Constants.PlayerStatusEffect.SHIELD):
-		shield_amount = active_status_effects[Constants.PlayerStatusEffect.SHIELD]
-	for i in range(shield_amount):
-		amount -= 1
-		shield_amount -= 1
+	# Dodge detection.
+	var dodge_status_effect = Constants.PlayerStatusEffect.DODGE
+	if active_status_effects.has(dodge_status_effect):
+		decrement_status_effect(dodge_status_effect, 1)
+		return
+	
+	# Pierce detection.
+	if opponent_battle_player.active_status_effects.has(Constants.PlayerStatusEffect.PIERCE):
+		opponent_battle_player.decrement_status_effect(Constants.PlayerStatusEffect.PIERCE, 1)
+		ignore_shield = true 
+	
+	# Pierce / Ignore shield handling.
+	if not ignore_shield:
+		var shield_amount = 0
+		if active_status_effects.has(Constants.PlayerStatusEffect.SHIELD):
+			shield_amount = active_status_effects[Constants.PlayerStatusEffect.SHIELD]
+		for i in range(shield_amount):
+			amount -= 1
+			shield_amount -= 1
+			if amount <= 0:
+				break
+		active_status_effects[Constants.PlayerStatusEffect.SHIELD] = shield_amount
 	
 	health -= amount
 	health = clamp(health, 0, info.health_stat)
 	_execute_damage_visual()
 	
-	active_status_effects[Constants.PlayerStatusEffect.SHIELD] = shield_amount
+	if not skip_blessing_signal:
+		info.emit_damaged_signal()
+	
+	# Thorns handling.
+	if active_status_effects.has(Constants.PlayerStatusEffect.THORNS):
+		var thorns_amount = active_status_effects[Constants.PlayerStatusEffect.THORNS]
+		var thorns_damage = 0
+		for i in range(thorns_amount):
+			amount -= 1
+			thorns_damage += 1
+			if amount <= 0:
+				break
+		decrement_status_effect(Constants.PlayerStatusEffect.THORNS, thorns_damage)
+		opponent_battle_player.damage(thorns_damage)
 
 
 func _execute_damage_visual():
@@ -83,15 +141,16 @@ func heal(amount: int):
 func replenish_stamina(amount: int):
 	stamina += amount
 	stamina = clamp(stamina, 0, info.stamina_stat)
+	stamina_changed.emit()
 
 
 func deplenish_stamina(amount: int):
 	stamina -= amount
 	stamina = clamp(stamina, 0, info.stamina_stat)
+	stamina_changed.emit()
 
 
 func add_cards_to_hand(amount: int):
-	# TODO Add support for proper deck and bag handling.
 	for i in range(amount):
 		cards_in_hand.push_back(get_next_card_in_deck(true))
 
@@ -100,8 +159,17 @@ func get_next_card_in_deck(remove_result_card: bool) -> CardInfo:
 	if cards_in_deck.is_empty():
 		_refill_deck_from_bag()
 	
+	# Edge case where there are so few cards that there is nothing
+	# in deck or bag.
+	if cards_in_deck.is_empty():
+		return
+	
 	var result = cards_in_deck[0]
+	
 	if remove_result_card:
+		if result.enhancement == Constants.CardEnhancement.RANDOM:
+			_ranomize_card_info(result)
+		
 		cards_in_deck.pop_front()
 		if cards_in_deck.is_empty():
 			_refill_deck_from_bag()
@@ -120,37 +188,132 @@ func _refill_deck_from_bag():
 
 func send_card_to_bag(card_info: CardInfo):
 	cards_in_bag.push_back(card_info)
+	card_info.reset_insecurity_stack()
 	card_info.reset_enhancement_stack()
 
 
+func add_template_cards_to_hand(amount: int):
+	for i in range(amount):
+		template_cards_in_hand.push_back(get_next_template_card_in_deck(true))
+
+
+func get_next_template_card_in_deck(remove_result_card: bool) -> TemplateCardInfo:
+	if template_cards_in_deck.is_empty():
+		_refill_template_deck_from_bag()
+	
+	# Edge case where there are so few cards that there is nothing
+	# in deck or bag.
+	if template_cards_in_deck.is_empty():
+		return
+	
+	var result = template_cards_in_deck[0]
+	if remove_result_card:
+		template_cards_in_deck.pop_front()
+		if template_cards_in_deck.is_empty():
+			_refill_template_deck_from_bag()
+	
+	return result
+
+
+func _refill_template_deck_from_bag():
+	template_cards_in_deck = template_cards_in_bag.duplicate(true)
+	
+	randomize()
+	template_cards_in_deck.shuffle()
+	
+	template_cards_in_bag.clear()
+
+
+func send_template_card_to_bag(template_card_info: TemplateCardInfo):
+	template_cards_in_bag.push_back(template_card_info)
+
+
 func reroll_card(card: Card):
-	if card.card_info.enhancement == Constants.CardEnhancement.REFRESHING:
-		replenish_stamina(BATTLE_ACTION_EXECUTION_INFO.base_refreshing_enhancement_stamnina_increase_value)
-	else:
-		if stamina < get_reroll_stamina_cost(): return
-		if get_frozen_stamina_count() == stamina: return
-		deplenish_stamina(get_reroll_stamina_cost())
+	if not can_afford_card_reroll(): return
+	deplenish_stamina(get_card_reroll_stamina_cost())
 	
 	send_card_to_bag(card.card_info)
 	
-	_overwrite_card_info(card, get_next_card_in_deck(true))
+	overwrite_card_info(card, get_next_card_in_deck(true))
+	apply_status_effects_to_hand(card.card_info)
+	apply_repress_to_hand(card.card_info)
 	
-	if active_status_effects.has(Constants.PlayerStatusEffect.BURN):
-		_set_card_on_fire(card)
+	info.emit_rerolled_card_signal()
+
+
+func can_afford_card_reroll() -> bool:
+	if get_frozen_stamina_count() >= stamina:
+		return false
 	
-	if active_status_effects.has(Constants.PlayerStatusEffect.HIDE):
-		_set_card_as_hidden(card)
-	else:
-		card.set_as_hidden(false)
+	return stamina >= get_card_reroll_stamina_cost()
 
 
-func _can_reroll() -> bool:
+func get_card_reroll_stamina_cost() -> int:
+	return BASE_CARD_REROLL_STAMINA_COST
+
+
+func draw_card(ignore_hand_limit: bool):
+	if not ignore_hand_limit:
+		if cards_in_hand.size() >= info.action_hand_stat: return
 	
-	return true
+	add_cards_to_hand(1)
+	
+	var drawn_card = cards_in_hand[-1]
+	apply_status_effects_to_hand(drawn_card)
+	apply_repress_to_hand(drawn_card)
+	drew_card.emit(drawn_card)
 
 
-func get_reroll_stamina_cost() -> int:
-	return BASE_REROLL_STAMINA_COST
+func remove_card(card_info: CardInfo):
+	for i in range(cards_in_hand.size()):
+		if card_info == cards_in_hand[i]:
+			cards_in_hand.remove_at(i)
+			send_card_to_bag(card_info)
+			removed_card.emit(card_info)
+			break
+	
+
+
+func get_card_draw_stamina_cost() -> int:
+	return BASE_CARD_DRAW_STAMINA_COST
+
+
+func reset_card_hand():
+	selected_cards.clear()
+
+
+func reroll_template_card(template_card: TemplateCard):
+	if not can_afford_template_card_reroll(): return
+	deplenish_stamina(get_template_card_reroll_stamina_cost())
+	
+	send_template_card_to_bag(template_card.template_card_info)
+	
+	_overwrite_template_card_info(template_card, get_next_template_card_in_deck(true))
+
+
+func can_afford_template_card_reroll() -> bool:
+	var cost = get_template_card_reroll_stamina_cost()
+	
+	if get_frozen_stamina_count() > (stamina - cost): 
+		return false
+	
+	return stamina >= get_template_card_reroll_stamina_cost()
+
+
+func get_template_card_reroll_stamina_cost() -> int:
+	return BASE_TEMPLATE_CARD_REROLL_STAMINA_COST
+
+
+func _ranomize_card_info(card_info: CardInfo):
+	var rng = RandomNumberGenerator.new()
+	var new_insecurity = Constants.Insecurity.values()[rng.randi_range(0, Constants.Insecurity.keys().size() - 1)]
+	var new_enhancement = Constants.CardEnhancement.NONE
+	while new_enhancement == Constants.CardEnhancement.NONE or new_enhancement == Constants.CardEnhancement.RANDOM:
+		new_enhancement = Constants.CardEnhancement.values()[rng.randi_range(1, Constants.CardEnhancement.keys().size() - 1)]
+	
+	card_info.insecurity = new_insecurity
+	card_info.add_to_enhancement_stack(new_enhancement)
+	
 
 
 func decrement_status_effect(status_effect: Constants.PlayerStatusEffect, decrement_amount: int):
@@ -160,7 +323,8 @@ func decrement_status_effect(status_effect: Constants.PlayerStatusEffect, decrem
 			active_status_effects.erase(status_effect)
 
 
-func _overwrite_card_info(card: Card, new_card_info: CardInfo):
+func overwrite_card_info(card: Card, new_card_info: CardInfo):
+	card.reset_effects()
 	var old_card_info = card.card_info
 	for card_array in card_arrays:
 		for i in range(card_array.size()):
@@ -172,19 +336,32 @@ func _overwrite_card_info(card: Card, new_card_info: CardInfo):
 				return
 
 
+func _overwrite_template_card_info(template_card: TemplateCard, new_template_card_info: TemplateCardInfo):
+	var old_template_card_info = template_card.template_card_info
+	for template_card_array in template_card_arrays:
+		for i in range(template_card_array.size()):
+			if template_card_array[i] == old_template_card_info:
+				template_card_array[i] = new_template_card_info
+				template_card.template_card_info = new_template_card_info
+				template_card.init()
+				
+				return
+
+
 func handle_played_selected_cards():
 	for card in selected_cards:
 		if card.enhancement == Constants.CardEnhancement.DEPENDABLE:
 			var new_card_info = card.duplicate(true)
 			new_card_info.enhancement = Constants.CardEnhancement.NONE
 			new_card_info.dont_put_in_bag = true
-			cards_in_hand.push_back(new_card_info)
-		else:
-			add_cards_to_hand(1)
+		
+		for i in range(cards_in_hand.size()):
+			if card == cards_in_hand[i]:
+				cards_in_hand.remove_at(i)
+				break
 		
 		if not card.dont_put_in_bag:
 			send_card_to_bag(card)
-	selected_cards.clear()
 
 
 func apply_status_effect(effect: Constants.PlayerStatusEffect, value: int):
@@ -196,12 +373,6 @@ func apply_status_effect(effect: Constants.PlayerStatusEffect, value: int):
 
 func get_frozen_stamina_count() -> int:
 	return frozen_stamina_count
-	
-	#var result = 0
-	#for i in range(active_status_effects[Constants.PlayerStatusEffect.FREEZE]):
-		#if (i + 1) <= stamina:
-			#result += 1
-	#return result
 
 
 func handle_start_battle():
@@ -209,22 +380,50 @@ func handle_start_battle():
 
 
 func handle_start_turn():
+	fill_action_hand()
+	fill_template_hand()
 	info.emit_turn_started_blessing_signal()
+	
 	_handle_stamina_recharge()
 	_handle_poison_status_effect()
 
 
+func fill_action_hand():
+	add_cards_to_hand(_get_needed_cards_count())
+
+
+func _get_needed_cards_count() -> int:
+	var space = clamp(info.action_card_deck.size(), 1, info.action_hand_stat)
+	return space - cards_in_hand.size()
+
+
+func fill_template_hand():
+	add_template_cards_to_hand(_get_needed_template_cards_count())
+
+
+func _get_needed_template_cards_count() -> int:
+	var space = clamp(info.equipped_template_cards.size(), 1, info.template_hand_stat)
+	return space - template_cards_in_hand.size()
+
+
+func update_template_card_hand_logic():
+	selected_template_card_hand_index = clamp(selected_template_card_hand_index, 0, template_cards_in_hand.size() - 1)
+
+
 func handle_delayed_start_turn():
-	_handle_burn_status_effect()
-	_handle_slime_status_effect()
-	_handle_hide_status_effect()
+	apply_status_effects_to_hand()
+	apply_repress_to_hand()
+	_handle_poison_status_effect()
 	_handle_freeze_status_effect()
 
 
 func handle_end_turn():
 	info.emit_turn_ended_blessing_signal()
-	_decrement_status_effects()
 	_reset_frozen_stamina()
+
+
+func handle_delayed_end_turn():
+	pass
 
 
 func _handle_stamina_recharge():
@@ -233,56 +432,74 @@ func _handle_stamina_recharge():
 
 func _handle_poison_status_effect():
 	if active_status_effects.has(Constants.PlayerStatusEffect.POISON):
-		damage(active_status_effects[Constants.PlayerStatusEffect.POISON])
+		damage(active_status_effects[Constants.PlayerStatusEffect.POISON], true, true)
 		decrement_status_effect(Constants.PlayerStatusEffect.POISON, 1)
-
-
-func _handle_burn_status_effect():
-	if active_status_effects.has(Constants.PlayerStatusEffect.BURN):
-		var copy_of_cards_in_hands_scene = cards_in_hand_scenes
-		randomize()
-		copy_of_cards_in_hands_scene.shuffle()
 		
-		for i in range(active_status_effects[Constants.PlayerStatusEffect.BURN]):
-			if i >= info.hand_stat: break
-			_set_card_on_fire(copy_of_cards_in_hands_scene[i])
+		if info.has_blessing(Blessings.Type.POISON_RECOVERY):
+			if info.is_blessing_cosmic(Blessings.Type.POISON_RECOVERY):
+				decrement_status_effect(Constants.PlayerStatusEffect.POISON, 2)
+			else:
+				decrement_status_effect(Constants.PlayerStatusEffect.POISON, 1)
 
 
-func _set_card_on_fire(card: Card):
-	card.set_on_fire(true)
-	decrement_status_effect(Constants.PlayerStatusEffect.BURN, 1)
+func apply_status_effects_to_hand(target_card: CardInfo = null):
+	var list_of_status_effects_to_apply = {
+		Constants.PlayerStatusEffect.HIDE: "_apply_hide_status_effect",
+		Constants.PlayerStatusEffect.SLIME: "_apply_slime_status_effect",
+		Constants.PlayerStatusEffect.BURN: "_apply_burn_status_effect"
+	}
+	
+	var rng = RandomNumberGenerator.new()
+	for status_effect_to_apply in list_of_status_effects_to_apply:
+		if not active_status_effects.has(status_effect_to_apply):
+			continue
+		else:
+			var targeted_cards: Array[CardInfo]
+			if target_card == null:
+				targeted_cards = cards_in_hand
+				randomize()
+				targeted_cards.shuffle()
+			else:
+				targeted_cards.append(target_card)
+			
+			for i in range(active_status_effects[status_effect_to_apply]):
+				if i < targeted_cards.size():
+					var apply_callable = Callable(self, list_of_status_effects_to_apply[status_effect_to_apply])
+					apply_callable.call(targeted_cards[i])
+				else:
+					break
 
 
-func _handle_slime_status_effect():
-	if active_status_effects.has(Constants.PlayerStatusEffect.SLIME):
-		var copy_of_cards_in_hands_scene = cards_in_hand_scenes
-		randomize()
-		copy_of_cards_in_hands_scene.shuffle()
-		
-		for i in range(active_status_effects[Constants.PlayerStatusEffect.SLIME]):
-			if i >= info.hand_stat: break
-			_set_card_as_slimed(copy_of_cards_in_hands_scene[i])
+func _apply_hide_status_effect(target_card: CardInfo):
+	target_card.card_scene.set_as_hidden(true)
+	decrement_status_effect(Constants.PlayerStatusEffect.HIDE, 1)
 
 
-func _set_card_as_slimed(card: Card):
-	card.set_as_slimed(true)
+func _apply_slime_status_effect(target_card: CardInfo):
+	target_card.card_scene.set_as_slimed(true)
 	decrement_status_effect(Constants.PlayerStatusEffect.SLIME, 1)
 
 
-func _handle_hide_status_effect():
-	if active_status_effects.has(Constants.PlayerStatusEffect.HIDE):
-		var copy_of_cards_in_hands_scene = cards_in_hand_scenes
+func _apply_burn_status_effect(target_card: CardInfo):
+	var extinguish_damage = BATTLE_ACTION_EXECUTION_INFO.base_burn_damage_value
+	target_card.card_scene.set_on_fire(true, extinguish_damage)
+	decrement_status_effect(Constants.PlayerStatusEffect.BURN, 1)
+
+
+func apply_repress_to_hand(target_card: CardInfo = null):
+	var handled_cards: Array[CardInfo]
+	if target_card == null:
+		handled_cards = cards_in_hand
 		randomize()
-		copy_of_cards_in_hands_scene.shuffle()
-		
-		for i in range(active_status_effects[Constants.PlayerStatusEffect.HIDE]):
-			if i >= info.hand_stat: break
-			_set_card_as_hidden(copy_of_cards_in_hands_scene[i])
-
-
-func _set_card_as_hidden(card: Card):
-	card.set_as_hidden(true)
-	decrement_status_effect(Constants.PlayerStatusEffect.HIDE, 1)
+		handled_cards.shuffle()
+	else:
+		handled_cards.append(target_card)
+	
+	for card in handled_cards:
+		var repress_status_effect = INSECURITY_TO_REPRESS_STATUS_EFFECTS[card.insecurity]
+		if active_status_effects.has(repress_status_effect):
+			card.card_scene.set_as_repressed(true)
+			decrement_status_effect(repress_status_effect, 1)
 
 
 func _handle_freeze_status_effect():
@@ -295,20 +512,6 @@ func _handle_freeze_status_effect():
 		
 		frozen_stamina_count += 1
 		decrement_status_effect(Constants.PlayerStatusEffect.FREEZE, 1)
-
-
-func _decrement_status_effects():
-	for status_effect in active_status_effects.keys():
-		var status_effect_info = Constants.PlayerStatusEffectInfo[status_effect]
-		if not status_effect_info.handle_decrement_automatically: continue
-		
-		var decrement_value = status_effect_info.decrement_per_turn_value
-		
-		active_status_effects[status_effect] -= decrement_value
-		
-		if active_status_effects[status_effect] <= 0:
-			active_status_effects.erase(status_effect)
-			continue
 
 
 func _reset_frozen_stamina():

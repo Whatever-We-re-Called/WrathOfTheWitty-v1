@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cr5knc1fwhkm3"]
+[gd_scene load_steps=6 format=3 uid="uid://cr5knc1fwhkm3"]
 
 [ext_resource type="Script" path="res://battle/cards/card.gd" id="1_72ex4"]
 [ext_resource type="Texture2D" uid="uid://bvx24fl3573wx" path="res://players/status_effects/textures/tag_empty.svg" id="2_8745d"]
 [ext_resource type="Texture2D" uid="uid://dulyfjbqm82d3" path="res://players/status_effects/textures/fire.svg" id="3_7tppc"]
+[ext_resource type="Texture2D" uid="uid://b4ixs3g5v12s1" path="res://ui/misc_textures/sword.svg" id="4_sp0us"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uois1"]
 load_path = "res://.godot/imported/str_icon.png-4dbb2f5f79c143b857bb5cf2788a2b07.ctex"
@@ -17,7 +18,7 @@ script = ExtResource("1_72ex4")
 [node name="HiddenOverlay" type="Control" parent="."]
 unique_name_in_owner = true
 visible = false
-z_index = 2
+z_index = 3
 layout_mode = 2
 
 [node name="ColorRect" type="ColorRect" parent="HiddenOverlay"]
@@ -27,7 +28,7 @@ offset_left = -112.0
 offset_top = -56.0
 offset_right = 112.0
 offset_bottom = 56.0
-color = Color(0.396078, 0.45098, 0.494118, 1)
+color = Color(0.52549, 0.309804, 0.262745, 1)
 
 [node name="ColorRect2" type="ColorRect" parent="HiddenOverlay"]
 custom_minimum_size = Vector2(224, 4)
@@ -36,7 +37,7 @@ offset_left = -112.0
 offset_top = -60.0
 offset_right = 112.0
 offset_bottom = -56.0
-color = Color(0.439216, 0.498039, 0.545098, 1)
+color = Color(0.584314, 0.34902, 0.298039, 1)
 
 [node name="Label" type="Label" parent="HiddenOverlay"]
 layout_mode = 1
@@ -54,6 +55,37 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 32
 text = "???"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RepressOverlay" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 2
+layout_mode = 2
+
+[node name="RepressedBackground" type="ColorRect" parent="RepressOverlay"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -112.0
+offset_top = -56.0
+offset_right = -22.0
+offset_bottom = -24.0
+color = Color(0, 0, 0, 1)
+
+[node name="AttackInfo" type="MarginContainer" parent="RepressOverlay/RepressedBackground"]
+layout_mode = 1
+offset_right = 85.0
+offset_bottom = 27.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 0
+
+[node name="Label" type="Label" parent="RepressOverlay/RepressedBackground/AttackInfo"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 12
+text = "Repressed"
 vertical_alignment = 1
 
 [node name="SlimedOverlay" type="Control" parent="."]
@@ -101,48 +133,56 @@ offset_bottom = 44.0
 texture = ExtResource("2_8745d")
 stretch_mode = 4
 
-[node name="BurningOverlay" type="ColorRect" parent="."]
+[node name="BurningOverlay" type="Control" parent="."]
 unique_name_in_owner = true
 visible = false
 z_index = 5
 custom_minimum_size = Vector2(224, 112)
 layout_mode = 2
-color = Color(0.898039, 0.266667, 0.266667, 0.588235)
 
-[node name="TopOverlayFix" type="ColorRect" parent="BurningOverlay"]
-z_index = 5
-custom_minimum_size = Vector2(224, 4)
-layout_mode = 2
-offset_top = -4.0
-offset_right = 224.0
-color = Color(0.898039, 0.266667, 0.266667, 0.588235)
-
-[node name="HBoxContainer" type="HBoxContainer" parent="BurningOverlay"]
+[node name="TextureRect4" type="TextureRect" parent="BurningOverlay"]
+modulate = Color(0.898039, 0.266667, 0.266667, 0.588235)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -60.5
-offset_top = -22.5
-offset_right = 60.5
-offset_bottom = 22.5
+offset_left = -43.0
+offset_top = -75.0
+offset_right = 43.0
+offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 16
-
-[node name="TextureRect" type="TextureRect" parent="BurningOverlay/HBoxContainer"]
-layout_mode = 2
 texture = ExtResource("3_7tppc")
-expand_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BurningOverlay"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -39.0
+offset_top = -23.0
+offset_right = 40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="BurningOverlay/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Extinguish Cost: "
 
 [node name="BurningLabel" type="Label" parent="BurningOverlay/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 16
 text = "2 HP"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="InsultContainer" type="MarginContainer" parent="."]
 z_index = 1
@@ -181,6 +221,15 @@ theme_override_constants/margin_right = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Button/EnhancementInfo"]
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="EnhancementLabel" type="Label" parent="Button/EnhancementInfo/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="EnhancementIcon" type="TextureRect" parent="Button/EnhancementInfo/HBoxContainer"]
 unique_name_in_owner = true
@@ -190,15 +239,7 @@ texture = SubResource("CompressedTexture2D_uois1")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="EnhancementLabel" type="Label" parent="Button/EnhancementInfo/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = " "
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TypeInfo" type="MarginContainer" parent="Button"]
+[node name="AttackInfo" type="MarginContainer" parent="Button"]
 unique_name_in_owner = true
 layout_mode = 1
 offset_right = 9.0
@@ -207,12 +248,22 @@ theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 0
 
-[node name="ActionTypeLabel" type="Label" parent="Button/TypeInfo"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Button/AttackInfo"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="AttackIcon" type="TextureRect" parent="Button/AttackInfo/HBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("4_sp0us")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AttackValueLabel" type="Label" parent="Button/AttackInfo/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
-text = " "
-horizontal_alignment = 1
+text = "6"
 vertical_alignment = 1
 
 [node name="CornerColorRect" type="ColorRect" parent="Button"]

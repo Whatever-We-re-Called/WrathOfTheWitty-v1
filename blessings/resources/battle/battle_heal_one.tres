@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://cyrpx37pujjra"]
+
+[ext_resource type="Script" path="res://blessings/resources/battle/battle_heal_one.gd" id="1_ivpee"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_0dksr"]
+[ext_resource type="Texture2D" uid="uid://bb3ajv3ktmktm" path="res://blessings/textures/resource_apple.svg" id="3_yllkm"]
+
+[resource]
+script = ExtResource("2_0dksr")
+name = "Battle Heal I"
+texture = ExtResource("3_yllkm")
+normal_description = "At the beginning of each battle, heal yourself for 8 HP."
+cosmic_description = "At the beginning of each battle, heal yourself for 16 HP."
+execution_script = ExtResource("1_ivpee")

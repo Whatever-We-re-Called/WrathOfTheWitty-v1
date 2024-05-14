@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("1_l8fou")
-type = 0
 icon = ExtResource("1_pksyr")
 color = Color(0.898039, 0.584314, 0.266667, 1)
+hide_quantity_text = false
 decrement_per_turn_value = 0
 handle_decrement_automatically = false

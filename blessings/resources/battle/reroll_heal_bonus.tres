@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://2jtbq3o6aiaj"]
+
+[ext_resource type="Script" path="res://blessings/resources/battle/reroll_heal_bonus.gd" id="1_1hcfa"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_3ap63"]
+[ext_resource type="Texture2D" uid="uid://cf0mkfhh3l5fi" path="res://blessings/textures/arrow_counterclockwise.svg" id="3_hbu50"]
+
+[resource]
+script = ExtResource("2_3ap63")
+name = "Reroll Heal Bonus"
+texture = ExtResource("3_hbu50")
+normal_description = "Heal for 1 HP every time you reroll a card."
+cosmic_description = "Heal for 2 HP every time you reroll a card."
+execution_script = ExtResource("1_1hcfa")

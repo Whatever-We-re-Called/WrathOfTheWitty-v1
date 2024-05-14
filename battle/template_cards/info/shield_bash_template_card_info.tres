@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TemplateCardInfo" load_steps=2 format=3 uid="uid://dbfwg86xm7mod"]
+
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="1_l0wej"]
+
+[resource]
+script = ExtResource("1_l0wej")
+name = "Shield Bash"
+sentence = "Take this, you %adjective% %adjective% %noun%!"
+nonupgraded_description = "Deal an amount of damage equivalent to your active Shield, then remove all active Shield."
+upgraded_description = "Deal an amount of damage equivalent to your active Shield."
+background_color = Color(0.219608, 0.12549, 0.117647, 1)
+insecurity_count = 2
+execute_function_name = "_execute_shield_bash"

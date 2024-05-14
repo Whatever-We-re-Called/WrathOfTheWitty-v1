@@ -1,14 +1,23 @@
-[gd_resource type="Resource" script_class="InsecurityTextures" load_steps=3 format=3 uid="uid://b6g7h74ffsmps"]
+[gd_resource type="Resource" script_class="InsecurityTextures" load_steps=8 format=3 uid="uid://b6g7h74ffsmps"]
 
-[ext_resource type="Texture2D" uid="uid://dsw3jmdsv2f4u" path="res://util/insecurities/rhombus.svg" id="1_nb2un"]
+[ext_resource type="Texture2D" uid="uid://bu86h7845fyda" path="res://util/insecurities/textures/Block_Icon_Final.svg" id="1_12dne"]
+[ext_resource type="Texture2D" uid="uid://yxqfrqfgwmvr" path="res://util/insecurities/textures/Base_Icon_Final.svg" id="1_h3gf2"]
 [ext_resource type="Script" path="res://util/insecurities/insecurity_textures.gd" id="1_uefih"]
+[ext_resource type="Texture2D" uid="uid://2tgftmbbtcyu" path="res://util/insecurities/textures/Heal_Icon_Final.svg" id="2_0nhqm"]
+[ext_resource type="Texture2D" uid="uid://bemi12ca1bbvm" path="res://util/insecurities/textures/Strong_Icon_Final.svg" id="3_h4qgo"]
+[ext_resource type="Texture2D" uid="uid://bgcxmhl78a1j2" path="res://util/insecurities/textures/Weak_Icon_Final.svg" id="3_tcepo"]
+[ext_resource type="Texture2D" uid="uid://dhb8tcjsun3rr" path="res://util/insecurities/textures/Deflect_Icon_Final.svg" id="4_baidl"]
 
 [resource]
 script = ExtResource("1_uefih")
-insecurity_icon = ExtResource("1_nb2un")
-physical_apprance_color = Color(0.196078, 0.196078, 0.196078, 1)
-self_esteem_color = Color(0.407843, 0.447059, 0.176471, 1)
-intelligence_color = Color(0.266667, 0.176471, 0.447059, 1)
-physical_ability_color = Color(0.447059, 0.176471, 0.223529, 1)
-social_life_color = Color(0.176471, 0.407843, 0.447059, 1)
-fashion_color = Color(0.176471, 0.447059, 0.219608, 1)
+insecurity_icon = ExtResource("1_h3gf2")
+weak_insecurity_affinity_icon = ExtResource("3_tcepo")
+strong_insecurity_affinity_icon = ExtResource("3_h4qgo")
+block_insecurity_affinity_icon = ExtResource("1_12dne")
+contempt_insecurity_affinity_icon = ExtResource("2_0nhqm")
+repel_insecurity_affinity_icon = ExtResource("4_baidl")
+appearance_color = Color(0.415686, 0.290196, 0.215686, 1)
+self_esteem_color = Color(0.203922, 0.505882, 0.25098, 1)
+intelligence_color = Color(0.333333, 0.227451, 0.54902, 1)
+physical_ability_color = Color(0.537255, 0.219608, 0.27451, 1)
+social_life_color = Color(0.211765, 0.47451, 0.521569, 1)

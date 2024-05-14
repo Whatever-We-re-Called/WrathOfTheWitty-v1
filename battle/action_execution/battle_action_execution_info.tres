@@ -4,16 +4,17 @@
 
 [resource]
 script = ExtResource("1_nnukc")
-insecurity_weakness_attack_multiplier = 1.25
-insecurity_strength_attack_multiplier = 0.75
-insecurity_block_attack_multiplier = 0.0
+weak_insecurity_affinity_attack_modifier = 2
+strong_insecurity_affinity_attack_modifier = -2
 base_hide_stack_value = 1
 base_weaken_stack_value = 1
-base_poison_stack_value = 2
+base_poison_stack_value = 1
 base_burn_stack_value = 1
 base_burn_damage_value = 3
 base_freeze_stack_value = 1
 base_slime_stack_value = 1
+attack_buff_multiplier_increase_value = 0.5
+effect_buff_multiplier_increase_value = 0.5
 base_buff_enhancement_attack_increase_value = 6
 base_magical_enhancement_magic_increase_value = 10
 base_supportive_enhancement_magic_increase_value = 5

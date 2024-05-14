@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://bppiyc07486uo"]
+
+[ext_resource type="Script" path="res://blessings/resources/battle/first_support_buff.gd" id="1_bsolg"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_k08sl"]
+[ext_resource type="Texture2D" uid="uid://ed2j5n6qlpjx" path="res://blessings/textures/card_lift.svg" id="3_l75qx"]
+
+[resource]
+script = ExtResource("2_k08sl")
+name = "First Support Buff"
+texture = ExtResource("3_l75qx")
+normal_description = "On your first turn in a battle, your Support is +50% stronger."
+cosmic_description = "On your first turn in a battle, your Support is +100% stronger."
+execution_script = ExtResource("1_bsolg")

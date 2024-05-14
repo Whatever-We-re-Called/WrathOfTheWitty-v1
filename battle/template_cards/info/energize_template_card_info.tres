@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TemplateCardInfo" load_steps=2 format=3 uid="uid://v1kqx5gx777c"]
+
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="1_gcspj"]
+
+[resource]
+script = ExtResource("1_gcspj")
+name = "Energize"
+sentence = "You're quite %adjective%. Your %adjective% and %adjective% self amuses me."
+nonupgraded_description = "Refill your stamina by 3."
+upgraded_description = "Refill your stamina by 5."
+background_color = Color(0.117647, 0.129412, 0.219608, 1)
+insecurity_count = 2
+execute_function_name = "_execute_energize"

@@ -6,7 +6,8 @@
 script = ExtResource("1_8nrq2")
 name = "Pyromancy"
 sentence = "Burn in hell, you %adjective% %noun%."
-info_description = "Inflict 3 Burn onto your opponent."
+nonupgraded_description = "Inflict 2 Burn onto your opponent."
+upgraded_description = "Inflict 4 Burn onto your opponent."
 background_color = Color(0.219608, 0.117647, 0.156863, 1)
-insecurities = Array[int]([0, 5])
+insecurity_count = 2
 execute_function_name = "_execute_pyromancy"

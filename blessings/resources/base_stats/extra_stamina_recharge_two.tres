@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://cwlg6m4g7trrd"]
+
+[ext_resource type="Script" path="res://blessings/resources/base_stats/extra_stamina_recharge_two.gd" id="1_ybdsg"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_3j0fc"]
+[ext_resource type="Texture2D" uid="uid://uaorio8bboy5" path="res://blessings/textures/exploding_6.svg" id="3_tmyq7"]
+
+[resource]
+script = ExtResource("2_3j0fc")
+name = "Extra Stamina Recharge II"
+texture = ExtResource("3_tmyq7")
+normal_description = "Increase your stamina recharge rate by 2 per turn."
+cosmic_description = "Increase your stamina recharge rate by 4 per turn."
+execution_script = ExtResource("1_ybdsg")

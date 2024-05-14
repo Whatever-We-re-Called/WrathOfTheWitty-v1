@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TemplateCardInfo" load_steps=2 format=3 uid="uid://b5llnudgk5gbg"]
+
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="1_ybnuw"]
+
+[resource]
+script = ExtResource("1_ybnuw")
+name = "Drain"
+sentence = "%adjective%, %adjective%, and %adjective% are the words I'd use to descrive your %adjective% existence."
+nonupgraded_description = "Drain 3 Stamina from your opponent."
+upgraded_description = "Drain 5 Stamina from your opponent."
+background_color = Color(0.117647, 0.129412, 0.219608, 1)
+insecurity_count = 2
+execute_function_name = "_execute_drain"

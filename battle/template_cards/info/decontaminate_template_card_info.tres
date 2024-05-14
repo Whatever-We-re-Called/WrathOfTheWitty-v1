@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TemplateCardInfo" load_steps=2 format=3 uid="uid://dfyjhx2b6h30t"]
+
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="1_fnr6f"]
+
+[resource]
+script = ExtResource("1_fnr6f")
+name = "Decontaminate"
+sentence = "You really think such an %noun% could hurt me? You %adjective% %noun%."
+nonupgraded_description = "Remove all active status effects."
+upgraded_description = "Remove all negative active status effects only."
+background_color = Color(0.219608, 0.117647, 0.207843, 1)
+insecurity_count = 2
+execute_function_name = "_execute_decontaminate"

@@ -2,49 +2,73 @@
 # Otherwise, a startup erorr will always occur.
 extends Node
 
-var insecurity_colors = preload("res://util/insecurities/insecurity_textures.tres")
-
-enum CardAction {
-	PHYSICAL_APPEARANCE_ATTACK, 
-	SELF_ESTEEM_ATTACK, 
-	INTELLIGENCE_ATTACK, 
-	PHYSICAL_ABILITY_ATTACK, 
-	SOCIAL_LIFE_ATTACK,
-	FASHION_ATTACK,
-	HEAL,
-	SHIELD
-}
+const INSECURITY_TEXTURES = preload("res://util/insecurities/insecurity_textures.tres")
 
 enum Insecurity {
-	PHYSICAL_APPEARANCE, 
-	SELF_ESTEEM, 
-	INTELLIGENCE, 
-	PHYSICAL_ABILITY, 
-	SOCIAL_LIFE,
-	FASHION
+	APPEARANCE,
+	SELF_ESTEEM,
+	INTELLIGENCE,
+	PHYSICAL_ABILITY,
+	SOCIAL_LIFE
 }
 
 enum CardEnhancement {
 	NONE,
-	BUFF,
-	MAGICAL,
-	TEST,
-	SUPPORTIVE,
 	REFRESHING,
-	DEPENDABLE
+	DEPENDABLE,
+	REPRESS,
+	WILDCARD,
+	RANDOM
+}
+
+const enhancement_strings = {
+	Constants.CardEnhancement.NONE: "None",
+	Constants.CardEnhancement.REFRESHING: "Refreshing",
+	Constants.CardEnhancement.DEPENDABLE: "Dependable",
+	Constants.CardEnhancement.REPRESS: "Repress",
+	Constants.CardEnhancement.WILDCARD: "Wildcard",
+	Constants.CardEnhancement.RANDOM: "Random"
 }
 
 enum PlayerStatusEffect {
 	SHIELD,
-	STRENTGH,
+	STRENGTH,
+	THORNS,
+	DODGE,
+	SURVIVE,
+	PIERCE,
+	FURY,
+	RAGE,
+	DELAY,
+	ATTACK_BUFF,
+	EFFECT_BUFF,
 	POISON,
 	BURN,
 	FREEZE,
 	WEAKEN,
 	SLIME,
 	HIDE,
-	THORN
+	REPRESS_APPEARANCE,
+	REPRESS_INTELLIGENCE,
+	REPRESS_PHYSICAL_ABILITY,
+	REPRESS_SELF_ESTEEM,
+	REPRESS_SOCIAL_LIFE,
+	SILENCE,
 }
+
+var positive_status_effects = [
+	PlayerStatusEffect.SHIELD,
+	PlayerStatusEffect.STRENGTH,
+	PlayerStatusEffect.THORNS,
+	PlayerStatusEffect.DODGE,
+	PlayerStatusEffect.PIERCE,
+	PlayerStatusEffect.FURY,
+	PlayerStatusEffect.RAGE,
+	PlayerStatusEffect.SURVIVE,
+	PlayerStatusEffect.DELAY,
+	PlayerStatusEffect.ATTACK_BUFF,
+	PlayerStatusEffect.EFFECT_BUFF
+]
 
 var PlayerStatusEffectInfo = {
 	PlayerStatusEffect.SHIELD: preload("res://players/status_effects/effects/shield_status_effect_info.tres"),
@@ -53,7 +77,21 @@ var PlayerStatusEffectInfo = {
 	PlayerStatusEffect.FREEZE: preload("res://players/status_effects/effects/freeze_status_effect.tres"),
 	PlayerStatusEffect.WEAKEN: preload("res://players/status_effects/effects/weaken_status_effect.tres"),
 	PlayerStatusEffect.SLIME: preload("res://players/status_effects/effects/slime_status_effect.tres"),
-	PlayerStatusEffect.HIDE: preload("res://players/status_effects/effects/hide_status_effect.tres")
+	PlayerStatusEffect.HIDE: preload("res://players/status_effects/effects/hide_status_effect.tres"),
+	PlayerStatusEffect.REPRESS_APPEARANCE: preload("res://players/status_effects/effects/repress_appearance_status_effect.tres"),
+	PlayerStatusEffect.REPRESS_INTELLIGENCE: preload("res://players/status_effects/effects/repress_intelligence_status_effect.tres"),
+	PlayerStatusEffect.REPRESS_PHYSICAL_ABILITY: preload("res://players/status_effects/effects/repress_physical_ability_status_effect.tres"),
+	PlayerStatusEffect.REPRESS_SELF_ESTEEM: preload("res://players/status_effects/effects/repress_self_esteem_status_effect.tres"),
+	PlayerStatusEffect.REPRESS_SOCIAL_LIFE: preload("res://players/status_effects/effects/repress_social_life_status_effect.tres"),
+	PlayerStatusEffect.STRENGTH: preload("res://players/status_effects/effects/strength_status_effect.tres"),
+	PlayerStatusEffect.PIERCE: preload("res://players/status_effects/effects/pierce_status_effect.tres"),
+	PlayerStatusEffect.THORNS: preload("res://players/status_effects/effects/thorns_status_effect.tres"),
+	PlayerStatusEffect.DODGE: preload("res://players/status_effects/effects/dodge_status_effect_info.tres"),
+	PlayerStatusEffect.FURY: preload("res://players/status_effects/effects/fury_status_effect_info.tres"),
+	PlayerStatusEffect.RAGE: preload("res://players/status_effects/effects/rage_status_effect_info.tres"),
+	PlayerStatusEffect.DELAY: preload("res://players/status_effects/effects/delay_status_effect.tres"),
+	PlayerStatusEffect.ATTACK_BUFF: preload("res://players/status_effects/effects/attack_buff_status_effect.tres"),
+	PlayerStatusEffect.EFFECT_BUFF: preload("res://players/status_effects/effects/effect_buff_status_effect.tres")
 }
 
 enum PlayerSide {
@@ -61,40 +99,42 @@ enum PlayerSide {
 	RIGHT
 }
 
+enum InsecurityAffinityType { 
+	NONE,
+	WEAK,
+	STRONG,
+	BLOCK,
+	CONTEMPT,
+	REPEL
+}
+
 func get_insecurity_color(insecurity: Insecurity) -> Color:
 	match (insecurity):
-		Insecurity.PHYSICAL_APPEARANCE:
-			return insecurity_colors.physical_apprance_color
+		Insecurity.APPEARANCE:
+			return INSECURITY_TEXTURES.appearance_color
 		Insecurity.SELF_ESTEEM:
-			return insecurity_colors.self_esteem_color
+			return INSECURITY_TEXTURES.self_esteem_color
 		Insecurity.INTELLIGENCE:
-			return insecurity_colors.intelligence_color
+			return INSECURITY_TEXTURES.intelligence_color
 		Insecurity.PHYSICAL_ABILITY:
-			return insecurity_colors.physical_ability_color
+			return INSECURITY_TEXTURES.physical_ability_color
 		Insecurity.SOCIAL_LIFE:
-			return insecurity_colors.social_life_color
-		Insecurity.FASHION:
-			return insecurity_colors.fashion_color
+			return INSECURITY_TEXTURES.social_life_color
 	
 	return Color.BLACK
 
 
-func get_insecurity_icon() -> Texture2D:
-	return insecurity_colors.insecurity_icon
-
-
-func get_insecurity_of_action_type(action_type: CardAction) -> Insecurity:
-	match action_type:
-		CardAction.PHYSICAL_APPEARANCE_ATTACK:
-			return Insecurity.PHYSICAL_APPEARANCE
-		CardAction.SELF_ESTEEM_ATTACK:
-			return Insecurity.SELF_ESTEEM
-		CardAction.INTELLIGENCE_ATTACK:
-			return Insecurity.INTELLIGENCE
-		CardAction.PHYSICAL_ABILITY_ATTACK:
-			return Insecurity.PHYSICAL_ABILITY
-		CardAction.SOCIAL_LIFE_ATTACK:
-			return Insecurity.SOCIAL_LIFE
-		CardAction.FASHION_ATTACK:
-			return Insecurity.FASHION
-	return Insecurity.PHYSICAL_APPEARANCE
+func get_insecurity_icon(insecurity_affinity_type: InsecurityAffinityType = InsecurityAffinityType.NONE) -> Texture2D:
+	match insecurity_affinity_type:
+		InsecurityAffinityType.WEAK:
+			return INSECURITY_TEXTURES.weak_insecurity_affinity_icon
+		InsecurityAffinityType.STRONG:
+			return INSECURITY_TEXTURES.strong_insecurity_affinity_icon
+		InsecurityAffinityType.BLOCK:
+			return INSECURITY_TEXTURES.block_insecurity_affinity_icon
+		InsecurityAffinityType.CONTEMPT:
+			return INSECURITY_TEXTURES.contempt_insecurity_affinity_icon
+		InsecurityAffinityType.REPEL:
+			return INSECURITY_TEXTURES.repel_insecurity_affinity_icon
+	
+	return INSECURITY_TEXTURES.insecurity_icon

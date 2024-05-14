@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TemplateCardInfo" load_steps=2 format=3 uid="uid://c5sjio2cndnfn"]
+
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="1_c2njs"]
+
+[resource]
+script = ExtResource("1_c2njs")
+name = "Power Up"
+sentence = "I shouldn't need to deal with a %noun%. Especially a %adjective% %adjective% one such as you."
+nonupgraded_description = "Receive 3 Strength. Your next attack is stronger."
+upgraded_description = "Receive 5 Strength. Your next attack is stronger."
+background_color = Color(0.219608, 0.117647, 0.156863, 1)
+insecurity_count = 2
+execute_function_name = "_execute_power_up"

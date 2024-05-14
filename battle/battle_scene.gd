@@ -21,14 +21,9 @@ var player: BattlePlayer:
 		players[active_side] = value
 
 var active_template_card: TemplateCard
-var template_cards_in_deck: Array[TemplateCardInfo]
-var template_cards_in_bag: Array[TemplateCardInfo]
-var template_card_arrays = [
-	template_cards_in_deck,
-	template_cards_in_bag,
-]
-var is_changing_turns = false
+var is_executing_turn = false
 
+const EXECUTE_TURN_SIMULATED_DELAY = 1.5
 const ACTION_CARD_SCENE = preload("res://battle/cards/card.tscn")
 const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.tscn")
 
@@ -38,21 +33,32 @@ func _ready():
 	
 	_init_player(Constants.PlayerSide.LEFT, left_player_config.duplicate(), left_player_node)
 	_init_player(Constants.PlayerSide.RIGHT, right_player_config.duplicate(), right_player_node)
-	battle_interface.update_hand(players[active_side])
-	players[Constants.PlayerSide.LEFT].handle_start_battle()
-	players[Constants.PlayerSide.RIGHT].handle_start_battle()
+	players[Constants.PlayerSide.LEFT].opponent_battle_player = players[Constants.PlayerSide.RIGHT]
+	players[Constants.PlayerSide.RIGHT].opponent_battle_player = players[Constants.PlayerSide.LEFT]
 	
-	_init_template_card_deck()
+	players[Constants.PlayerSide.LEFT].handle_start_battle()
+	players[Constants.PlayerSide.LEFT].handle_start_turn()
+	players[Constants.PlayerSide.RIGHT].handle_start_battle()
+	battle_interface.update_hand(player)
+	battle_interface.update_player_deck_and_bag_ui(player)
+	battle_interface.update_player_stats(player)
+	battle_interface.update_player_stats(get_non_active_side_player())
+	reset_active_template_card()
 	
 	battle_interface.card_toggle_selected.connect(_on_card_toggle_selected)
 	battle_interface.card_reroll.connect(reroll_card)
-	battle_interface.card_throw.connect(throw_card)
+	battle_interface.close_player_info_ui()
 
 
 func _init_player(side: Constants.PlayerSide, player_info: PlayerInfo, parent_node: Node2D):
 	var player = BattlePlayer.new()
 	player.init(player_info, side)
 	player.decreased_opponents_max_health.connect(_on_decreased_opponents_max_health)
+	player.damaged_opponent.connect(_on_damaged_opponent)
+	player.stamina_changed.connect(_on_stamina_changed)
+	player.updated_hand.connect(_on_updated_hand)
+	player.drew_card.connect(_on_drew_card)
+	player.removed_card.connect(_on_removed_card)
 	parent_node.add_child(player)
 	var sprite_height = player.sprite_frames.get_frame_texture("default", 0).get_height()
 	player.global_position.y -= (sprite_height * player_info.sprite_scale.y) / 2.0
@@ -61,26 +67,22 @@ func _init_player(side: Constants.PlayerSide, player_info: PlayerInfo, parent_no
 	players[side] = player
 
 
-func _init_template_card_deck():
-	for template_card_info in left_player_config.template_card_deck:
-		template_cards_in_deck.push_back(template_card_info.duplicate(true))
-	for template_card_info in right_player_config.template_card_deck:
-		template_cards_in_deck.push_back(template_card_info.duplicate(true))
-	
-	randomize()
-	template_cards_in_deck.shuffle()
-	
-	activate_new_template_card()
-
-
 func _process(delta):
-	battle_interface.update_player_deck_and_bag_ui(player)
+	_handle_controls_input()
 	
 	# Debug
 	if Input.is_action_just_pressed("debug_1"):
 		player.stamina = player.info.stamina_stat
 		battle_interface.update_player_stats(player)
-	if Input.is_action_just_pressed("end_turn") and not is_changing_turns:
+
+
+func _handle_controls_input():
+	if Input.is_action_just_pressed("view_your_info"):
+		battle_interface.open_player_info_ui(players[Constants.PlayerSide.LEFT].info)
+	elif Input.is_action_just_pressed("view_opponents_info"):
+		battle_interface.open_player_info_ui(players[Constants.PlayerSide.RIGHT].info)
+	
+	if Input.is_action_just_pressed("end_turn") and not is_executing_turn:
 		end_turn_early()
 	if Input.is_action_just_pressed("debug_5"):
 		MapManager.swap_to_map_scene()
@@ -94,72 +96,54 @@ func _on_card_toggle_selected(card: Card):
 		select_card(card)
 
 
-func activate_new_template_card():
-	if active_template_card != null:
-		send_template_card_to_bag(active_template_card.template_card_info)
-		active_template_card.free()
-	
-	active_template_card = TEMPLATE_CARD_SCENE.instantiate()
-	active_template_card.template_card_info = get_next_template_card_in_deck(true)
-	active_template_card.play_selected_cards.connect(play_cards)
-	
-	battle_interface.update_template_card_ui(active_template_card)
-	battle_interface.update_template_card_deck_and_bag_ui(template_cards_in_deck.size(), template_cards_in_bag.size())
-
-
-func _on_decreased_opponents_max_health(amount: int, executing_player: BattlePlayer):
+func _on_decreased_opponents_max_health(percentage: float, executing_player: BattlePlayer):
 	if players[Constants.PlayerSide.LEFT] == executing_player:
-		players[Constants.PlayerSide.RIGHT].info.health_stat -= amount
-		players[Constants.PlayerSide.RIGHT].health -= amount
+		var new_health_amount = players[Constants.PlayerSide.RIGHT].info.health_stat * (1 - percentage)
+		players[Constants.PlayerSide.RIGHT].info.health_stat = new_health_amount
+		players[Constants.PlayerSide.RIGHT].health = new_health_amount
 		battle_interface.update_player_stats(players[Constants.PlayerSide.RIGHT])
 	else:
-		players[Constants.PlayerSide.LEFT].info.health_stat -= amount
-		players[Constants.PlayerSide.LEFT].health -= amount
+		var new_health_amount = players[Constants.PlayerSide.LEFT].info.health_stat * (1 - percentage)
+		players[Constants.PlayerSide.LEFT].info.health_stat = new_health_amount
+		players[Constants.PlayerSide.LEFT].health = new_health_amount
 		battle_interface.update_player_stats(players[Constants.PlayerSide.LEFT])
 
 
-func get_next_template_card_in_deck(remove_result_card: bool) -> TemplateCardInfo:
-	if template_cards_in_deck.is_empty():
-		_refill_template_deck_from_bag()
-	
-	var result = template_cards_in_deck[0]
-	if remove_result_card:
-		template_cards_in_deck.pop_front()
-		if template_cards_in_deck.is_empty():
-			_refill_template_deck_from_bag()
-	
-	return result
+func reset_active_template_card():
+	player.selected_template_card_hand_index = 0
+	update_active_template_card()
 
 
-func _refill_template_deck_from_bag():
-	template_cards_in_deck = template_cards_in_bag.duplicate(true)
+func update_active_template_card():
+	if active_template_card != null:
+		active_template_card.queue_free()
 	
-	randomize()
-	template_cards_in_deck.shuffle()
+	var template_card_info = player.template_cards_in_hand[player.selected_template_card_hand_index]
+	active_template_card = TEMPLATE_CARD_SCENE.instantiate()
+	active_template_card.template_card_info = template_card_info
+	active_template_card.played_selected_cards.connect(play_cards)
+	active_template_card.selected_previous_template_card.connect(_on_selected_previous_template_card)
+	active_template_card.selected_next_template_card.connect(_on_selected_next_template_card)
+	active_template_card.rerolled_template_card.connect(reroll_template_card)
 	
-	template_cards_in_bag.clear()
-
-
-func send_template_card_to_bag(template_card_info: TemplateCardInfo):
-	template_cards_in_bag.push_back(template_card_info)
+	battle_interface.update_template_card_ui(active_template_card)
+	active_template_card.set_talking_side(active_side)
+	active_template_card.update_selected_buttons(player.selected_template_card_hand_index, player.template_cards_in_hand.size())
+	_update_template_card_reroll_button()
 
 
 func select_card(card: Card):
 	if active_template_card.is_full(): return
 	
 	var card_info = card.card_info
-	for i in range(player.cards_in_hand.size()):
-		if player.cards_in_hand[i] == card_info:
-			player.cards_in_hand.remove_at(i)
-			break
 	player.selected_cards.push_back(card_info)
 	
 	active_template_card.add_selected_card(card)
+	battle_interface.reflatten_hand_container()
 
 
 func unselect_card(card: Card):
 	var card_info = card.card_info
-	player.cards_in_hand.push_back(card_info)
 	for i in range(player.selected_cards.size()):
 		if player.selected_cards[i] == card_info:
 			player.selected_cards.remove_at(i)
@@ -171,11 +155,31 @@ func unselect_card(card: Card):
 
 
 func play_cards():
-	BattleActionExecution.execute_action_cards(player.selected_cards, self)
-	BattleAbilityExecution.try_to_execute(active_template_card.template_card_info, player.selected_cards, self)
 	player.handle_played_selected_cards()
+	if player.active_status_effects.has(Constants.PlayerStatusEffect.DELAY):
+		BattleActionExecution.execute_action_cards(player.selected_cards, self)
+		#BattleAbilityExecution.try_to_execute(active_template_card.template_card_info, player.selected_cards, self)
+		player.decrement_status_effect(Constants.PlayerStatusEffect.DELAY, 1)
+		battle_interface.update_player_stats(player)
+	else:
+		#BattleAbilityExecution.try_to_execute(active_template_card.template_card_info, player.selected_cards, self)
+		BattleActionExecution.execute_action_cards(player.selected_cards, self)
+	player.selected_cards.clear()
 	
-	change_turns()
+	for i in range(player.template_cards_in_hand.size()):
+		if player.template_cards_in_hand[i] == active_template_card.template_card_info:
+			player.template_cards_in_hand.remove_at(i)
+			break
+	player.send_template_card_to_bag(active_template_card.template_card_info)
+	
+	if player.template_cards_in_hand.size() > 0:
+		is_executing_turn = true
+		await get_tree().create_timer(EXECUTE_TURN_SIMULATED_DELAY).timeout
+		is_executing_turn = false
+		player.update_template_card_hand_logic() 
+		update_active_template_card()
+	else:
+		change_turns()
 
 
 func end_turn_early():
@@ -187,38 +191,57 @@ func end_turn_early():
 func reroll_card(card: Card):
 	player.reroll_card(card)
 	battle_interface.update_player_stats(player)
+	battle_interface.update_player_deck_and_bag_ui(player)
 
 
-func throw_card(card: Card):
-	player.throw_card(card, self)
+func reroll_template_card():
+	_reset_selected_cards()
+	player.reroll_template_card(active_template_card)
 	battle_interface.update_player_stats(player)
+	battle_interface.update_player_deck_and_bag_ui(player)
+
+
+func _reset_selected_cards():
+	var selected_cards_copy = player.selected_cards.duplicate()
+	for selected_card in selected_cards_copy:
+		unselect_card(selected_card.card_scene)
+
+
+func _on_drew_card(card_info: CardInfo):
+	battle_interface.add_card_to_hand(card_info, player)
+	battle_interface.update_player_stats(player)
+
+
+func _on_removed_card(card_info: CardInfo):
+	battle_interface.remove_card_from_hand(card_info)
 
 
 func change_turns():
-	is_changing_turns = true
+	is_executing_turn = true
 	
 	player.handle_end_turn()
+	active_template_card.remove_context_ui(true)
 	battle_interface.update_player_stats(player)
 	battle_interface.update_player_stats(get_non_active_side_player())
 	battle_interface.toggle_hand_visibility(false)
-	
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(EXECUTE_TURN_SIMULATED_DELAY).timeout
+	player.handle_delayed_end_turn()
 	
 	if active_side == Constants.PlayerSide.LEFT:
 		active_side = Constants.PlayerSide.RIGHT
 	else:
 		active_side = Constants.PlayerSide.LEFT
 	
-	activate_new_template_card()
 	player.handle_start_turn()
 	battle_interface.update_hand(player)
-	active_template_card.set_talking_side(active_side)
+	reset_active_template_card()
 	player.handle_delayed_start_turn()
 	battle_interface.update_player_deck_and_bag_ui(player)
 	battle_interface.update_player_stats(player)
+	battle_interface.update_player_stats(get_non_active_side_player())
 	battle_interface.toggle_hand_visibility(true)
 	
-	is_changing_turns = false
+	is_executing_turn = false
 
 
 func get_non_active_side_player():
@@ -226,3 +249,41 @@ func get_non_active_side_player():
 		return players[Constants.PlayerSide.RIGHT]
 	elif active_side == Constants.PlayerSide.RIGHT:
 		return players[Constants.PlayerSide.LEFT]
+
+
+func _on_updated_hand():
+	battle_interface.update_hand(player)
+
+
+func _on_damaged_opponent(amount: int, executing_player: BattlePlayer):
+	if players[Constants.PlayerSide.LEFT] == executing_player:
+		players[Constants.PlayerSide.RIGHT].damage(amount)
+		battle_interface.update_player_stats(players[Constants.PlayerSide.RIGHT])
+	else:
+		players[Constants.PlayerSide.LEFT].damage(amount)
+		battle_interface.update_player_stats(players[Constants.PlayerSide.LEFT])
+
+
+func _on_selected_previous_template_card():
+	if is_executing_turn: return
+	
+	_reset_selected_cards()
+	player.selected_template_card_hand_index -= 1
+	update_active_template_card()
+
+
+func _on_selected_next_template_card():
+	if is_executing_turn: return
+	
+	_reset_selected_cards()
+	player.selected_template_card_hand_index += 1
+	update_active_template_card()
+
+
+func _on_stamina_changed():
+	if active_template_card != null and not is_executing_turn:
+		_update_template_card_reroll_button()
+
+
+func _update_template_card_reroll_button():
+	active_template_card.toggle_reroll_button(player.can_afford_template_card_reroll())

@@ -2,20 +2,29 @@ class_name TemplateCard extends Control
 
 signal selected_card_added(card: Card)
 signal selected_card_removed(card: Card)
-signal play_selected_cards
+signal played_selected_cards
+signal rerolled_template_card
+signal selected_previous_template_card
+signal selected_next_template_card
 
 @onready var background_glyph = %BackgroundGlyph
 @onready var left_player_speaking_glyph = %LeftPlayerSpeakingGlyph
 @onready var right_player_speaking_glyph = %RightPlayerSpeakingGlyph
 @onready var card_name = %CardName
 @onready var information_description_icon = %InformationDescriptionIcon
-@onready var information_description_display = %InformationDescriptionDisplay
-@onready var info_description_label = %InfoDescriptionLabel
 @onready var sentence_label = %SentenceLabel
 @onready var play_button = %PlayButton
-@onready var selected_cards_text = %SelectedCardsText
 @onready var selected_cards_container = %SelectedCardsContainer
 @onready var insecurity_icon_container = %InsecurityIconContainer
+@onready var top_cards_container = %TopCardsContainer
+@onready var button_container = %ButtonContainer
+@onready var left_player_speaking_glyph_container = %LeftPlayerSpeakingGlyphContainer
+@onready var right_player_speaking_glyph_container = %RightPlayerSpeakingGlyphContainer
+@onready var previous_selected_button = %PreviousSelectedButton
+@onready var next_selected_button = %NextSelectedButton
+@onready var previous_selected_button_container = %PreviousSelectedButtonContainer
+@onready var next_selected_button_container = %NextSelectedButtonContainer
+@onready var reroll_button = %RerollButton
 
 var template_card_info: TemplateCardInfo
 var max_insults_allowed = 0
@@ -33,6 +42,10 @@ const EMPTY_UNDERLINE_TEXT = "__________"
 
 
 func _ready():
+	init()
+
+
+func init():
 	_init_glyphs()
 	_init_info_description()
 	_init_identity_visuals()
@@ -48,10 +61,7 @@ func _init_glyphs():
 
 
 func _init_info_description():
-	information_description_display.visible = false
-	info_description_label.text = template_card_info.info_description
-	information_description_icon.mouse_entered.connect(_show_info_description_display)
-	information_description_icon.mouse_exited.connect(_hide_info_description_display)
+	information_description_icon.tooltip_text = template_card_info.description
 
 
 func _init_identity_visuals():
@@ -59,11 +69,15 @@ func _init_identity_visuals():
 
 
 func _init_execution_visuals():
+	for child in insecurity_icon_container.get_children():
+		child.queue_free()
+	
 	for insecurity in template_card_info.insecurities:
 		var insecurity_icon = TextureRect.new()
 		insecurity_icon.texture = Constants.get_insecurity_icon()
 		insecurity_icon.self_modulate = Constants.get_insecurity_color(insecurity)
 		insecurity_icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+		insecurity_icon_container.custom_minimum_size = Vector2(48, 48)
 		insecurity_icon_container.add_child(insecurity_icon)
 	
 	var sentence_label_text = template_card_info.sentence
@@ -71,6 +85,7 @@ func _init_execution_visuals():
 
 func _init_insult_text():
 	var sentence_label_text = template_card_info.sentence
+	max_insults_allowed = 0
 	while true:
 		var grammar_type = _get_earliest_insult_grammar_placeholder(sentence_label_text)
 		if grammar_type == GrammarType.NONE:
@@ -96,14 +111,6 @@ func _get_earliest_insult_grammar_placeholder(text: String) -> GrammarType:
 		return GrammarType.NONE
 
 
-func _show_info_description_display():
-	information_description_display.visible = true
-
-
-func _hide_info_description_display():
-	information_description_display.visible = false
-
-
 func is_full() -> bool:
 	return selected_cards.size() >= max_insults_allowed
 
@@ -123,11 +130,6 @@ func remove_selected_card(card: Card):
 	_update_play_button_status()
 
 
-func clear_selected_cards():
-	selected_cards.clear()
-	_update_play_button_status()
-
-
 func set_talking_side(side: Constants.PlayerSide):
 	left_player_speaking_glyph.visible = side == Constants.PlayerSide.LEFT
 	right_player_speaking_glyph.visible = side == Constants.PlayerSide.RIGHT
@@ -137,14 +139,45 @@ func _update_play_button_status():
 	var current_insults = selected_cards.size()
 	var max_insults = max_insults_allowed
 	
-	selected_cards_text.text = str(current_insults) + "/" + str(max_insults)
 	play_button.disabled = current_insults != max_insults
 
 
 func _on_play_button_pressed():
 	for card in selected_cards:
-		card.free()
-	selected_cards.clear()
-	_update_play_button_status()
+		card.set_as_hidden(false)
+		card.set_as_slimed(false)
 	
-	play_selected_cards.emit()
+	play_button.disabled = true
+	reroll_button.disabled = true
+	played_selected_cards.emit()
+
+
+func remove_context_ui(keep_turn_end_context: bool = false):
+	button_container.queue_free()
+	previous_selected_button_container.queue_free()
+	next_selected_button_container.queue_free()
+	if not keep_turn_end_context:
+		top_cards_container.queue_free()
+		left_player_speaking_glyph_container.queue_free()
+		right_player_speaking_glyph_container.queue_free()
+
+
+func update_selected_buttons(index: int, hand_size: int):
+	previous_selected_button.visible = index != 0
+	next_selected_button.visible = index != hand_size - 1
+
+
+func _on_previous_selected_button_pressed():
+	selected_previous_template_card.emit()
+
+
+func _on_next_selected_button_pressed():
+	selected_next_template_card.emit()
+
+
+func _on_reroll_button_pressed():
+	rerolled_template_card.emit()
+
+
+func toggle_reroll_button(active: bool):
+	reroll_button.disabled = not active

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://diguyxc8ad4do"]
+
+[ext_resource type="Script" path="res://blessings/resources/magic_stats/extra_freeze_two.gd" id="1_r0nc6"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_fhgj3"]
+[ext_resource type="Texture2D" uid="uid://djqnbbo242nim" path="res://players/status_effects/textures/d3.svg" id="3_qtrr6"]
+
+[resource]
+script = ExtResource("2_fhgj3")
+name = "Extra Freeze II"
+texture = ExtResource("3_qtrr6")
+normal_description = "Increase your Freeze magic by 6."
+cosmic_description = "Increase your Freeze magic by 12."
+execution_script = ExtResource("1_r0nc6")

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CardInfo" load_steps=2 format=3 uid="uid://dh6pwvlcv14xp"]
+
+[ext_resource type="Script" path="res://battle/cards/info/card_info.gd" id="1_lj750"]
+
+[resource]
+script = ExtResource("1_lj750")
+insecurity = 4
+attack_value = 69
+enhancement = 5
+insult_text = "test"

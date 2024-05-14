@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=3 format=3 uid="uid://bcp8u6ye5ygos"]
+
+[ext_resource type="Texture2D" uid="uid://cp627mns75i4w" path="res://players/status_effects/textures/hand_cross.svg" id="1_8m7do"]
+[ext_resource type="Script" path="res://players/status_effects/effects/status_effect_info.gd" id="2_mu4um"]
+
+[resource]
+script = ExtResource("2_mu4um")
+icon = ExtResource("1_8m7do")
+color = Color(0.376471, 0.262745, 0.611765, 1)
+hide_quantity_text = false
+decrement_per_turn_value = 0
+handle_decrement_automatically = false

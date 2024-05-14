@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TemplateCardInfo" load_steps=2 format=3 uid="uid://di2mjnu4o50qe"]
+
+[ext_resource type="Script" path="res://battle/template_cards/info/template_card_info.gd" id="1_6bmxx"]
+
+[resource]
+script = ExtResource("1_6bmxx")
+name = "Rage"
+sentence = "You're %adjective% and %adjective%. Why does a %noun% like you even exist?"
+nonupgraded_description = "Receive 1 Rage. Your next activated Template Card will execute twice."
+upgraded_description = "Receive 1 Rage and draw 2 Action Cards. Your next activated Template Card will execute twice."
+background_color = Color(0.219608, 0.117647, 0.207843, 1)
+insecurity_count = 1
+execute_function_name = "_execute_rage"

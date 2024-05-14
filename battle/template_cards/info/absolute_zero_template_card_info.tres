@@ -6,7 +6,8 @@
 script = ExtResource("1_8e2pn")
 name = "Absolute Zero"
 sentence = "Can you please shut up with all of your %verb% and %verb%. "
-info_description = "Inflict 3 Freeze onto your opponent."
+nonupgraded_description = "Inflict 2 Freeze onto your opponent."
+upgraded_description = "Inflict 4 Freeze onto your opponent."
 background_color = Color(0.117647, 0.180392, 0.219608, 1)
-insecurities = Array[int]([1, 2])
+insecurity_count = 2
 execute_function_name = "_execute_absolute_zero"

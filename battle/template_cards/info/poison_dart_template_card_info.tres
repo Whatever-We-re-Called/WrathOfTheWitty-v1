@@ -6,7 +6,8 @@
 script = ExtResource("1_ej2qo")
 name = "Poison Dart"
 sentence = "How do you live with yourself being %adjective% and %adjective%?"
-info_description = "Inflict 6 Poison onto your opponent."
+nonupgraded_description = "Inflict 2 Poison onto your opponent."
+upgraded_description = "Inflict 4 Poison onto your opponent."
 background_color = Color(0.12549, 0.117647, 0.219608, 1)
-insecurities = Array[int]([2, 4])
+insecurity_count = 2
 execute_function_name = "_execute_poison_dart"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://0uy083awnbl4"]
+
+[ext_resource type="Script" path="res://blessings/resources/battle/turn_heal_two.gd" id="1_uhavu"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_rbjdb"]
+[ext_resource type="Texture2D" uid="uid://bb3ajv3ktmktm" path="res://blessings/textures/resource_apple.svg" id="3_w4epm"]
+
+[resource]
+script = ExtResource("2_rbjdb")
+name = "Turn Heal II"
+texture = ExtResource("3_w4epm")
+normal_description = "At the beginning of each turn, heal yourself for 4 HP."
+cosmic_description = "At the beginning of each turn, heal yourself for 8 HP."
+execution_script = ExtResource("1_uhavu")

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://dmymatvmjrhq1"]
+
+[ext_resource type="Script" path="res://blessings/resources/battle/decrease_max_health.gd" id="1_yx8jr"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_1nksl"]
+[ext_resource type="Texture2D" uid="uid://deqaoe1y0iphp" path="res://blessings/textures/suit_hearts_broken.svg" id="3_lamo0"]
+
+[resource]
+script = ExtResource("2_1nksl")
+name = "Decrease Max Health"
+texture = ExtResource("3_lamo0")
+normal_description = "Decrease your opponent's max health by 10%."
+cosmic_description = "Decrease your opponent's max health by 20%."
+execution_script = ExtResource("1_yx8jr")

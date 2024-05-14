@@ -1,9 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://byvl0ds2nui0e"]
+[gd_scene load_steps=15 format=3 uid="uid://byvl0ds2nui0e"]
 
 [ext_resource type="Script" path="res://battle/template_cards/template_card.gd" id="1_5xuhq"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dbeir"]
 load_path = "res://.godot/imported/information.png-696776f34b0735611f4fee2e1e230774.ctex"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0n3bk"]
+bg_color = Color(0.219608, 0.427451, 0.666667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4j2uf"]
+bg_color = Color(0.219608, 0.427451, 0.666667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_laqkb"]
+bg_color = Color(0.219608, 0.427451, 0.666667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80lj5"]
+bg_color = Color(0.0588235, 0.0666667, 0.12549, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lt3aj"]
 bg_color = Color(0.219608, 0.666667, 0.235294, 1)
@@ -15,34 +27,22 @@ bg_color = Color(0.219608, 0.666667, 0.235294, 1)
 bg_color = Color(0.219608, 0.666667, 0.235294, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s64cm"]
-bg_color = Color(0.117647, 0.219608, 0.156863, 1)
+bg_color = Color(0.054902, 0.121569, 0.0784314, 1)
 
-[node name="TemplateCard" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-script = ExtResource("1_5xuhq")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0siw"]
+bg_color = Color(0.490196, 0.490196, 0.490196, 1)
 
-[node name="SelectedCardsContainer" type="HBoxContainer" parent="."]
-unique_name_in_owner = true
-z_index = -5
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -112.0
-offset_top = -292.0
-offset_right = 112.0
-offset_bottom = -180.0
-grow_horizontal = 2
-grow_vertical = 0
-alignment = 1
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5kiqh"]
+bg_color = Color(0.490196, 0.490196, 0.490196, 1)
 
-[node name="BackgroundGlyph" type="ColorRect" parent="."]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(640, 360)
-layout_mode = 1
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ct4n0"]
+bg_color = Color(0.490196, 0.490196, 0.490196, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mlirj"]
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+
+[node name="TemplateCard" type="CenterContainer"]
+z_index = 5
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -54,35 +54,45 @@ offset_right = 320.0
 offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+size_flags_horizontal = 0
+script = ExtResource("1_5xuhq")
 
-[node name="LeftPlayerSpeakingGlyph" type="ColorRect" parent="."]
+[node name="LeftPlayerSpeakingGlyphContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 288
+theme_override_constants/margin_right = 768
+
+[node name="LeftPlayerSpeakingGlyph" type="ColorRect" parent="LeftPlayerSpeakingGlyphContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 72)
 layout_mode = 2
-offset_left = -448.0
-offset_top = 108.0
-offset_right = -320.0
-offset_bottom = 180.0
 color = Color(0, 0, 0, 1)
 
-[node name="RightPlayerSpeakingGlyph" type="ColorRect" parent="."]
+[node name="RightPlayerSpeakingGlyphContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 768
+theme_override_constants/margin_top = 288
+
+[node name="RightPlayerSpeakingGlyph" type="ColorRect" parent="RightPlayerSpeakingGlyphContainer"]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(128, 72)
 layout_mode = 2
-offset_left = 320.0
-offset_top = 108.0
-offset_right = 448.0
-offset_bottom = 180.0
+color = Color(0, 0, 0, 1)
+
+[node name="BackgroundGlyph" type="ColorRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 2
 color = Color(0, 0, 0, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_left = -320.0
-offset_top = -180.0
-offset_right = -62.0
-offset_bottom = -119.0
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 
@@ -93,142 +103,85 @@ theme_override_constants/separation = 4
 [node name="CardName" type="Label" parent="MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_font_sizes/font_size = 32
 text = "Power Punch"
 
 [node name="InformationDescriptionIcon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(32, 48)
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+tooltip_text = "This is a test"
 texture = SubResource("CompressedTexture2D_dbeir")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="InformationDescriptionDisplay" type="ColorRect" parent="MarginContainer/HBoxContainer/InformationDescriptionIcon"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -270.0
-offset_top = -187.5
-offset_right = 270.0
-offset_bottom = -47.5
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.196078, 0.196078, 0.196078, 1)
-
-[node name="InfoDescriptionLabel" type="Label" parent="MarginContainer/HBoxContainer/InformationDescriptionIcon/InformationDescriptionDisplay"]
-unique_name_in_owner = true
-z_index = 1
-custom_minimum_size = Vector2(480, 0)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -240.0
-offset_top = -54.0
-offset_right = 240.0
-offset_bottom = 54.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 24
-text = "Damage your opponent with a significant amount of power. What if we made this sentence very long."
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-
-[node name="ColorRect2" type="ColorRect" parent="MarginContainer/HBoxContainer/InformationDescriptionIcon/InformationDescriptionDisplay"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_top = 45.0
-offset_right = 35.0
-offset_bottom = 80.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = 0.785398
-color = Color(0.196078, 0.196078, 0.196078, 1)
-
 [node name="MarginContainer2" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = 264.0
-offset_top = -180.0
-offset_right = 320.0
-offset_bottom = -124.0
-grow_horizontal = 0
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 
 [node name="InsecurityIconContainer" type="HBoxContainer" parent="MarginContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
 
 [node name="SentenceLabel" type="Label" parent="."]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -254.0
-offset_top = -46.5
-offset_right = 254.0
-offset_bottom = 46.5
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(544, 360)
+layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Both __________ and __________? Pick a struggle."
-horizontal_alignment = 1
-autowrap_mode = 2
-
-[node name="SelectedCardsText" type="Label" parent="."]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -254.0
-offset_top = 122.0
-offset_right = 254.0
-offset_bottom = 148.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 18
-text = "0/2"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="PlayButton" type="Button" parent="."]
+[node name="TopCardsContainer" type="MarginContainer" parent="."]
 unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_bottom = 472
+
+[node name="SelectedCardsContainer" type="HBoxContainer" parent="TopCardsContainer"]
+unique_name_in_owner = true
+z_index = -5
+layout_mode = 2
+alignment = 1
+
+[node name="ButtonContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 360
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ButtonContainer"]
+layout_mode = 2
+
+[node name="RerollButton" type="Button" parent="ButtonContainer/HBoxContainer"]
+unique_name_in_owner = true
+z_index = 5
 custom_minimum_size = Vector2(256, 64)
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -128.0
-offset_top = 148.0
-offset_right = 128.0
-offset_bottom = 212.0
-grow_horizontal = 2
-grow_vertical = 0
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_0n3bk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4j2uf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_laqkb")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_80lj5")
+disabled = true
+text = "Reroll"
+
+[node name="PlayButton" type="Button" parent="ButtonContainer/HBoxContainer"]
+unique_name_in_owner = true
+z_index = 5
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_lt3aj")
@@ -238,4 +191,50 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_s64cm")
 disabled = true
 text = "Play"
 
-[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
+[node name="SwitchSelectedContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 704
+
+[node name="PreviousSelectedButtonContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_right = 768
+
+[node name="PreviousSelectedButton" type="Button" parent="PreviousSelectedButtonContainer"]
+unique_name_in_owner = true
+z_index = 5
+custom_minimum_size = Vector2(64, 96)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_l0siw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5kiqh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ct4n0")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_mlirj")
+text = "<"
+
+[node name="NextSelectedButtonContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 768
+theme_override_constants/margin_right = 0
+
+[node name="NextSelectedButton" type="Button" parent="NextSelectedButtonContainer"]
+unique_name_in_owner = true
+z_index = 5
+custom_minimum_size = Vector2(64, 96)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_l0siw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5kiqh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ct4n0")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_mlirj")
+text = ">"
+
+[connection signal="pressed" from="ButtonContainer/HBoxContainer/RerollButton" to="." method="_on_reroll_button_pressed"]
+[connection signal="pressed" from="ButtonContainer/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="PreviousSelectedButtonContainer/PreviousSelectedButton" to="." method="_on_previous_selected_button_pressed"]
+[connection signal="pressed" from="NextSelectedButtonContainer/NextSelectedButton" to="." method="_on_next_selected_button_pressed"]

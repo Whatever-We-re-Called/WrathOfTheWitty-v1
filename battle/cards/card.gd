@@ -16,9 +16,11 @@ signal fire_extinguished
 @onready var enhancement_info = %EnhancementInfo
 @onready var enhancement_icon = %EnhancementIcon
 @onready var enhancement_label = %EnhancementLabel
-@onready var action_type_label = %ActionTypeLabel
 @onready var slimed_overlay = %SlimedOverlay
 @onready var hidden_overlay = %HiddenOverlay
+@onready var attack_value_label = %AttackValueLabel
+@onready var repressed_background = %RepressedBackground
+@onready var repress_overlay = %RepressOverlay
 
 var card_info: CardInfo
 var player: BattlePlayer
@@ -27,6 +29,7 @@ var card_enhancement_stack: Array[Constants.CardEnhancement]
 var is_burning = false
 var is_slimed = false
 var is_hidden = false
+var is_repressed = false
 
 const CARD_TEXTURES = preload("res://battle/cards/textures/card_textures.tres")
 const BATTLE_ACTION_EXECUTION_INFO = preload("res://battle/action_execution/battle_action_execution_info.tres")
@@ -37,14 +40,13 @@ func _ready():
 
 
 func init():
-	_init_action_texture()
+	_init_attack_texture()
 	_init_enhancement_texture()
 	_init_insult_texture()
 
 
-func _init_action_texture():
-	
-	var color = CARD_TEXTURES.get_action_color(card_info.action_type)
+func _init_attack_texture():
+	var color = Constants.get_insecurity_color(card_info.insecurity)
 	var style_box = StyleBoxFlat.new()
 	style_box.bg_color = color
 	button.add_theme_stylebox_override("normal", style_box)
@@ -52,51 +54,36 @@ func _init_action_texture():
 	button.add_theme_stylebox_override("pressed", style_box)
 	button.add_theme_stylebox_override("disabled", style_box)
 	button.add_theme_stylebox_override("focus", style_box)
+	repressed_background.color = color
 	
 	var corner_color_gradient = Gradient.new()
 	corner_color_gradient.add_point(0, color)
 	corner_color_gradient.add_point(1, Color.WHITE)
-	
 	var corner_color = corner_color_gradient.sample(0.1)
 	for corner_rect in corner_rects:
 		corner_rect.color = corner_color
 	
-	var text_color = corner_color_gradient.sample(0.75)
-	action_type_label.text = CARD_TEXTURES.get_action_as_string(card_info.action_type)
-	action_type_label.add_theme_color_override("font_color", text_color)
+	attack_value_label.text = str(card_info.attack_value)
 
 
 func _init_enhancement_texture():
-	if not _can_have_enhancement_ui():
+	if card_info.enhancement == Constants.CardEnhancement.NONE:
 		enhancement_info.visible = false
 	else:
 		enhancement_info.visible = true
 		
-		var enhancement = card_info.enhancement
-		var enhancement_color_gradient = Gradient.new()
-		enhancement_color_gradient.add_point(0, CARD_TEXTURES.get_enhancement_color(enhancement))
-		enhancement_color_gradient.add_point(1, Color.WHITE)
-		var enhancement_color = enhancement_color_gradient.sample(0.5)
-		
+		var color = Color.WHITE
 		enhancement_icon.texture = CARD_TEXTURES.enhancement_icon
-		enhancement_icon.self_modulate = enhancement_color
-		enhancement_label.text = CARD_TEXTURES.get_enhancement_as_string(enhancement)
-		enhancement_label.add_theme_color_override("font_color", enhancement_color)
-
-
-func _can_have_enhancement_ui() -> bool:
-	# Calculates if it should show Enhancement UI based off
-	# Constants.CardEnhancement enum (indexes 0-5 are attack
-	# cards).
-	var action_type = card_info.action_type
-	return action_type >= 0 and action_type <= 5
+		enhancement_icon.self_modulate = color
+		enhancement_label.text = Constants.enhancement_strings[card_info.enhancement]
+		enhancement_label.add_theme_color_override("font_color", color)
 
 
 func _init_insult_texture():
 	insult_label.text = card_info.insult_text
 
 
-func set_on_fire(is_on_fire: bool):
+func set_on_fire(is_on_fire: bool, extinguish_damage: int = 0):
 	if is_burning and not is_on_fire:
 		fire_extinguished.emit()
 	
@@ -104,7 +91,19 @@ func set_on_fire(is_on_fire: bool):
 	burning_overlay.visible = is_on_fire
 	
 	if is_burning:
-		burning_label.text = str(BATTLE_ACTION_EXECUTION_INFO.base_burn_damage_value) + " HP"
+		burning_label.text = str(extinguish_damage) + " HP"
+
+
+func reset_effects():
+	var effect_functions = [
+		"set_on_fire",
+		"set_as_slimed",
+		"set_as_hidden",
+		"set_as_repressed"
+	]
+	
+	for effect_function in effect_functions:
+		Callable(self, effect_function).call(false)
 
 
 func set_as_slimed(slimed: bool):
@@ -115,6 +114,11 @@ func set_as_slimed(slimed: bool):
 func set_as_hidden(hidden: bool):
 	self.is_hidden = hidden
 	hidden_overlay.visible = hidden
+
+
+func set_as_repressed(repressed: bool):
+	self.is_repressed = repressed
+	repress_overlay.visible = repressed
 
 
 func _on_button_gui_input(event):
@@ -137,7 +141,7 @@ func _select():
 
 func _reroll():
 	if is_burning:
-		player.damage(BATTLE_ACTION_EXECUTION_INFO.base_fire_damage_value)
+		player.damage(BATTLE_ACTION_EXECUTION_INFO.base_burn_damage_value)
 		set_on_fire(false)
 	elif is_slimed:
 		return

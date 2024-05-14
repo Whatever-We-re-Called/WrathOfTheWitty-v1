@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=3 format=3 uid="uid://ka44f1vouqu"]
+
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_5n251"]
+[ext_resource type="Texture2D" uid="uid://ddmq1ljmtb5ec" path="res://blessings/textures/cards_shift.svg" id="2_c4yg8"]
+
+[resource]
+script = ExtResource("2_5n251")
+name = "Template Action Repeat"
+texture = ExtResource("2_c4yg8")
+normal_description = "Upon successfully executing a Template Card action, have a 15% chance that it executes a second time."
+cosmic_description = "Upon successfully executing a Template Card action, have a 30% chance that it executes a second time."
