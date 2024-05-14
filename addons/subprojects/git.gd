@@ -35,5 +35,5 @@ static func _run_command(command, dir) -> bool:
 			printerr(str)
 			err = true
 		else:
-			print(str)
+			debug(str)
 	return !err

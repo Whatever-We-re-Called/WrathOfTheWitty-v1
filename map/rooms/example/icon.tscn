@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkrfnai5ee62d"]
+
+[ext_resource type="Texture2D" uid="uid://cprmpsnm1me4k" path="res://map/rooms/example/circle.png" id="1_xquvj"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Circle" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(0, 7.62939e-06)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("1_xquvj")
+
+[node name="Button" type="Button" parent="."]
+offset_left = -59.0
+offset_top = -57.0
+offset_right = 59.0
+offset_bottom = 61.0
+focus_mode = 0
+flat = true
+
+[node name="Id" type="Label" parent="."]
+offset_left = 60.0
+offset_top = -71.0
+offset_right = 100.0
+offset_bottom = -48.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "1"

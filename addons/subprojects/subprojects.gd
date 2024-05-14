@@ -77,11 +77,11 @@ func update(proj):
 	if proj.index == -1:
 		pass
 	elif project_exists(proj):
-		print("Updating " + proj.name)
+		debug("Updating " + proj.name)
 		Git.hard_reset(proj.path)
 		Git.pull(proj.path)
 	else:
-		print("Creating " + proj.name)
+		debug("Creating " + proj.name)
 		Git.clone(proj.path, proj.url)
 
 func project_exists(proj) -> bool:

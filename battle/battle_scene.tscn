@@ -10,6 +10,7 @@ script = ExtResource("1_s8m45")
 left_player_config = ExtResource("2_gy65i")
 right_player_config = ExtResource("2_gy65i")
 debug_template_card_info = ExtResource("3_8q4u3")
+seed = "cockandballtorture"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
