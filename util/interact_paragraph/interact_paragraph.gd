@@ -212,7 +212,7 @@ func _update_paragraph()-> void:
 			var is_rtl := gryphFlags & TextServer.GRAPHEME_IS_RTL != 0
 			var is_space := gryphFlags & TextServer.GRAPHEME_IS_SPACE != 0
 			var is_punctuation := gryphFlags & TextServer.GRAPHEME_IS_PUNCTUATION != 0 and _exclude_punctuation
-			#print("glyph s: %s ,e: %s ,t: %s" % [glyph.start, glyph.end, glyphText])
+			#debug("glyph s: %s ,e: %s ,t: %s" % [glyph.start, glyph.end, glyphText])
 			#Update word start and end character position
 			if is_valid and not is_space:
 				if curWordCharStart == -1:

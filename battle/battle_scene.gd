@@ -10,6 +10,8 @@ class_name BattleScene extends Node2D
 @onready var left_player_node = %LeftPlayerNode
 @onready var right_player_node = %RightPlayerNode
 
+@export var seed: String
+
 var active_side: Constants.PlayerSide
 var players = {}
 var player: BattlePlayer: 
@@ -82,6 +84,8 @@ func _handle_controls_input():
 	
 	if Input.is_action_just_pressed("end_turn") and not is_executing_turn:
 		end_turn_early()
+	if Input.is_action_just_pressed("debug_5"):
+		MapManager.swap_to_map_scene()
 
 
 func _on_card_toggle_selected(card: Card):

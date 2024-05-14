@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://cthrrkwnxr2ud"]
+
+[ext_resource type="Script" path="res://map/rooms/room_script.gd" id="1_innp6"]
+[ext_resource type="PackedScene" uid="uid://csf1g4genw77x" path="res://map/rooms/exit/square.tscn" id="2_vmwwn"]
+[ext_resource type="PackedScene" uid="uid://6b5hhw2v1kkl" path="res://map/rooms/exit/exit_scene.tscn" id="3_1onja"]
+
+[node name="ExitRoom" type="Node2D"]
+script = ExtResource("1_innp6")
+icon = ExtResource("2_vmwwn")
+scene_to_load = ExtResource("3_1onja")
