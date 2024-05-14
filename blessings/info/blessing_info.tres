@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="BlessingInfo" load_steps=2 format=3 uid="uid://eweyx3gussnk"]
+
+[ext_resource type="Script" path="res://blessings/info/blessing_info.gd" id="1_q3eik"]
+
+[resource]
+script = ExtResource("1_q3eik")
+regular_attack_buff_value = 1
+major_attack_buff_value = 5
+all_attack_buff_value = 1
+regular_effect_buff_value = 2
+major_effect_buff_value = 10
+all_effect_buff_value = 2
+turn_health_regeneration_value = 1
+battle_health_regeneration_value = 5
+starting_protection_value = 2
+extra_health_value = 5
+extra_stamina_value = 1
+extra_speed_value = 1
+extra_action_hand_space_value = 1
+extra_stamina_regeneration_value = 1
+extra_template_hand_space_value = 1

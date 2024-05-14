@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://c7loj736igldt"]
+
+[ext_resource type="Script" path="res://blessings/resources/cosmic_blessings/extra_template_hand_space.gd" id="1_i2dtn"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_b0tpu"]
+[ext_resource type="Texture2D" uid="uid://c8v1k325yfhvk" path="res://blessings/textures/hand_card.svg" id="3_0gb1b"]
+
+[resource]
+script = ExtResource("2_b0tpu")
+name = "Extra Template Hand Space"
+texture = ExtResource("3_0gb1b")
+is_cosmic = true
+description = "Increase your template hand by +1."
+execution_script = ExtResource("1_i2dtn")

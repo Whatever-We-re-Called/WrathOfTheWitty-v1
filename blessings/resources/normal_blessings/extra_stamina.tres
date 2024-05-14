@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://drb55m1c6yl61"]
+
+[ext_resource type="Script" path="res://blessings/resources/normal_blessings/extra_stamina.gd" id="1_duvo3"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_644yd"]
+[ext_resource type="Texture2D" uid="uid://ccr1woj2h1vrf" path="res://blessings/textures/exploding.svg" id="3_8e6yx"]
+
+[resource]
+script = ExtResource("2_644yd")
+name = "Extra Stamina"
+texture = ExtResource("3_8e6yx")
+is_cosmic = false
+description = "Increase your max stamina by +1."
+execution_script = ExtResource("1_duvo3")

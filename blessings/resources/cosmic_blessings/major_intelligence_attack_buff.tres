@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://c0urbo0arq50c"]
+
+[ext_resource type="Script" path="res://blessings/resources/cosmic_blessings/major_intelligence_attack_buff.gd" id="1_80ocr"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_ph2f6"]
+[ext_resource type="Texture2D" uid="uid://dbm8e3qdf8rv0" path="res://blessings/textures/sword.svg" id="3_2lgsw"]
+
+[resource]
+script = ExtResource("2_ph2f6")
+name = "Major Intelligence Attack Buff"
+texture = ExtResource("3_2lgsw")
+is_cosmic = true
+description = "Add +5 Damage to all Intelligence attacks."
+execution_script = ExtResource("1_80ocr")

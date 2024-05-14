@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://cftbqwdrlilgh"]
+
+[ext_resource type="Script" path="res://blessings/resources/normal_blessings/slime_effect_buff.gd" id="1_gbbwt"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="1_icaef"]
+[ext_resource type="Texture2D" uid="uid://bvx24fl3573wx" path="res://players/status_effects/textures/tag_empty.svg" id="2_myg6w"]
+
+[resource]
+script = ExtResource("1_icaef")
+name = "Slime Effect Buff"
+texture = ExtResource("2_myg6w")
+is_cosmic = false
+description = "Add +2 Slime to all Self-esteem attacks."
+execution_script = ExtResource("1_gbbwt")

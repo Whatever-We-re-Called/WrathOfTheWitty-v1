@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://orl2ujnqk525"]
+
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="1_1ox7o"]
+[ext_resource type="Script" path="res://blessings/resources/normal_blessings/poison_effect_buff.gd" id="1_om7th"]
+[ext_resource type="Texture2D" uid="uid://beqkhgoofgamh" path="res://players/status_effects/textures/skull.svg" id="2_7j5jo"]
+
+[resource]
+script = ExtResource("1_1ox7o")
+name = "Poison Effect Buff"
+texture = ExtResource("2_7j5jo")
+is_cosmic = false
+description = "Add +2 Poison to all Intelligence attacks."
+execution_script = ExtResource("1_om7th")

@@ -32,13 +32,23 @@ enum Type {
 	MAJOR_BURN_EFFECT_BUFF = 19,
 	MAJOR_FREEZE_EFFECT_BUFF = 20,
 	ALL_EFFECT_BUFF = 21,
+	TURN_HEALTH_REGENERATION = 22,
+	STARTING_PROTECTION = 23,
+	EXTRA_HEALTH = 24,
+	EXTRA_STAMINA = 25,
+	EXTRA_SPEED = 26,
+	EXTRA_ACTION_HAND_SPACE = 27,
+	EXTRA_STAMINA_REGENERATION = 28,
+	EXTRA_TEMPLATE_HAND_SPACE = 29,
+	BATTLE_HEALTH_REGENERATION = 30
 }
+
+const BLESSING_INFO = preload("res://blessings/info/blessing_info.tres")
+static var loaded_blessings = {}
+
 
 func _ready():
 	Blessings.load_all_blessings()
-
-
-static var loaded_blessings = {}
 
 
 static func load_blessing(type, resource):

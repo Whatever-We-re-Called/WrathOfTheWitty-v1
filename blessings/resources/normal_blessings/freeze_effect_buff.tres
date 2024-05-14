@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://bixebqmxksit0"]
+
+[ext_resource type="Script" path="res://blessings/resources/normal_blessings/freeze_effect_buff.gd" id="1_snu3u"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="1_v4ayi"]
+[ext_resource type="Texture2D" uid="uid://djqnbbo242nim" path="res://players/status_effects/textures/d3.svg" id="2_s1cpn"]
+
+[resource]
+script = ExtResource("1_v4ayi")
+name = "Freeze Effect Buff"
+texture = ExtResource("2_s1cpn")
+is_cosmic = false
+description = "Add +2 Freeze to all Social Life attacks."
+execution_script = ExtResource("1_snu3u")

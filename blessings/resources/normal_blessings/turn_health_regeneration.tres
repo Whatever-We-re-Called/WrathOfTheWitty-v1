@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://c4xxp20hhqx4x"]
+
+[ext_resource type="Script" path="res://blessings/resources/normal_blessings/turn_health_regeneration.gd" id="1_nbxh7"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_vhsl7"]
+[ext_resource type="Texture2D" uid="uid://dhbbo6nhd5uel" path="res://blessings/textures/suit_hearts.svg" id="3_wpk12"]
+
+[resource]
+script = ExtResource("2_vhsl7")
+name = "Turn Health Regeneration"
+texture = ExtResource("3_wpk12")
+is_cosmic = false
+description = "Gain +1 HP after each turn."
+execution_script = ExtResource("1_nbxh7")

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://d0l8hry4ygq11"]
+
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="1_3tqy5"]
+[ext_resource type="Script" path="res://blessings/resources/cosmic_blessings/all_attack_buff.gd" id="1_5rmku"]
+[ext_resource type="Texture2D" uid="uid://dbm8e3qdf8rv0" path="res://blessings/textures/sword.svg" id="2_u00my"]
+
+[resource]
+script = ExtResource("1_3tqy5")
+name = "All Attack Buff"
+texture = ExtResource("2_u00my")
+is_cosmic = true
+description = "Add +1 Damage to all insecurity-typed attacks."
+execution_script = ExtResource("1_5rmku")

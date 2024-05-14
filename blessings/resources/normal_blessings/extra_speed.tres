@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://bwr30b6150lqi"]
+
+[ext_resource type="Script" path="res://blessings/resources/normal_blessings/extra_speed.gd" id="1_tu1tk"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_ligqc"]
+[ext_resource type="Texture2D" uid="uid://c3baajjpkdluo" path="res://blessings/textures/flag_triangle.svg" id="3_fg5gt"]
+
+[resource]
+script = ExtResource("2_ligqc")
+name = "Extra Speed"
+texture = ExtResource("3_fg5gt")
+is_cosmic = false
+description = "Increase your speed by +1."
+execution_script = ExtResource("1_tu1tk")

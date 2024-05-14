@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://sw7q0gx4ox3t"]
+
+[ext_resource type="Script" path="res://blessings/resources/cosmic_blessings/extra_stamina_regeneration.gd" id="1_lk60y"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="1_s67jg"]
+[ext_resource type="Texture2D" uid="uid://ccr1woj2h1vrf" path="res://blessings/textures/exploding.svg" id="3_1r0sw"]
+
+[resource]
+script = ExtResource("1_s67jg")
+name = "Extra Stamina Regeneration"
+texture = ExtResource("3_1r0sw")
+is_cosmic = true
+description = "Gain +1 Stamina at the beginning of each turn."
+execution_script = ExtResource("1_lk60y")

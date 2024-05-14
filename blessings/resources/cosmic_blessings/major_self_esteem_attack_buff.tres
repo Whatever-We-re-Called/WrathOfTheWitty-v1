@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://ba70i5cd3th4m"]
+
+[ext_resource type="Script" path="res://blessings/resources/cosmic_blessings/major_self_esteem_attack_buff.gd" id="1_sjln3"]
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="2_1l4qp"]
+[ext_resource type="Texture2D" uid="uid://dbm8e3qdf8rv0" path="res://blessings/textures/sword.svg" id="3_sor7i"]
+
+[resource]
+script = ExtResource("2_1l4qp")
+name = "Major Self-esteem Attack Buff"
+texture = ExtResource("3_sor7i")
+is_cosmic = true
+description = "Add +5 Damage to all Self-esteem attacks."
+execution_script = ExtResource("1_sjln3")

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://cic2507cefmci"]
+
+[ext_resource type="Script" path="res://blessings/blessing.gd" id="1_t1xo2"]
+[ext_resource type="Script" path="res://blessings/resources/normal_blessings/intelligence_attack_buff.gd" id="1_xn6so"]
+[ext_resource type="Texture2D" uid="uid://dbm8e3qdf8rv0" path="res://blessings/textures/sword.svg" id="2_utrph"]
+
+[resource]
+script = ExtResource("1_t1xo2")
+name = "Intelligence Attack Buff"
+texture = ExtResource("2_utrph")
+is_cosmic = false
+description = "Add +1 Damage to all Intelligence attacks."
+execution_script = ExtResource("1_xn6so")
