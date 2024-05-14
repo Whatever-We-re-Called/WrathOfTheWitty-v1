@@ -13,7 +13,7 @@ var connections = []
 var backwards_connections = []
 
 
-func draw(parent, map):
+func draw(parent, map, render_ids):
 	if not drawn:
 		map.add_child(self)
 		
@@ -22,7 +22,11 @@ func draw(parent, map):
 		icon.get_node("Button").pressed.connect(pressed.bind(map))
 		
 		if icon.has_node("Id"):
-			icon.get_node("Id").text = str(id)
+			if render_ids:
+				icon.get_node("Id").text = str(id)
+			else:
+				icon.get_node("Id").visible = false
+			
 		
 		if parent == null:
 			self.position.x = get_viewport().get_visible_rect().size.x / 2.0

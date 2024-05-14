@@ -8,6 +8,7 @@ extends Node2D
 @export var generator: Resource
 @export var seed: String
 @export var settings: GeneratorSettings
+@export var render_ids = false
 
 var root
 var selected_node = null
@@ -34,7 +35,7 @@ func generate():
 
 
 func draw(map_node, parent):
-	map_node.draw(parent, self)
+	map_node.draw(parent, self, render_ids)
 	for node in map_node.connections:
 		draw(node, map_node)
 		
