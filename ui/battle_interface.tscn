@@ -536,6 +536,7 @@ layout_mode = 2
 
 [node name="PlayerInfoUI" type="CenterContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 z_index = 10
 layout_mode = 1
 anchors_preset = 8

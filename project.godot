@@ -23,6 +23,7 @@ Blessings="*res://blessings/blessings.gd"
 Hashing="*res://util/seeded_generator/hashing.gd"
 SeededGenerator="*res://util/seeded_generator/seeded_generator.gd"
 MapManager="*res://map/map_manager.gd"
+Delay="*res://util/delay.gd"
 
 [display]
 

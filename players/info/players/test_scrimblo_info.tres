@@ -3,13 +3,13 @@
 [ext_resource type="Script" path="res://battle/cards/info/card_info.gd" id="1_5bkd6"]
 [ext_resource type="Script" path="res://blessings/equipped_blessing.gd" id="2_br1q2"]
 [ext_resource type="Script" path="res://players/info/player_info.gd" id="2_lpd0p"]
-[ext_resource type="Resource" path="res://battle/template_cards/info/delay_template_card_info.tres" id="3_7nkgu"]
+[ext_resource type="Resource" uid="uid://bqsyc758nxxr7" path="res://battle/template_cards/info/delay_template_card_info.tres" id="3_7nkgu"]
 [ext_resource type="SpriteFrames" uid="uid://2up8nj4es0st" path="res://players/animations/scrimblo_sprite_frames.tres" id="3_g3lwf"]
-[ext_resource type="Resource" path="res://battle/template_cards/info/effect_buff_one_template_card_info.tres" id="3_i2xvw"]
+[ext_resource type="Resource" uid="uid://cubifyfwbwl28" path="res://battle/template_cards/info/effect_buff_one_template_card_info.tres" id="3_i2xvw"]
 [ext_resource type="Script" path="res://battle/template_cards/equipped_template_card.gd" id="3_xbpv5"]
-[ext_resource type="Resource" path="res://battle/template_cards/info/rage_template_card_info.tres" id="4_asbgl"]
-[ext_resource type="Resource" path="res://battle/template_cards/info/fury_template_card_info.tres" id="6_005um"]
-[ext_resource type="Resource" path="res://battle/template_cards/info/attack_buff_three_template_card_info.tres" id="7_0h6jg"]
+[ext_resource type="Resource" uid="uid://di2mjnu4o50qe" path="res://battle/template_cards/info/rage_template_card_info.tres" id="4_asbgl"]
+[ext_resource type="Resource" uid="uid://deoi22wkr2dvd" path="res://battle/template_cards/info/fury_template_card_info.tres" id="6_005um"]
+[ext_resource type="Resource" uid="uid://bsa0lq1ft0qqk" path="res://battle/template_cards/info/attack_buff_three_template_card_info.tres" id="7_0h6jg"]
 
 [sub_resource type="Resource" id="Resource_6m7ey"]
 script = ExtResource("1_5bkd6")

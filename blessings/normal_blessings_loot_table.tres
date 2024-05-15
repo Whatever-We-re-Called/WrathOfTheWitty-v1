@@ -1,0 +1,104 @@
+[gd_resource type="Resource" script_class="LootTable" load_steps=35 format=3 uid="uid://dbmdwitdmcjfi"]
+
+[ext_resource type="Resource" uid="uid://tq7mhggg8d4i" path="res://blessings/resources/normal_blessings/appearance_attack_buff.tres" id="1_4jowc"]
+[ext_resource type="Script" path="res://util/loot_table/loot_table_entry.gd" id="2_hnjb1"]
+[ext_resource type="Script" path="res://util/loot_table/loot_table.gd" id="2_oyafx"]
+[ext_resource type="Resource" uid="uid://6n62vy448d2w" path="res://blessings/resources/normal_blessings/burn_effect_buff.tres" id="3_bswv5"]
+[ext_resource type="Resource" uid="uid://0hyle0yqk36v" path="res://blessings/resources/normal_blessings/extra_action_hand_space.tres" id="4_aj0lv"]
+[ext_resource type="Resource" uid="uid://chjk8eraafwqb" path="res://blessings/resources/normal_blessings/extra_health.tres" id="5_10ueg"]
+[ext_resource type="Resource" uid="uid://bwr30b6150lqi" path="res://blessings/resources/normal_blessings/extra_speed.tres" id="6_lkxmp"]
+[ext_resource type="Resource" uid="uid://drb55m1c6yl61" path="res://blessings/resources/normal_blessings/extra_stamina.tres" id="7_baok8"]
+[ext_resource type="Resource" uid="uid://bixebqmxksit0" path="res://blessings/resources/normal_blessings/freeze_effect_buff.tres" id="8_ahkeo"]
+[ext_resource type="Resource" uid="uid://bu7gvs30ytj70" path="res://blessings/resources/normal_blessings/hide_effect_buff.tres" id="9_s72ev"]
+[ext_resource type="Resource" uid="uid://cic2507cefmci" path="res://blessings/resources/normal_blessings/intelligence_attack_buff.tres" id="10_e5uk7"]
+[ext_resource type="Resource" uid="uid://brisdfbuvvg6f" path="res://blessings/resources/normal_blessings/physical_ability_attack_buff.tres" id="11_p78nm"]
+[ext_resource type="Resource" uid="uid://orl2ujnqk525" path="res://blessings/resources/normal_blessings/poison_effect_buff.tres" id="12_h70t7"]
+[ext_resource type="Resource" uid="uid://dcn6arv7f5a18" path="res://blessings/resources/normal_blessings/self_esteem_attack_buff.tres" id="13_lqg71"]
+[ext_resource type="Resource" uid="uid://cftbqwdrlilgh" path="res://blessings/resources/normal_blessings/slime_effect_buff.tres" id="14_g4pqh"]
+[ext_resource type="Resource" uid="uid://bf4hncu2kp3r5" path="res://blessings/resources/normal_blessings/social_life_attack_buff.tres" id="15_fa6pn"]
+[ext_resource type="Resource" uid="uid://cv3yhbe13xteh" path="res://blessings/resources/normal_blessings/starting_protection.tres" id="16_fafvw"]
+[ext_resource type="Resource" uid="uid://c4xxp20hhqx4x" path="res://blessings/resources/normal_blessings/turn_health_regeneration.tres" id="17_6ts1d"]
+
+[sub_resource type="Resource" id="Resource_h6nse"]
+script = ExtResource("2_hnjb1")
+resource = ExtResource("1_4jowc")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_vtsyj"]
+script = ExtResource("2_hnjb1")
+resource = ExtResource("3_bswv5")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_3g4lh"]
+script = ExtResource("2_hnjb1")
+resource = ExtResource("4_aj0lv")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_n2kqk"]
+script = ExtResource("2_hnjb1")
+resource = ExtResource("5_10ueg")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_6ssee"]
+script = ExtResource("2_hnjb1")
+resource = ExtResource("6_lkxmp")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_3mygh"]
+script = ExtResource("2_hnjb1")
+resource = ExtResource("7_baok8")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_khkdc"]
+script = ExtResource("2_hnjb1")
+resource = ExtResource("8_ahkeo")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_4evg3"]
+script = ExtResource("2_hnjb1")
+resource = ExtResource("9_s72ev")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_omrna"]
+script = ExtResource("2_hnjb1")
+resource = ExtResource("10_e5uk7")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_kag76"]
+script = ExtResource("2_hnjb1")
+resource = ExtResource("11_p78nm")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_oekvk"]
+script = ExtResource("2_hnjb1")
+resource = ExtResource("12_h70t7")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_sq0a4"]
+script = ExtResource("2_hnjb1")
+resource = ExtResource("13_lqg71")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_gvg3h"]
+script = ExtResource("2_hnjb1")
+resource = ExtResource("14_g4pqh")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_0pqrr"]
+script = ExtResource("2_hnjb1")
+resource = ExtResource("15_fa6pn")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_kdj7c"]
+script = ExtResource("2_hnjb1")
+resource = ExtResource("16_fafvw")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_4i1cx"]
+script = ExtResource("2_hnjb1")
+resource = ExtResource("17_6ts1d")
+weight = 1
+
+[resource]
+script = ExtResource("2_oyafx")
+entries = Array[ExtResource("2_hnjb1")]([SubResource("Resource_h6nse"), SubResource("Resource_vtsyj"), SubResource("Resource_3g4lh"), SubResource("Resource_n2kqk"), SubResource("Resource_6ssee"), SubResource("Resource_3mygh"), SubResource("Resource_khkdc"), SubResource("Resource_4evg3"), SubResource("Resource_omrna"), SubResource("Resource_kag76"), SubResource("Resource_oekvk"), SubResource("Resource_sq0a4"), SubResource("Resource_gvg3h"), SubResource("Resource_0pqrr"), SubResource("Resource_kdj7c"), SubResource("Resource_4i1cx")])

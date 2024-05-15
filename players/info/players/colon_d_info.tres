@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://battle/cards/info/card_info.gd" id="1_5hnfm"]
 [ext_resource type="Script" path="res://battle/template_cards/equipped_template_card.gd" id="2_2bws2"]
-[ext_resource type="Resource" path="res://battle/template_cards/info/rage_template_card_info.tres" id="3_gkvqj"]
-[ext_resource type="Resource" path="res://battle/template_cards/info/first_aid_template_card_info.tres" id="4_s7euh"]
-[ext_resource type="Resource" path="res://battle/template_cards/info/shit_and_piss_template_card_info.tres" id="5_7w405"]
+[ext_resource type="Resource" uid="uid://di2mjnu4o50qe" path="res://battle/template_cards/info/rage_template_card_info.tres" id="3_gkvqj"]
+[ext_resource type="Resource" uid="uid://c7jpbs7ikdodm" path="res://battle/template_cards/info/first_aid_template_card_info.tres" id="4_s7euh"]
+[ext_resource type="Resource" uid="uid://dafmt5vf7g5xo" path="res://battle/template_cards/info/shit_and_piss_template_card_info.tres" id="5_7w405"]
 [ext_resource type="Script" path="res://players/info/player_info.gd" id="6_njgnm"]
-[ext_resource type="SpriteFrames" path="res://players/animations/colon_d_sprite_frames.tres" id="7_mtwji"]
+[ext_resource type="SpriteFrames" uid="uid://8eewv05u838q" path="res://players/animations/colon_d_sprite_frames.tres" id="7_mtwji"]
 
 [sub_resource type="Resource" id="Resource_6m7ey"]
 script = ExtResource("1_5hnfm")
@@ -154,7 +154,7 @@ script = ExtResource("6_njgnm")
 name = ":D"
 sprite_frames = ExtResource("7_mtwji")
 sprite_scale = Vector2(2, 2)
-health_stat = 100
+health_stat = 5
 stamina_stat = 5
 action_hand_stat = 5
 template_hand_stat = 3

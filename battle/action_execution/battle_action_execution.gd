@@ -118,31 +118,6 @@ static func _get_damage_dealt_value(battle_action_execution_data: BattleActionEx
 		
 		attacker_player.decrement_status_effect(weaken_status_effect, 1)
 	
-	# Handle Blessings
-	var regular_matches = 0
-	var major_matches = 0
-	var all_matches = 0
-	match card_insecurity:
-		Constants.Insecurity.APPEARANCE:
-			regular_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.APPEARANCE_ATTACK_BUFF)
-			major_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.MAJOR_APPEARANCE_ATTACK_BUFF)
-		Constants.Insecurity.SELF_ESTEEM:
-			regular_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.SELF_ESTEEM_ATTACK_BUFF)
-			major_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.MAJOR_SELF_ESTEEM_ATTACK_BUFF)
-		Constants.Insecurity.INTELLIGENCE:
-			regular_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.INTELLIGENCE_ATTACK_BUFF)
-			major_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.MAJOR_INTELLIGENCE_ATTACK_BUFF)
-		Constants.Insecurity.PHYSICAL_ABILITY:
-			regular_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.PHYSICAL_ABILITY_ATTACK_BUFF)
-			major_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.MAJOR_PHYSICAL_ABILITY_ATTACK_BUFF)
-		Constants.Insecurity.SOCIAL_LIFE:
-			regular_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.SOCIAL_LIFE_ATTACK_BUFF)
-			major_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.MAJOR_SOCIAL_LIFE_ATTACK_BUFF)
-	all_matches = attacker_player.info.get_stack_size_of_blessing(Blessings.Type.ALL_ATTACK_BUFF)
-	damage_dealt += regular_matches * 1
-	damage_dealt += major_matches * 5
-	damage_dealt += all_matches * 1
-	
 	# Handle Strong & Weak Insecurity Affinity 
 	if defender_player.info.weak_insecurity_affinities.has(card_insecurity):
 		damage_dealt += BATTLE_ACTION_EXECUTION_INFO.weak_insecurity_affinity_attack_modifier
@@ -236,31 +211,6 @@ static func _get_insecurity_status_effect_times_applied(magic_stat_value: int, m
 	var card_insecurity = battle_action_execution_data.card_info.insecurity
 	
 	var times_applied = 0
-	
-	# Handle Blessings
-	var regular_matches = 0
-	var major_matches = 0
-	var all_matches = 0
-	match card_insecurity:
-		Constants.Insecurity.APPEARANCE:
-			regular_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.HIDE_EFFECT_BUFF)
-			major_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.MAJOR_HIDE_EFFECT_BUFF)
-		Constants.Insecurity.SELF_ESTEEM:
-			regular_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.SLIME_EFFECT_BUFF)
-			major_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.MAJOR_SLIME_EFFECT_BUFF)
-		Constants.Insecurity.INTELLIGENCE:
-			regular_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.POISON_EFFECT_BUFF)
-			major_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.MAJOR_POISON_EFFECT_BUFF)
-		Constants.Insecurity.PHYSICAL_ABILITY:
-			regular_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.BURN_EFFECT_BUFF)
-			major_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.MAJOR_BURN_EFFECT_BUFF)
-		Constants.Insecurity.SOCIAL_LIFE:
-			regular_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.FREEZE_EFFECT_BUFF)
-			major_matches += attacker_player.info.get_stack_size_of_blessing(Blessings.Type.MAJOR_FREEZE_EFFECT_BUFF)
-	all_matches = attacker_player.info.get_stack_size_of_blessing(Blessings.Type.ALL_EFFECT_BUFF)
-	magic_stat_value += regular_matches * 2
-	magic_stat_value += major_matches * 10
-	magic_stat_value += all_matches * 2
 	
 	# Handle Effect Buff
 	magic_stat_value = int(float(magic_stat_value) * battle_action_execution_data.effect_multiplier)

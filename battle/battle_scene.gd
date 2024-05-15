@@ -1,5 +1,18 @@
 class_name BattleScene extends Node2D
 
+enum State {
+	PLAYING,
+	EXECUTING,
+	ENDING
+}
+
+enum Type { 
+	ACTION_CARD,
+	ENHANCEMENT,
+	TEMPLATE_CARD,
+	COSMIC_BLESSING
+}
+
 @export_group("Players")
 @export var left_player_config: PlayerInfo
 @export var right_player_config: PlayerInfo
@@ -9,9 +22,11 @@ class_name BattleScene extends Node2D
 @onready var battle_interface = $CanvasLayer/BattleInterface
 @onready var left_player_node = %LeftPlayerNode
 @onready var right_player_node = %RightPlayerNode
+@onready var canvas_layer = %CanvasLayer
 
 @export var seed: String
 
+var state: State
 var active_side: Constants.PlayerSide
 var players = {}
 var player: BattlePlayer: 
@@ -21,14 +36,15 @@ var player: BattlePlayer:
 		players[active_side] = value
 
 var active_template_card: TemplateCard
-var is_executing_turn = false
 
 const EXECUTE_TURN_SIMULATED_DELAY = 1.5
 const ACTION_CARD_SCENE = preload("res://battle/cards/card.tscn")
 const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.tscn")
+const BLESSING_REWARD_UI = preload("res://ui/rewards/blessing_reward_ui.tscn")
 
 
 func _ready():
+	state = State.PLAYING
 	active_side = Constants.PlayerSide.LEFT
 	
 	_init_player(Constants.PlayerSide.LEFT, left_player_config.duplicate(), left_player_node)
@@ -59,6 +75,7 @@ func _init_player(side: Constants.PlayerSide, player_info: PlayerInfo, parent_no
 	player.updated_hand.connect(_on_updated_hand)
 	player.drew_card.connect(_on_drew_card)
 	player.removed_card.connect(_on_removed_card)
+	player.died.connect(end_battle)
 	parent_node.add_child(player)
 	var sprite_height = player.sprite_frames.get_frame_texture("default", 0).get_height()
 	player.global_position.y -= (sprite_height * player_info.sprite_scale.y) / 2.0
@@ -82,7 +99,7 @@ func _handle_controls_input():
 	elif Input.is_action_just_pressed("view_opponents_info"):
 		battle_interface.open_player_info_ui(players[Constants.PlayerSide.RIGHT].info)
 	
-	if Input.is_action_just_pressed("end_turn") and not is_executing_turn:
+	if Input.is_action_just_pressed("end_turn") and state == State.PLAYING:
 		end_turn_early()
 	if Input.is_action_just_pressed("debug_5"):
 		MapManager.swap_to_map_scene()
@@ -173,11 +190,12 @@ func play_cards():
 	player.send_template_card_to_bag(active_template_card.template_card_info)
 	
 	if player.template_cards_in_hand.size() > 0:
-		is_executing_turn = true
-		await get_tree().create_timer(EXECUTE_TURN_SIMULATED_DELAY).timeout
-		is_executing_turn = false
-		player.update_template_card_hand_logic() 
-		update_active_template_card()
+		state = State.EXECUTING
+		Delay.delay_function(EXECUTE_TURN_SIMULATED_DELAY, self, func():
+			state = State.PLAYING
+			player.update_template_card_hand_logic() 
+			update_active_template_card()
+		)
 	else:
 		change_turns()
 
@@ -217,31 +235,45 @@ func _on_removed_card(card_info: CardInfo):
 
 
 func change_turns():
-	is_executing_turn = true
+	state = State.EXECUTING
 	
 	player.handle_end_turn()
 	active_template_card.remove_context_ui(true)
 	battle_interface.update_player_stats(player)
 	battle_interface.update_player_stats(get_non_active_side_player())
 	battle_interface.toggle_hand_visibility(false)
-	await get_tree().create_timer(EXECUTE_TURN_SIMULATED_DELAY).timeout
-	player.handle_delayed_end_turn()
 	
-	if active_side == Constants.PlayerSide.LEFT:
-		active_side = Constants.PlayerSide.RIGHT
-	else:
-		active_side = Constants.PlayerSide.LEFT
+	Delay.delay_function(EXECUTE_TURN_SIMULATED_DELAY, self, func():
+		player.handle_delayed_end_turn()
+		
+		if active_side == Constants.PlayerSide.LEFT:
+			active_side = Constants.PlayerSide.RIGHT
+		else:
+			active_side = Constants.PlayerSide.LEFT
+		
+		player.handle_start_turn()
+		battle_interface.update_hand(player)
+		reset_active_template_card()
+		player.handle_delayed_start_turn()
+		battle_interface.update_player_deck_and_bag_ui(player)
+		battle_interface.update_player_stats(player)
+		battle_interface.update_player_stats(get_non_active_side_player())
+		battle_interface.toggle_hand_visibility(true)
+		
+		state = State.PLAYING
+	)
+
+
+func end_battle():
+	state = State.ENDING
+	players[Constants.PlayerSide.LEFT].handle_end_battle()
+	players[Constants.PlayerSide.RIGHT].handle_end_battle()
 	
-	player.handle_start_turn()
-	battle_interface.update_hand(player)
-	reset_active_template_card()
-	player.handle_delayed_start_turn()
-	battle_interface.update_player_deck_and_bag_ui(player)
-	battle_interface.update_player_stats(player)
-	battle_interface.update_player_stats(get_non_active_side_player())
-	battle_interface.toggle_hand_visibility(true)
+	var blessing_rewards_ui = BLESSING_REWARD_UI.instantiate()
+	canvas_layer.add_child(blessing_rewards_ui)
+	blessing_rewards_ui.init(left_player_config, 5, 2)
 	
-	is_executing_turn = false
+	#MapManager.swap_to_map_scene()
 
 
 func get_non_active_side_player():
@@ -265,7 +297,7 @@ func _on_damaged_opponent(amount: int, executing_player: BattlePlayer):
 
 
 func _on_selected_previous_template_card():
-	if is_executing_turn: return
+	if state != State.PLAYING: return
 	
 	_reset_selected_cards()
 	player.selected_template_card_hand_index -= 1
@@ -273,7 +305,7 @@ func _on_selected_previous_template_card():
 
 
 func _on_selected_next_template_card():
-	if is_executing_turn: return
+	if state != State.PLAYING: return
 	
 	_reset_selected_cards()
 	player.selected_template_card_hand_index += 1
@@ -281,7 +313,7 @@ func _on_selected_next_template_card():
 
 
 func _on_stamina_changed():
-	if active_template_card != null and not is_executing_turn:
+	if active_template_card != null and state == State.PLAYING:
 		_update_template_card_reroll_button()
 
 

@@ -6,6 +6,7 @@ signal stamina_changed
 signal updated_hand
 signal drew_card(card_info: CardInfo)
 signal removed_card(card_info: CardInfo)
+signal died
 
 var info: PlayerInfo
 var health: int
@@ -125,12 +126,18 @@ func damage(amount: int, skip_blessing_signal: bool = false, ignore_shield: bool
 				break
 		decrement_status_effect(Constants.PlayerStatusEffect.THORNS, thorns_damage)
 		opponent_battle_player.damage(thorns_damage)
+	
+	if health <= 0:
+		die()
+
+
+func die():
+	died.emit()
 
 
 func _execute_damage_visual():
 	self_modulate = Color("#ea524d")
-	await get_tree().create_timer(0.2).timeout
-	self_modulate = Color.WHITE
+	Delay.delay_function(0.2, self, func(): self_modulate = Color.WHITE)
 
 
 func heal(amount: int):
@@ -377,6 +384,10 @@ func get_frozen_stamina_count() -> int:
 
 func handle_start_battle():
 	info.emit_battle_started_blessing_signal()
+
+
+func handle_end_battle():
+	info.emit_battle_ended_blessing_signal()
 
 
 func handle_start_turn():
