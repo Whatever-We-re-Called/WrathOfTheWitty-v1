@@ -279,8 +279,11 @@ func end_battle():
 	var blessing_rewards_ui = BLESSING_REWARD_UI.instantiate()
 	canvas_layer.add_child(blessing_rewards_ui)
 	blessing_rewards_ui.init(left_player_config, 5, 2)
+	await blessing_rewards_ui.finished
 	
-	#MapManager.swap_to_map_scene()
+	blessing_rewards_ui.queue_free()
+	
+	MapManager.swap_to_map_scene()
 
 
 func get_non_active_side_player():

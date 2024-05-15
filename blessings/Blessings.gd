@@ -51,12 +51,19 @@ func _ready():
 	Blessings.load_all_blessings()
 
 
-static func load_blessing(type, resource):
+static func load_blessing(type: Type, resource: Blessing):
 	loaded_blessings[type] = resource
 
 
-static func get_blessing(type) -> Resource:
+static func get_blessing(type: Type) -> Resource:
 	return loaded_blessings[type]
+
+
+static func get_type(blessing: Blessing) -> Type:
+	for key in loaded_blessings.keys():
+		if loaded_blessings[key] == blessing:
+			return key
+	return 0
 
 
 static func load_all_blessings():

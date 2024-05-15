@@ -38,6 +38,13 @@ var current_health: int = -1
 const TEMPLATE_HAND_STAT = 3
 
 
+func add_blessing(blessing_type: Blessings.Type):
+	var equipped_blessing = EquippedBlessing.new()
+	equipped_blessing.type = blessing_type
+	equipped_blessing.init(self)
+	equipped_blessings.append(equipped_blessing)
+
+
 func init_unhandled_equipped_template_cards():
 	for equipped_template_card in equipped_template_cards:
 		if not equipped_template_card.is_init:

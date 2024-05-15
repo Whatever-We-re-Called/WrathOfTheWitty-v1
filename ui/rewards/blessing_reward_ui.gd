@@ -1,10 +1,11 @@
 extends Control
 
-signal depleted_choices
+signal finished
 
 @onready var choices_remaining_label = %ChoicesRemainingLabel
 @onready var blessing_options_container = %BlessingOptionsContainer
 
+var player_info: PlayerInfo
 var options_count: int
 var choices_count: int
 var options: Array[Blessing]
@@ -16,6 +17,7 @@ const BLESSING_OPTION_BUTTON = preload("res://ui/rewards/blessing_option_button.
 
 
 func init(player_info: PlayerInfo, options_count: int, choices_count: int):
+	self.player_info = player_info
 	self.options_count = options_count
 	self.choices_count = choices_count
 	
@@ -54,12 +56,21 @@ func _decide_options():
 
 func _update_options_visuals():
 	for child in blessing_options_container.get_children():
-		child.free()
+		child.queue_free()
 	
-	for option in options:
+	for i in range(options.size()):
 		var blessing_option_button = BLESSING_OPTION_BUTTON.instantiate()
-		blessing_option_button.init(option)
+		blessing_option_button.init(options[i])
+		blessing_option_button.pressed.connect(_select_option.bind(i))
 		blessing_options_container.add_child(blessing_option_button)
+
+
+func _select_option(index: int):
+	player_info.add_blessing(Blessings.get_type(options[index]))
+	
+	options.remove_at(index)
+	_decrement_choices()
+	_update_options_visuals()
 
 
 func _decrement_choices():
@@ -68,4 +79,8 @@ func _decrement_choices():
 	_update_options_visuals()
 	
 	if choices_count <= 0:
-		depleted_choices.emit()
+		finished.emit()
+
+
+func _on_skip_button_pressed():
+	finished.emit()
