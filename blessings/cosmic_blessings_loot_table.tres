@@ -1,0 +1,98 @@
+[gd_resource type="Resource" script_class="LootTable" load_steps=33 format=3 uid="uid://bwdqoatkxaf5p"]
+
+[ext_resource type="Resource" uid="uid://d0l8hry4ygq11" path="res://blessings/resources/cosmic_blessings/all_attack_buff.tres" id="1_o5f8w"]
+[ext_resource type="Script" path="res://util/loot_table/loot_table_entry.gd" id="2_pu2ou"]
+[ext_resource type="Resource" uid="uid://btp4f5yamlbos" path="res://blessings/resources/cosmic_blessings/all_effect_buff.tres" id="3_rx0sh"]
+[ext_resource type="Resource" uid="uid://ccajipu4jxg7c" path="res://blessings/resources/cosmic_blessings/battle_health_regeneration.tres" id="4_k1m4i"]
+[ext_resource type="Resource" uid="uid://sw7q0gx4ox3t" path="res://blessings/resources/cosmic_blessings/extra_stamina_regeneration.tres" id="5_rsk2w"]
+[ext_resource type="Resource" uid="uid://c7loj736igldt" path="res://blessings/resources/cosmic_blessings/extra_template_hand_space.tres" id="6_mr1u8"]
+[ext_resource type="Resource" uid="uid://cbtjic4hiosh8" path="res://blessings/resources/cosmic_blessings/major_appearance_attack_buff.tres" id="7_fywrf"]
+[ext_resource type="Resource" uid="uid://5rtcr22rmtwp" path="res://blessings/resources/cosmic_blessings/major_burn_effect_buff.tres" id="8_cktmd"]
+[ext_resource type="Resource" uid="uid://baxir6bub5yvi" path="res://blessings/resources/cosmic_blessings/major_freeze_effect_buff.tres" id="9_l0dar"]
+[ext_resource type="Resource" uid="uid://b22eqat7vn7wg" path="res://blessings/resources/cosmic_blessings/major_hide_effect_buff.tres" id="10_htr60"]
+[ext_resource type="Resource" uid="uid://c0urbo0arq50c" path="res://blessings/resources/cosmic_blessings/major_intelligence_attack_buff.tres" id="11_p2r0c"]
+[ext_resource type="Resource" uid="uid://c1hjje8aermc2" path="res://blessings/resources/cosmic_blessings/major_physical_ability_attack_buff.tres" id="12_0gp8n"]
+[ext_resource type="Resource" uid="uid://d0w5g3lfjcw2y" path="res://blessings/resources/cosmic_blessings/major_poison_effect_buff.tres" id="13_p8opl"]
+[ext_resource type="Resource" uid="uid://ba70i5cd3th4m" path="res://blessings/resources/cosmic_blessings/major_self_esteem_attack_buff.tres" id="14_t0ssv"]
+[ext_resource type="Resource" uid="uid://c6gxmwtcr32j4" path="res://blessings/resources/cosmic_blessings/major_slime_effect_buff.tres" id="15_cvshg"]
+[ext_resource type="Resource" uid="uid://b6boqjkau7i66" path="res://blessings/resources/cosmic_blessings/major_social_life_attack_buff.tres" id="16_xjdqf"]
+[ext_resource type="Script" path="res://util/loot_table/loot_table.gd" id="18_tac75"]
+
+[sub_resource type="Resource" id="Resource_h6nse"]
+script = ExtResource("2_pu2ou")
+resource = ExtResource("1_o5f8w")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_vtsyj"]
+script = ExtResource("2_pu2ou")
+resource = ExtResource("3_rx0sh")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_3g4lh"]
+script = ExtResource("2_pu2ou")
+resource = ExtResource("4_k1m4i")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_n2kqk"]
+script = ExtResource("2_pu2ou")
+resource = ExtResource("5_rsk2w")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_6ssee"]
+script = ExtResource("2_pu2ou")
+resource = ExtResource("6_mr1u8")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_3mygh"]
+script = ExtResource("2_pu2ou")
+resource = ExtResource("7_fywrf")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_khkdc"]
+script = ExtResource("2_pu2ou")
+resource = ExtResource("8_cktmd")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_4evg3"]
+script = ExtResource("2_pu2ou")
+resource = ExtResource("9_l0dar")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_omrna"]
+script = ExtResource("2_pu2ou")
+resource = ExtResource("10_htr60")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_kag76"]
+script = ExtResource("2_pu2ou")
+resource = ExtResource("11_p2r0c")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_oekvk"]
+script = ExtResource("2_pu2ou")
+resource = ExtResource("12_0gp8n")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_sq0a4"]
+script = ExtResource("2_pu2ou")
+resource = ExtResource("13_p8opl")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_gvg3h"]
+script = ExtResource("2_pu2ou")
+resource = ExtResource("14_t0ssv")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_0pqrr"]
+script = ExtResource("2_pu2ou")
+resource = ExtResource("15_cvshg")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_kdj7c"]
+script = ExtResource("2_pu2ou")
+resource = ExtResource("16_xjdqf")
+weight = 1
+
+[resource]
+script = ExtResource("18_tac75")
+entries = Array[ExtResource("2_pu2ou")]([SubResource("Resource_h6nse"), SubResource("Resource_vtsyj"), SubResource("Resource_3g4lh"), SubResource("Resource_n2kqk"), SubResource("Resource_6ssee"), SubResource("Resource_3mygh"), SubResource("Resource_khkdc"), SubResource("Resource_4evg3"), SubResource("Resource_omrna"), SubResource("Resource_kag76"), SubResource("Resource_oekvk"), SubResource("Resource_sq0a4"), SubResource("Resource_gvg3h"), SubResource("Resource_0pqrr"), SubResource("Resource_kdj7c")])

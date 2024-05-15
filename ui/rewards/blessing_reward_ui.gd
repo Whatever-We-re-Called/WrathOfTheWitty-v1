@@ -9,7 +9,9 @@ var options_count: int
 var choices_count: int
 var options: Array[Blessing]
 
+const COSMIC_BLESSING_CHANCE = 0.05
 const NORMAL_BLESSINGS_LOOT_TABLE = preload("res://blessings/normal_blessings_loot_table.tres")
+const COSMIC_BLESSINGS_LOOT_TABLE = preload("res://blessings/cosmic_blessings_loot_table.tres")
 const BLESSING_OPTION_BUTTON = preload("res://ui/rewards/blessing_option_button.tscn")
 
 
@@ -24,10 +26,30 @@ func init(player_info: PlayerInfo, options_count: int, choices_count: int):
 
 
 func _decide_options():
-	var loot_table_result = NORMAL_BLESSINGS_LOOT_TABLE.get_random_unique_entries(options_count)
-	for entry in loot_table_result:
+	var loot_table_result: Array[Resource]
+	var rng = RandomNumberGenerator.new()
+	
+	var normal_blessings_quantity = options_count
+	var cosmic_blessings_quantity = 0
+	for i in range(options_count):
+		var number = rng.randf_range(0.0, 1.0)
+		if number <= COSMIC_BLESSING_CHANCE:
+			normal_blessings_quantity -= 1
+			cosmic_blessings_quantity += 1
+	
+	var normal_blessings_result = NORMAL_BLESSINGS_LOOT_TABLE.get_random_unique_entries(normal_blessings_quantity)
+	for entry in normal_blessings_result:
 		var blessing = load(entry.resource.resource_path)
 		options.append(blessing)
+	
+	var cosmic_blessings_result = COSMIC_BLESSINGS_LOOT_TABLE.get_random_unique_entries(cosmic_blessings_quantity)
+	for entry in cosmic_blessings_result:
+		var blessing = load(entry.resource.resource_path)
+		options.append(blessing)
+	
+	randomize()
+	options.shuffle()
+	print(options, " ", normal_blessings_quantity, " ", cosmic_blessings_quantity)
 
 
 func _update_options_visuals():

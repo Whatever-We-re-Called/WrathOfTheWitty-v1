@@ -84,6 +84,7 @@ func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 
 func damage(amount: int, skip_blessing_signal: bool = false, ignore_shield: bool = false):
 	if amount <= 0: return
+	if health <= 0: return
 	
 	# Dodge detection.
 	var dodge_status_effect = Constants.PlayerStatusEffect.DODGE

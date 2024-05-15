@@ -267,9 +267,12 @@ func change_turns():
 
 
 func end_battle():
+	if state == State.ENDING: return
+	
 	state = State.ENDING
 	players[Constants.PlayerSide.LEFT].handle_end_battle()
 	players[Constants.PlayerSide.RIGHT].handle_end_battle()
+	await get_tree().process_frame
 	
 	Delay.cancel_all_delays(self)
 	
