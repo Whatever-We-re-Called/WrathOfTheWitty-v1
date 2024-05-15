@@ -36,3 +36,12 @@ func init(player_info: PlayerInfo):
 	turn_ended.connect(execution_script_instance._on_turn_ended)
 	damaged.connect(execution_script_instance._on_damaged)
 	rerolled_card.connect(execution_script_instance._on_rerolled_card)
+
+
+func get_tooltip():
+	var name = name
+	if is_cosmic:
+		name += " (Cosmic)"
+	var description = description
+	
+	return name + ": " + description

@@ -9,4 +9,4 @@ func init(blessing: Blessing):
 	add_theme_color_override("icon_pressed_color", color)
 	add_theme_color_override("icon_hover_color", color)
 	
-	tooltip_text = blessing.description
+	tooltip_text = blessing.get_tooltip()

@@ -153,7 +153,7 @@ func _init_blessings_page(player_info: PlayerInfo):
 			texture_rect.modulate = Blessing.NORMAL_COLOR
 			normal_texture_rects.append(texture_rect)
 		var hovered_info = equipped_blessing.blessing.description
-		texture_rect.tooltip_text = hovered_name + ": " + hovered_info
+		texture_rect.tooltip_text = equipped_blessing.blessing.get_tooltip()
 	
 	for texture_rect in cosmic_texture_rects:
 		blessings_grid_container.add_child(texture_rect)
