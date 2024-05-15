@@ -51,7 +51,6 @@ func _decide_options():
 	
 	randomize()
 	options.shuffle()
-	print(options, " ", normal_blessings_quantity, " ", cosmic_blessings_quantity)
 
 
 func _update_options_visuals():
