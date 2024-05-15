@@ -19,6 +19,7 @@ func get_random_unique_entries(quantity: int) -> Array[Resource]:
 				break
 			i += 1
 		quantity -= 1
+		entries_copy.remove_at(i)
 	
 	return result
 

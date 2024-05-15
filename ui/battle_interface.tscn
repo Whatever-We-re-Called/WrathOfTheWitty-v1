@@ -555,7 +555,7 @@ script = ExtResource("3_gdfie")
 [node name="ColorRect" type="ColorRect" parent="PlayerInfoUI"]
 custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 2
-color = Color(0, 0, 0, 0.882353)
+color = Color(0, 0, 0, 0.784314)
 
 [node name="ColorRect2" type="ColorRect" parent="PlayerInfoUI"]
 custom_minimum_size = Vector2(1600, 900)

@@ -94,6 +94,8 @@ func _process(delta):
 
 
 func _handle_controls_input():
+	if state != State.PLAYING: return
+	
 	if Input.is_action_just_pressed("view_your_info"):
 		battle_interface.open_player_info_ui(players[Constants.PlayerSide.LEFT].info)
 	elif Input.is_action_just_pressed("view_opponents_info"):
@@ -268,6 +270,8 @@ func end_battle():
 	state = State.ENDING
 	players[Constants.PlayerSide.LEFT].handle_end_battle()
 	players[Constants.PlayerSide.RIGHT].handle_end_battle()
+	
+	Delay.cancel_all_delays(self)
 	
 	var blessing_rewards_ui = BLESSING_REWARD_UI.instantiate()
 	canvas_layer.add_child(blessing_rewards_ui)
