@@ -6,6 +6,7 @@ extends RewardUI
 var player_info: PlayerInfo
 var options_count: int
 var choices_count: int
+var cosmic_chance: float
 var options: Array[Blessing]
 
 const COSMIC_BLESSING_CHANCE = 0.05
@@ -14,10 +15,11 @@ const COSMIC_BLESSINGS_LOOT_TABLE = preload("res://blessings/cosmic_blessings_lo
 const BLESSING_OPTION_BUTTON = preload("res://ui/rewards/blessing_option_button.tscn")
 
 
-func init(player_info: PlayerInfo, options_count: int, choices_count: int):
+func init(player_info: PlayerInfo, options_count: int, choices_count: int, cosmic_chance: float):
 	self.player_info = player_info
 	self.options_count = options_count
 	self.choices_count = choices_count
+	self.cosmic_chance = cosmic_chance
 	
 	choices_remaining_label.text = str(choices_count)
 	
@@ -33,7 +35,7 @@ func _decide_options():
 	var cosmic_blessings_quantity = 0
 	for i in range(options_count):
 		var number = rng.randf_range(0.0, 1.0)
-		if number <= COSMIC_BLESSING_CHANCE:
+		if number <= cosmic_chance:
 			normal_blessings_quantity -= 1
 			cosmic_blessings_quantity += 1
 	

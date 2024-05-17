@@ -1,6 +1,13 @@
 class_name BattleInfo extends Resource
 
 # TODO: Enemy pool
+@export_group("Blessing Reward")
+@export var blessing_reward_ui_scene: PackedScene
+@export var blessing_reward_options_count: int
+@export var blessing_reward_choices_count: int
+@export var blessing_reward_cosmic_chance: float
+@export_group("Extra Reward")
+@export var has_extra_reward: bool
 @export var extra_reward_ui_scene: PackedScene
-@export var reward_options_count: int
-@export var reward_choices_count: int
+@export var extra_reward_options_count: int
+@export var extra_reward_choices_count: int

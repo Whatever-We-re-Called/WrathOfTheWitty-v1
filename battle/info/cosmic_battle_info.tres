@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BattleInfo" load_steps=3 format=3 uid="uid://du4xpdgbd0lb5"]
+
+[ext_resource type="PackedScene" uid="uid://t1gl8ij0f2jb" path="res://ui/rewards/blessing_reward_ui.tscn" id="1_ookcu"]
+[ext_resource type="Script" path="res://battle/info/battle_info.gd" id="2_ard3f"]
+
+[resource]
+script = ExtResource("2_ard3f")
+blessing_reward_ui_scene = ExtResource("1_ookcu")
+blessing_reward_options_count = 3
+blessing_reward_choices_count = 1
+blessing_reward_cosmic_chance = 1.0
+has_extra_reward = false
+extra_reward_options_count = 0
+extra_reward_choices_count = 0

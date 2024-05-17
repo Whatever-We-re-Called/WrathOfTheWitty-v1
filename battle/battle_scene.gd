@@ -41,7 +41,6 @@ var active_template_card: TemplateCard
 const EXECUTE_TURN_SIMULATED_DELAY = 1.5
 const ACTION_CARD_SCENE = preload("res://battle/cards/card.tscn")
 const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.tscn")
-const BLESSING_REWARD_UI = preload("res://ui/rewards/blessing_reward_ui.tscn")
 
 
 func _ready():
@@ -277,17 +276,18 @@ func end_battle():
 	
 	Delay.cancel_all_delays(self)
 	
-	var blessing_rewards_ui = BLESSING_REWARD_UI.instantiate()
+	var blessing_rewards_ui = info.blessing_reward_ui_scene.instantiate()
 	canvas_layer.add_child(blessing_rewards_ui)
-	blessing_rewards_ui.init(left_player_config, 5, 2)
+	blessing_rewards_ui.init(left_player_config, info.blessing_reward_options_count, info.blessing_reward_choices_count, info.blessing_reward_cosmic_chance)
 	await blessing_rewards_ui.finished
 	blessing_rewards_ui.queue_free()
 	
-	var extra_reward_ui = info.extra_reward_ui_scene.instantiate()
-	canvas_layer.add_child(extra_reward_ui)
-	extra_reward_ui.init(left_player_config, info.reward_options_count, info.reward_choices_count)
-	await extra_reward_ui.finished
-	extra_reward_ui.queue_free()
+	if info.has_extra_reward:
+		var extra_reward_ui = info.extra_reward_ui_scene.instantiate()
+		canvas_layer.add_child(extra_reward_ui)
+		extra_reward_ui.init(left_player_config, info.extra_reward_options_count, info.extra_reward_choices_count)
+		await extra_reward_ui.finished
+		extra_reward_ui.queue_free()
 	
 	MapManager.swap_to_map_scene()
 

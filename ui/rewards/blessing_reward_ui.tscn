@@ -98,14 +98,18 @@ label_settings = SubResource("LabelSettings_86hyu")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BlessingOptionsContainer" type="GridContainer" parent="CenterContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="BlessingOptionsContainer" type="GridContainer" parent="CenterContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 columns = 5
 
-[node name="BlessingOptionButton" parent="CenterContainer/VBoxContainer/BlessingOptionsContainer" instance=ExtResource("2_jlu7j")]
+[node name="BlessingOptionButton" parent="CenterContainer/VBoxContainer/HBoxContainer/BlessingOptionsContainer" instance=ExtResource("2_jlu7j")]
 layout_mode = 2
 
 [node name="MarginContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]

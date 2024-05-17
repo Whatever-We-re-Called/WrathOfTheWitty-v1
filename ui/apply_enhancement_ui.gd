@@ -29,6 +29,5 @@ func _init_action_card_list():
 
 
 func _select_card(index: int):
-	print(index)
 	player_info.action_card_deck[index].enhancement = apply_enhancement
 	finished.emit()
