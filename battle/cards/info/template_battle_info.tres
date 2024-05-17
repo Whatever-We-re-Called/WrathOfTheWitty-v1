@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BattleInfo" load_steps=3 format=3 uid="uid://h7qy4sg3vlhb"]
+
+[ext_resource type="PackedScene" uid="uid://g5brpkpkfvq4" path="res://ui/rewards/template_card_reward_ui.tscn" id="1_76p2d"]
+[ext_resource type="Script" path="res://battle/info/battle_info.gd" id="2_u75vw"]
+
+[resource]
+script = ExtResource("2_u75vw")
+extra_reward_ui_scene = ExtResource("1_76p2d")
+reward_options_count = 2
+reward_choices_count = 1

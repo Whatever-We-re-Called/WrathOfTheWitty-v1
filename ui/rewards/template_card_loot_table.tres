@@ -1,0 +1,188 @@
+[gd_resource type="Resource" script_class="LootTable" load_steps=63 format=3 uid="uid://c3d4eme0c7fex"]
+
+[ext_resource type="Resource" uid="uid://t3jhw6k818rs" path="res://battle/template_cards/info/absolute_zero_template_card_info.tres" id="1_afn41"]
+[ext_resource type="Script" path="res://util/loot_table/loot_table.gd" id="1_f1n0f"]
+[ext_resource type="Script" path="res://util/loot_table/loot_table_entry.gd" id="2_lb8j7"]
+[ext_resource type="Resource" uid="uid://ebaw0myhjqct" path="res://battle/template_cards/info/appearance_seeker_template_card_info.tres" id="3_2toxy"]
+[ext_resource type="Resource" uid="uid://ch2ea7qd1ta3o" path="res://battle/template_cards/info/attack_buff_one_template_card_info.tres" id="4_slvuw"]
+[ext_resource type="Resource" uid="uid://bsa0lq1ft0qqk" path="res://battle/template_cards/info/attack_buff_three_template_card_info.tres" id="5_7xgyu"]
+[ext_resource type="Resource" uid="uid://7acmf781y4pt" path="res://battle/template_cards/info/attack_buff_two_template_card_info.tres" id="6_2w47h"]
+[ext_resource type="Resource" uid="uid://0fl4vyat2xcp" path="res://battle/template_cards/info/block_template_card_info.tres" id="7_qf3vw"]
+[ext_resource type="Resource" uid="uid://dfyjhx2b6h30t" path="res://battle/template_cards/info/decontaminate_template_card_info.tres" id="8_dkrg7"]
+[ext_resource type="Resource" uid="uid://bqsyc758nxxr7" path="res://battle/template_cards/info/delay_template_card_info.tres" id="9_x1nuk"]
+[ext_resource type="Resource" uid="uid://bqr2rgy580tw8" path="res://battle/template_cards/info/dodge_template_card_info.tres" id="10_xdbhv"]
+[ext_resource type="Resource" uid="uid://b5llnudgk5gbg" path="res://battle/template_cards/info/drain_template_card_info.tres" id="11_8defd"]
+[ext_resource type="Resource" uid="uid://cubifyfwbwl28" path="res://battle/template_cards/info/effect_buff_one_template_card_info.tres" id="12_t6u38"]
+[ext_resource type="Resource" uid="uid://yqs18sohlyks" path="res://battle/template_cards/info/effect_buff_three_template_card_info.tres" id="13_60k72"]
+[ext_resource type="Resource" uid="uid://bxh6d05imihs5" path="res://battle/template_cards/info/effect_buff_two_template_card_info.tres" id="14_a2h5b"]
+[ext_resource type="Resource" uid="uid://v1kqx5gx777c" path="res://battle/template_cards/info/energize_template_card_info.tres" id="15_6ejvs"]
+[ext_resource type="Resource" uid="uid://c7jpbs7ikdodm" path="res://battle/template_cards/info/first_aid_template_card_info.tres" id="16_3hfkf"]
+[ext_resource type="Resource" uid="uid://deoi22wkr2dvd" path="res://battle/template_cards/info/fury_template_card_info.tres" id="17_ghe5v"]
+[ext_resource type="Resource" uid="uid://bxxvru405kq5j" path="res://battle/template_cards/info/icky_template_card_info.tres" id="18_8i2w6"]
+[ext_resource type="Resource" uid="uid://b5v446vwd8u53" path="res://battle/template_cards/info/paper_bag_template_card_info.tres" id="19_p22on"]
+[ext_resource type="Resource" uid="uid://be7qv7emwv865" path="res://battle/template_cards/info/pierce_template_card_info.tres" id="20_f677j"]
+[ext_resource type="Resource" uid="uid://dgqkg6q4a63xp" path="res://battle/template_cards/info/poison_dart_template_card_info.tres" id="21_5fwym"]
+[ext_resource type="Resource" uid="uid://c5sjio2cndnfn" path="res://battle/template_cards/info/power_up_template_card_info.tres" id="22_it4tx"]
+[ext_resource type="Resource" uid="uid://dtikyc0sgapur" path="res://battle/template_cards/info/punch_template_card_info.tres" id="23_du4hq"]
+[ext_resource type="Resource" uid="uid://d2y88ykc4c4k5" path="res://battle/template_cards/info/pyromancy_template_card_info.tres" id="24_g25ww"]
+[ext_resource type="Resource" uid="uid://di2mjnu4o50qe" path="res://battle/template_cards/info/rage_template_card_info.tres" id="25_tfq2t"]
+[ext_resource type="Resource" uid="uid://odce111nugpo" path="res://battle/template_cards/info/reset_template_card_info.tres" id="26_sk02i"]
+[ext_resource type="Resource" uid="uid://8pohmf3cu763" path="res://battle/template_cards/info/self_reset_template_card_info.tres" id="27_cdm01"]
+[ext_resource type="Resource" uid="uid://dbfwg86xm7mod" path="res://battle/template_cards/info/shield_bash_template_card_info.tres" id="28_mo3lh"]
+[ext_resource type="Resource" uid="uid://dafmt5vf7g5xo" path="res://battle/template_cards/info/shit_and_piss_template_card_info.tres" id="29_fm75n"]
+[ext_resource type="Resource" uid="uid://cnofq62lkcnia" path="res://battle/template_cards/info/thorns_template_card_info.tres" id="30_pkxgt"]
+[ext_resource type="Resource" uid="uid://885mjaxc0ipt" path="res://battle/template_cards/info/weak_template_card_info.tres" id="31_1dma7"]
+
+[sub_resource type="Resource" id="Resource_26c1o"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("1_afn41")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_g0pvq"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("3_2toxy")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_dn26s"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("4_slvuw")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_jxiy2"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("5_7xgyu")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_en6qc"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("6_2w47h")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_1851n"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("7_qf3vw")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_las4r"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("8_dkrg7")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_rfx3d"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("9_x1nuk")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_3huu3"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("10_xdbhv")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_i3x5a"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("11_8defd")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_n5yul"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("12_t6u38")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_kk2py"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("13_60k72")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_poe6p"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("14_a2h5b")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_crsew"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("15_6ejvs")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_uhb1f"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("16_3hfkf")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_gd2wt"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("17_ghe5v")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_bcttm"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("18_8i2w6")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_1jsp0"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("19_p22on")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_phcue"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("20_f677j")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_cgiej"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("21_5fwym")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_tebbi"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("22_it4tx")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_rha2c"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("23_du4hq")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_6un1i"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("24_g25ww")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_oyv2l"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("25_tfq2t")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_y17cw"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("26_sk02i")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_n4i6t"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("27_cdm01")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_8caop"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("28_mo3lh")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_nj0s6"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("29_fm75n")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_tj3og"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("30_pkxgt")
+weight = 1
+
+[sub_resource type="Resource" id="Resource_2v04w"]
+script = ExtResource("2_lb8j7")
+resource = ExtResource("31_1dma7")
+weight = 1
+
+[resource]
+script = ExtResource("1_f1n0f")
+entries = Array[ExtResource("2_lb8j7")]([SubResource("Resource_26c1o"), SubResource("Resource_g0pvq"), SubResource("Resource_dn26s"), SubResource("Resource_jxiy2"), SubResource("Resource_en6qc"), SubResource("Resource_1851n"), SubResource("Resource_las4r"), SubResource("Resource_rfx3d"), SubResource("Resource_3huu3"), SubResource("Resource_i3x5a"), SubResource("Resource_n5yul"), SubResource("Resource_kk2py"), SubResource("Resource_poe6p"), SubResource("Resource_crsew"), SubResource("Resource_uhb1f"), SubResource("Resource_gd2wt"), SubResource("Resource_bcttm"), SubResource("Resource_1jsp0"), SubResource("Resource_phcue"), SubResource("Resource_cgiej"), SubResource("Resource_tebbi"), SubResource("Resource_rha2c"), SubResource("Resource_6un1i"), SubResource("Resource_oyv2l"), SubResource("Resource_y17cw"), SubResource("Resource_n4i6t"), SubResource("Resource_8caop"), SubResource("Resource_nj0s6"), SubResource("Resource_tj3og"), SubResource("Resource_2v04w")])

@@ -1,5 +1,6 @@
 class_name TemplateCard extends Control
 
+signal pressed
 signal selected_card_added(card: Card)
 signal selected_card_removed(card: Card)
 signal played_selected_cards
@@ -181,3 +182,9 @@ func _on_reroll_button_pressed():
 
 func toggle_reroll_button(active: bool):
 	reroll_button.disabled = not active
+
+
+func _gui_input(event):
+	if event is InputEventMouseButton and event.pressed:
+		if event.get_button_index() == 1:
+			pressed.emit()

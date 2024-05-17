@@ -67,7 +67,6 @@ func _select_option(index: int):
 	
 	options.remove_at(index)
 	_decrement_choices()
-	_update_options_visuals()
 
 
 func _decrement_choices():

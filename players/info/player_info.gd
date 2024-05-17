@@ -35,11 +35,13 @@ class_name PlayerInfo extends Resource
 var current_player_instance = null
 var current_health: int = -1
 
-const TEMPLATE_HAND_STAT = 3
-
 
 func add_card(card_info: CardInfo):
 	action_card_deck.append(card_info)
+
+
+func add_template_card(equipped_template_card: EquippedTemplateCard):
+	equipped_template_cards.append(equipped_template_card)
 
 
 func add_blessing(blessing_type: Blessings.Type):
