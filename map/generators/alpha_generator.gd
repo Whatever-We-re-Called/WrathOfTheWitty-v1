@@ -6,7 +6,6 @@ func generate(settings: GeneratorSettings) -> MapNode:
 	self.settings = settings
 	
 	var root = _get_new_map_node()
-	root.init(temporary_room_pool)
 	var previous = [ root ]
 	
 	generate_next_level(previous, 0)
@@ -81,7 +80,8 @@ func gen_standard_level(previous: Array) -> Array:
 
 func gen_boss_level(previous):
 	var boss = _get_new_map_node()
-	#boss.room_script = preload("res://map/rooms/exit/exit_room.tscn").instantiate()
+	# TODO Refactor this to be less hard-coded.
+	boss.init(preload("res://map/rooms/info/boss_battle_room_info.tres"))
 	
 	for node in previous:
 		node.connect_node(boss)
@@ -192,7 +192,10 @@ func set_room_types(previous):
 	pass
 
 
-func _get_new_map_node() -> MapNode:
+func _get_new_map_node(room_info: RoomInfo = null) -> MapNode:
 	var new_map_node = MapNode.new()
-	new_map_node.init(temporary_room_pool)
+	if room_info == null:
+		var chosen_room_info_index = SeededGenerator.next_int(temporary_room_pool.size()) - 1
+		room_info = temporary_room_pool[chosen_room_info_index]
+	new_map_node.init(room_info)
 	return new_map_node

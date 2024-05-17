@@ -15,11 +15,8 @@ var backwards_connections = []
 const MAP_NODE_UI_SCENE = preload("res://map/display/map_node_ui.tscn")
 
 
-func init(room_pool: Array[RoomInfo]):
-	var chosen_room_info_index = SeededGenerator.next_int(room_pool.size()) - 1
-	var chosen_room_info = room_pool[chosen_room_info_index]
-	print(chosen_room_info)
-	self.room_info = chosen_room_info
+func init(room_info: RoomInfo):
+	self.room_info = room_info
 
 
 func draw(parent, map, render_ids):
@@ -31,23 +28,13 @@ func draw(parent, map, render_ids):
 		add_child(map_node_ui)
 		map_node_ui.init(room_info, render_ids, id)
 		
-		#sprite_2d.texture = ACTION_BATTLE_ROOM_INFO.icon
-		#button.pressed.connect(pressed.bind(map))
-		
-		#if icon.has_node("Id"):
-			#if render_ids:
-				#icon.get_node("Id").text = str(id)
-			#else:
-				#icon.get_node("Id").visible = false
-			
-		
 		if parent == null:
 			self.position.x = get_viewport().get_visible_rect().size.x / 2.0
 			self.position.y = get_viewport().get_visible_rect().size.y
 		else:
 			self.position.x = get_viewport().get_visible_rect().size.x / 2.0 + x_offset
 			self.position.y = parent.position.y - y_offset
-			
+		
 		drawn = true
 
 
