@@ -13,9 +13,8 @@ var root
 var selected_node = null
 
 func _ready():
-	print("ready")
 	if MapManager.can_go_to_next_floor():
-		print("go to next floor")
+		free()
 		MapManager.go_to_next_floor()
 		return
 	
