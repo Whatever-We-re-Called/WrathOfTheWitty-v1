@@ -5,7 +5,8 @@ var settings
 func generate(settings: GeneratorSettings) -> MapNode:
 	self.settings = settings
 	
-	var root = MapNode.new()
+	var root = _get_new_map_node()
+	root.init(temporary_room_pool)
 	var previous = [ root ]
 	
 	generate_next_level(previous, 0)
@@ -36,14 +37,14 @@ func generate_next_level(previous, level):
 
 func gen_first_level(node) -> Array:
 	for i in 2 if SeededGenerator.percentage_chance_of(settings.split_from_one) else 1:
-		node.connect_node(MapNode.new())
+		node.connect_node(_get_new_map_node())
 	return node.connections
 
 	
 func gen_standard_level(previous: Array) -> Array:
 	if previous.size() == 1:
 		for i in 2 if SeededGenerator.percentage_chance_of(settings.split_from_one) else 1:
-			previous[0].connect_node(MapNode.new())
+			previous[0].connect_node(_get_new_map_node())
 		return previous[0].connections
 		
 	var node_count = previous.size()
@@ -54,15 +55,15 @@ func gen_standard_level(previous: Array) -> Array:
 			node_count += 1
 			debug("split: 2")
 			for i in 2:
-				node.connect_node(MapNode.new())
+				node.connect_node(_get_new_map_node())
 		elif SeededGenerator.percentage_chance_of(settings.split_into_three) and node_count + 1 < settings.max_nodes_width:
 			node_count += 2
 			debug("split: 3")
 			for i in 3:
-				node.connect_node(MapNode.new())
+				node.connect_node(_get_new_map_node())
 		elif !SeededGenerator.percentage_chance_of(settings.dead_end):
 			debug("continue")
-			node.connect_node(MapNode.new())
+			node.connect_node(_get_new_map_node())
 		else:
 			debug("dead_end")
 		
@@ -70,7 +71,7 @@ func gen_standard_level(previous: Array) -> Array:
 			new_nodes.append_array(node.connections)
 		
 	if new_nodes.size() == 0:
-		var next = MapNode.new()
+		var next = _get_new_map_node()
 		for node in previous:
 			node.connect_node(next)
 		new_nodes.append(next)
@@ -79,7 +80,7 @@ func gen_standard_level(previous: Array) -> Array:
 
 
 func gen_boss_level(previous):
-	var boss = MapNode.new()
+	var boss = _get_new_map_node()
 	#boss.room_script = preload("res://map/rooms/exit/exit_room.tscn").instantiate()
 	
 	for node in previous:
@@ -189,3 +190,9 @@ func set_offsets(nodes, level):
 	
 func set_room_types(previous):
 	pass
+
+
+func _get_new_map_node() -> MapNode:
+	var new_map_node = MapNode.new()
+	new_map_node.init(temporary_room_pool)
+	return new_map_node

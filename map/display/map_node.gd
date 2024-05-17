@@ -12,8 +12,15 @@ var y_offset = 0
 var connections = []
 var backwards_connections = []
 
-const ACTION_BATTLE_ROOM_INFO = preload("res://map/rooms/info/action_battle_room_info.tres")
 const MAP_NODE_UI_SCENE = preload("res://map/display/map_node_ui.tscn")
+
+
+func init(room_pool: Array[RoomInfo]):
+	var chosen_room_info_index = SeededGenerator.next_int(room_pool.size()) - 1
+	var chosen_room_info = room_pool[chosen_room_info_index]
+	print(chosen_room_info)
+	self.room_info = chosen_room_info
+
 
 func draw(parent, map, render_ids):
 	if not drawn:
@@ -23,9 +30,9 @@ func draw(parent, map, render_ids):
 		map_node_ui.pressed.connect(_pressed.bind(map))
 		add_child(map_node_ui)
 		if render_ids:
-			map_node_ui.init(ACTION_BATTLE_ROOM_INFO, id)
+			map_node_ui.init(room_info, id)
 		else:
-			map_node_ui.init(ACTION_BATTLE_ROOM_INFO)
+			map_node_ui.init(room_info)
 		
 		#sprite_2d.texture = ACTION_BATTLE_ROOM_INFO.icon
 		#button.pressed.connect(pressed.bind(map))
@@ -57,6 +64,7 @@ func draw_lines(map):
 			var line = Line2D.new()
 			line.add_point(self.position)
 			line.add_point(child.position)
+			line.default_color = Color(1.0, 1.0, 1.0, 0.1)
 			map.add_child(line)
 		lines_drawn = true
 

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RoomInfo" load_steps=4 format=3 uid="uid://c1hbonjlatfhb"]
+
+[ext_resource type="Texture2D" uid="uid://c5ebva80ni37k" path="res://map/rooms/textures/chess_king.svg" id="1_147k6"]
+[ext_resource type="Script" path="res://map/rooms/info/room_info.gd" id="2_mpm4v"]
+[ext_resource type="PackedScene" uid="uid://dsp1sp8onn48s" path="res://battle/scenes/battle_scene.tscn" id="3_s6few"]
+
+[resource]
+script = ExtResource("2_mpm4v")
+icon = ExtResource("1_147k6")
+color = Color(0.917647, 0.321569, 0.301961, 1)
+target_scene = ExtResource("3_s6few")

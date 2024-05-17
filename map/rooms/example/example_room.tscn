@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cii62ur6hgm6x"]
 
 [ext_resource type="Script" path="res://map/rooms/room_script.gd" id="1_xfrcu"]
-[ext_resource type="PackedScene" uid="uid://dsp1sp8onn48s" path="res://battle/battle_scene.tscn" id="3_0fu3l"]
+[ext_resource type="PackedScene" uid="uid://dsp1sp8onn48s" path="res://battle/scenes/battle_scene.tscn" id="3_0fu3l"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_afaap"]
 load_path = "res://.godot/imported/circle.png-2154a8c5137677398ead0c48ec02ac65.ctex"
