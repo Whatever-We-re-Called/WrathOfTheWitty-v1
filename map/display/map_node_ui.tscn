@@ -1,15 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://c63t7vdudlpy4"]
+[gd_scene load_steps=3 format=3 uid="uid://be8hc54yet8sk"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_afaap"]
+[ext_resource type="Script" path="res://map/display/map_node_ui.gd" id="1_gvsh5"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mnjg1"]
 load_path = "res://.godot/imported/circle.png-2154a8c5137677398ead0c48ec02ac65.ctex"
 
-[node name="Node2D" type="Node2D"]
+[node name="MapNode" type="Node2D"]
+script = ExtResource("1_gvsh5")
 
-[node name="Circle" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
 position = Vector2(0, 7.62939e-06)
 scale = Vector2(0.4, 0.4)
-texture = SubResource("CompressedTexture2D_afaap")
+texture = SubResource("CompressedTexture2D_mnjg1")
 
 [node name="Button" type="Button" parent="."]
 anchors_preset = 8
@@ -26,10 +29,14 @@ grow_vertical = 2
 focus_mode = 0
 flat = true
 
-[node name="Id" type="Label" parent="."]
+[node name="ID" type="Label" parent="."]
+z_index = 10
 offset_left = 60.0
 offset_top = -71.0
 offset_right = 100.0
 offset_bottom = -48.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
 text = "1"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

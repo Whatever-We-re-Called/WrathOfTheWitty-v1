@@ -59,8 +59,7 @@ func set_selected_node(map_node):
 	selected_node = map_node
 	MapManager.selected_node_id = map_node.id
 	player.position = map_node.position
-	
 
 
 func _on_button_pressed():
-	get_tree().change_scene_to_packed(selected_node.room_script.get_scene_to_load())
+	get_tree().change_scene_to_packed(selected_node.room_info.target_scene)

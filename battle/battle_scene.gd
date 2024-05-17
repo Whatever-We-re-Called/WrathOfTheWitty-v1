@@ -6,13 +6,6 @@ enum State {
 	ENDING
 }
 
-enum Type { 
-	ACTION_CARD,
-	ENHANCEMENT,
-	TEMPLATE_CARD,
-	COSMIC_BLESSING
-}
-
 @export var info: BattleInfo
 @export_group("Players")
 @export var left_player_config: PlayerInfo

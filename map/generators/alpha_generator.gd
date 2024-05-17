@@ -76,15 +76,16 @@ func gen_standard_level(previous: Array) -> Array:
 		new_nodes.append(next)
 		
 	return new_nodes
-	
+
+
 func gen_boss_level(previous):
 	var boss = MapNode.new()
-	boss.room_script = preload("res://map/rooms/exit/exit_room.tscn").instantiate()
+	#boss.room_script = preload("res://map/rooms/exit/exit_room.tscn").instantiate()
 	
 	for node in previous:
 		node.connect_node(boss)
-	
-	
+
+
 func connect_dead_ends(nodes, level):
 	debug("Connecting ends for level: " + str(level))
 	debug("Nodes: " + str(nodes.size()))

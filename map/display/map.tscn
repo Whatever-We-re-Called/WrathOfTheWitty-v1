@@ -14,6 +14,7 @@ player = NodePath("Player")
 generator = ExtResource("2_hpjvk")
 seed = "penis"
 settings = NodePath("GeneratorSettings")
+render_ids = true
 
 [node name="GeneratorSettings" type="Node" parent="."]
 script = ExtResource("3_12mpo")
