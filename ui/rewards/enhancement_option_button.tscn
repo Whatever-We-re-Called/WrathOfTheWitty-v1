@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://chvb2mbslxqjm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_35yps"]
+bg_color = Color(0.294118, 0.294118, 0.294118, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6j7b2"]
+bg_color = Color(0.392157, 0.392157, 0.392157, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ljn5u"]
+bg_color = Color(0.490196, 0.490196, 0.490196, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="EnhancementOptionButton" type="Button"]
+custom_minimum_size = Vector2(256, 64)
+focus_mode = 0
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_35yps")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6j7b2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ljn5u")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ljn5u")
+text = "Wildcard"
+clip_text = true
+icon_alignment = 1
