@@ -82,6 +82,7 @@ func gen_boss_level(previous):
 	var boss = _get_new_map_node()
 	# TODO Refactor this to be less hard-coded.
 	boss.init(preload("res://map/rooms/info/boss_battle_room_info.tres"))
+	MapManager.boss_node_id = boss.id
 	
 	for node in previous:
 		node.connect_node(boss)

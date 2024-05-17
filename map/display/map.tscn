@@ -12,7 +12,6 @@ script = ExtResource("1_qjxse")
 camera = NodePath("Camera2D")
 player = NodePath("Player")
 generator = ExtResource("2_hpjvk")
-seed = "penis"
 settings = NodePath("GeneratorSettings")
 render_ids = true
 

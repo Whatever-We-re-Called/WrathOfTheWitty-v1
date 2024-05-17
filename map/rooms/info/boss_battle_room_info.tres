@@ -2,10 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://c5ebva80ni37k" path="res://map/rooms/textures/chess_king.svg" id="1_147k6"]
 [ext_resource type="Script" path="res://map/rooms/info/room_info.gd" id="2_mpm4v"]
-[ext_resource type="PackedScene" uid="uid://dsp1sp8onn48s" path="res://battle/scenes/battle_scene.tscn" id="3_s6few"]
+[ext_resource type="PackedScene" uid="uid://brjhvfs3h5xdg" path="res://battle/scenes/action_battle_scene.tscn" id="3_poml8"]
 
 [resource]
 script = ExtResource("2_mpm4v")
 icon = ExtResource("1_147k6")
 color = Color(0.666667, 0.219608, 0.243137, 1)
-target_scene = ExtResource("3_s6few")
+target_scene = ExtResource("3_poml8")

@@ -6,7 +6,6 @@ extends Node2D
 
 @export_category("Generator")
 @export var generator: Resource
-@export var seed: String
 @export var settings: GeneratorSettings
 @export var render_ids = false
 
@@ -14,6 +13,12 @@ var root
 var selected_node = null
 
 func _ready():
+	print("ready")
+	if MapManager.can_go_to_next_floor():
+		print("go to next floor")
+		MapManager.go_to_next_floor()
+		return
+	
 	generate()
 	
 	draw(root, null)
@@ -27,8 +32,6 @@ func _process(delta):
 		get_tree().change_scene_to_file("res://map/rooms/exit/exit_scene.tscn")
 
 func generate():
-	SeededGenerator.set_seed(seed)
-	
 	SeededGenerator.mode("map").reset_transaction().start_transaction()
 	MapNode.index = 0
 	root = generator.new().generate(settings)
