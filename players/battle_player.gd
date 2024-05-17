@@ -56,10 +56,7 @@ func init(new_info: PlayerInfo, side: Constants.PlayerSide):
 	self.info = new_info.duplicate()
 	self.info.current_player_instance = self
 	
-	self.info.equipped_blessings.clear()
-	for equipped_blessing in new_info.equipped_blessings:
-		self.info.equipped_blessings.append(equipped_blessing.duplicate(true))
-	self.info.init_unhandled_equipped_blessings()
+	new_info.init_unhandled_equipped_blessings()
 	
 	self.health = info.health_stat if info.current_health < 0 else info.current_health
 	self.stamina = info.stamina_stat
