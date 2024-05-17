@@ -29,10 +29,7 @@ func draw(parent, map, render_ids):
 		var map_node_ui = MAP_NODE_UI_SCENE.instantiate()
 		map_node_ui.pressed.connect(_pressed.bind(map))
 		add_child(map_node_ui)
-		if render_ids:
-			map_node_ui.init(room_info, id)
-		else:
-			map_node_ui.init(room_info)
+		map_node_ui.init(room_info, render_ids, id)
 		
 		#sprite_2d.texture = ACTION_BATTLE_ROOM_INFO.icon
 		#button.pressed.connect(pressed.bind(map))

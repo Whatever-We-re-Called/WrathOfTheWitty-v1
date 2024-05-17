@@ -28,7 +28,7 @@ grow_vertical = 2
 focus_mode = 0
 flat = true
 
-[node name="ID" type="Label" parent="."]
+[node name="IDLabel" type="Label" parent="."]
 z_index = 10
 offset_left = 60.0
 offset_top = -71.0

@@ -4,17 +4,17 @@ signal pressed
 
 @onready var sprite_2d = $Sprite2D
 @onready var button = $Button
-@onready var id = $ID
+@onready var id_label = $IDLabel
 
-func init(room_info: RoomInfo, rendered_id: int = -1):
+func init(room_info: RoomInfo, render_id: bool = false, id: int = 0):
 	sprite_2d.texture = room_info.icon
 	sprite_2d.modulate = room_info.color
 	
-	if rendered_id >= 0:
-		id.visible = true
-		id.text = str(rendered_id)
+	if render_id:
+		id_label.visible = true
+		id_label.text = str(id)
 	else:
-		id.visible = false
+		id_label.visible = false
 
 
 func _on_button_pressed():
