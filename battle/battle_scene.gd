@@ -13,6 +13,7 @@ enum Type {
 	COSMIC_BLESSING
 }
 
+@export var info: BattleInfo
 @export_group("Players")
 @export var left_player_config: PlayerInfo
 @export var right_player_config: PlayerInfo
@@ -280,8 +281,13 @@ func end_battle():
 	canvas_layer.add_child(blessing_rewards_ui)
 	blessing_rewards_ui.init(left_player_config, 5, 2)
 	await blessing_rewards_ui.finished
-	
 	blessing_rewards_ui.queue_free()
+	
+	var extra_reward_ui = info.extra_reward_ui_scene.instantiate()
+	canvas_layer.add_child(extra_reward_ui)
+	extra_reward_ui.init(left_player_config, info.reward_options_count, info.reward_choices_count)
+	await extra_reward_ui.finished
+	extra_reward_ui.queue_free()
 	
 	MapManager.swap_to_map_scene()
 

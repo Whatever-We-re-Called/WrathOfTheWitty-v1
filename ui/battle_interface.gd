@@ -91,6 +91,7 @@ func add_card_to_hand(card_info: CardInfo, player: BattlePlayer):
 	card_info.card_scene = new_card_scene
 	
 	add_card(new_card_scene)
+	new_card_scene.init()
 
 
 func remove_card_from_hand(card_info: CardInfo):

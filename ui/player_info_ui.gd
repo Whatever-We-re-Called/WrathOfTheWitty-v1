@@ -174,14 +174,17 @@ func _init_action_cards_page(player_info: PlayerInfo):
 	for card_info in player_info.current_player_instance.cards_in_hand:
 		var card = _get_card_instance(card_info)
 		action_cards_hand_grid_container.add_child(card)
+		card.init()
 	action_cards_deck_label.text = "Deck (" + str(player_info.current_player_instance.cards_in_deck.size()) + "):"
 	for card_info in player_info.current_player_instance.cards_in_deck:
 		var card = _get_card_instance(card_info)
 		action_cards_deck_grid_container.add_child(card)
+		card.init()
 	action_cards_bag_label.text = "Bag (" + str(player_info.current_player_instance.cards_in_bag.size()) + "):"
 	for card_info in player_info.current_player_instance.cards_in_bag:
 		var card = _get_card_instance(card_info)
 		action_cards_bag_grid_container.add_child(card)
+		card.init()
 
 
 func _get_card_instance(card_info: CardInfo) -> Card:

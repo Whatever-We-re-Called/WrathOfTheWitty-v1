@@ -35,10 +35,6 @@ const CARD_TEXTURES = preload("res://battle/cards/textures/card_textures.tres")
 const BATTLE_ACTION_EXECUTION_INFO = preload("res://battle/action_execution/battle_action_execution_info.tres")
 
 
-func _ready():
-	init()
-
-
 func init():
 	_init_attack_texture()
 	_init_enhancement_texture()

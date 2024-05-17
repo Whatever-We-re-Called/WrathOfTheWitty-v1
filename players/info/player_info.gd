@@ -38,6 +38,10 @@ var current_health: int = -1
 const TEMPLATE_HAND_STAT = 3
 
 
+func add_card(card_info: CardInfo):
+	action_card_deck.append(card_info)
+
+
 func add_blessing(blessing_type: Blessings.Type):
 	var equipped_blessing = EquippedBlessing.new()
 	equipped_blessing.type = blessing_type

@@ -1,6 +1,4 @@
-extends Control
-
-signal finished
+extends RewardUI
 
 @onready var choices_remaining_label = %ChoicesRemainingLabel
 @onready var blessing_options_container = %BlessingOptionsContainer
