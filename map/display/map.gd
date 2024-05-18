@@ -14,7 +14,7 @@ var selected_node = null
 
 func _ready():
 	if MapManager.can_go_to_next_floor():
-		free()
+		queue_free()
 		MapManager.go_to_next_floor()
 		return
 	
