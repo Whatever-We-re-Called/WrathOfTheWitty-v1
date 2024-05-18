@@ -7,11 +7,6 @@ enum State {
 }
 
 @export var info: BattleInfo
-@export_group("Players")
-@export var left_player_config: PlayerInfo
-@export var right_player_config: PlayerInfo
-@export_group("Debug")
-@export var debug_template_card_info: TemplateCardInfo
 
 @onready var battle_interface = $CanvasLayer/BattleInterface
 @onready var left_player_node = %LeftPlayerNode
@@ -20,6 +15,7 @@ enum State {
 
 @export var seed: String
 
+var enemy_info: PlayerInfo
 var state: State
 var active_side: Constants.PlayerSide
 var players = {}
@@ -40,8 +36,9 @@ func _ready():
 	state = State.PLAYING
 	active_side = Constants.PlayerSide.LEFT
 	
-	_init_player(Constants.PlayerSide.LEFT, left_player_config.duplicate(), left_player_node)
-	_init_player(Constants.PlayerSide.RIGHT, right_player_config.duplicate(), right_player_node)
+	_init_player(Constants.PlayerSide.LEFT, RunManager.player_info.duplicate(), left_player_node)
+	_decide_enemy()
+	_init_player(Constants.PlayerSide.RIGHT, enemy_info.duplicate(), right_player_node)
 	players[Constants.PlayerSide.LEFT].opponent_battle_player = players[Constants.PlayerSide.RIGHT]
 	players[Constants.PlayerSide.RIGHT].opponent_battle_player = players[Constants.PlayerSide.LEFT]
 	
@@ -57,6 +54,12 @@ func _ready():
 	battle_interface.card_toggle_selected.connect(_on_card_toggle_selected)
 	battle_interface.card_reroll.connect(reroll_card)
 	battle_interface.close_player_info_ui()
+
+
+func _decide_enemy():
+	var rng = RandomNumberGenerator.new()
+	var chosen_enemy_index = rng.randi_range(0, info.enemy_pool.size() - 1)
+	enemy_info = info.enemy_pool[chosen_enemy_index]
 
 
 func _init_player(side: Constants.PlayerSide, player_info: PlayerInfo, parent_node: Node2D):
@@ -271,14 +274,14 @@ func end_battle():
 	
 	var blessing_rewards_ui = info.blessing_reward_ui_scene.instantiate()
 	canvas_layer.add_child(blessing_rewards_ui)
-	blessing_rewards_ui.init(left_player_config, info.blessing_reward_options_count, info.blessing_reward_choices_count, info.blessing_reward_cosmic_chance)
+	blessing_rewards_ui.init(RunManager.player_info, info.blessing_reward_options_count, info.blessing_reward_choices_count, info.blessing_reward_cosmic_chance)
 	await blessing_rewards_ui.finished
 	blessing_rewards_ui.queue_free()
 	
 	if info.has_extra_reward:
 		var extra_reward_ui = info.extra_reward_ui_scene.instantiate()
 		canvas_layer.add_child(extra_reward_ui)
-		extra_reward_ui.init(left_player_config, info.extra_reward_options_count, info.extra_reward_choices_count)
+		extra_reward_ui.init(RunManager.player_info, info.extra_reward_options_count, info.extra_reward_choices_count)
 		await extra_reward_ui.finished
 		extra_reward_ui.queue_free()
 	
