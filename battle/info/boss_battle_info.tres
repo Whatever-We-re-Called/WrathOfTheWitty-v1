@@ -1,8 +1,7 @@
-[gd_resource type="Resource" script_class="BattleInfo" load_steps=5 format=3 uid="uid://bmwcxaducfu6k"]
+[gd_resource type="Resource" script_class="BattleInfo" load_steps=4 format=3 uid="uid://bmwcxaducfu6k"]
 
 [ext_resource type="PackedScene" uid="uid://t1gl8ij0f2jb" path="res://ui/rewards/blessing_reward_ui.tscn" id="1_hqy3v"]
 [ext_resource type="Resource" uid="uid://cq1umtd7jq3dm" path="res://players/info/players/colon_d_info.tres" id="2_i88fo"]
-[ext_resource type="PackedScene" uid="uid://dh77ftimdno6y" path="res://ui/rewards/action_card_reward_ui.tscn" id="3_282ea"]
 [ext_resource type="Script" path="res://battle/info/battle_info.gd" id="4_5g6ds"]
 
 [resource]
@@ -12,7 +11,6 @@ blessing_reward_ui_scene = ExtResource("1_hqy3v")
 blessing_reward_options_count = 5
 blessing_reward_choices_count = 2
 blessing_reward_cosmic_chance = 0.05
-has_extra_reward = true
-extra_reward_ui_scene = ExtResource("3_282ea")
-extra_reward_options_count = 2
-extra_reward_choices_count = 2
+has_extra_reward = false
+extra_reward_options_count = 0
+extra_reward_choices_count = 0

@@ -13,8 +13,6 @@ enum State {
 @onready var right_player_node = %RightPlayerNode
 @onready var canvas_layer = %CanvasLayer
 
-@export var seed: String
-
 var enemy_info: PlayerInfo
 var state: State
 var active_side: Constants.PlayerSide
