@@ -36,7 +36,7 @@ func _ready():
 	state = State.PLAYING
 	active_side = Constants.PlayerSide.LEFT
 	
-	_init_player(Constants.PlayerSide.LEFT, RunManager.player_info.duplicate(), left_player_node)
+	_init_player(Constants.PlayerSide.LEFT, RunManager.player_info, left_player_node)
 	_decide_enemy()
 	_init_player(Constants.PlayerSide.RIGHT, enemy_info.duplicate(), right_player_node)
 	players[Constants.PlayerSide.LEFT].opponent_battle_player = players[Constants.PlayerSide.RIGHT]
@@ -63,6 +63,8 @@ func _decide_enemy():
 
 
 func _init_player(side: Constants.PlayerSide, player_info: PlayerInfo, parent_node: Node2D):
+	player_info.setup_local_to_scene()
+	
 	var player = BattlePlayer.new()
 	player.init(player_info, side)
 	player.decreased_opponents_max_health.connect(_on_decreased_opponents_max_health)
@@ -87,6 +89,9 @@ func _process(delta):
 	if Input.is_action_just_pressed("debug_1"):
 		player.stamina = player.info.stamina_stat
 		battle_interface.update_player_stats(player)
+	if Input.is_action_just_pressed("debug_2"):
+		players[Constants.PlayerSide.LEFT].damage(5)
+		battle_interface.update_player_stats(players[Constants.PlayerSide.LEFT])
 
 
 func _handle_controls_input():
@@ -285,6 +290,7 @@ func end_battle():
 		await extra_reward_ui.finished
 		extra_reward_ui.queue_free()
 	
+	RunManager.update_player_info(players[Constants.PlayerSide.LEFT])
 	MapManager.swap_to_map_scene()
 
 

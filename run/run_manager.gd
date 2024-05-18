@@ -13,3 +13,7 @@ func start_run(player_info: PlayerInfo, seed: String):
 		SeededGenerator.set_seed(seed)
 	
 	MapManager.swap_to_map_scene()
+
+
+func update_player_info(battle_player: BattlePlayer):
+	player_info.current_health = battle_player.health
