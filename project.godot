@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="WrathOfTheWitty"
-run/main_scene="res://map/display/map.tscn"
+run/main_scene="res://ui/menus/start_menu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 <<<<<<<HEADrun/main_scene="res://battle/battle_scene.tscn"
