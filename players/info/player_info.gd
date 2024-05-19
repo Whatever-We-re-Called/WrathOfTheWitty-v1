@@ -38,7 +38,8 @@ var attack_buffs: Dictionary
 
 
 func add_card(card_info: CardInfo):
-	card_info.attack_value += attack_buffs[card_info.insecurity]
+	if attack_buffs.has(card_info.insecurity):
+		card_info.attack_value += attack_buffs[card_info.insecurity]
 	action_card_deck.append(card_info)
 
 

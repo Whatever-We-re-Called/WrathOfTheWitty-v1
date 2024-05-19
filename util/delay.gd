@@ -15,7 +15,7 @@ func delay_function(duration: float, caller: Node, function: Callable):
 	active_delay_timers[caller].append(delay_timer)
 
 
-func _on_delay_timer_timeout(caller: Node, function: Callable, timer: Timer):
+func _on_delay_timer_timeout(caller, function, timer):
 	if not active_delay_timers.has(caller): return
 	
 	if caller == null: return

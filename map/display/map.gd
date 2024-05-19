@@ -19,11 +19,6 @@ var selected_node = null
 const PLAYER_INFO_UI = preload("res://players/info/player_info_ui.tscn")
 
 func _ready():
-	if MapManager.can_go_to_next_floor():
-		queue_free()
-		MapManager.go_to_next_floor()
-		return
-	
 	generate()
 	
 	draw(root, null)
@@ -40,7 +35,6 @@ func _process(delta):
 
 func _handle_control_input():
 	if Input.is_action_just_pressed("view_your_info"):
-		print("!")
 		_open_player_info_ui()
 	
 	# Debug

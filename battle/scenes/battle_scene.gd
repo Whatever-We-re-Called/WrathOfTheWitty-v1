@@ -70,7 +70,7 @@ func _init_player(side: Constants.PlayerSide, player_info: PlayerInfo, parent_no
 	player.updated_hand.connect(_on_updated_hand)
 	player.drew_card.connect(_on_drew_card)
 	player.removed_card.connect(_on_removed_card)
-	player.died.connect(end_battle)
+	player.died.connect(end_battle.bind(player))
 	parent_node.add_child(player)
 	var sprite_height = player.sprite_frames.get_frame_texture("default", 0).get_height()
 	player.global_position.y -= (sprite_height * player_info.sprite_scale.y) / 2.0
@@ -264,31 +264,38 @@ func change_turns():
 	)
 
 
-func end_battle():
+func end_battle(loser_player: BattlePlayer):
 	if state == State.ENDING: return
 	
+	var did_player_win = loser_player != players[Constants.PlayerSide.LEFT]
+	
 	state = State.ENDING
-	players[Constants.PlayerSide.LEFT].handle_end_battle()
-	players[Constants.PlayerSide.RIGHT].handle_end_battle()
+	if did_player_win:
+		players[Constants.PlayerSide.LEFT].handle_end_battle()
+		players[Constants.PlayerSide.RIGHT].handle_end_battle()
 	await get_tree().process_frame
 	
 	Delay.cancel_all_delays(self)
 	
-	var blessing_rewards_ui = info.blessing_reward_ui_scene.instantiate()
-	canvas_layer.add_child(blessing_rewards_ui)
-	blessing_rewards_ui.init(RunManager.player_info, info.blessing_reward_options_count, info.blessing_reward_choices_count, info.blessing_reward_cosmic_chance)
-	await blessing_rewards_ui.finished
-	blessing_rewards_ui.queue_free()
-	
-	if info.has_extra_reward:
-		var extra_reward_ui = info.extra_reward_ui_scene.instantiate()
-		canvas_layer.add_child(extra_reward_ui)
-		extra_reward_ui.init(RunManager.player_info, info.extra_reward_options_count, info.extra_reward_choices_count)
-		await extra_reward_ui.finished
-		extra_reward_ui.queue_free()
-	
-	RunManager.update_player_info(players[Constants.PlayerSide.LEFT])
-	MapManager.swap_to_map_scene()
+	if not did_player_win:
+		RunManager.end_run()
+	else:
+		if info.has_blessing_reward:
+			var blessing_rewards_ui = info.blessing_reward_ui_scene.instantiate()
+			canvas_layer.add_child(blessing_rewards_ui)
+			blessing_rewards_ui.init(RunManager.player_info, info.blessing_reward_options_count, info.blessing_reward_choices_count, info.blessing_reward_cosmic_chance)
+			await blessing_rewards_ui.finished
+			blessing_rewards_ui.queue_free()
+		
+		if info.has_extra_reward:
+			var extra_reward_ui = info.extra_reward_ui_scene.instantiate()
+			canvas_layer.add_child(extra_reward_ui)
+			extra_reward_ui.init(RunManager.player_info, info.extra_reward_options_count, info.extra_reward_choices_count)
+			await extra_reward_ui.finished
+			extra_reward_ui.queue_free()
+		
+		RunManager.update_player_info(players[Constants.PlayerSide.LEFT])
+		MapManager.swap_to_map_scene()
 
 
 func get_non_active_side_player():

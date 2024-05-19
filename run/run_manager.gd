@@ -19,7 +19,7 @@ func start_run(player_info: PlayerInfo, seed: String):
 
 
 func end_run():
-	MapManager.reset()
+	MapManager.reset_map()
 	get_tree().change_scene_to_packed(START_MENU_SCENE)
 
 

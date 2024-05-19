@@ -8,6 +8,7 @@
 [resource]
 script = ExtResource("1_mulom")
 enemy_pool = Array[Resource("res://players/info/player_info.gd")]([ExtResource("2_qvjqo")])
+has_blessing_reward = true
 blessing_reward_ui_scene = ExtResource("1_8l3pj")
 blessing_reward_options_count = 5
 blessing_reward_choices_count = 2
