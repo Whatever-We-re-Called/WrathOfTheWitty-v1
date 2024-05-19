@@ -1,10 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://nmcy2u8ybidx"]
+[gd_scene load_steps=8 format=3 uid="uid://nmcy2u8ybidx"]
 
 [ext_resource type="Script" path="res://map/display/map.gd" id="1_qjxse"]
 [ext_resource type="Script" path="res://map/generators/alpha_generator.gd" id="2_hpjvk"]
 [ext_resource type="Script" path="res://map/generators/generator_settings.gd" id="3_12mpo"]
 [ext_resource type="Script" path="res://map/display/map_camera.gd" id="3_u44x5"]
 [ext_resource type="SpriteFrames" uid="uid://2up8nj4es0st" path="res://players/animations/scrimblo_sprite_frames.tres" id="4_0f5vl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_t0j3f"]
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_5yrs5"]
+font_size = 48
+font_color = Color(0.490196, 0.490196, 0.490196, 1)
 
 [node name="Map" type="Node2D" node_paths=PackedStringArray("camera", "player", "settings")]
 z_index = 5
@@ -43,12 +50,36 @@ sprite_frames = ExtResource("4_0f5vl")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Button" type="Button" parent="CanvasLayer"]
-offset_left = 1493.0
-offset_top = 913.0
-offset_right = 1836.0
-offset_bottom = 985.0
-text = "Enter Room"
-metadata/_edit_use_anchors_ = true
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
 
-[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Floor: "
+label_settings = SubResource("LabelSettings_t0j3f")
+
+[node name="CurrentFloorLabel" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0
+"
+label_settings = SubResource("LabelSettings_t0j3f")
+
+[node name="Label3" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "/"
+label_settings = SubResource("LabelSettings_5yrs5")
+
+[node name="MaxFloorLabel" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0
+"
+label_settings = SubResource("LabelSettings_5yrs5")

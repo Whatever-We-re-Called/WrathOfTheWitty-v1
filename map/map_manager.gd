@@ -20,6 +20,7 @@ func can_go_to_next_floor() -> bool:
 
 
 func go_to_next_floor():
+	RunManager.increment_floor()
 	generate_new_map()
 	await get_tree().process_frame
 	swap_to_map_scene()

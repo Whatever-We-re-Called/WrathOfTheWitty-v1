@@ -9,6 +9,9 @@ extends Node2D
 @export var settings: GeneratorSettings
 @export var render_ids = false
 
+@onready var current_floor_label = %CurrentFloorLabel
+@onready var max_floor_label = %MaxFloorLabel
+
 var root
 var selected_node = null
 
@@ -22,13 +25,16 @@ func _ready():
 	
 	draw(root, null)
 	draw_lines(root)
+	current_floor_label.text = str(RunManager.floor)
+	max_floor_label.text = str(RunManager.LAST_FLOOR)
 	
 	camera.setup(root)
 
 
 func _process(delta):
 	if Input.is_action_just_pressed("debug_1"):
-		get_tree().change_scene_to_file("res://map/rooms/exit/exit_scene.tscn")
+		MapManager.generate_new_map()
+		MapManager.swap_to_map_scene()
 
 func generate():
 	SeededGenerator.mode("map").reset_transaction().start_transaction()
@@ -54,7 +60,7 @@ func draw_lines(map_node):
 func select(map_node):
 	for node in selected_node.connections:
 		if node.id == map_node.id:
-			set_selected_node(map_node)
+			enter_room(map_node)
 
 
 func set_selected_node(map_node):
@@ -63,5 +69,7 @@ func set_selected_node(map_node):
 	player.position = map_node.position
 
 
-func _on_button_pressed():
-	get_tree().change_scene_to_packed(selected_node.room_info.target_scene)
+func enter_room(map_node: MapNode):
+	set_selected_node(map_node)
+	if map_node.id != 0:
+		get_tree().change_scene_to_packed(map_node.room_info.target_scene)
