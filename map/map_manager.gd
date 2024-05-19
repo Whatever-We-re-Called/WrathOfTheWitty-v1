@@ -5,8 +5,7 @@ var boss_node_id = 0
 
 func generate_new_map():
 	SeededGenerator.mode("map").drop_transaction()
-	selected_node_id = 0
-	boss_node_id = 0
+	reset()
 
 
 func swap_to_map_scene():
@@ -20,7 +19,14 @@ func can_go_to_next_floor() -> bool:
 
 
 func go_to_next_floor():
+	print("!")
 	RunManager.increment_floor()
-	generate_new_map()
-	await get_tree().process_frame
-	swap_to_map_scene()
+	if RunManager.is_on_valid_floor():
+		generate_new_map()
+		await get_tree().process_frame
+		swap_to_map_scene()
+
+
+func reset():
+	selected_node_id = 0
+	boss_node_id = 0

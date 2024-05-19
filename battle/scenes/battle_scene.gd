@@ -51,7 +51,6 @@ func _ready():
 	
 	battle_interface.card_toggle_selected.connect(_on_card_toggle_selected)
 	battle_interface.card_reroll.connect(reroll_card)
-	battle_interface.close_player_info_ui()
 
 
 func _decide_enemy():

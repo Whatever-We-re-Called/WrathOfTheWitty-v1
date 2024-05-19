@@ -138,3 +138,34 @@ func get_insecurity_affinities() -> Dictionary:
 		result[insecurity] = Constants.InsecurityAffinityType.REPEL
 	
 	return result
+
+#
+#func get_current_health():
+	#if current_player_instance != null:
+		#return current_player_instance.health
+	#else:
+		#if current_health < 0:
+			#return health_stat
+		#else:
+			#return current_health
+#
+#
+#func get_current_stamina():
+	#if current_player_instance != null:
+		#return current_player_instance.stamina
+	#else:
+		#return stamina_stat
+#
+#
+#func get_current_cards_in_hand_size():
+	#if current_player_instance != null:
+		#return current_player_instance.cards_in_hand.size()
+	#else:
+		#return action_hand_stat
+#
+#
+#func get_current_template_cards_in_hand_size():
+	#if current_player_instance != null:
+		#return current_player_instance.template_cards_in_hand.size()
+	#else:
+		#return template_hand_stat

@@ -20,7 +20,6 @@ camera = NodePath("Camera2D")
 player = NodePath("Player")
 generator = ExtResource("2_hpjvk")
 settings = NodePath("GeneratorSettings")
-render_ids = true
 
 [node name="GeneratorSettings" type="Node" parent="."]
 script = ExtResource("3_12mpo")
@@ -35,12 +34,13 @@ dead_end = 25
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(962, 545)
-zoom = Vector2(0.535, 0.535)
+zoom = Vector2(0.7, 0.7)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 script = ExtResource("3_u44x5")
 move_threshhold_percentage = 10
-move_speed = 5
+move_speed = 1250
+map_node_offset = 150
 
 [node name="Player" type="AnimatedSprite2D" parent="."]
 z_index = 5
@@ -83,3 +83,30 @@ layout_mode = 2
 text = "0
 "
 label_settings = SubResource("LabelSettings_5yrs5")
+
+[node name="BottomRight" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -42.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BottomRight"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+
+[node name="ViewYourInfoLabel" type="Label" parent="CanvasLayer/BottomRight/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 18
+text = "Shift: View Your Info"
+horizontal_alignment = 2

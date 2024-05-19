@@ -11,9 +11,12 @@ extends Node2D
 
 @onready var current_floor_label = %CurrentFloorLabel
 @onready var max_floor_label = %MaxFloorLabel
+@onready var canvas_layer = $CanvasLayer
 
 var root
 var selected_node = null
+
+const PLAYER_INFO_UI = preload("res://players/info/player_info_ui.tscn")
 
 func _ready():
 	if MapManager.can_go_to_next_floor():
@@ -28,13 +31,34 @@ func _ready():
 	current_floor_label.text = str(RunManager.floor)
 	max_floor_label.text = str(RunManager.LAST_FLOOR)
 	
-	camera.setup(root)
+	camera.setup(root, selected_node)
 
 
 func _process(delta):
+	_handle_control_input()
+
+
+func _handle_control_input():
+	if Input.is_action_just_pressed("view_your_info"):
+		print("!")
+		_open_player_info_ui()
+	
+	# Debug
 	if Input.is_action_just_pressed("debug_1"):
 		MapManager.generate_new_map()
 		MapManager.swap_to_map_scene()
+	if Input.is_action_just_pressed("debug_2"):
+		if selected_node.connections.size() > 0:
+			set_selected_node(selected_node.connections[0])
+		else:
+			MapManager.go_to_next_floor()
+
+
+func _open_player_info_ui():
+	var player_info_ui = PLAYER_INFO_UI.instantiate()
+	canvas_layer.add_child(player_info_ui)
+	player_info_ui.init(RunManager.player_info)
+
 
 func generate():
 	SeededGenerator.mode("map").reset_transaction().start_transaction()

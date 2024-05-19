@@ -5,7 +5,8 @@ var settings
 func generate(settings: GeneratorSettings) -> MapNode:
 	self.settings = settings
 	
-	var root = _get_new_map_node()
+	# TODO Refactor this to be less hard-coded.
+	var root = _get_new_map_node(preload("res://map/rooms/info/starting_room_info.tres"))
 	var previous = [ root ]
 	
 	generate_next_level(previous, 0)
@@ -81,7 +82,10 @@ func gen_standard_level(previous: Array) -> Array:
 func gen_boss_level(previous):
 	var boss = _get_new_map_node()
 	# TODO Refactor this to be less hard-coded.
-	boss.init(preload("res://map/rooms/info/boss_battle_room_info.tres"))
+	if RunManager.is_on_last_floor():
+		boss.init(preload("res://map/rooms/info/final_boss_battle_room_info.tres"))
+	else:
+		boss.init(preload("res://map/rooms/info/boss_battle_room_info.tres"))
 	MapManager.boss_node_id = boss.id
 	
 	for node in previous:

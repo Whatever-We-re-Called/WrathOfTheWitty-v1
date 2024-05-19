@@ -2,14 +2,20 @@ extends Camera2D
 
 @export var move_threshhold_percentage: int
 @export var move_speed: int
+@export var map_node_offset: int
 
-func setup(root):
-	limit_bottom = root.position.y + 150
-	limit_top = get_max(root).position.y - 150
+var top_y_adjusted_limit: int
+var bottom_y_adjusted_limit: int
+
+func setup(root, selected_node):
+	limit_bottom = root.position.y + map_node_offset
+	limit_top = get_max(root).position.y - map_node_offset
 	
-	var cam_pos = root.position
-	cam_pos.y = get_viewport().get_visible_rect().size.y / 2 + 150
-	self.position = cam_pos
+	var half_viewport_height = (get_viewport().get_visible_rect().size.y / 2)
+	bottom_y_adjusted_limit = limit_bottom - (half_viewport_height * (1 / zoom.y))
+	top_y_adjusted_limit = limit_top + (half_viewport_height * (1 / zoom.y))
+	
+	self.position.y = selected_node.position.y
 
 func get_max(node) -> MapNode:
 	if node.connections.size() == 0:
@@ -35,15 +41,12 @@ func _process(delta):
 	if mouse_horizontal_percentage >= 100 or mouse_horizontal_percentage <= 0:
 		return
 	
-	var cam_pos = position
-	
 	if mouse_vertical_percentage < move_threshhold_percentage:
-		cam_pos.y = cam_pos.y - move_speed + delta
+		position.y = position.y - (move_speed * delta)
 		
 	if mouse_vertical_percentage > (100 - move_threshhold_percentage):
-		cam_pos.y = cam_pos.y + move_speed + delta
+		position.y = position.y + (move_speed * delta)
 		
 	
-	cam_pos.y = clamp(cam_pos.y, limit_top + (get_viewport().get_visible_rect().size.y / 2) , limit_bottom - (get_viewport().get_visible_rect().size.y / 2))
-	position = cam_pos
+	position.y = clamp(position.y, top_y_adjusted_limit, bottom_y_adjusted_limit)
 	

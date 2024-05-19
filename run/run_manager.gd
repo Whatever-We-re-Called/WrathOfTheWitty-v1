@@ -20,6 +20,7 @@ func start_run(player_info: PlayerInfo, seed: String):
 
 
 func end_run():
+	MapManager.reset()
 	get_tree().change_scene_to_packed(START_MENU_SCENE)
 
 
@@ -32,3 +33,11 @@ func increment_floor():
 	
 	if floor > LAST_FLOOR:
 		end_run()
+
+
+func is_on_valid_floor() -> bool:
+	return floor <= LAST_FLOOR
+
+
+func is_on_last_floor() -> bool:
+	return floor == LAST_FLOOR
