@@ -3,15 +3,14 @@ extends Node
 var player_info: PlayerInfo
 var floor: int
 
-const DEBUG_SEED_OVERRIDE: String = ""
 const START_MENU_SCENE = preload("res://ui/menus/start_menu.tscn")
 const LAST_FLOOR: int = 6
 
 
 func start_run(player_info: PlayerInfo, seed: String):
 	self.player_info = player_info.duplicate(true)
-	if DEBUG_SEED_OVERRIDE.length() > 0:
-		SeededGenerator.set_seed(DEBUG_SEED_OVERRIDE)
+	if seed.length() == 0:
+		SeededGenerator.set_seed(SeededGenerator.generate_seed())
 	else:
 		SeededGenerator.set_seed(seed)
 	self.floor = 1
