@@ -1,6 +1,6 @@
 extends Node
 
-enum ActiveMovingNodeData { TARGET_POSITION, SPEED, DURATION }
+enum ActiveMovingNodeData { TARGET_POSITION, SPEED }
 
 var active_delay_timers: Dictionary
 var active_moving_nodes: Dictionary
@@ -54,11 +54,10 @@ func _process(delta):
 		active_moving_node.position = active_moving_node.position.move_toward(target_position, calculated_speed)
 
 
-func move_toward_overtime(moving_node: Node, target_position: Vector2,  speed: float, duration: float):
+func move_toward_overtime(moving_node: Node, target_position: Vector2, duration: float):
 	active_moving_nodes[moving_node] = {
 		ActiveMovingNodeData.TARGET_POSITION: target_position,
-		ActiveMovingNodeData.SPEED: speed,
-		ActiveMovingNodeData.DURATION: duration
+		ActiveMovingNodeData.SPEED: moving_node.position.distance_to(target_position) / duration
 	}
 	
 	delay_function(duration, self, func():

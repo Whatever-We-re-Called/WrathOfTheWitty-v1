@@ -80,8 +80,8 @@ func draw_lines(map_node):
 func select(map_node):
 	for node in selected_node.connections:
 		if node.id == map_node.id:
-			Delay.move_toward_overtime(player, map_node.position, 750, 1)
-			Delay.delay_function(1.5, self, func():
+			Delay.move_toward_overtime(player, map_node.position, 0.5)
+			Delay.delay_function(1, self, func():
 				enter_room(map_node)
 			)
 
