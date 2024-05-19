@@ -19,7 +19,6 @@ func can_go_to_next_floor() -> bool:
 
 
 func go_to_next_floor():
-	print("!")
 	RunManager.increment_floor()
 	if RunManager.is_on_valid_floor():
 		generate_new_map()

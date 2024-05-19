@@ -49,7 +49,9 @@ func _handle_control_input():
 		MapManager.swap_to_map_scene()
 	if Input.is_action_just_pressed("debug_2"):
 		if selected_node.connections.size() > 0:
-			set_selected_node(selected_node.connections[0])
+			var next_node = selected_node.connections[0]
+			set_selected_node(next_node)
+			camera.update_position(next_node)
 		else:
 			MapManager.go_to_next_floor()
 

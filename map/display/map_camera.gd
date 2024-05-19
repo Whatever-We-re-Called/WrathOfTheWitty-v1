@@ -15,7 +15,13 @@ func setup(root, selected_node):
 	bottom_y_adjusted_limit = limit_bottom - (half_viewport_height * (1 / zoom.y))
 	top_y_adjusted_limit = limit_top + (half_viewport_height * (1 / zoom.y))
 	
+	update_position(selected_node)
+
+
+func update_position(selected_node):
 	self.position.y = selected_node.position.y
+	reset_smoothing()
+
 
 func get_max(node) -> MapNode:
 	if node.connections.size() == 0:

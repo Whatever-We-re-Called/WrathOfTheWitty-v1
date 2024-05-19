@@ -34,9 +34,11 @@ class_name PlayerInfo extends Resource
 
 var current_player_instance = null
 var current_health: int = -1
+var attack_buffs: Dictionary
 
 
 func add_card(card_info: CardInfo):
+	card_info.attack_value += attack_buffs[card_info.insecurity]
 	action_card_deck.append(card_info)
 
 
@@ -116,14 +118,6 @@ func get_stack_size_of_blessing(type: Blessings.Type) -> int:
 	return result
 
 
-#
-#func is_blessing_cosmic(type) -> bool:
-	#for equipped_blessing in equipped_blessings:
-		#if equipped_blessing.type == type:
-			#return equipped_blessing.is_cosmic
-	#return false
-
-
 func get_insecurity_affinities() -> Dictionary:
 	var result: Dictionary
 	for insecurity in weak_insecurity_affinities:
@@ -138,34 +132,3 @@ func get_insecurity_affinities() -> Dictionary:
 		result[insecurity] = Constants.InsecurityAffinityType.REPEL
 	
 	return result
-
-#
-#func get_current_health():
-	#if current_player_instance != null:
-		#return current_player_instance.health
-	#else:
-		#if current_health < 0:
-			#return health_stat
-		#else:
-			#return current_health
-#
-#
-#func get_current_stamina():
-	#if current_player_instance != null:
-		#return current_player_instance.stamina
-	#else:
-		#return stamina_stat
-#
-#
-#func get_current_cards_in_hand_size():
-	#if current_player_instance != null:
-		#return current_player_instance.cards_in_hand.size()
-	#else:
-		#return action_hand_stat
-#
-#
-#func get_current_template_cards_in_hand_size():
-	#if current_player_instance != null:
-		#return current_player_instance.template_cards_in_hand.size()
-	#else:
-		#return template_hand_stat

@@ -37,11 +37,22 @@ func _on_rerolled_card():
 
 
 func _add_damage_to_cards_with_insecurity(damage_increment: int, insecurity: Constants.Insecurity):
+	if player_info.attack_buffs.has(insecurity):
+		player_info.attack_buffs[insecurity] += damage_increment
+	else:
+		player_info.attack_buffs[insecurity] = damage_increment
+	
 	for card in player_info.action_card_deck:
 		if card.insecurity == insecurity:
 			card.attack_value += damage_increment
 
 
 func _add_damage_to_cards(damage_increment: int):
+	for insecurity in Constants.Insecurity.values():
+		if player_info.attack_buffs.has(insecurity):
+			player_info.attack_buffs[insecurity] += damage_increment
+		else:
+			player_info.attack_buffs[insecurity] = damage_increment
+	
 	for card in player_info.action_card_deck:
 		card.attack_value += damage_increment
