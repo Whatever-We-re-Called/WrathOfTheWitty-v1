@@ -53,12 +53,15 @@ const INSECURITY_TO_REPRESS_STATUS_EFFECTS = {
 
 
 func init(new_info: PlayerInfo, side: Constants.PlayerSide):
-	self.info = new_info.duplicate()
+	self.info = new_info
 	self.info.current_player_instance = self
 	
 	new_info.init_unhandled_equipped_blessings()
 	
-	self.health = info.health_stat if info.current_health < 0 else info.current_health
+	if info.current_health < 0:
+		self.health = info.health_stat
+	else:
+		self.health = info.current_health
 	self.stamina = info.stamina_stat
 	
 	for card_info in self.info.action_card_deck:

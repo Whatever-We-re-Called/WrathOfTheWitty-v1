@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://6b5hhw2v1kkl"]
-
-[ext_resource type="Script" path="res://map/rooms/exit/exit_room_script.gd" id="1_wc6a7"]
-
-[node name="Node2D" type="Node2D"]
-script = ExtResource("1_wc6a7")

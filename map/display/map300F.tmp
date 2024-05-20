@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://nmcy2u8ybidx"]
+
+[ext_resource type="Script" path="res://map/display/map.gd" id="1_qjxse"]
+[ext_resource type="Script" path="res://map/generators/alpha_generator.gd" id="2_hpjvk"]
+[ext_resource type="Script" path="res://map/generators/generator_settings.gd" id="3_12mpo"]
+[ext_resource type="Script" path="res://map/display/map_camera.gd" id="3_u44x5"]
+[ext_resource type="SpriteFrames" uid="uid://2up8nj4es0st" path="res://players/animations/scrimblo_sprite_frames.tres" id="4_0f5vl"]
+
+[node name="Map" type="Node2D" node_paths=PackedStringArray("camera", "player", "settings")]
+z_index = 5
+script = ExtResource("1_qjxse")
+camera = NodePath("Camera2D")
+player = NodePath("Player")
+generator = ExtResource("2_hpjvk")
+seed = "penis"
+settings = NodePath("GeneratorSettings")
+render_ids = true
+
+[node name="GeneratorSettings" type="Node" parent="."]
+script = ExtResource("3_12mpo")
+min_levels = 6
+max_levels = 7
+max_nodes_width = 4
+max_position_width = 750
+split_from_one = 90
+split_into_two = 25
+split_into_three = 5
+dead_end = 25
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(962, 545)
+zoom = Vector2(0.535, 0.535)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+script = ExtResource("3_u44x5")
+move_threshhold_percentage = 10
+move_speed = 5
+
+[node name="Player" type="AnimatedSprite2D" parent="."]
+z_index = 5
+position = Vector2(968, 876)
+scale = Vector2(0.155629, 0.155629)
+sprite_frames = ExtResource("4_0f5vl")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_left = 1493.0
+offset_top = 913.0
+offset_right = 1836.0
+offset_bottom = 985.0
+text = "Enter Room"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]

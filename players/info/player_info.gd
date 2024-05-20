@@ -34,9 +34,12 @@ class_name PlayerInfo extends Resource
 
 var current_player_instance = null
 var current_health: int = -1
+var attack_buffs: Dictionary
 
 
 func add_card(card_info: CardInfo):
+	if attack_buffs.has(card_info.insecurity):
+		card_info.attack_value += attack_buffs[card_info.insecurity]
 	action_card_deck.append(card_info)
 
 
@@ -114,14 +117,6 @@ func get_stack_size_of_blessing(type: Blessings.Type) -> int:
 			result += 1
 	
 	return result
-
-
-#
-#func is_blessing_cosmic(type) -> bool:
-	#for equipped_blessing in equipped_blessings:
-		#if equipped_blessing.type == type:
-			#return equipped_blessing.is_cosmic
-	#return false
 
 
 func get_insecurity_affinities() -> Dictionary:

@@ -1,32 +1,32 @@
 extends Node2D
 class_name MapNode
 
+var room_info = preload("res://map/rooms/info/action_battle_room_info.tres")
 var id = null
 var drawn = false
 var lines_drawn = false
 
 var x_offset = 0
 var y_offset = 0
-var room_script = preload("res://map/rooms/example/example_room.tscn").instantiate()
 
 var connections = []
 var backwards_connections = []
+
+const MAP_NODE_UI_SCENE = preload("res://map/display/map_node_ui.tscn")
+
+
+func init(room_info: RoomInfo):
+	self.room_info = room_info
 
 
 func draw(parent, map, render_ids):
 	if not drawn:
 		map.add_child(self)
 		
-		var icon = room_script.get_icon().instantiate()
-		add_child(icon)
-		icon.get_node("Button").pressed.connect(pressed.bind(map))
-		
-		if icon.has_node("Id"):
-			if render_ids:
-				icon.get_node("Id").text = str(id)
-			else:
-				icon.get_node("Id").visible = false
-			
+		var map_node_ui = MAP_NODE_UI_SCENE.instantiate()
+		map_node_ui.pressed.connect(_pressed.bind(map))
+		add_child(map_node_ui)
+		map_node_ui.init(room_info, render_ids, id)
 		
 		if parent == null:
 			self.position.x = get_viewport().get_visible_rect().size.x / 2.0
@@ -34,13 +34,13 @@ func draw(parent, map, render_ids):
 		else:
 			self.position.x = get_viewport().get_visible_rect().size.x / 2.0 + x_offset
 			self.position.y = parent.position.y - y_offset
-			
+		
 		drawn = true
 
 
-func pressed(map):
+func _pressed(map):
 	map.select(self)
-	
+
 
 func draw_lines(map):
 	if not lines_drawn:
@@ -48,6 +48,7 @@ func draw_lines(map):
 			var line = Line2D.new()
 			line.add_point(self.position)
 			line.add_point(child.position)
+			line.default_color = Color(1.0, 1.0, 1.0, 0.1)
 			map.add_child(line)
 		lines_drawn = true
 

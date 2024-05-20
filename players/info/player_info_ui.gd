@@ -90,13 +90,22 @@ func _set_open_tab_index(index: int):
 
 
 func _init_stats_page(player_info: PlayerInfo):
-	health_value_label.text = str(player_info.current_player_instance.health)
+	if player_info.current_player_instance != null:
+		health_value_label.text = str(player_info.current_player_instance.health)
+		stamina_value_label.text = str(player_info.current_player_instance.stamina)
+		hand_value_label.text = str(player_info.current_player_instance.cards_in_hand.size())
+		template_hand_value_label.text = str(player_info.current_player_instance.template_cards_in_hand.size())
+	else:
+		if player_info.current_health < 0:
+			health_value_label.text = str(player_info.health_stat)
+		else:
+			health_value_label.text = str(player_info.current_health)
+		stamina_value_label.text = str(0)
+		hand_value_label.text = str(0)
+		template_hand_value_label.text = str(0)
 	health_max_label.text = str(player_info.health_stat)
-	stamina_value_label.text = str(player_info.current_player_instance.stamina)
 	stamina_max_label.text = str(player_info.stamina_stat)
-	hand_value_label.text = str(player_info.current_player_instance.cards_in_hand.size())
 	hand_max_label.text = str(player_info.action_hand_stat)
-	template_hand_value_label.text = str(player_info.current_player_instance.template_cards_in_hand.size())
 	template_hand_max_label.text = str(player_info.template_hand_stat)
 	speed_value_label.text = str(player_info.speed_stat)
 	
@@ -169,22 +178,32 @@ func _init_action_cards_page(player_info: PlayerInfo):
 	for child in action_cards_bag_grid_container.get_children():
 		child.queue_free()
 	
-	var cards_in_hand = player_info.current_player_instance.cards_in_hand.size()
-	action_cards_hand_label.text = "Hand (" + str(cards_in_hand) + "):"
-	for card_info in player_info.current_player_instance.cards_in_hand:
-		var card = _get_card_instance(card_info)
-		action_cards_hand_grid_container.add_child(card)
-		card.init()
-	action_cards_deck_label.text = "Deck (" + str(player_info.current_player_instance.cards_in_deck.size()) + "):"
-	for card_info in player_info.current_player_instance.cards_in_deck:
-		var card = _get_card_instance(card_info)
-		action_cards_deck_grid_container.add_child(card)
-		card.init()
-	action_cards_bag_label.text = "Bag (" + str(player_info.current_player_instance.cards_in_bag.size()) + "):"
-	for card_info in player_info.current_player_instance.cards_in_bag:
-		var card = _get_card_instance(card_info)
-		action_cards_bag_grid_container.add_child(card)
-		card.init()
+	if player_info.current_player_instance != null:
+		var cards_in_hand = player_info.current_player_instance.cards_in_hand.size()
+		action_cards_hand_label.text = "Hand (" + str(cards_in_hand) + "):"
+		for card_info in player_info.current_player_instance.cards_in_hand:
+			var card = _get_card_instance(card_info)
+			action_cards_hand_grid_container.add_child(card)
+			card.init()
+		action_cards_deck_label.text = "Deck (" + str(player_info.current_player_instance.cards_in_deck.size()) + "):"
+		for card_info in player_info.current_player_instance.cards_in_deck:
+			var card = _get_card_instance(card_info)
+			action_cards_deck_grid_container.add_child(card)
+			card.init()
+		action_cards_bag_label.text = "Bag (" + str(player_info.current_player_instance.cards_in_bag.size()) + "):"
+		for card_info in player_info.current_player_instance.cards_in_bag:
+			var card = _get_card_instance(card_info)
+			action_cards_bag_grid_container.add_child(card)
+			card.init()
+	else:
+		action_cards_hand_label.queue_free()
+		action_cards_deck_label.text = "Deck (" + str(player_info.action_card_deck.size()) + "):"
+		for card_info in player_info.action_card_deck:
+			var card = _get_card_instance(card_info)
+			action_cards_deck_grid_container.add_child(card)
+			card.init()
+		action_cards_bag_label.queue_free()
+		
 
 
 func _get_card_instance(card_info: CardInfo) -> Card:
@@ -201,25 +220,38 @@ func _init_template_cards_page(player_info: PlayerInfo):
 	for child in template_cards_bag_grid_container.get_children():
 		child.queue_free()
 	
-	var cards_in_hand = player_info.current_player_instance.template_cards_in_hand.size()
-	template_cards_hand_label.text = "Hand (" + str(cards_in_hand) + "):"
-	for card_info in player_info.current_player_instance.template_cards_in_hand:
-		var card = _get_template_card_instance(card_info)
-		template_cards_hand_grid_container.add_child(card)
-		card.remove_context_ui()
-	template_cards_deck_label.text = "Deck (" + str(player_info.current_player_instance.template_cards_in_deck.size()) + "):"
-	for card_info in player_info.current_player_instance.template_cards_in_deck:
-		var card = _get_template_card_instance(card_info)
-		template_cards_deck_grid_container.add_child(card)
-		card.remove_context_ui()
-	template_cards_bag_label.text = "Bag (" + str(player_info.current_player_instance.template_cards_in_bag.size()) + "):"
-	for card_info in player_info.current_player_instance.template_cards_in_bag:
-		var card = _get_template_card_instance(card_info)
-		template_cards_bag_grid_container.add_child(card)
-		card.remove_context_ui()
+	if player_info.current_player_instance != null:
+		var cards_in_hand = player_info.current_player_instance.template_cards_in_hand.size()
+		template_cards_hand_label.text = "Hand (" + str(cards_in_hand) + "):"
+		for card_info in player_info.current_player_instance.template_cards_in_hand:
+			var card = _get_template_card_instance(card_info)
+			template_cards_hand_grid_container.add_child(card)
+			card.remove_context_ui()
+		template_cards_deck_label.text = "Deck (" + str(player_info.current_player_instance.template_cards_in_deck.size()) + "):"
+		for card_info in player_info.current_player_instance.template_cards_in_deck:
+			var card = _get_template_card_instance(card_info)
+			template_cards_deck_grid_container.add_child(card)
+			card.remove_context_ui()
+		template_cards_bag_label.text = "Bag (" + str(player_info.current_player_instance.template_cards_in_bag.size()) + "):"
+		for card_info in player_info.current_player_instance.template_cards_in_bag:
+			var card = _get_template_card_instance(card_info)
+			template_cards_bag_grid_container.add_child(card)
+			card.remove_context_ui()
+	else:
+		template_cards_hand_label.queue_free()
+		template_cards_deck_label.text = "Deck (" + str(player_info.equipped_template_cards.size()) + "):"
+		for equipped_template_card in player_info.equipped_template_cards:
+			var card = _get_template_card_instance(equipped_template_card.template_card_info)
+			template_cards_deck_grid_container.add_child(card)
+			card.remove_context_ui()
+		template_cards_bag_label.queue_free()
 
 
 func _get_template_card_instance(template_card_info: TemplateCardInfo) -> TemplateCard:
 	var new_template_card_scene = TEMPLATE_CARD_SCENE.instantiate()
 	new_template_card_scene.template_card_info = template_card_info
 	return new_template_card_scene
+
+
+func _on_close_button_pressed():
+	queue_free()

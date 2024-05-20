@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Blessing" load_steps=4 format=3 uid="uid://ccajipu4jxg7c"]
 
 [ext_resource type="Script" path="res://blessings/blessing.gd" id="1_7wiqa"]
-[ext_resource type="Script" path="res://blessings/resources/cosmic_blessings/battle_health_generation.gd" id="1_odpeg"]
+[ext_resource type="Script" path="res://blessings/resources/cosmic_blessings/battle_health_regeneration.gd" id="1_odpeg"]
 [ext_resource type="Texture2D" uid="uid://dhbbo6nhd5uel" path="res://blessings/textures/suit_hearts.svg" id="2_hcsfq"]
 
 [resource]

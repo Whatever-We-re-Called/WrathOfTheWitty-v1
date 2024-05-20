@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1yrmnhqi4s8q"
-path="res://.godot/imported/box.svg-bfe2cace0f157cfe56a5fc62bb97bed5.ctex"
+uid="uid://c7qygy48wk3v0"
+path="res://.godot/imported/chess_pawn.svg-82bc38e383f1c84f27129ae51d9b60e7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://map/rooms/exit/box.svg"
-dest_files=["res://.godot/imported/box.svg-bfe2cace0f157cfe56a5fc62bb97bed5.ctex"]
+source_file="res://map/rooms/textures/chess_pawn.svg"
+dest_files=["res://.godot/imported/chess_pawn.svg-82bc38e383f1c84f27129ae51d9b60e7.ctex"]
 
 [params]
 

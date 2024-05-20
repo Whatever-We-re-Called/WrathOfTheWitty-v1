@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RoomInfo" load_steps=4 format=3 uid="uid://cars7lpwrloeq"]
+
+[ext_resource type="Texture2D" uid="uid://1p073vlq3sa5" path="res://map/rooms/textures/skull.svg" id="1_4f1c7"]
+[ext_resource type="Script" path="res://map/rooms/info/room_info.gd" id="2_8slov"]
+[ext_resource type="PackedScene" uid="uid://cr0rjppl6efp3" path="res://battle/scenes/final_boss_battle_scene.tscn" id="3_02fvo"]
+
+[resource]
+script = ExtResource("2_8slov")
+icon = ExtResource("1_4f1c7")
+color = Color(0.666667, 0.219608, 0.243137, 1)
+target_scene = ExtResource("3_02fvo")

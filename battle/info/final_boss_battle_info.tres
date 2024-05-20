@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BattleInfo" load_steps=3 format=3 uid="uid://d14l0l40oiop3"]
+
+[ext_resource type="Resource" uid="uid://cq1umtd7jq3dm" path="res://players/info/players/colon_d_info.tres" id="2_t8kl6"]
+[ext_resource type="Script" path="res://battle/info/battle_info.gd" id="4_pjyfh"]
+
+[resource]
+script = ExtResource("4_pjyfh")
+enemy_pool = Array[Resource("res://players/info/player_info.gd")]([ExtResource("2_t8kl6")])
+has_blessing_reward = false
+blessing_reward_options_count = 0
+blessing_reward_choices_count = 0
+blessing_reward_cosmic_chance = 0.0
+has_extra_reward = false
+extra_reward_options_count = 0
+extra_reward_choices_count = 0

@@ -5,7 +5,8 @@ var settings
 func generate(settings: GeneratorSettings) -> MapNode:
 	self.settings = settings
 	
-	var root = MapNode.new()
+	# TODO Refactor this to be less hard-coded.
+	var root = _get_new_map_node(preload("res://map/rooms/info/starting_room_info.tres"))
 	var previous = [ root ]
 	
 	generate_next_level(previous, 0)
@@ -36,14 +37,14 @@ func generate_next_level(previous, level):
 
 func gen_first_level(node) -> Array:
 	for i in 2 if SeededGenerator.percentage_chance_of(settings.split_from_one) else 1:
-		node.connect_node(MapNode.new())
+		node.connect_node(_get_new_map_node())
 	return node.connections
 
 	
 func gen_standard_level(previous: Array) -> Array:
 	if previous.size() == 1:
 		for i in 2 if SeededGenerator.percentage_chance_of(settings.split_from_one) else 1:
-			previous[0].connect_node(MapNode.new())
+			previous[0].connect_node(_get_new_map_node())
 		return previous[0].connections
 		
 	var node_count = previous.size()
@@ -54,15 +55,15 @@ func gen_standard_level(previous: Array) -> Array:
 			node_count += 1
 			debug("split: 2")
 			for i in 2:
-				node.connect_node(MapNode.new())
+				node.connect_node(_get_new_map_node())
 		elif SeededGenerator.percentage_chance_of(settings.split_into_three) and node_count + 1 < settings.max_nodes_width:
 			node_count += 2
 			debug("split: 3")
 			for i in 3:
-				node.connect_node(MapNode.new())
+				node.connect_node(_get_new_map_node())
 		elif !SeededGenerator.percentage_chance_of(settings.dead_end):
 			debug("continue")
-			node.connect_node(MapNode.new())
+			node.connect_node(_get_new_map_node())
 		else:
 			debug("dead_end")
 		
@@ -70,21 +71,27 @@ func gen_standard_level(previous: Array) -> Array:
 			new_nodes.append_array(node.connections)
 		
 	if new_nodes.size() == 0:
-		var next = MapNode.new()
+		var next = _get_new_map_node()
 		for node in previous:
 			node.connect_node(next)
 		new_nodes.append(next)
 		
 	return new_nodes
-	
+
+
 func gen_boss_level(previous):
-	var boss = MapNode.new()
-	boss.room_script = preload("res://map/rooms/exit/exit_room.tscn").instantiate()
+	var boss = _get_new_map_node()
+	# TODO Refactor this to be less hard-coded.
+	if RunManager.is_on_last_floor():
+		boss.init(preload("res://map/rooms/info/final_boss_battle_room_info.tres"))
+	else:
+		boss.init(preload("res://map/rooms/info/boss_battle_room_info.tres"))
+	MapManager.boss_node_id = boss.id
 	
 	for node in previous:
 		node.connect_node(boss)
-	
-	
+
+
 func connect_dead_ends(nodes, level):
 	debug("Connecting ends for level: " + str(level))
 	debug("Nodes: " + str(nodes.size()))
@@ -188,3 +195,12 @@ func set_offsets(nodes, level):
 	
 func set_room_types(previous):
 	pass
+
+
+func _get_new_map_node(room_info: RoomInfo = null) -> MapNode:
+	var new_map_node = MapNode.new()
+	if room_info == null:
+		var chosen_room_info_index = SeededGenerator.next_int(temporary_room_pool.size()) - 1
+		room_info = temporary_room_pool[chosen_room_info_index]
+	new_map_node.init(room_info)
+	return new_map_node

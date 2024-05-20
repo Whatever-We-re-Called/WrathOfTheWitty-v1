@@ -6,8 +6,8 @@ var current_mode = null
 
 
 func get_seed() -> String:
-	if seed == null:
-		set_seed(_generate_seed())
+	if seed == null or seed.length() == 0:
+		set_seed(generate_seed())
 	return seed
 
 
@@ -15,7 +15,7 @@ func set_seed(value):
 	seed = value
 
 
-func _generate_seed() -> String:
+func generate_seed() -> String:
 	var number = ""
 	for i in range(0, 8):
 		number += str(randi() % 10)

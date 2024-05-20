@@ -11,7 +11,6 @@ signal card_throw(card: Card)
 @onready var player_card_bag_label = %PlayerCardBagLabel
 @onready var player_template_card_deck_label = %PlayerTemplateCardDeckLabel
 @onready var player_template_card_bag_label = %PlayerTemplateCardBagLabel
-@onready var player_info_ui = %PlayerInfoUI
 @onready var card_hand_root_container = %CardHandRootContainer
 
 
@@ -20,6 +19,7 @@ var battle_scene: BattleScene
 
 const CARDS_PER_HAND_CONTAINER = 5
 const CARD_SCENE = preload("res://battle/cards/card.tscn")
+const PLAYER_INFO_UI = preload("res://players/info/player_info_ui.tscn")
 
 
 func update_player_stats(player: BattlePlayer):
@@ -118,14 +118,9 @@ func update_player_deck_and_bag_ui(player: BattlePlayer):
 
 
 func open_player_info_ui(player_info: PlayerInfo):
-	if player_info_ui.visible: return
-	
-	player_info_ui.visible = true
+	var player_info_ui = PLAYER_INFO_UI.instantiate()
+	add_child(player_info_ui)
 	player_info_ui.init(player_info)
-
-
-func close_player_info_ui():
-	player_info_ui.visible = false
 
 
 func _on_card_toggle_selected(card: Card):

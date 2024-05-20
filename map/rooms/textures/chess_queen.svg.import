@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cprmpsnm1me4k"
-path="res://.godot/imported/circle.png-2154a8c5137677398ead0c48ec02ac65.ctex"
+uid="uid://2pneb3fuxphq"
+path="res://.godot/imported/chess_queen.svg-82ca38969d1faa093022a87e9478e266.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://map/rooms/example/circle.png"
-dest_files=["res://.godot/imported/circle.png-2154a8c5137677398ead0c48ec02ac65.ctex"]
+source_file="res://map/rooms/textures/chess_queen.svg"
+dest_files=["res://.godot/imported/chess_queen.svg-82ca38969d1faa093022a87e9478e266.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

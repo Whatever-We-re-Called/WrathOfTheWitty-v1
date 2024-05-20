@@ -6,27 +6,14 @@ enum State {
 	ENDING
 }
 
-enum Type { 
-	ACTION_CARD,
-	ENHANCEMENT,
-	TEMPLATE_CARD,
-	COSMIC_BLESSING
-}
-
 @export var info: BattleInfo
-@export_group("Players")
-@export var left_player_config: PlayerInfo
-@export var right_player_config: PlayerInfo
-@export_group("Debug")
-@export var debug_template_card_info: TemplateCardInfo
 
 @onready var battle_interface = $CanvasLayer/BattleInterface
 @onready var left_player_node = %LeftPlayerNode
 @onready var right_player_node = %RightPlayerNode
 @onready var canvas_layer = %CanvasLayer
 
-@export var seed: String
-
+var enemy_info: PlayerInfo
 var state: State
 var active_side: Constants.PlayerSide
 var players = {}
@@ -47,8 +34,9 @@ func _ready():
 	state = State.PLAYING
 	active_side = Constants.PlayerSide.LEFT
 	
-	_init_player(Constants.PlayerSide.LEFT, left_player_config.duplicate(), left_player_node)
-	_init_player(Constants.PlayerSide.RIGHT, right_player_config.duplicate(), right_player_node)
+	_init_player(Constants.PlayerSide.LEFT, RunManager.player_info, left_player_node)
+	_decide_enemy()
+	_init_player(Constants.PlayerSide.RIGHT, enemy_info.duplicate(), right_player_node)
 	players[Constants.PlayerSide.LEFT].opponent_battle_player = players[Constants.PlayerSide.RIGHT]
 	players[Constants.PlayerSide.RIGHT].opponent_battle_player = players[Constants.PlayerSide.LEFT]
 	
@@ -63,10 +51,17 @@ func _ready():
 	
 	battle_interface.card_toggle_selected.connect(_on_card_toggle_selected)
 	battle_interface.card_reroll.connect(reroll_card)
-	battle_interface.close_player_info_ui()
+
+
+func _decide_enemy():
+	var rng = RandomNumberGenerator.new()
+	var chosen_enemy_index = rng.randi_range(0, info.enemy_pool.size() - 1)
+	enemy_info = info.enemy_pool[chosen_enemy_index]
 
 
 func _init_player(side: Constants.PlayerSide, player_info: PlayerInfo, parent_node: Node2D):
+	player_info.setup_local_to_scene()
+	
 	var player = BattlePlayer.new()
 	player.init(player_info, side)
 	player.decreased_opponents_max_health.connect(_on_decreased_opponents_max_health)
@@ -75,7 +70,7 @@ func _init_player(side: Constants.PlayerSide, player_info: PlayerInfo, parent_no
 	player.updated_hand.connect(_on_updated_hand)
 	player.drew_card.connect(_on_drew_card)
 	player.removed_card.connect(_on_removed_card)
-	player.died.connect(end_battle)
+	player.died.connect(end_battle.bind(player))
 	parent_node.add_child(player)
 	var sprite_height = player.sprite_frames.get_frame_texture("default", 0).get_height()
 	player.global_position.y -= (sprite_height * player_info.sprite_scale.y) / 2.0
@@ -91,6 +86,9 @@ func _process(delta):
 	if Input.is_action_just_pressed("debug_1"):
 		player.stamina = player.info.stamina_stat
 		battle_interface.update_player_stats(player)
+	if Input.is_action_just_pressed("debug_2"):
+		players[Constants.PlayerSide.LEFT].damage(5)
+		battle_interface.update_player_stats(players[Constants.PlayerSide.LEFT])
 
 
 func _handle_controls_input():
@@ -177,11 +175,11 @@ func play_cards():
 	player.handle_played_selected_cards()
 	if player.active_status_effects.has(Constants.PlayerStatusEffect.DELAY):
 		BattleActionExecution.execute_action_cards(player.selected_cards, self)
-		#BattleAbilityExecution.try_to_execute(active_template_card.template_card_info, player.selected_cards, self)
+		BattleAbilityExecution.try_to_execute(active_template_card.template_card_info, player.selected_cards, self)
 		player.decrement_status_effect(Constants.PlayerStatusEffect.DELAY, 1)
 		battle_interface.update_player_stats(player)
 	else:
-		#BattleAbilityExecution.try_to_execute(active_template_card.template_card_info, player.selected_cards, self)
+		BattleAbilityExecution.try_to_execute(active_template_card.template_card_info, player.selected_cards, self)
 		BattleActionExecution.execute_action_cards(player.selected_cards, self)
 	player.selected_cards.clear()
 	
@@ -266,30 +264,38 @@ func change_turns():
 	)
 
 
-func end_battle():
+func end_battle(loser_player: BattlePlayer):
 	if state == State.ENDING: return
 	
+	var did_player_win = loser_player != players[Constants.PlayerSide.LEFT]
+	
 	state = State.ENDING
-	players[Constants.PlayerSide.LEFT].handle_end_battle()
-	players[Constants.PlayerSide.RIGHT].handle_end_battle()
+	if did_player_win:
+		players[Constants.PlayerSide.LEFT].handle_end_battle()
+		players[Constants.PlayerSide.RIGHT].handle_end_battle()
 	await get_tree().process_frame
 	
 	Delay.cancel_all_delays(self)
 	
-	var blessing_rewards_ui = info.blessing_reward_ui_scene.instantiate()
-	canvas_layer.add_child(blessing_rewards_ui)
-	blessing_rewards_ui.init(left_player_config, info.blessing_reward_options_count, info.blessing_reward_choices_count, info.blessing_reward_cosmic_chance)
-	await blessing_rewards_ui.finished
-	blessing_rewards_ui.queue_free()
-	
-	if info.has_extra_reward:
-		var extra_reward_ui = info.extra_reward_ui_scene.instantiate()
-		canvas_layer.add_child(extra_reward_ui)
-		extra_reward_ui.init(left_player_config, info.extra_reward_options_count, info.extra_reward_choices_count)
-		await extra_reward_ui.finished
-		extra_reward_ui.queue_free()
-	
-	MapManager.swap_to_map_scene()
+	if not did_player_win:
+		RunManager.end_run()
+	else:
+		if info.has_blessing_reward:
+			var blessing_rewards_ui = info.blessing_reward_ui_scene.instantiate()
+			canvas_layer.add_child(blessing_rewards_ui)
+			blessing_rewards_ui.init(RunManager.player_info, info.blessing_reward_options_count, info.blessing_reward_choices_count, info.blessing_reward_cosmic_chance)
+			await blessing_rewards_ui.finished
+			blessing_rewards_ui.queue_free()
+		
+		if info.has_extra_reward:
+			var extra_reward_ui = info.extra_reward_ui_scene.instantiate()
+			canvas_layer.add_child(extra_reward_ui)
+			extra_reward_ui.init(RunManager.player_info, info.extra_reward_options_count, info.extra_reward_choices_count)
+			await extra_reward_ui.finished
+			extra_reward_ui.queue_free()
+		
+		RunManager.update_player_info(players[Constants.PlayerSide.LEFT])
+		MapManager.swap_to_map_scene()
 
 
 func get_non_active_side_player():

@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsp1sp8onn48s"]
+
+[ext_resource type="Script" path="res://battle/scenes/battle_scene.gd" id="1_bmhhe"]
+[ext_resource type="PackedScene" uid="uid://cbocnnnw4vt17" path="res://ui/battle_interface.tscn" id="5_c64h4"]
+
+[node name="BattleScene" type="Node2D"]
+script = ExtResource("1_bmhhe")
+
+[node name="Background" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.294118, 0.294118, 0.294118, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="BattleInterface" parent="CanvasLayer" instance=ExtResource("5_c64h4")]
+metadata/_edit_use_anchors_ = true
+
+[node name="LeftPlayerNode" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(200, 800)
+
+[node name="RightPlayerNode" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1720, 800)
