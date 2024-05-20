@@ -9,10 +9,7 @@ const LAST_FLOOR: int = 6
 
 func start_run(player_info: PlayerInfo, seed: String):
 	self.player_info = player_info.duplicate(true)
-	if seed.length() == 0:
-		SeededGenerator.set_seed(SeededGenerator.generate_seed())
-	else:
-		SeededGenerator.set_seed(seed)
+	SeededGenerator.set_seed(seed)
 	self.floor = 1
 	
 	MapManager.swap_to_map_scene()

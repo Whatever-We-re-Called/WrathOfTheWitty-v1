@@ -6,7 +6,7 @@ var current_mode = null
 
 
 func get_seed() -> String:
-	if seed == null:
+	if seed == null or seed.length() == 0:
 		set_seed(generate_seed())
 	return seed
 
