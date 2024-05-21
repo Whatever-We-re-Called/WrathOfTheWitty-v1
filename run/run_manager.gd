@@ -20,6 +20,7 @@ const LAST_FLOOR: int = 6
 
 func start_run(player_info: PlayerInfo, seed: String):
 	self.player_info = player_info.duplicate(true)
+	print(seed)
 	SeededGenerator.set_seed(seed)
 	self.floor = 1
 	

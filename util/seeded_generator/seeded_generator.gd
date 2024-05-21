@@ -1,14 +1,16 @@
 extends Node
 
-var seed: String
+var seed: String:
+	get:
+		if _seed == null or _seed.length() == 0:
+			set_seed(generate_seed())
+		return _seed
+	set(value):
+		_seed = value
 var modes = {} # This needs to be persistent
 var current_mode = null
 
-
-func get_seed() -> String:
-	if seed == null or seed.length() == 0:
-		set_seed(generate_seed())
-	return seed
+var _seed: String
 
 
 func set_seed(value):
