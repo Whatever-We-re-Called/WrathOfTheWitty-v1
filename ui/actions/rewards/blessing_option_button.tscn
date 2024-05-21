@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://jesl71pqe2le"]
 
-[ext_resource type="Texture2D" uid="uid://b4ixs3g5v12s1" path="res://ui/misc_textures/sword.svg" id="1_dbngs"]
-[ext_resource type="Script" path="res://ui/actions/rewards/blessing_option_button.gd" id="2_hke2c"]
+[ext_resource type="Texture2D" uid="uid://b4ixs3g5v12s1" path="res://ui/misc_textures/sword.svg" id="1_wtah4"]
+[ext_resource type="Script" path="res://ui/actions/rewards/blessing_option_button.gd" id="2_4pwsx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_35yps"]
 bg_color = Color(0.294118, 0.294118, 0.294118, 1)
@@ -31,7 +31,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_35yps")
 theme_override_styles/hover = SubResource("StyleBoxFlat_6j7b2")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ljn5u")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_ljn5u")
-icon = ExtResource("1_dbngs")
+icon = ExtResource("1_wtah4")
 clip_text = true
 icon_alignment = 1
-script = ExtResource("2_hke2c")
+script = ExtResource("2_4pwsx")

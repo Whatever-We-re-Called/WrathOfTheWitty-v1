@@ -7,5 +7,5 @@
 [resource]
 script = ExtResource("2_uwt04")
 icon = ExtResource("1_1nckf")
-color = Color(1, 0.509804, 0.0313726, 1)
+color = Color(0.054902, 0.580392, 0.921569, 1)
 target_scene = ExtResource("3_8abhj")

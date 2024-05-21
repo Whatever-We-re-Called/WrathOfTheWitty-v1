@@ -47,6 +47,13 @@ func add_template_card(equipped_template_card: EquippedTemplateCard):
 	equipped_template_cards.append(equipped_template_card)
 
 
+func remove_template_card(equipped_template_card: EquippedTemplateCard):
+	for i in range(equipped_template_cards.size()):
+		if equipped_template_card == equipped_template_cards[i]:
+			equipped_template_cards.remove_at(i)
+			break
+
+
 func upgrade_template_card(equipped_template_card: EquippedTemplateCard):
 	for e in equipped_template_cards:
 		if e == equipped_template_card:
@@ -59,6 +66,14 @@ func add_blessing(blessing_type: Blessings.Type):
 	equipped_blessing.type = blessing_type
 	equipped_blessing.init(self)
 	equipped_blessings.append(equipped_blessing)
+
+
+func remove_blessing(equipped_blessing: EquippedBlessing):
+	for i in range(equipped_blessings.size()):
+		if equipped_blessing == equipped_blessings[i]:
+			equipped_blessing.blessing.unequipped.emit()
+			equipped_blessings.remove_at(i)
+			break
 
 
 func heal(amount: int):

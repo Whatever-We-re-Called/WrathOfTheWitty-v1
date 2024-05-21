@@ -9,7 +9,7 @@ var choices_count: int
 var cosmic_chance: float
 var options: Array[Blessing]
 
-const COSMIC_BLESSING_CHANCE = 0.05
+const COSMIC_BLESSING_CHANCE = 0.5
 const NORMAL_BLESSINGS_LOOT_TABLE = preload("res://blessings/normal_blessings_loot_table.tres")
 const COSMIC_BLESSINGS_LOOT_TABLE = preload("res://blessings/cosmic_blessings_loot_table.tres")
 const BLESSING_OPTION_BUTTON = preload("res://ui/actions/rewards/blessing_option_button.tscn")

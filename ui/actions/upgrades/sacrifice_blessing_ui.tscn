@@ -1,0 +1,117 @@
+[gd_scene load_steps=6 format=3 uid="uid://clwupeghyp4ty"]
+
+[ext_resource type="Script" path="res://ui/actions/upgrades/sacrifice_blessing_ui.gd" id="1_ah65w"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3yeke"]
+font_size = 64
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkeaw"]
+bg_color = Color(0.294118, 0.294118, 0.294118, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qli78"]
+bg_color = Color(0.392157, 0.392157, 0.392157, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afnxo"]
+bg_color = Color(0.490196, 0.490196, 0.490196, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="UpgradeBlessingUI" type="Control"]
+z_index = 100
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ah65w")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 2
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0.882353)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1600, 900)
+layout_mode = 2
+offset_left = 160.0
+offset_top = 90.0
+offset_right = 1760.0
+offset_bottom = 990.0
+color = Color(0.196078, 0.196078, 0.196078, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -696.0
+offset_top = -356.0
+offset_right = 696.0
+offset_bottom = 356.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Choose a Blessing to Sacrifice"
+label_settings = SubResource("LabelSettings_3yeke")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(1392, 512)
+layout_mode = 2
+size_flags_vertical = 0
+horizontal_scroll_mode = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="BlessingsContainer" type="GridContainer" parent="VBoxContainer/ScrollContainer/CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 32
+theme_override_constants/v_separation = 32
+columns = 11
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/ScrollContainer/CenterContainer/BlessingsContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="SkipButton" type="Button" parent="VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 80)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_qkeaw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_qli78")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_afnxo")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_afnxo")
+text = "Skip"
+
+[connection signal="pressed" from="VBoxContainer/MarginContainer/SkipButton" to="." method="_on_skip_button_pressed"]

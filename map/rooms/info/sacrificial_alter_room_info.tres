@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RoomInfo" load_steps=4 format=3 uid="uid://baofscyakf13d"]
+
+[ext_resource type="Texture2D" uid="uid://dbutnhep0cpr8" path="res://map/rooms/textures/resource_lumber.svg" id="1_lpq3g"]
+[ext_resource type="Script" path="res://map/rooms/info/room_info.gd" id="2_fvkds"]
+[ext_resource type="PackedScene" uid="uid://pxf3xwqjnqm2" path="res://run/rooms/sacrificial_alter_room/sacrificial_alter_scene.tscn" id="3_4ecut"]
+
+[resource]
+script = ExtResource("2_fvkds")
+icon = ExtResource("1_lpq3g")
+color = Color(0.054902, 0.580392, 0.921569, 1)
+target_scene = ExtResource("3_4ecut")

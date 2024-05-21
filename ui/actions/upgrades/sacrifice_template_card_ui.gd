@@ -6,7 +6,7 @@ var player_info: PlayerInfo
 var options: Array[EquippedTemplateCard]
 
 const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.tscn")
-
+const CARD_SCENE = preload("res://battle/cards/card.tscn")
 
 func init(player_info: PlayerInfo):
 	self.player_info = player_info
@@ -35,9 +35,18 @@ func _update_options_visuals():
 
 
 func _select_option(index: int):
-	player_info.upgrade_template_card(options[index])
+	player_info.remove_template_card(options[index])
 	
-	options.remove_at(index)
+	var rng = RandomNumberGenerator.new()
+	for insecurity in options[index].template_card_info.insecurities:
+		var card_info = CardInfo.new()
+		card_info.insecurity = insecurity
+		card_info.enhancement = Constants.CardEnhancement.NONE
+		card_info.insult_text = "placeholder"
+		card_info.attack_value = rng.randi_range(3, 4)
+		
+		player_info.add_card(card_info)
+	
 	finished.emit()
 
 
