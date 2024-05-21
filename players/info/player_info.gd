@@ -47,11 +47,25 @@ func add_template_card(equipped_template_card: EquippedTemplateCard):
 	equipped_template_cards.append(equipped_template_card)
 
 
+func upgrade_template_card(equipped_template_card: EquippedTemplateCard):
+	for e in equipped_template_cards:
+		if e == equipped_template_card:
+			e.is_upgraded = true
+			e.template_card_info.is_upgraded = true
+
+
 func add_blessing(blessing_type: Blessings.Type):
 	var equipped_blessing = EquippedBlessing.new()
 	equipped_blessing.type = blessing_type
 	equipped_blessing.init(self)
 	equipped_blessings.append(equipped_blessing)
+
+
+func heal(amount: int):
+	if current_health < 0: return
+	
+	current_health += amount
+	current_health = clamp(current_health, 0, health_stat)
 
 
 func init_unhandled_equipped_template_cards():

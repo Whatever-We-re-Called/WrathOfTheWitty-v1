@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://t1gl8ij0f2jb"]
+[gd_scene load_steps=8 format=3 uid="uid://dujmspkqufibj"]
 
-[ext_resource type="Script" path="res://ui/rewards/blessing_reward_ui.gd" id="1_x43gu"]
-[ext_resource type="PackedScene" uid="uid://jesl71pqe2le" path="res://ui/rewards/blessing_option_button.tscn" id="2_jlu7j"]
+[ext_resource type="Script" path="res://ui/actions/rewards/enhancement_reward_ui.gd" id="1_7hxek"]
+[ext_resource type="PackedScene" uid="uid://chvb2mbslxqjm" path="res://ui/actions/rewards/enhancement_option_button.tscn" id="2_2y0i4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ir2l3"]
 font_size = 64
@@ -9,21 +9,21 @@ font_size = 64
 [sub_resource type="LabelSettings" id="LabelSettings_86hyu"]
 font_size = 32
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_35yps"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plgvj"]
 bg_color = Color(0.294118, 0.294118, 0.294118, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6j7b2"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5umrp"]
 bg_color = Color(0.392157, 0.392157, 0.392157, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ljn5u"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0d7o8"]
 bg_color = Color(0.490196, 0.490196, 0.490196, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
@@ -38,7 +38,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_x43gu")
+script = ExtResource("1_7hxek")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -73,7 +73,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Blessing Reward"
+text = "Enhancement Reward"
 label_settings = SubResource("LabelSettings_ir2l3")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -102,14 +102,14 @@ vertical_alignment = 1
 layout_mode = 2
 alignment = 1
 
-[node name="BlessingOptionsContainer" type="GridContainer" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+[node name="EnhancementOptionsContainer" type="GridContainer" parent="CenterContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 columns = 5
 
-[node name="BlessingOptionButton" parent="CenterContainer/VBoxContainer/HBoxContainer/BlessingOptionsContainer" instance=ExtResource("2_jlu7j")]
+[node name="EnhancementOptionButton" parent="CenterContainer/VBoxContainer/HBoxContainer/EnhancementOptionsContainer" instance=ExtResource("2_2y0i4")]
 layout_mode = 2
 
 [node name="MarginContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
@@ -123,10 +123,10 @@ layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_35yps")
-theme_override_styles/hover = SubResource("StyleBoxFlat_6j7b2")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ljn5u")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_ljn5u")
+theme_override_styles/normal = SubResource("StyleBoxFlat_plgvj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5umrp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0d7o8")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_0d7o8")
 text = "Skip"
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/MarginContainer/SkipButton" to="." method="_on_skip_button_pressed"]

@@ -1,4 +1,4 @@
-extends RewardUI
+extends ActionUI
 
 @onready var choices_remaining_label = %ChoicesRemainingLabel
 @onready var blessing_options_container = %BlessingOptionsContainer
@@ -12,7 +12,7 @@ var options: Array[Blessing]
 const COSMIC_BLESSING_CHANCE = 0.05
 const NORMAL_BLESSINGS_LOOT_TABLE = preload("res://blessings/normal_blessings_loot_table.tres")
 const COSMIC_BLESSINGS_LOOT_TABLE = preload("res://blessings/cosmic_blessings_loot_table.tres")
-const BLESSING_OPTION_BUTTON = preload("res://ui/rewards/blessing_option_button.tscn")
+const BLESSING_OPTION_BUTTON = preload("res://ui/actions/rewards/blessing_option_button.tscn")
 
 
 func init(player_info: PlayerInfo, options_count: int, choices_count: int, cosmic_chance: float):

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BattleInfo" load_steps=5 format=3 uid="uid://h7qy4sg3vlhb"]
 
-[ext_resource type="PackedScene" uid="uid://t1gl8ij0f2jb" path="res://ui/rewards/blessing_reward_ui.tscn" id="1_6e0sx"]
-[ext_resource type="PackedScene" uid="uid://g5brpkpkfvq4" path="res://ui/rewards/template_card_reward_ui.tscn" id="1_76p2d"]
+[ext_resource type="PackedScene" uid="uid://t1gl8ij0f2jb" path="res://ui/actions/rewards/blessing_reward_ui.tscn" id="1_6e0sx"]
+[ext_resource type="PackedScene" uid="uid://g5brpkpkfvq4" path="res://ui/actions/rewards/template_card_reward_ui.tscn" id="1_76p2d"]
 [ext_resource type="Resource" uid="uid://cq1umtd7jq3dm" path="res://players/info/players/colon_d_info.tres" id="2_mx2wv"]
 [ext_resource type="Script" path="res://battle/info/battle_info.gd" id="2_u75vw"]
 

@@ -1,4 +1,4 @@
-extends RewardUI
+extends ActionUI
 
 @onready var choices_remaining_label = %ChoicesRemainingLabel
 @onready var card_options_container = %CardOptionsContainer

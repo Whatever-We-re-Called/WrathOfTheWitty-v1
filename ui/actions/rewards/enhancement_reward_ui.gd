@@ -1,4 +1,4 @@
-extends RewardUI
+extends ActionUI
 
 @onready var choices_remaining_label = %ChoicesRemainingLabel
 @onready var enhancement_options_container = %EnhancementOptionsContainer
@@ -8,8 +8,8 @@ var options_count: int
 var choices_count: int
 var options: Array[Constants.CardEnhancement]
 
-const ENHANCEMENT_OPTION_BUTTON = preload("res://ui/rewards/enhancement_option_button.tscn")
-const APPLY_ENHANCEMENT_UI = preload("res://ui/apply_enhancement_ui.tscn")
+const ENHANCEMENT_OPTION_BUTTON = preload("res://ui/actions/rewards/enhancement_option_button.tscn")
+const APPLY_ENHANCEMENT_UI = preload("res://ui/actions/upgrades/apply_enhancement_ui.tscn")
 
 
 func init(player_info: PlayerInfo, options_count: int, choices_count: int):

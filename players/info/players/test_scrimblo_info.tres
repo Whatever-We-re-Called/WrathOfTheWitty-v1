@@ -131,25 +131,25 @@ insecurity_overrides = Array[int]([])
 [sub_resource type="Resource" id="Resource_fac1c"]
 script = ExtResource("3_xbpv5")
 template_card_info = ExtResource("3_i2xvw")
-is_upgraded = true
+is_upgraded = false
 insecurity_overrides = Array[int]([])
 
 [sub_resource type="Resource" id="Resource_ejtgv"]
 script = ExtResource("3_xbpv5")
 template_card_info = ExtResource("3_7nkgu")
-is_upgraded = true
+is_upgraded = false
 insecurity_overrides = Array[int]([])
 
 [sub_resource type="Resource" id="Resource_xj1vw"]
 script = ExtResource("3_xbpv5")
 template_card_info = ExtResource("4_asbgl")
-is_upgraded = true
+is_upgraded = false
 insecurity_overrides = Array[int]([])
 
 [sub_resource type="Resource" id="Resource_cpd7l"]
 script = ExtResource("3_xbpv5")
 template_card_info = ExtResource("6_005um")
-is_upgraded = true
+is_upgraded = false
 insecurity_overrides = Array[int]([])
 
 [sub_resource type="Resource" id="Resource_1td4l"]
