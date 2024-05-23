@@ -36,6 +36,8 @@ var current_player_instance = null
 var current_health: int = -1
 var attack_buffs: Dictionary
 
+const MIN_DIVIDEND_VALUE = 5
+
 
 func add_card(card_info: CardInfo):
 	if attack_buffs.has(card_info.insecurity):
@@ -172,3 +174,31 @@ func get_blessing_count(include_normal: bool, include_cosmic: bool):
 		elif equipped_blessing.blessing.is_cosmic and include_cosmic:
 			result += 1
 	return result
+
+
+func increment_effect_dividend_stat(insecurity: Constants.Insecurity, increment_value: int):
+	match insecurity:
+		Constants.Insecurity.APPEARANCE:
+			hide_dividend_stat += increment_value
+		Constants.Insecurity.SELF_ESTEEM:
+			slime_dividend_stat += increment_value
+		Constants.Insecurity.INTELLIGENCE:
+			poison_dividend_stat += increment_value
+		Constants.Insecurity.PHYSICAL_ABILITY:
+			burn_dividend_stat += increment_value
+		Constants.Insecurity.SOCIAL_LIFE:
+			freeze_dividend_stat += increment_value
+
+
+func get_effect_dividend_stat(insecurity: Constants.Insecurity):
+	match insecurity:
+		Constants.Insecurity.APPEARANCE:
+			return hide_dividend_stat
+		Constants.Insecurity.SELF_ESTEEM:
+			return slime_dividend_stat
+		Constants.Insecurity.INTELLIGENCE:
+			return poison_dividend_stat
+		Constants.Insecurity.PHYSICAL_ABILITY:
+			return burn_dividend_stat
+		Constants.Insecurity.SOCIAL_LIFE:
+			return freeze_dividend_stat

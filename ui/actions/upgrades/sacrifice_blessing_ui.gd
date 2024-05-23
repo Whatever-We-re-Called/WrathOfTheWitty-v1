@@ -71,7 +71,7 @@ func _on_blessing_gui_input(event: InputEvent, index: int):
 
 
 func _select_option(index: int):
-	player_info.remove_blessing(player_info.equipped_blessings[index])
+	player_info.remove_blessing(options[index])
 	
 	finished.emit()
 

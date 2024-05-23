@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RoomInfo" load_steps=4 format=3 uid="uid://bnqlrsfppftbk"]
+
+[ext_resource type="Texture2D" uid="uid://cvwf683ip7vn3" path="res://map/rooms/textures/pawn.svg" id="1_8qsyk"]
+[ext_resource type="Script" path="res://map/rooms/info/room_info.gd" id="2_rsxba"]
+[ext_resource type="PackedScene" uid="uid://b22eqrdhebk1w" path="res://run/rooms/cloaked_dude_room/cloaked_dude_scene.tscn" id="3_ga1fp"]
+
+[resource]
+script = ExtResource("2_rsxba")
+icon = ExtResource("1_8qsyk")
+color = Color(0.203922, 0.698039, 0.313726, 1)
+target_scene = ExtResource("3_ga1fp")
