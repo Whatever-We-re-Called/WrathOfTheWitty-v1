@@ -112,6 +112,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_qkeaw")
 theme_override_styles/hover = SubResource("StyleBoxFlat_qli78")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_afnxo")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_afnxo")
-text = "Skip"
+text = "Back"
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer/SkipButton" to="." method="_on_skip_button_pressed"]

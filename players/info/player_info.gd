@@ -162,3 +162,13 @@ func get_insecurity_affinities() -> Dictionary:
 		result[insecurity] = Constants.InsecurityAffinityType.REPEL
 	
 	return result
+
+
+func get_blessing_count(include_normal: bool, include_cosmic: bool):
+	var result = 0
+	for equipped_blessing in equipped_blessings:
+		if not equipped_blessing.blessing.is_cosmic and include_normal:
+			result += 1
+		elif equipped_blessing.blessing.is_cosmic and include_cosmic:
+			result += 1
+	return result

@@ -12,6 +12,14 @@ enum Insecurity {
 	SOCIAL_LIFE
 }
 
+const insecurity_strings = {
+	Constants.Insecurity.APPEARANCE: "Appearance",
+	Constants.Insecurity.SELF_ESTEEM: "Self-esteem",
+	Constants.Insecurity.INTELLIGENCE: "Intelligence",
+	Constants.Insecurity.PHYSICAL_ABILITY: "Physical Ability",
+	Constants.Insecurity.SOCIAL_LIFE: "Social Life"
+}
+
 enum CardEnhancement {
 	NONE,
 	REFRESHING,

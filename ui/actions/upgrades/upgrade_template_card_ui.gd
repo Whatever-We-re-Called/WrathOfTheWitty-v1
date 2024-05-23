@@ -42,4 +42,4 @@ func _select_option(index: int):
 
 
 func _on_skip_button_pressed():
-	finished.emit()
+	finished.emit(true)

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RoomInfo" load_steps=4 format=3 uid="uid://dno7jar2fblk6"]
+
+[ext_resource type="Texture2D" uid="uid://b3punqcggd05y" path="res://map/rooms/textures/book_closed.svg" id="1_v16nr"]
+[ext_resource type="Script" path="res://map/rooms/info/room_info.gd" id="2_y6x8n"]
+[ext_resource type="PackedScene" uid="uid://b0o1mbh4spdht" path="res://run/rooms/wizard_room/wizard_scene.tscn" id="3_uyt1o"]
+
+[resource]
+script = ExtResource("2_y6x8n")
+icon = ExtResource("1_v16nr")
+color = Color(0.203922, 0.698039, 0.313726, 1)
+target_scene = ExtResource("3_uyt1o")

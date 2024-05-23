@@ -9,7 +9,7 @@ var choices_count: int
 var options: Array[EquippedTemplateCard]
 
 const ENHANCEMENT_CHANCE = 0.25
-const TEMPLATE_CARD_LOOT_TABLE = preload("res://ui/actions/rewards/template_card_loot_table.tres")
+const TEMPLATE_CARD_LOOT_TABLE = preload("res://ui/actions/template_card_loot_table.tres")
 const TEMPLATE_CARD_SCENE = preload("res://battle/template_cards/template_card.tscn")
 
 

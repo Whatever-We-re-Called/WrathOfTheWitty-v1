@@ -3,7 +3,10 @@ extends Node
 var player_info: PlayerInfo:
 	get:
 		if player_info == null:
-			return TEST_PLAYER_SCENE
+			_current_player_info = TEST_PLAYER_SCENE
+			_current_player_info.init_unhandled_equipped_blessings()
+			_current_player_info.init_unhandled_equipped_template_cards()
+			return _current_player_info
 		else:
 			return _current_player_info
 	set(value):

@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://m5m5xl5jlavj"]
+[gd_scene load_steps=6 format=3 uid="uid://c5brdunxj4emg"]
 
-[ext_resource type="Script" path="res://ui/actions/upgrades/apply_enhancement_ui.gd" id="1_wo3pb"]
+[ext_resource type="Script" path="res://ui/actions/upgrades/change_insecurity_ui.gd" id="1_vuc2m"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_3yeke"]
 font_size = 64
@@ -26,7 +26,7 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="ApplyEnhancementUI" type="Control"]
+[node name="ChangeInsecurityUI" type="Control"]
 z_index = 100
 layout_mode = 3
 anchors_preset = 15
@@ -34,7 +34,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_wo3pb")
+script = ExtResource("1_vuc2m")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(1920, 1080)
@@ -69,26 +69,20 @@ theme_override_constants/separation = 32
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 0
 alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "Apply "
+text = "Change Insecurity to "
 label_settings = SubResource("LabelSettings_3yeke")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ApplyEnhancementLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="ChangeInsecurityLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "<Enhancement>"
-label_settings = SubResource("LabelSettings_3yeke")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = " Enhancement"
+text = "Appearance"
 label_settings = SubResource("LabelSettings_3yeke")
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -163,3 +163,4 @@ horizontal_alignment = 2
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/HealButton" to="." method="_on_heal_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/MarginContainer/SkipButton" to="." method="_on_skip_button_pressed"]

@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://pxf3xwqjnqm2"]
+[gd_scene load_steps=7 format=3 uid="uid://b0o1mbh4spdht"]
 
-[ext_resource type="Script" path="res://run/rooms/sacrificial_alter_room/sacrificial_alter_scene.gd" id="1_udv7t"]
+[ext_resource type="Script" path="res://run/rooms/wizard_room/wizard_scene.gd" id="1_reb71"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uawgd"]
 font_size = 64
@@ -23,7 +23,7 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_61mx3"]
-bg_color = Color(0.490196, 0.490196, 0.490196, 1)
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -36,7 +36,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_udv7t")
+script = ExtResource("1_reb71")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -71,14 +71,14 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Sacrificial Alter"
+text = "Wizard"
 label_settings = SubResource("LabelSettings_uawgd")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "What would you like to sacrifice?"
+text = "Do you want to strengthen an Action Card?"
 label_settings = SubResource("LabelSettings_qmrks")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -88,31 +88,18 @@ layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="CosmicBlessingButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+[node name="SacrificeNormalBlessingButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(320, 80)
+custom_minimum_size = Vector2(480, 80)
 layout_mode = 2
 focus_mode = 0
-theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.392157, 0.392157, 0.392157, 1)
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_14ti0")
 theme_override_styles/hover = SubResource("StyleBoxFlat_1a6qo")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_61mx3")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_61mx3")
-text = "Cosmic Blessing"
-
-[node name="TemplateCardButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(320, 80)
-layout_mode = 2
-focus_mode = 0
-theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_14ti0")
-theme_override_styles/hover = SubResource("StyleBoxFlat_1a6qo")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_61mx3")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_61mx3")
-text = "Template Card"
+text = "Sacrifice Normal Blessing"
 
 [node name="MarginContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
@@ -159,6 +146,5 @@ theme_override_font_sizes/font_size = 18
 text = "Shift: View Your Info"
 horizontal_alignment = 2
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/CosmicBlessingButton" to="." method="_on_cosmic_blessing_button_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/TemplateCardButton" to="." method="_on_template_card_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/SacrificeNormalBlessingButton" to="." method="_on_sacrifice_normal_blessing_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/MarginContainer/SkipButton" to="." method="_on_skip_button_pressed"]

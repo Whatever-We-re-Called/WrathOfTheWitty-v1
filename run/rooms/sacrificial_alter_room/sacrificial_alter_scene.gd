@@ -11,11 +11,13 @@ func _on_cosmic_blessing_button_pressed():
 	get_parent().add_child(sacrifice_blessing_ui)
 	sacrifice_blessing_ui.init(player_info, false, true)
 	self.visible = false
-	await sacrifice_blessing_ui.finished
+	var went_back = await sacrifice_blessing_ui.finished
 	
-	self.visible = true
 	sacrifice_blessing_ui.queue_free()
-	leave_room()
+	if not went_back:
+		leave_room()
+	else:
+		self.visible = true
 
 
 func _on_template_card_button_pressed():
@@ -23,8 +25,14 @@ func _on_template_card_button_pressed():
 	get_parent().add_child(sacrifice_template_card_ui)
 	sacrifice_template_card_ui.init(player_info)
 	self.visible = false
-	await sacrifice_template_card_ui.finished
+	var went_back = await sacrifice_template_card_ui.finished
 	
-	self.visible = true
 	sacrifice_template_card_ui.queue_free()
+	if not went_back:
+		leave_room()
+	else:
+		self.visible = true
+
+
+func _on_skip_button_pressed():
 	leave_room()

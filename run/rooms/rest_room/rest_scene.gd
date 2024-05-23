@@ -12,21 +12,11 @@ const UPGRADE_TEMPLATE_CARD_UI = preload("res://ui/actions/upgrades/upgrade_temp
 
 func _setup():
 	_init_heal_option()
-	_init_upgrade_option()
 
 
 func _init_heal_option():
 	heal_amount = int(floor(float(player_info.health_stat) * HEAL_PERCENTAGE_OF_MAX_HEALTH))
 	heal_button.text = "Heal (+" + str(heal_amount) + " HP)"
-
-
-func _init_upgrade_option():
-	var can_upgrade = false
-	for equipped_template_card in player_info.equipped_template_cards:
-		if not equipped_template_card.is_upgraded:
-			can_upgrade = true
-			break
-	upgrade_button.visible = can_upgrade
 
 
 func _on_heal_button_pressed():
@@ -39,8 +29,14 @@ func _on_upgrade_button_pressed():
 	get_parent().add_child(upgrade_template_card_ui)
 	upgrade_template_card_ui.init(player_info)
 	self.visible = false
-	await upgrade_template_card_ui.finished
+	var went_back = await upgrade_template_card_ui.finished
 	
-	self.visible = true
 	upgrade_template_card_ui.queue_free()
+	if not went_back:
+		leave_room()
+	else:
+		self.visible = true
+
+
+func _on_skip_button_pressed():
 	leave_room()
