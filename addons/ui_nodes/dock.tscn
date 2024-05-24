@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://lgf0xleyksev"]
+
+[ext_resource type="Script" path="res://addons/ui_nodes/tree.gd" id="1_ekq5x"]
+[ext_resource type="Resource" uid="uid://c652i0vkm5xvd" path="res://addons/ui_nodes/ui_element.tres" id="2_otkl5"]
+
+[node name="UI Nodes" type="PanelContainer"]
+script = ExtResource("1_ekq5x")
+root = ExtResource("2_otkl5")
+
+[connection signal="gui_input" from="." to="." method="_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

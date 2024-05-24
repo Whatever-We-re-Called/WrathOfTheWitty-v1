@@ -1,0 +1,84 @@
+[gd_scene load_steps=10 format=3 uid="uid://ee6s01idne7u"]
+
+[ext_resource type="Texture2D" uid="uid://dhwsa635orvuk" path="res://map/rooms/textures/rhombus.svg" id="1_mq6nl"]
+[ext_resource type="Script" path="res://ui/framework/actions/on_ready.gd" id="2_n3sfs"]
+[ext_resource type="Script" path="res://ui/framework/executors/wait.gd" id="3_n2swe"]
+[ext_resource type="Script" path="res://ui/framework/executors/scale.gd" id="3_saqje"]
+[ext_resource type="Script" path="res://ui/framework/executors/translate.gd" id="5_8ckja"]
+[ext_resource type="Script" path="res://ui/framework/executors/opacity.gd" id="6_5mpy6"]
+[ext_resource type="Script" path="res://ui/framework/actions/grouping/ui_group.gd" id="6_d4ijp"]
+[ext_resource type="Script" path="res://ui/framework/executors/rotation.gd" id="7_dcnwa"]
+[ext_resource type="Script" path="res://ui/framework/executors/color.gd" id="8_r7gil"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Rhombus3" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 0, 1)
+position = Vector2(-272, -6)
+texture = ExtResource("1_mq6nl")
+
+[node name="OnReady" type="Node2D" parent="Rhombus3"]
+script = ExtResource("2_n3sfs")
+
+[node name="Wait" type="Node2D" parent="Rhombus3/OnReady"]
+script = ExtResource("3_n2swe")
+delay = 3.0
+
+[node name="Rhombus" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 0.313726, 1)
+position = Vector2(-136, -3)
+texture = ExtResource("1_mq6nl")
+
+[node name="OnReady" type="Node2D" parent="Rhombus"]
+script = ExtResource("2_n3sfs")
+
+[node name="Wait" type="Node2D" parent="Rhombus/OnReady"]
+script = ExtResource("3_n2swe")
+delay = 3.0
+
+[node name="ColorChange" type="Node2D" parent="Rhombus/OnReady"]
+position = Vector2(247, 1)
+script = ExtResource("8_r7gil")
+target = Color(1, 0, 0, 1)
+seconds = 3.0
+
+[node name="Rotation" type="Node2D" parent="Rhombus/OnReady"]
+script = ExtResource("7_dcnwa")
+
+[node name="Rhombus2" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 0.384314, 1)
+position = Vector2(111, -2)
+texture = ExtResource("1_mq6nl")
+
+[node name="OnReady" type="Node2D" parent="Rhombus2"]
+script = ExtResource("2_n3sfs")
+
+[node name="Group" type="Node2D" parent="Rhombus2/OnReady"]
+script = ExtResource("6_d4ijp")
+
+[node name="ColorChange" type="Node2D" parent="Rhombus2/OnReady/Group"]
+position = Vector2(-136, -3)
+script = ExtResource("8_r7gil")
+target = Color(1, 0, 0, 1)
+seconds = 2.0
+
+[node name="Scale" type="Node2D" parent="Rhombus2/OnReady/Group"]
+script = ExtResource("3_saqje")
+percentage = 300.0
+seconds = 2.0
+
+[node name="Translate" type="Node2D" parent="Rhombus2/OnReady/Group"]
+script = ExtResource("5_8ckja")
+target = Vector2(200, 200)
+seconds = 2.0
+
+[node name="Opacity" type="Node2D" parent="Rhombus2/OnReady/Group"]
+script = ExtResource("6_5mpy6")
+seconds = 2.0
+
+[node name="Rotation" type="Node2D" parent="Rhombus2/OnReady/Group"]
+script = ExtResource("7_dcnwa")
+target = 720
+seconds = 2.0
