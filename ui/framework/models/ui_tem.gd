@@ -8,8 +8,8 @@ var shown = false
 
 
 func _ready():
-	if not self.visible:
-		return
+	if self.visible:
+		show()
 		
 	for child in get_children():
 		if child is Button:
