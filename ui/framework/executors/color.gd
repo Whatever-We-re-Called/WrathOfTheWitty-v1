@@ -7,17 +7,33 @@ class_name ColorChange
 
 
 var origin
+var original_origin
+var next_origin
 var final
 
-func execute_interpolation(time, style):
-	if time == 0:
-		var init = parent().modulate
-		origin = Vector3(init.r, init.g, init.b)
-		final = Vector3(target.r, target.g, target.b)
-		if mode == Mode.HSV:
-			origin = rgb_to_hsv(origin)
-			final = rgb_to_hsv(final)
+
+func get_target():
+	return target
+
+
+func setup():
+	var init = parent().modulate
+	if next_origin == null:
+		original_origin = Vector3(init.r, init.g, init.b)
 		
+	if next_origin != null:
+		origin = next_origin
+		next_origin = null
+	else:
+		origin = original_origin
+		
+	final = Vector3(target.r, target.g, target.b)
+	if mode == Mode.HSV:
+		origin = rgb_to_hsv(origin)
+		final = rgb_to_hsv(final)
+
+
+func execute_interpolation(time, style):
 	var current = interpolate(origin, final, time, style)
 	if mode == Mode.HSV:
 		current = hsv_to_rgb(current)

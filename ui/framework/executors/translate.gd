@@ -3,14 +3,25 @@ class_name Translate
 
 
 @export var target: Vector2
-@export var relative = true
 
 var origin
-var final
+var original_origin
+var next_origin
+
+
+func get_target():
+	return target
+
+
+func setup():
+	if next_origin == null:
+		original_origin = parent().position
+	if next_origin != null:
+		origin = next_origin
+		next_origin = null
+	else:
+		origin = original_origin
+
 
 func execute_interpolation(time, style):
-	if time == 0:
-		origin = parent().position
-		final = parent().position + target if relative else target
-		
-	parent().position = interpolate(origin, final, time, style)
+	parent().position = interpolate(origin, target, time, style)

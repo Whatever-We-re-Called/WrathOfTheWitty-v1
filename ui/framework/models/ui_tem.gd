@@ -5,6 +5,7 @@ class_name UIItem
 signal break_loop
 
 var shown = false
+var mouse_in_regen = false
 
 
 func _ready():
@@ -14,6 +15,10 @@ func _ready():
 	for child in get_children():
 		if child is Button:
 			child.pressed.connect(_on_click)
+			
+			
+func _process(delta):
+	pass
 
 
 func show():

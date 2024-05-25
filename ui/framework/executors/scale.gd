@@ -2,20 +2,25 @@ extends UIInterpolator
 class_name Scale
 
 
-@export var percentage: float
-
+@export var target: Vector2
 var origin
-var target
+var original_origin
+var next_origin
 
-func _ready():
-	if percentage < 0:
-		var abs = abs(percentage)
-		percentage = 100 / (abs / 100)
+
+func get_target():
+	return target
+
+
+func setup():
+	if next_origin == null:
+		original_origin = parent().scale
+	if next_origin != null:
+		origin = next_origin
+		next_origin = null
+	else:
+		origin = original_origin
+
 
 func execute_interpolation(time, style):
-	if time == 0:
-		origin = parent().scale
-		target = parent().scale * (percentage / 100.0)
-	
-	var current = interpolate(origin, target, time, style)
-	parent().scale = current
+	parent().scale = interpolate(origin, target, time, style)

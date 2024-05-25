@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://ee6s01idne7u"]
+[gd_scene load_steps=13 format=3 uid="uid://ee6s01idne7u"]
 
 [ext_resource type="Texture2D" uid="uid://dhwsa635orvuk" path="res://map/rooms/textures/rhombus.svg" id="1_mq6nl"]
 [ext_resource type="Script" path="res://ui/framework/actions/on_show.gd" id="2_n3sfs"]
 [ext_resource type="Script" path="res://ui/framework/models/ui_tem.gd" id="2_ni5p5"]
 [ext_resource type="Script" path="res://ui/framework/executors/wait.gd" id="3_n2swe"]
 [ext_resource type="Script" path="res://ui/framework/executors/scale.gd" id="3_saqje"]
+[ext_resource type="Script" path="res://ui/framework/actions/on_hover_enter.gd" id="3_tqegw"]
+[ext_resource type="Script" path="res://ui/framework/actions/on_hover_exit.gd" id="4_8sodm"]
 [ext_resource type="Script" path="res://ui/framework/executors/translate.gd" id="5_8ckja"]
 [ext_resource type="Script" path="res://ui/framework/executors/opacity.gd" id="6_5mpy6"]
 [ext_resource type="Script" path="res://ui/framework/actions/grouping/ui_group.gd" id="6_d4ijp"]
@@ -17,19 +19,40 @@
 
 [node name="Rhombus3" type="Sprite2D" parent="."]
 modulate = Color(0, 1, 0, 1)
-position = Vector2(-272, -6)
+position = Vector2(285, -303)
 texture = ExtResource("1_mq6nl")
-script = ExtResource("2_ni5p5")
 
-[node name="OnReady" type="Node2D" parent="Rhombus3"]
-script = ExtResource("2_n3sfs")
+[node name="Control" type="Control" parent="Rhombus3"]
+layout_direction = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -36.17
+offset_bottom = -36.17
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.785398
+scale = Vector2(0.775, 0.775)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
 
-[node name="Wait" type="Node2D" parent="Rhombus3/OnReady"]
-script = ExtResource("3_n2swe")
-delay = 3.0
+[node name="OnHoverEnter" type="Node2D" parent="Rhombus3" node_paths=PackedStringArray("associated_exit")]
+script = ExtResource("3_tqegw")
+associated_exit = NodePath("../OnHoverExit")
 
-[node name="Opacity" type="Node2D" parent="Rhombus3/OnReady"]
-script = ExtResource("6_5mpy6")
+[node name="Scale" type="Node2D" parent="Rhombus3/OnHoverEnter"]
+script = ExtResource("3_saqje")
+target = Vector2(2, 2)
+
+[node name="OnHoverExit" type="Node2D" parent="Rhombus3" node_paths=PackedStringArray("associated_enter")]
+script = ExtResource("4_8sodm")
+associated_enter = NodePath("../OnHoverEnter")
+
+[node name="Scale" type="Node2D" parent="Rhombus3/OnHoverExit"]
+script = ExtResource("3_saqje")
+target = Vector2(1, 1)
 
 [node name="Rhombus" type="Sprite2D" parent="."]
 modulate = Color(0, 1, 0.313726, 1)
@@ -72,7 +95,6 @@ seconds = 2.0
 
 [node name="Scale" type="Node2D" parent="Rhombus2/OnReady/Group"]
 script = ExtResource("3_saqje")
-percentage = 300.0
 seconds = 2.0
 
 [node name="Translate" type="Node2D" parent="Rhombus2/OnReady/Group"]
@@ -86,5 +108,4 @@ seconds = 2.0
 
 [node name="Rotation" type="Node2D" parent="Rhombus2/OnReady/Group"]
 script = ExtResource("7_dcnwa")
-target = 720
 seconds = 2.0

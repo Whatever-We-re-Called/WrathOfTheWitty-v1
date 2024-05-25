@@ -2,15 +2,26 @@ extends UIInterpolator
 class_name Rotation
 
 
-@export var target = 0
-@export var relative = false
+@export var target = 0.0
 
 var origin: float
-var final: float
+var original_origin
+var next_origin
+
+
+func get_target():
+	return target
+
+
+func setup():
+	if next_origin == null:
+		original_origin = parent().rotation_degrees
+	if next_origin != null:
+		origin = next_origin
+		next_origin = null
+	else:
+		origin = original_origin
+
 
 func execute_interpolation(time, style):
-	if time == 0:
-		origin = parent().rotation_degrees
-		final = parent().rotation_degrees + target if relative else target
-		
-	parent().rotation_degrees = interpolate(origin, final, time, style)
+	parent().rotation_degrees = interpolate(origin, target, time, style)

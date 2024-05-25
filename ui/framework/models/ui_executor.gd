@@ -6,9 +6,6 @@
 #
 # Needed modifiers:
 # - Overshoot?
-# - 
-# Needed Actions:
-# - OnHoverEnter/OnHoverExit (these need like, in/out timing modifications)
 
 
 extends UIElement
